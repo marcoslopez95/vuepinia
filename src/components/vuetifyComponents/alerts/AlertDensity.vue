@@ -18,7 +18,7 @@
         class="mb-3"
         density="comfortable"
         type="success"
-        variant="contained-text"
+        
       >
         I'm a comfortable alert with the <strong>text</strong> prop and a
         <strong>type</strong> of success

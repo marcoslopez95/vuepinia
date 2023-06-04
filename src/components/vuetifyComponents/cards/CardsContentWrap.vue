@@ -59,7 +59,7 @@ const messages = ref([
         <v-card-text>
           <div class="font-weight-bold ml-1 mb-2">Today</div>
 
-          <v-timeline density="compact" truncate-line="none">
+          <v-timeline density="compact">
             <v-timeline-item
               v-for="message in messages"
               :key="message.time"

@@ -64,8 +64,8 @@ const hints = ref(true);
         <v-card-actions>
           <v-spacer></v-spacer>
 
-          <v-btn text @click="menu = false"> Cancel </v-btn>
-          <v-btn color="primary" text @click="menu = false"> Save </v-btn>
+          <v-btn @click="menu = false"> Cancel </v-btn>
+          <v-btn color="primary" @click="menu = false"> Save </v-btn>
         </v-card-actions>
       </v-card>
     </v-menu>

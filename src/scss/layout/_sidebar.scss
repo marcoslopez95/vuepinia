@@ -3,16 +3,16 @@
     .v-list-group__items .v-list-item,
     .v-list-item {
       padding-inline-start: 12px !important;
-      padding-left: 12px;
+      padding-left: 12px !important;
     }
     .v-list-group__items .v-list-item .v-avatar.v-avatar--density-default,
     .v-avatar.v-avatar--density-default {
-      width: 20px;
-      height: 34px;
+      width: 20px !important;
+      height: 34px !important;
     }
     .v-list-item--active {
       background: rgb(var(--v-theme-secondary));
-      color: white;
+      color: white !important;
     }
   }
 }

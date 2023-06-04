@@ -38,7 +38,7 @@ const userprofile = ref(profile);
         >
          
         </v-list-item>
-        <v-btn block color="secondary" variant="contained" class="mt-4 py-4"
+        <v-btn block color="secondary" variant="tonal" class="mt-4 py-4"
           >Logout</v-btn
         >
       </v-list>
