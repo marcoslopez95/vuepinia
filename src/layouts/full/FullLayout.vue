@@ -3,12 +3,13 @@ import { RouterView } from "vue-router";
 import { ref, onMounted } from "vue";
 import SidebarVue from "./sidebar/Sidebar.vue";
 import HeaderVue from "./header/Header.vue";
-
+import { useDisplay } from 'vuetify'
+import LogoDark from "./logo/LogoDark.vue";
 const drawer = ref(undefined || true);
-const innerW = window.innerWidth;
+const innerW = ref(useDisplay().smAndDown);
 
 onMounted(() => {
-  if (innerW < 950) {
+  if (innerW.value) {
     drawer.value = !drawer.value;
   }
 });
@@ -20,21 +21,28 @@ onMounted(() => {
     <!---Sidebar -->
     <!-- ---------------------------------------------- -->
     <v-navigation-drawer
-      left
+      location="left"
       :permanent="$vuetify.display.mdAndUp"
       elevation="10"
       app
-      :temporary="$vuetify.display.mdAndDown"
       v-model="drawer"
-      expand-on-hover
+      :style="'z-index:1004'"
+      :class="innerW ? 'mt-16':'mt-0' "
     >
       <SidebarVue />
     </v-navigation-drawer>
     <!-- ---------------------------------------------- -->
     <!---Header -->
     <!-- ---------------------------------------------- -->
-    <v-app-bar elevation="0" class="v-topbar">
-      <v-app-bar-nav-icon class="hidden-md-and-up" @click="drawer = !drawer" />
+    <v-app-bar elevation="0" class="v-topbar" :class="{'bg-navbar-mobile': innerW}">
+      <v-app-bar-nav-icon 
+        class="hidden-md-and-up" 
+        @click="drawer = !drawer" 
+        color="white"
+        />
+        <div class="px-3 pt-9 pb-5" v-if="innerW">
+          <LogoDark />
+        </div>
       <v-spacer />
       <!-- ---------------------------------------------- -->
       <!-- User Profile -->
@@ -52,3 +60,10 @@ onMounted(() => {
     </v-main>
   </v-app>
 </template>
+<style lang="scss">
+@import "@/scss/variables.scss";
+
+.bg-navbar-mobile{
+  background-color: $color-primary !important;
+}
+</style>

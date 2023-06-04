@@ -4,9 +4,10 @@ import sidebarItems from "./sidebarItem";
 import LogoDark from "../logo/LogoDark.vue";
 import { useRoute, useRouter } from "vue-router";
 import type { StyleValue } from "vue";
+import { useDisplay } from "vuetify/lib/framework.mjs";
 
 const sidebarMenu = ref(sidebarItems);
-
+const verifyWidthWindow = ref(useDisplay().mdAndUp)
 const router = useRouter()
 
 const isActiveForBorder = (to: string): StyleValue => {
@@ -28,8 +29,8 @@ type TypeActive = 'border'| 'item';
     <!-- ---------------------------------------------- -->
     <!---Logo part -->
     <!-- ---------------------------------------------- -->
-    <div class="px-10 pt-9 pb-5">
-      <LogoDark />
+    <div class="px-10 pt-9 pb-5" v-if="verifyWidthWindow">
+      <LogoDark/>
     </div>
     <!-- ---------------------------------------------- -->
     <!---Navigation -->

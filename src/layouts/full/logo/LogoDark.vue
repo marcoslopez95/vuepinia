@@ -1,5 +1,5 @@
 <template>
-  <div class="logo d-none d-sm-none d-md-block">
+  <div class="logo d-md-block">
     <RouterLink to="/">
       <svg width="151" height="39" viewBox="0 0 151 39" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd"
