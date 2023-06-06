@@ -5,32 +5,33 @@ import LogoDark from "../logo/LogoDark.vue";
 import { useRoute, useRouter } from "vue-router";
 import type { StyleValue } from "vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
+import type { SidebarItem } from "@/interfaces/SidebarItems.interface";
 
-const sidebarMenu = ref(sidebarItems);
+const sidebarMenu = ref<SidebarItem[]>(sidebarItems);
 const verifyWidthWindow = ref(useDisplay().mdAndUp)
 const router = useRouter()
 
 const isActiveForBorder = (to: string): StyleValue => {
-    return {
-      // Add a CSS Custom Property
-      ['display' as any]: to == router.currentRoute.value.path ? 'block' : 'none'
-    };
+  return {
+    // Add a CSS Custom Property
+    ['display' as any]: to == router.currentRoute.value.path ? 'block' : 'none'
+  };
 }
 
-const isActiveForItem = (to:string): string => {
+const isActiveForItem = (to: string): string => {
   return to == router.currentRoute.value.path ? 'active-item' : 'text-white'
 }
 
-type TypeActive = 'border'| 'item';
+type TypeActive = 'border' | 'item';
 </script>
 
 <template>
-  <div class="bg-sidebar h-100">
+  <div class="bg-sidebar h-auto">
     <!-- ---------------------------------------------- -->
     <!---Logo part -->
     <!-- ---------------------------------------------- -->
     <div class="px-10 pt-9 pb-5" v-if="verifyWidthWindow">
-      <LogoDark/>
+      <LogoDark />
     </div>
     <!-- ---------------------------------------------- -->
     <!---Navigation -->
@@ -45,51 +46,60 @@ type TypeActive = 'border'| 'item';
           <div class="d-flex">
             <!---Single Item-->
             <!-- ---------------------------------------------- -->
-            <v-list-item 
-              :to="item.to" 
-              rounded="lg" 
-              class="w-100"
-              :active="false"
-              >
+            <v-list-item :to="item.to" rounded="lg" class="w-100" :active="false">
               <!-- <v-list-item-avatar start class="v-list-item-avatar--start"> -->
-            <template v-slot:prepend>
-              <VAvatar>
-                <v-icon :class="isActiveForItem(item.to)">
-                  <Component :is="item.icon" />
-                </v-icon>
-              </VAvatar>
-            </template>
+              <template v-slot:prepend>
+                <VAvatar>
+                  <v-icon :class="isActiveForItem(item.to)">
+                    <Component :is="item.icon" />
+                  </v-icon>
+                </VAvatar>
+              </template>
 
-            <!-- </v-list-item-avatar> -->
-            <v-list-item-title :class="isActiveForItem(item.to)">
+              <!-- </v-list-item-avatar> -->
+              <v-list-item-title >
                 {{ item.title }}
               </v-list-item-title>
 
             </v-list-item>
             <div class="active-bar" :style="isActiveForBorder(item.to)"></div>
-          </div>
+        </div>
+            <v-list v-if="item.children" :lines="false" density="compact" class="ml-7">
+              <v-list-item 
+                  v-for="(children, i) in item.children" 
+                  :key="i" 
+                  active-color="primary"
+                  :to="children.to"
+                  >
+                <v-list-item-title v-text="children.title"></v-list-item-title>
+                <template #append >
+                  <span class="rounded-circle px-2 bg-white text-active font-weight-bold">2</span>
+                </template>
+              </v-list-item>
+            </v-list>
         </template>
       </v-list>
     </div>
     <!-- <div class="pa-4 ma-4 bg-light-primary rounded-lg text-center">
-        <img src="@/assets/images/sidebar-buynow-bg.svg" />
-        <h4 class="font-weight-regular mb-3">Get Template for Free</h4>
-        <v-btn class="mb-2" href="https://www.wrappixel.com/templates/flexy-vuejs-admin-free/" block>Download Free</v-btn>
-        <v-btn
-          color="info"
-          href="https://www.wrappixel.com/templates/flexy-vuetify-dashboard/"
-          block
-          >Check Pro</v-btn
-        >
-      </div> -->
+          <img src="@/assets/images/sidebar-buynow-bg.svg" />
+          <h4 class="font-weight-regular mb-3">Get Template for Free</h4>
+          <v-btn class="mb-2" href="https://www.wrappixel.com/templates/flexy-vuejs-admin-free/" block>Download Free</v-btn>
+          <v-btn
+            color="info"
+            href="https://www.wrappixel.com/templates/flexy-vuetify-dashboard/"
+            block
+            >Check Pro</v-btn
+          >
+        </div> -->
   </div>
 </template>
 <style lang="scss">
 @import "@/scss/variables.scss";
 
-.active-item{
+.active-item {
   color: $item-active-sidebar !important;
 }
+
 .bg-sidebar {
   background: linear-gradient(180deg, #5043E9 6.77%, #16B4E6 77.6%);
 }

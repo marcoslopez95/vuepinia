@@ -4,11 +4,9 @@
 </svg>
 
 </template>
-
 <script setup lang="ts">
+import { useDisplay } from 'vuetify'
+import { ref } from 'vue'
 
+const isMobile = ref(useDisplay().smAndDown);
 </script>
-
-<style scoped>
-
-</style>

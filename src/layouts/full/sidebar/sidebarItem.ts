@@ -15,7 +15,25 @@ const sidebarItems: SidebarItem[] = [
   {
     title: "Transacciones",
     icon: TransactionsIcon,
-    to: "/ui-components/alert",
+    to: "#",
+    children: [
+      {
+        title: 'Pendientes',
+        to: '#'
+      },
+      {
+        title: 'Tomadas',
+        to: '#'
+      },
+      {
+        title: 'Aprobadas',
+        to: '#'
+      },
+      {
+        title: 'Todas',
+        to: '#'
+      },
+    ]
   },
   {
     title: "Kyc",
