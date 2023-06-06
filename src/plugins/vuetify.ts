@@ -15,7 +15,8 @@ const Lighttheme: ThemeDefinition = {
     warning: "#fec90f",
     error: "#fc4b6c",
     secondary: "#0cb9c5",
-    active: '#6E60E8'
+    active: '#6E60E8',
+    disabled: '#809FB8',
   },
 };
 

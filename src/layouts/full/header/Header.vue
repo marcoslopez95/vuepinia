@@ -1,16 +1,37 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { profile } from "./data";
+import MessageIcon from "@/assets/icons/header/MessageIcon.vue";
+import NotificationIcon from "@/assets/icons/header/NotificationIcon.vue";
+import ProfileIcon from "@/assets/icons/header/ProfileIcon.vue";
+import { useDisplay } from 'vuetify'
+import { computed } from "vue";
 
+const isMobile = ref(useDisplay().smAndDown);
 const userprofile = ref(profile);
+
+const existNotifications = ref(true)
+const existMessages = ref(true)
+
+const colorIcons = computed(()=>{
+  return isMobile.value ? 'text-white' : 'text-disabled'
+})
 </script>
 
 <template>
-  <div>
+  <div class="mr-8">
+    
     <!-- ---------------------------------------------- -->
     <!-- User Profile -->
+    <div class="d-flex align-center" :class="[!isMobile ? 'gap-icon-web' : 'gap-icon-mobile']">
+      <MessageIcon :class="colorIcons" :active="existNotifications" />
+
+      <NotificationIcon :class="colorIcons" :active="existMessages"  />
+      <ProfileIcon style="color:#5043E9" />
+
+    </div>
     <!-- ---------------------------------------------- -->
-    <v-menu anchor="bottom end" origin="auto" min-width="300">
+    <!-- <v-menu anchor="bottom end" origin="auto" min-width="300">
       <template v-slot:activator="{ props }">
         <v-btn
           v-bind="props"
@@ -42,6 +63,15 @@ const userprofile = ref(profile);
           >Logout</v-btn
         >
       </v-list>
-    </v-menu>
+    </v-menu> -->
   </div>
 </template>
+<style>
+.gap-icon-web{
+  gap: 32px;
+}
+.gap-icon-mobile{
+  gap: 12px;
+}
+
+</style>

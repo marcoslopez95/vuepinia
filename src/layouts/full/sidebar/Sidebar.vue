@@ -26,7 +26,7 @@ type TypeActive = 'border' | 'item';
 </script>
 
 <template>
-  <div class="bg-sidebar h-auto">
+  <div>
     <!-- ---------------------------------------------- -->
     <!---Logo part -->
     <!-- ---------------------------------------------- -->
@@ -50,7 +50,7 @@ type TypeActive = 'border' | 'item';
               <!-- <v-list-item-avatar start class="v-list-item-avatar--start"> -->
               <template v-slot:prepend>
                 <VAvatar>
-                  <v-icon :class="isActiveForItem(item.to)">
+                  <v-icon :class="false ? isActiveForItem(item.to) : 'text-white'">
                     <Component :is="item.icon" />
                   </v-icon>
                 </VAvatar>
@@ -68,8 +68,8 @@ type TypeActive = 'border' | 'item';
               <v-list-item 
                   v-for="(children, i) in item.children" 
                   :key="i" 
-                  active-color="primary"
                   :to="children.to"
+                  :active="false"
                   >
                 <v-list-item-title v-text="children.title"></v-list-item-title>
                 <template #append >
