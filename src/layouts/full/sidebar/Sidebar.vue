@@ -49,14 +49,13 @@ type TypeActive = 'border'| 'item';
               :to="item.to" 
               rounded="lg" 
               class="w-100"
-              active-color="indigo-lighten-1"
               :active="false"
               >
               <!-- <v-list-item-avatar start class="v-list-item-avatar--start"> -->
             <template v-slot:prepend>
               <VAvatar>
                 <v-icon :class="isActiveForItem(item.to)">
-                  {{ item.icon }}
+                  <Component :is="item.icon" />
                 </v-icon>
               </VAvatar>
             </template>
@@ -85,7 +84,7 @@ type TypeActive = 'border'| 'item';
       </div> -->
   </div>
 </template>
-<style scoped lang="scss">
+<style lang="scss">
 @import "@/scss/variables.scss";
 
 .active-item{

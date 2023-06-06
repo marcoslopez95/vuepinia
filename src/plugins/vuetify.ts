@@ -18,6 +18,19 @@ const Lighttheme: ThemeDefinition = {
   },
 };
 
+const XelerTheme: ThemeDefinition = {
+  variables: {},
+  colors: {
+    primary: "#ee8a6a",
+    info: "#0cb9c5",
+    success: "#05b187",
+    accent: "#fc4b6c",
+    warning: "#fec90f",
+    error: "#fc4b6c",
+    secondary: "#0cb9c5",
+  },
+};
+
 export default createVuetify({
   components,
   directives,
