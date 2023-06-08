@@ -6,6 +6,7 @@ import { useRoute, useRouter } from "vue-router";
 import type { StyleValue } from "vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
 import type { SidebarItem } from "@/interfaces/SidebarItems.interface";
+import ConfigurationIcon from "@/assets/icons/sidebar/ConfigurationIcon.vue"
 
 const sidebarMenu = ref<SidebarItem[]>(sidebarItems);
 const verifyWidthWindow = ref(useDisplay().mdAndUp)
@@ -36,7 +37,7 @@ type TypeActive = 'border' | 'item';
     <!-- ---------------------------------------------- -->
     <!---Navigation -->
     <!-- ---------------------------------------------- -->
-    <div class="scrollnavbar ">
+    <div class="scrollnavbar">
       <v-list class="pl-2 pr-0" color="transparent">
         <!-- ---------------------------------------------- -->
         <!---Menu Loop -->
@@ -57,40 +58,25 @@ type TypeActive = 'border' | 'item';
               </template>
 
               <!-- </v-list-item-avatar> -->
-              <v-list-item-title >
+              <v-list-item-title>
                 {{ item.title }}
               </v-list-item-title>
 
             </v-list-item>
             <div class="active-bar" :style="isActiveForBorder(item.to)"></div>
-        </div>
-            <v-list v-if="item.children" :lines="false" density="compact" class="ml-7">
-              <v-list-item 
-                  v-for="(children, i) in item.children" 
-                  :key="i" 
-                  :to="children.to"
-                  :active="false"
-                  >
-                <v-list-item-title v-text="children.title"></v-list-item-title>
-                <template #append >
-                  <span class="rounded-circle px-2 bg-white text-active font-weight-bold">2</span>
-                </template>
-              </v-list-item>
-            </v-list>
+          </div>
+          <v-list v-if="item.children" :lines="false" density="compact" class="ml-7">
+            <v-list-item v-for="(children, i) in item.children" :key="i" :to="children.to" :active="false">
+              <v-list-item-title v-text="children.title"></v-list-item-title>
+              <template #append>
+                <span class="rounded-circle px-2 bg-white text-active font-weight-bold">2</span>
+              </template>
+            </v-list-item>
+          </v-list>
         </template>
       </v-list>
     </div>
-    <!-- <div class="pa-4 ma-4 bg-light-primary rounded-lg text-center">
-          <img src="@/assets/images/sidebar-buynow-bg.svg" />
-          <h4 class="font-weight-regular mb-3">Get Template for Free</h4>
-          <v-btn class="mb-2" href="https://www.wrappixel.com/templates/flexy-vuejs-admin-free/" block>Download Free</v-btn>
-          <v-btn
-            color="info"
-            href="https://www.wrappixel.com/templates/flexy-vuetify-dashboard/"
-            block
-            >Check Pro</v-btn
-          >
-        </div> -->
+
   </div>
 </template>
 <style lang="scss">

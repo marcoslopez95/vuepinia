@@ -6,9 +6,12 @@ import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
 
 const Lighttheme: ThemeDefinition = {
-  variables: {},
+  variables: {
+    'v-input-control-height': '48px', /* Ejemplo: altura deseada */
+  },
   colors: {
-    primary: "#ee8a6a",
+    // primary: "#ee8a6a",
+    primary: "#5043E8",
     info: "#0cb9c5",
     success: "#05b187",
     accent: "#fc4b6c",
@@ -40,5 +43,9 @@ export default createVuetify({
       flat: true,
       elevation: 10,
     },
+    VTextField:{
+      variant:"outlined",
+      class: ''
+    }
   },
 });

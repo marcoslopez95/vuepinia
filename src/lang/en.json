@@ -1,0 +1,9 @@
+{
+  "hello": "world",
+  "views": {
+    "login": {
+      "title": "Sign In",
+      "button": "Sign In"
+    }
+  }
+}

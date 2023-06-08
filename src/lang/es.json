@@ -1,0 +1,9 @@
+{
+  "hello": "mundo",
+  "views": {
+    "login": {
+      "title": "Iniciar Sesión",
+      "button": "Iniciar Sesión"
+    }
+  }
+}

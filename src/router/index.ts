@@ -1,9 +1,23 @@
+import { isAutenticated } from "@/helper";
 import { createRouter, createWebHistory } from "vue-router";
 
 const router = createRouter({
   //history: createWebHistory(import.meta.env.BASE_URL),
   history: createWebHistory("/"),
   routes: [
+    {
+      path: "/auth",
+      redirect: "/auth",
+      component: () => import("@/layouts/auth/authLayout.vue"),
+      children: [
+        {
+          name: "Login",
+          path: "/login",
+          component: () =>
+            import("@/views/auth/Login.vue"),
+        },
+      ]
+    },
     {
       path: "/",
       redirect: "/dashboard",
@@ -14,6 +28,12 @@ const router = createRouter({
           path: "/dashboard",
           component: () =>
             import("@/views/dashboard/Dashboard.vue"),
+        },
+        {
+          name: "Kyc",
+          path: "/kyc",
+          component: () =>
+            import("@/views/kyc/Kyc.vue"),
         },
         {
           name: "Alerts",
@@ -49,5 +69,19 @@ const router = createRouter({
     },
   ],
 });
+
+router.beforeEach(async (to, from,next) => {
+
+  if (!isAutenticated()) {
+    // if(to.name != 'Login' && to.name != 'register' && to.name != 'auth-forgot-password'){
+    if(to.name != 'Login'){
+      next({ name: 'Login' });
+    }
+  }else 
+  if(isAutenticated() && to.name == 'Login'){
+    next({ name: 'Dashboard' });
+  }
+  next();
+})
 
 export default router;

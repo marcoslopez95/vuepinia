@@ -4,6 +4,7 @@ import FileIcon from "@/assets/icons/sidebar/FileIcon.vue"
 import AccountingIcon from "@/assets/icons/sidebar/AccountingIcon.vue"
 import UserIcon from "@/assets/icons/sidebar/UserIcon.vue"
 import TiendaIcon from "@/assets/icons/sidebar/TiendaIcon.vue"
+import ConfigurationIcon from "@/assets/icons/sidebar/ConfigurationIcon.vue"
 import type { SidebarItem } from "@/interfaces/SidebarItems.interface";
 
 const sidebarItems: SidebarItem[] = [
@@ -38,7 +39,7 @@ const sidebarItems: SidebarItem[] = [
   {
     title: "Kyc",
     icon: FileIcon,
-    to: "/ui-components/alert",
+    to: "/kyc",
   },
   {
     title: "Contabilidad",
@@ -53,6 +54,11 @@ const sidebarItems: SidebarItem[] = [
   {
     title: "Tienda",
     icon: TiendaIcon,
+    to: "/ui-components/alert",
+  },
+  {
+    title: "Configuración",
+    icon: ConfigurationIcon,
     to: "/ui-components/alert",
   },
   // {
