@@ -44,19 +44,19 @@ const setUser = (user:Object) => {
         <v-col cols="12" sm="12" lg="11">
             <v-card class="py-5">
                 <VRow>
-                    <VCol cols="12" sm="6"  class="text-center d-flex align-center">
+                    <VCol cols="12" sm="4" lg="6" class="text-center d-flex align-center">
                         <div class="mx-auto">
                             Esto es un logo
                         </div>
                     </VCol>
-                    <VCol cols="12" sm="6" class="text-center">
+                    <VCol cols="12" sm="8" lg="6" class="text-center">
                         <v-toolbar color="transparent">
                             <v-toolbar-title class="font-weight-medium">
                                 {{ $t('views.login.title')}}
                             </v-toolbar-title>
                         </v-toolbar>
                         <v-divider />
-                        <div class="pa-1">
+                        <div class="">
                             <VForm ref="refForm">
                                 <template #default>
                                     <InputComponent id="email" label="Email" v-model="form.email" :rules="[validator.required]"/>

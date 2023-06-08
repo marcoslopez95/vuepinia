@@ -1,6 +1,6 @@
 <template>
     <VRow class="d-flex my-2 align-center px-15">
-        <VCol v-if="label" class="mr-2 custom-label text-right" cols="3">
+        <VCol v-if="label" class="mr-2 custom-label text-right" cols="3" sm="4" lg="3">
             {{label}}:
         </VCol>
         <VCol>
