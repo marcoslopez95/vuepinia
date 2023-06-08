@@ -5,6 +5,8 @@ import { defineStore } from 'pinia';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import {type ToastOptions, toast } from 'vue3-toastify';
+import type { CheckedOrBlockedType, StatusOperationVerified } from './db';
+import db from './db';
 
 export const helperStore = defineStore('helper',<T>() => {
   const { t } = useI18n()
@@ -113,7 +115,7 @@ export const helperStore = defineStore('helper',<T>() => {
         paginated: 1
       }
     })
-    items.value = response.data.data    
+    items.value = response.data.response    
     pagination.to = response.data.to
     pagination.total = response.data.last_page
   }
@@ -221,7 +223,27 @@ export const helperStore = defineStore('helper',<T>() => {
           ?.errorMessages[0] ?? ''
   }
   const openModalCrud = ref<boolean>(false)
+  const methodVerificatedStatus = ref<StatusOperationVerified>()
+  const checkedOrBlocked =  (baseUrl:string, type: CheckedOrBlockedType, message:string) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        if(!item.value) resolve(true)
+        const method = db.methodVerificatedStatus[methodVerificatedStatus.value!] as Method
+        const options = { baseURL: baseUrl }
+        const response = await http(`${url.value}/${item.value.id}/${type}`, method, options, message)
+          .then(() => {
+            index()
+          })
+        resolve(response)
+      } catch (err) {
+        reject(err)
+      }
+    })
+   
+  }
   return {
+    checkedOrBlocked,
+    methodVerificatedStatus,
     errorsInput,
     getErrorInput,
     pagination,

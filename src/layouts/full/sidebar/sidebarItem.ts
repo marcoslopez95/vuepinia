@@ -11,12 +11,12 @@ const sidebarItems: SidebarItem[] = [
   {
     title: "Dashboard",
     icon: DashboardIconVue,
-    to: "/dashboard",
+    to: "Dashboard",
   },
   {
     title: "Transacciones",
     icon: TransactionsIcon,
-    to: "#",
+    to: "",
     children: [
       {
         title: 'Pendientes',
@@ -39,27 +39,27 @@ const sidebarItems: SidebarItem[] = [
   {
     title: "Kyc",
     icon: FileIcon,
-    to: "/kyc",
+    to: "admin-kyc",
   },
   {
     title: "Contabilidad",
     icon: AccountingIcon,
-    to: "/ui-components/alert",
+    to: "Alerts",
   },
   {
     title: "Usuarios",
     icon: UserIcon,
-    to: "/ui-components/alert",
+    to: "admin-users",
   },
   {
     title: "Tienda",
     icon: TiendaIcon,
-    to: "/ui-components/alert",
+    to: "Alerts",
   },
   {
     title: "Configuración",
     icon: ConfigurationIcon,
-    to: "/ui-components/alert",
+    to: "Alerts",
   },
   // {
   //   title: "Alert",

@@ -47,7 +47,7 @@ type TypeActive = 'border' | 'item';
           <div class="d-flex">
             <!---Single Item-->
             <!-- ---------------------------------------------- -->
-            <v-list-item :to="item.to" rounded="lg" class="w-100" :active="false">
+            <v-list-item :to="item.to ? {name:item.to} : '#'" rounded="lg" class="w-100" :active="false">
               <!-- <v-list-item-avatar start class="v-list-item-avatar--start"> -->
               <template v-slot:prepend>
                 <VAvatar>

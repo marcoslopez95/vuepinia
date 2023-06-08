@@ -30,10 +30,21 @@ const router = createRouter({
             import("@/views/dashboard/Dashboard.vue"),
         },
         {
-          name: "Kyc",
-          path: "/kyc",
-          component: () =>
-            import("@/views/kyc/Kyc.vue"),
+          path: '/admin/',
+          children: [
+            {
+              name: "admin-kyc",
+              path: "/kyc",
+              component: () =>
+                import("@/views/kyc/Kyc.vue"),
+            },
+            {
+              name: "admin-users",
+              path: "/users",
+              component: () =>
+                import("@/views/users/UsersView.vue"),
+            },
+          ]
         },
         {
           name: "Alerts",
