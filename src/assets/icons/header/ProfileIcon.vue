@@ -32,8 +32,8 @@ const typeUser =ref<'Agent' | 'Admin'>('Admin')
 
 <style scoped>
 .circle-border {
-    width: 55px;
-    height: 55px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     border: 2px solid #5043E9;
     display: flex;

@@ -86,9 +86,6 @@ type TypeActive = 'border' | 'item';
   color: $item-active-sidebar !important;
 }
 
-.bg-sidebar {
-  background: linear-gradient(180deg, #5043E9 6.77%, #16B4E6 77.6%);
-}
 
 .active-bar {
   width: 6.14px;
