@@ -3,7 +3,13 @@
     :optionsHabilit="false"
     :headers="headers"
     :items="helper.items"
-    />
+    >
+    <template #cel-attributes.username="{data}">
+        <span class="text-primary"> 
+            {{ data.attributes.username }}
+        </span>
+    </template>
+    </TableComponentVue>
 </template>
 
 <script setup lang="ts">
@@ -20,18 +26,24 @@ const headers: Head[] = [
         name: 'Email',
         value: 'attributes.email',
     },
-    // {
-    //     name: 'Estado de verificacion',
-    //     value: 'attributes.username',
-    // },
-    // {
-    //     name: 'Referido por',
-    //     value: 'attributes.username',
-    // },
+    {
+        name: 'Estado de verificacion',
+        value: '',
+    },
+    {
+        name: 'Referido por',
+        value: '',
+    },
     {
         name: 'Estado',
         value: 'attributes.deleted_at',
         status: 'deleted'
+    },
+    {
+        name: 'Fecha de Ingreso',
+        value: 'attributes.created_at',
+        type: 'date',
+        format: 'YYYY-MM-DD | HH:mm:ss'
     },
 ]
 

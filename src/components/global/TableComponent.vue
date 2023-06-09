@@ -215,18 +215,18 @@ interface Props {
 
 <template>
   <VTable :fixed-header="fixedHeader" :height="fixedHeader ? heightTable : ''" hide-default-footer disable-sort>
-    <thead>
+    <thead style="background-color: #FBFBFB; font-size: 16px;">
       <tr>
         <slot v-for="head, i in headers" :name="setNameHead(head.value)">
-          <th class="text-center text-uppercase ">
+          <th class="text-center text-primary text-capitalize">
             {{ head.name }}
           </th>
         </slot>
       </tr>
     </thead>
-    <tbody>
+    <tbody style="font-size: 18px;">
       <tr v-for="(item, i) in itemsNew" :key="i">
-        <td v-for="(head, j) in headers" :key="j" class="text-center">
+        <td v-for="(head, j) in headers" :key="j" class="text-center text-table font-weight-bold">
           <slot :name="`cel-${head.value}`" :data="item">
             <!-- 54 6f 64 6f 20 65 73 74 6f 20 6c 6f 20 68 61 67 6f 20 70 6f 72 20 65 6c 6c 61 20 3c 33 -->
 
@@ -272,15 +272,44 @@ interface Props {
     <VCol>
       <VRow>
         <VCol cols="4">
-          <VSelect v-model="helper.pagination.perPage" :items="helper.perPage" label="Pagination"
+          <!-- <VSelect v-model="helper.pagination.perPage" :items="helper.perPage" label="Pagination"
             @update:modelValue="helper.index()">
-          </VSelect>
+          </VSelect> -->
         </VCol>
       </VRow>
     </VCol>
     <VCol>
-      <VPagination :total-visible="6" v-model="helper.pagination.currentPage" :length="helper.pagination.total"
-        @update:model-value="helper.index"></VPagination>
+      <VPagination 
+        :total-visible="6" 
+        v-model="helper.pagination.currentPage" 
+        :length="helper.pagination.total"
+        active-color="#B46BFE"
+        color="#75757578"
+        variant="outlined"
+        @update:model-value="helper.index">
+        <template #prev="{onClick,disabled,icon}">
+          <button 
+            :disabled="disabled" 
+            @click="onClick" 
+            class="v-btn v-btn--icon v-theme--light v-btn--density-default v-btn--size-default v-btn--variant-outlined" aria-label="Next page" 
+            aria-disabled="false" 
+            style="color: rgba(117, 117, 117, 0.47); caret-color: rgba(117, 117, 117, 0.47);"
+            :style="disabled ?'background-color:#809fb880': ''">
+            <VIcon :icon="icon" :color="disabled ? '#f1f5f9' :'#809FB8'"></VIcon>
+          </button>
+        </template>
+        <template #next="{onClick,disabled,icon}">
+          <button 
+            :disabled="disabled" 
+            @click="onClick" 
+            class="v-btn v-btn--icon v-theme--light v-btn--density-default v-btn--size-default v-btn--variant-outlined" aria-label="Next page" 
+            aria-disabled="false" 
+            style="color: rgba(117, 117, 117, 0.47); caret-color: rgba(117, 117, 117, 0.47);"
+            :style="disabled ?'background-color:#809fb880': ''">
+            <VIcon :icon="icon" :color="disabled ? '#f1f5f9' :'#809FB8'"></VIcon>
+          </button>
+        </template>
+      </VPagination>
     </VCol>
     <VCol></VCol>
   </VRow>
