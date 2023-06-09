@@ -36,13 +36,19 @@ const router = createRouter({
               name: "admin-kyc",
               path: "/kyc",
               component: () =>
-                import("@/views/kyc/Kyc.vue"),
+                import("@/views/admin/kyc/Kyc.vue"),
             },
             {
               name: "admin-users",
               path: "/users",
               component: () =>
-                import("@/views/users/UsersView.vue"),
+                import("@/views/admin/users/UsersView.vue"),
+            },
+            {
+              name: "admin-roles",
+              path: "/roles",
+              component: () =>
+                import("@/views/admin/roles/RolesView.vue"),
             },
           ]
         },

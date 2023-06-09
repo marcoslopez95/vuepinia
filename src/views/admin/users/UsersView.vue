@@ -2,6 +2,7 @@
     <VBtn @click="openModal">{{$t('buttons.create')}}</VBtn>
 
     <CrudComponent singular="Users" :rows="rows"></CrudComponent>
+    <h3>Usuarios</h3>
     <TableComponentVue
     :optionsHabilit="false"
     :headers="headers"

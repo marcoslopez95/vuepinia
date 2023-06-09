@@ -20,19 +20,19 @@ const sidebarItems: SidebarItem[] = [
     children: [
       {
         title: 'Pendientes',
-        to: '#'
+        to: ''
       },
       {
         title: 'Tomadas',
-        to: '#'
+        to: ''
       },
       {
         title: 'Aprobadas',
-        to: '#'
+        to: ''
       },
       {
         title: 'Todas',
-        to: '#'
+        to: ''
       },
     ]
   },
@@ -55,6 +55,17 @@ const sidebarItems: SidebarItem[] = [
     title: "Tienda",
     icon: TiendaIcon,
     to: "Alerts",
+  },
+  {
+    title: "Seguridad",
+    icon: 'mdi-security',
+    to: "",
+    children: [
+      {
+        title: 'Roles',
+        to: 'admin-roles',
+      },
+    ]
   },
   {
     title: "Configuración",

@@ -19,11 +19,35 @@
   "buttons": {
     "create": "Crear",
     "update": "Actualizar",
-    "cancel": "Cancelar"
+    "cancel": "Cancelar",
+    "accept": "Aceptar",
+    "reject": "Rechazar"
   },
   "commons": {
     "show-title-modal": "Ver {singular}",
     "update-title-modal": "Actualizar {singular}",
     "create-title-modal": "Crear {singular}"
+  },
+  "general-views": {
+    "state": "Estado",
+    "name": "Nombre",
+    "actions": "Acciones",
+    "restore": {
+      "title": "Restaurar",
+      "content": "¿Estás seguro de restaurar?"
+    },
+    "delete": {
+      "title": "Eliminar",
+      "content": "¿Estás seguro de eliminar?"
+    },
+    "update": "Actualizar",
+    "accept": {
+      "content": "¿Estás seguro de aceptar?",
+      "message": "Se ha aceptado correctamente"
+    },
+    "reject": {
+      "content": "¿Estás seguro de rechazar?",
+      "message": "Se ha rechazado correctamente"
+    }
   }
 }

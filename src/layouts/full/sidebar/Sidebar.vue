@@ -51,8 +51,7 @@ type TypeActive = 'border' | 'item';
               <!-- <v-list-item-avatar start class="v-list-item-avatar--start"> -->
               <template v-slot:prepend>
                 <VAvatar>
-                  <v-icon :class="false ? isActiveForItem(item.to) : 'text-white'">
-                    <Component :is="item.icon" />
+                  <v-icon :icon="item.icon" :class="false ? isActiveForItem(item.to) : 'text-white'">
                   </v-icon>
                 </VAvatar>
               </template>
@@ -66,7 +65,7 @@ type TypeActive = 'border' | 'item';
             <div class="active-bar" :style="isActiveForBorder(item.to)"></div>
           </div>
           <v-list v-if="item.children" :lines="false" density="compact" class="ml-7">
-            <v-list-item v-for="(children, i) in item.children" :key="i" :to="children.to" :active="false">
+            <v-list-item v-for="(children, i) in item.children" :key="i" :to="children.to ? {name:children.to} : '#'" :active="false">
               <v-list-item-title v-text="children.title"></v-list-item-title>
               <template #append>
                 <span class="rounded-circle px-2 bg-white text-active font-weight-bold">2</span>

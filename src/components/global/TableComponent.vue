@@ -20,7 +20,7 @@ const { headers } = toRefs(props)
 const emit = defineEmits(['show', 'update', 'delete'])
 if (!headers.value.find(item => item.value === 'actions') && props.optionsHabilit) {
   headers.value.push({
-    name: t('commons.Actions'),
+    name: t('general-views.actions'),
     value: 'actions'
   })
 }
@@ -88,8 +88,8 @@ const modalOpen = ref<'deleted' | 'acceptReject'>('deleted')
 const openConfirmModal = (id: number) => {
   modalOpen.value = 'deleted'
   const deleted = isDeleted(id)
-  title.value = deleted ? t('commons.restore.title') : t('commons.delete.title')
-  content.value = deleted ? t('commons.restore.content') : t('commons.delete.content')
+  title.value = deleted ? t('general-views.restore.title') : t('general-views.delete.title')
+  content.value = deleted ? t('general-views.restore.content') : t('general-views.delete.content')
   title.value += ` ${props.singularName ?? ''}`
   content.value += ` ${props.singularName ?? ''}?`
   idAccount.value = id
@@ -151,11 +151,11 @@ const confirmAction = (item: any, bool: CheckedOrBlockedType) => {
   itemHelper.value = item
   itemHelper2!.value = item
   confirmOrReject.value = bool
-  title.value = t('commons.Update')
-  content.value = bool == 'accept' ? t('commons.accept.content') : t('commons.reject.content')
+  title.value = t('general-views.update')
+  content.value = bool == 'accept' ? t('general-views.accept.content') : t('general-views.reject.content')
   content.value += ` ${props.singularName ?? ''}?`
   message.value = `${props.singularName ?? ''} `
-  message.value += bool == 'accept' ? t('commons.accept.message') : t('commons.reject.message')
+  message.value += bool == 'accept' ? t('general-views.accept.message') : t('general-views.reject.message')
   dialogAction.value = true
   console.log(item)
 
@@ -253,12 +253,12 @@ interface Props {
               </VBtn>
               <div v-if="acceptReject && elementIsVerificated(item)" class="d-flex">
                 <VBtn @click="confirmAction(item, 'accept')" size="x-small" color="transparent" elevation="0" icon
-                  :title="$t('commons.Accept')">
+                  :title="$t('buttons.accept')">
                   <VIcon icon="mdi-check-bold" />
                 </VBtn>
 
                 <VBtn color="transparent" @click="confirmAction(item, 'reject')" size="x-small" elevation="0" icon
-                  :title="$t('commons.Reject')">
+                  :title="$t('buttons.reject')">
                   <VIcon icon="mdi-block-helper" />
                 </VBtn>
               </div>
@@ -330,5 +330,5 @@ interface Props {
     <VCol></VCol>
   </VRow>
   <DialogConfirm :title="title" :content="content" :dialog="dialogAction" @closeDialog="dialogAction = false"
-    @ok="actionModal[modalOpen]" :btnCancelText="$t('commons.Cancel')" :btnAcceptText="$t('commons.Accept')" />
+    @ok="actionModal[modalOpen]" :btnCancelText="$t('buttons.cancel')" :btnAcceptText="$t('buttons.accept')" />
 </template>

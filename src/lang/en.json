@@ -19,11 +19,35 @@
   "buttons": {
     "create": "Create",
     "update": "Update",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "accept": "Accept",
+    "reject": "Reject"
   },
   "commons": {
     "show-title-modal": "Show {singular}",
     "update-title-modal": "Update {singular}",
     "create-title-modal": "Create {singular}"
+  },
+  "general-views": {
+    "state": "State",
+    "name": "Name",
+    "actions": "Actions",
+    "restore": {
+      "title": "Restore",
+      "content": "you sure of restore?"
+    },
+    "delete": {
+      "title": "Delete",
+      "content": "You sure of delete?"
+    },
+    "update": "Update",
+    "accept": {
+      "content": "You sure of accept?",
+      "message": "Accept successfull"
+    },
+    "reject": {
+      "content": "You sure of reject?",
+      "message": "Reject successfull"
+    }
   }
 }
