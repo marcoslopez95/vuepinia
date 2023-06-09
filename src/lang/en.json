@@ -4,6 +4,26 @@
     "login": {
       "title": "Sign In",
       "button": "Sign In"
+    },
+    "users": {
+      "user": "Username",
+      "email": "Email",
+      "estate-verification": "Verification Estate",
+      "referred-by": "Referred By",
+      "created_at": "Register Date"
     }
+  },
+  "genereal-views": {
+    "state": "State"
+  },
+  "buttons": {
+    "create": "Create",
+    "update": "Update",
+    "cancel": "Cancel"
+  },
+  "commons": {
+    "show-title-modal": "Show {singular}",
+    "update-title-modal": "Update {singular}",
+    "create-title-modal": "Create {singular}"
   }
 }

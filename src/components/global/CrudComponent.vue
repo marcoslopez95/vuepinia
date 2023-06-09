@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { helperStore } from '@/helper';
 import type { Row } from '@/interfaces/FormComponent.helper';
-import DialogBase from '@/views/global/DialogGlobal.vue';
+import DialogBase from '@/components/global/DialogGlobal.vue';
 import { useI18n } from 'vue-i18n';
-import FormComponent from '../global/FormComponent.vue';
+import FormComponent from '@/components/global/FormComponent.vue';
 import { storeToRefs } from 'pinia';
 import { toRefs, computed } from 'vue';
 const { t } = useI18n()
@@ -54,9 +54,9 @@ const getTitle = computed(() :string => {
 const getButton = computed(():string => {
   switch(clickIn.value){
     case 'Edit':
-      return t("commons.Update")
+      return t("buttons.update")
     case 'Create':
-      return t("commons.Create")
+      return t("buttons.create")
     default:
       return ''
   }
@@ -73,7 +73,7 @@ const getButton = computed(():string => {
 
     <template #actions>
       <v-row class="paddingBtn">
-        <VBtn @click="closeModal()"> {{ $t('commons.Cancel') }} </VBtn>
+        <VBtn @click="closeModal()"> {{ $t('buttons.cancel') }} </VBtn>
         <v-spacer></v-spacer>
         <VBtn 
           v-if="helper.clickIn !== 'Show'" 

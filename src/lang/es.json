@@ -4,6 +4,26 @@
     "login": {
       "title": "Iniciar Sesión",
       "button": "Iniciar Sesión"
+    },
+    "users": {
+      "user": "Usuario",
+      "email": "Correo Electrónico",
+      "estate-verification": "Estado de Verificación",
+      "referred-by": "Referido Por",
+      "created_at": "Fecha de Ingreso"
     }
+  },
+  "genereal-views": {
+    "state": "Estado"
+  },
+  "buttons": {
+    "create": "Crear",
+    "update": "Actualizar",
+    "cancel": "Cancelar"
+  },
+  "commons": {
+    "show-title-modal": "Ver {singular}",
+    "update-title-modal": "Actualizar {singular}",
+    "create-title-modal": "Crear {singular}"
   }
 }

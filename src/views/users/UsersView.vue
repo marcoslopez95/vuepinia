@@ -1,4 +1,7 @@
 <template>
+    <VBtn @click="openModal">{{$t('buttons.create')}}</VBtn>
+
+    <CrudComponent singular="Users" :rows="rows"></CrudComponent>
     <TableComponentVue
     :optionsHabilit="false"
     :headers="headers"
@@ -13,44 +16,68 @@
 </template>
 
 <script setup lang="ts">
+import CrudComponent from '@/components/global/CrudComponent.vue';
 import TableComponentVue from '@/components/global/TableComponent.vue';
 import { helperStore } from '@/helper';
+import type { Row } from '@/interfaces/FormComponent.helper';
 import type { Head } from '@/interfaces/TableComponent.helper';
+import { storeToRefs } from 'pinia';
+import { useI18n } from 'vue-i18n';
+const helper = helperStore()
+helper.url = 'users'
+
+helper.index()
+const openModal = async () => {
+  formCrud.value = {}
+  clickIn.value = 'Create'
+  openModalCrud.value = true;
+}
+const { t } = useI18n()
+const {formCrud,openModalCrud,clickIn,formRef} = storeToRefs(helper)
+const rows: Row[] = [
+    {
+        fields: [
+            {
+                label: 'Nombre',
+                type: 'text',
+                valueForm: 'name',
+
+            }
+        ]
+    }
+]
 
 const headers: Head[] = [
     {
-        name: 'Usuario',
+        name: t('views.users.user'),
         value: 'attributes.username',
     },
     {
-        name: 'Email',
+        name: t('views.users.email'),
         value: 'attributes.email',
     },
     {
-        name: 'Estado de verificacion',
+        name: t('views.users.estate-verification'),
         value: '',
     },
     {
-        name: 'Referido por',
+        name: t('views.users.referred-by'),
         value: '',
     },
     {
-        name: 'Estado',
+        name: t('genereal-views.state'),
         value: 'attributes.deleted_at',
         status: 'deleted'
     },
     {
-        name: 'Fecha de Ingreso',
+        name: t('views.users.created_at'),
         value: 'attributes.created_at',
         type: 'date',
         format: 'YYYY-MM-DD | HH:mm:ss'
     },
 ]
 
-const helper = helperStore()
-helper.url = 'users'
 
-helper.index()
 </script>
 
 <style scoped>

@@ -22,14 +22,23 @@
             :rules="field.rules"
             :menu-props="field.select!.menuProps"
           />
-          <VTextField
+          <InputComponent 
             v-else
             v-model="form[field.valueForm]"
             :type="field.type"
             :class="field.fieldClass"
             :rules="field.rules"
             :label="field.label"
+            :id="field.valueForm"
           />
+          <!-- <VTextField
+            v-else
+            v-model="form[field.valueForm]"
+            :type="field.type"
+            :class="field.fieldClass"
+            :rules="field.rules"
+            :label="field.label"
+          /> -->
         </VCol>
       </VRow>
   </VForm>
@@ -38,6 +47,7 @@
 <script setup lang="ts">
 import { helperStore } from '@/helper'
 import type { Row } from '@/interfaces/FormComponent.helper'
+import InputComponent from '@/components/InputComponent.vue'
 import { storeToRefs } from 'pinia';
 
 const props = defineProps<Props>()

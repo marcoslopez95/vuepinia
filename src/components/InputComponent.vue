@@ -1,22 +1,22 @@
 <template>
-    <VRow class="d-flex my-2 align-center px-15">
-        <VCol v-if="label" class="mr-2 custom-label text-right" cols="3" sm="4" lg="3">
+    <!-- <VRow class="d-flex my-2 align-center px-15"> -->
+        <!-- <VCol v-if="label" class="mr-2 custom-label text-right" cols="3" sm="4" lg="3">
             {{label}}:
-        </VCol>
-        <VCol>
+        </VCol> -->
+        <VCol :class="class">
             <v-text-field 
                 :id="id"
                 auto
                 v-model="modelValue" 
                 :type="type ?? 'text'"
                 variant="plain"
-                single-line 
+                :label="label"
                 color="#5C6776"
                 :rules="rules"
                 autocomplete="off"
                 class="rounded-pill pl-3 border" 
                 :class="getErrorInput ? 'color-border-danger' : 'color-border-primary' "
-                style="max-height: 40px!important; color:#5C6776"
+                style="max-height: 40px!important; color:#5C6776;"
                 @update:model-value="emits('update:model-value',$event)"
                 >
                 <template #message class="">
@@ -26,7 +26,7 @@
                 </template>
             </v-text-field>
         </VCol>
-    </VRow>
+    <!-- </VRow> -->
 </template>
 
 <script setup lang="ts">
@@ -38,6 +38,7 @@ const props = defineProps<{
     type?:string,
     label?:string,
     rules?: any[],
+    class?: Array<string>
 }>()
 const { modelValue } = toRefs(props)
 const emits = defineEmits(['update:model-value'])
