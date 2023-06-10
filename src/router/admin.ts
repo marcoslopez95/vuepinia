@@ -32,26 +32,32 @@ const generals: RouteRecordRaw[] = [
 
 const configurations: RouteRecordRaw[] = [
   {
+    name: "admin-configurations",
+    path: "/configurations",
+    component: () =>
+      import("@/views/admin/configurations/ConfigurationView.vue"),
+  },
+  {
     name: "admin-type-documents",
-    path: "/conf/type-documents",
+    path: "/configurations/type-documents",
     component: () =>
       import("@/views/admin/configurations/type-documents/TypeDocumentsView.vue"),
   },
   {
     name: "admin-countries",
-    path: "/conf/countries",
+    path: "/configurations/countries",
     component: () =>
       import("@/views/admin/configurations/countries/CountryView.vue"),
   },
   {
     name: "admin-departaments",
-    path: "/conf/departaments",
+    path: "/configurations/departaments",
     component: () =>
       import("@/views/admin/configurations/departaments/DepartamentsView.vue"),
   },
   {
     name: "admin-municipalities",
-    path: "/conf/municipalities",
+    path: "/configurations/municipalities",
     component: () =>
       import("@/views/admin/configurations/municipalities/MunicipalitiesView.vue"),
   },

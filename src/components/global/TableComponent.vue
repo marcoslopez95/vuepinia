@@ -11,7 +11,6 @@ import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n()
 const helper = helperStore()
-const itemHelper2 = inject<Ref<any>>('item') 
 
 const { methodVerificatedStatus, item:itemHelper,clickIn} = storeToRefs(helper)
 const props = defineProps<Props>()
@@ -149,7 +148,6 @@ const confirmAction = (item: any, bool: CheckedOrBlockedType) => {
   modalOpen.value = 'acceptReject'
   console.log('aqui',itemHelper)
   itemHelper.value = item
-  itemHelper2!.value = item
   confirmOrReject.value = bool
   title.value = t('general-views.update')
   content.value = bool == 'accept' ? t('general-views.accept.content') : t('general-views.reject.content')

@@ -115,9 +115,9 @@ export const helperStore = defineStore('helper',<T>() => {
         pag: pagination.perPage
       }
     })
-    items.value = response.data.response.data ?? response.data.response
-    pagination.to = response.data.response.to
-    pagination.total = response.data.response.last_page
+    items.value = response.data.response?.data ?? response.data.response
+    pagination.to = response.data.response?.data.to 
+    pagination.total = response.data.response?.data.last_page
   }
 
   const show = (id:any) => {

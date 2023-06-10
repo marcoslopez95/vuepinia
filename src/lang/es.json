@@ -46,6 +46,9 @@
     },
     "departaments": {
       "title": "Departamento | Departamentos"
+    },
+    "configurations": {
+      "title": "Configuración | Configuraciones"
     }
   },
   "genereal-views": {
@@ -56,7 +59,8 @@
     "update": "Actualizar",
     "cancel": "Cancelar",
     "accept": "Aceptar",
-    "reject": "Rechazar"
+    "reject": "Rechazar",
+    "add": "Agregar"
   },
   "commons": {
     "show-title-modal": "Ver {singular}",
@@ -84,7 +88,8 @@
       "content": "¿Estás seguro de rechazar?",
       "message": "Se ha rechazado correctamente"
     },
-    "code": "Código"
+    "code": "Código",
+    "search": "Buscar"
   },
   "general-messages": {
     "editedSuccessfully": "Actualizado correctament",

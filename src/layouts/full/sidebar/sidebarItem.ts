@@ -71,30 +71,30 @@ const sidebarItems: SidebarItem[] = [
       },
     ]
   },
-  {
-    title: 'Tipos de Documentos',
-    icon: 'mdi-security',
-    to: "admin-type-documents",
-  },
-  {
-    title: 'Países',
-    icon: 'mdi-security',
-    to: "admin-countries",
-  },
-  {
-    title: 'Departamentos',
-    icon: 'mdi-security',
-    to: "admin-departaments",
-  },
-  {
-    title: 'Municipios',
-    icon: 'mdi-security',
-    to: "admin-municipalities",
-  },
+  // {
+  //   title: 'Tipos de Documentos',
+  //   icon: 'mdi-security',
+  //   to: "admin-type-documents",
+  // },
+  // {
+  //   title: 'Países',
+  //   icon: 'mdi-security',
+  //   to: "admin-countries",
+  // },
+  // {
+  //   title: 'Departamentos',
+  //   icon: 'mdi-security',
+  //   to: "admin-departaments",
+  // },
+  // {
+  //   title: 'Municipios',
+  //   icon: 'mdi-security',
+  //   to: "admin-municipalities",
+  // },
   {
     title: "Configuración",
     icon: ConfigurationIcon,
-    to: "Alerts",
+    to: "admin-configurations",
   },
   // {
   //   title: "Alert",
