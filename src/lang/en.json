@@ -22,7 +22,8 @@
       "referred_by": "Referred By",
       "document": "Document",
       "address": "Adress",
-      "birth": "Birthday"
+      "birth": "Birthday",
+      "title": "User | Users"
     },
     "permissions": {
       "guard_name": "Guard Name",

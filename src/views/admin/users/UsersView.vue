@@ -1,18 +1,14 @@
 <template>
-    <VBtn @click="openModal">{{$t('buttons.create')}}</VBtn>
+    <VBtn @click="openModal">{{ $t('buttons.create') }}</VBtn>
 
-    <CrudComponent singular="Users" :rows="rows"></CrudComponent>
-    <h3>Usuarios</h3>
-    <TableComponentVue
-    :optionsHabilit="false"
-    :headers="headers"
-    :items="helper.items"
-    >
-    <template #cel-attributes.username="{data}">
-        <span class="text-primary"> 
-            {{ data.attributes.username }}
-        </span>
-    </template>
+    <CrudComponent :singular="$t('views.users.title',2)" :rows="rows"></CrudComponent>
+    <h3>{{$t('views.users.title',2)}}</h3>
+    <TableComponentVue :optionsHabilit="false" :headers="headers" :items="helper.items">
+        <template #cel-attributes.username="{ data }">
+            <span class="text-primary">
+                {{ data.attributes.username }}
+            </span>
+        </template>
     </TableComponentVue>
 </template>
 
@@ -22,112 +18,182 @@ import TableComponentVue from '@/components/global/TableComponent.vue';
 import { helperStore } from '@/helper';
 import type { Row } from '@/interfaces/FormComponent.helper';
 import type { Head } from '@/interfaces/TableComponent.helper';
+import { UserStore } from '@/stores/UserStore';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 const helper = helperStore()
 helper.url = 'users'
-
 helper.index()
+
+const userStore = UserStore()
+userStore.getDepartaments()
+userStore.getMunicipalities()
+userStore.getUsers()
+userStore.getRoles()
+userStore.getCountries()
+userStore.getTypeDocuments()
+
+const {
+    departaments,
+    municipalities,
+    users,
+    roles,
+    countries,
+    typeDocuments
+} = storeToRefs(userStore)
+
 const openModal = async () => {
     itemH.value = {}
-  formCrud.value = {}
-  clickIn.value = 'Create'
-  openModalCrud.value = true;
+    formCrud.value = {}
+    clickIn.value = 'Create'
+    openModalCrud.value = true;
 }
 const { t } = useI18n()
-const {formCrud,openModalCrud,item:itemH,clickIn,formRef} = storeToRefs(helper)
+const { formCrud, openModalCrud, item: itemH, clickIn, formRef } = storeToRefs(helper)
 const rows: Row[] = [
     {
         fields: [
             {
                 label: t('views.users.first_name'),
                 type: 'text',
-                valueForm:'first_name'
+                valueForm: 'first_name'
             },
             {
                 label: t('views.users.second_name'),
                 type: 'text',
-                valueForm:'second_name'
+                valueForm: 'second_name'
             },
             {
                 label: t('views.users.last_name'),
                 type: 'text',
-                valueForm:'last_name'
+                valueForm: 'last_name'
             },
             {
                 label: t('views.users.second_last_name'),
                 type: 'text',
-                valueForm:'second_last_name'
+                valueForm: 'second_last_name'
             },
+        ],
+    },
+    {
+        fields: [
             {
                 label: t('views.users.email'),
                 type: 'text',
-                valueForm:'email'
+                valueForm: 'email'
             },
             {
                 label: t('views.users.password'),
                 type: 'text',
-                valueForm:'password'
+                valueForm: 'password'
             },
+        ]
+    },
+    {
+        fields: [
             {
                 label: t('views.users.code_phone'),
                 type: 'text',
-                valueForm:'code_phone'
+                valueForm: 'code_phone'
             },
             {
                 label: t('views.users.phone'),
                 type: 'text',
-                valueForm:'phone'
+                valueForm: 'phone'
             },
             {
                 label: t('views.users.username'),
                 type: 'text',
-                valueForm:'username'
+                valueForm: 'username'
             },
+        ]
+    },
+    {
+        fields: [
             {
                 label: t('views.users.referred_by'),
-                type: 'text',
-                valueForm:'referred_by'
+                type: 'select',
+                valueForm: 'referred_by',
+                select: {
+                    items: users,
+                    itemTitle: 'attributes.username',
+                    itemValue: 'id',
+                }
             },
             {
                 label: t('views.roles.title'),
-                type: 'text',
-                valueForm:'role_id'
+                type: 'select',
+                valueForm: 'role_id',
+                select: {
+                    items: roles,
+                    itemTitle: 'attributes.name',
+                    itemValue: 'id',
+                }
             },
             {
                 label: t('views.countries.title'),
-                type: 'text',
-                valueForm:'country_id'
+                type: 'select',
+                valueForm: 'country_id',
+                select: {
+                    items: countries,
+                    itemTitle: 'attributes.name',
+                    itemValue: 'id',
+                }
             },
-            {
-                label: t('views.type_documents.title'),
-                type: 'text',
-                valueForm:'type_documents_id'
-            },
+        ]
+    },
+    {
+        fields: [
+
             {
                 label: t('views.departments.title'),
-                type: 'text',
-                valueForm:'department_id'
+                type: 'select',
+                valueForm: 'department_id',
+                select: {
+                    items: departaments,
+                    itemTitle: 'attributes.name',
+                    itemValue: 'id',
+                }
             },
             {
                 label: t('views.municipalities.title'),
-                type: 'text',
-                valueForm:'municipalitie_id'
+                type: 'select',
+                valueForm: 'municipalitie_id',
+                select: {
+                    items: municipalities,
+                    itemTitle: 'attributes.name',
+                    itemValue: 'id',
+                }
+            },
+
+        ]
+    },
+    {
+        fields: [
+            {
+                label: t('views.type_documents.title'),
+                type: 'select',
+                valueForm: 'type_documents_id',
+                select: {
+                    items: typeDocuments,
+                    itemTitle: 'attributes.type_document',
+                    itemValue: 'id',
+                }
             },
             {
                 label: t('views.users.document'),
                 type: 'text',
-                valueForm:'document'
+                valueForm: 'document'
             },
             {
                 label: t('views.users.address'),
                 type: 'text',
-                valueForm:'address'
+                valueForm: 'address'
             },
             {
                 label: t('views.users.birth'),
-                type: 'text',
-                valueForm:'birth'
+                type: 'date',
+                valueForm: 'birth'
             },
         ]
     }
@@ -166,6 +232,4 @@ const headers: Head[] = [
 
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

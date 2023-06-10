@@ -22,7 +22,8 @@
       "referred_by": "Referido por",
       "document": "Documento",
       "address": "Dirección",
-      "birth": "Fecha de Nacimiento"
+      "birth": "Fecha de Nacimiento",
+      "title": "Usuario | Usuarios"
     },
     "permissions": {
       "guard_name": "Guard Name",
