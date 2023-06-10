@@ -1,26 +1,26 @@
 <template>
     <!-- <VRow class="d-flex my-2 align-center px-15"> -->
-        <!-- <VCol v-if="label" class="mr-2 custom-label text-right" cols="3" sm="4" lg="3">
+    <!-- <VCol v-if="label" class="mr-2 custom-label text-right" cols="3" sm="4" lg="3">
             {{label}}:
         </VCol> -->
-        <VCol :class="class">
-            <v-text-field 
-                :id="id"
-                auto
+    <VCol :class="class">
+        <!-- <VResponsive> -->
+            <v-text-field :id="id" 
+                auto 
                 v-model="modelValue" 
-                :type="type ?? 'text'"
-                variant="plain"
+                :type="type ?? 'text'" 
+                variant="plain" 
                 :label="label"
-                color="#5C6776"
-                :rules="rules"
-                autocomplete="off"
-                class="rounded-pill pl-3 border pa-0" 
-                :class="getErrorInput ? 'color-border-danger' : 'color-border-primary' "
-                style="max-height: 40px!important; color:#5C6776;"
-                @update:model-value="emits('update:model-value',$event)"
-                >
+                color="#5C6776" 
+                :rules="rules" 
+                autocomplete="off" 
+                class="rounded-pill pl-3 border pa-0 mb-2"
+                :class="getErrorInput ? 'color-border-danger' : 'color-border-primary'"
+                style="max-height: 40px!important; color:#5C6776;" @update:model-value="emits('update:model-value', $event)">
                 <template #label>
-                    {{label}}
+                    <spa style="margin-top: -3px;">
+                        {{ label }}
+                    </spa>
                 </template>
                 <template #message class="">
                     <div style="margin-top: -9px;">
@@ -28,7 +28,9 @@
                     </div>
                 </template>
             </v-text-field>
-        </VCol>
+        <!-- </VResponsive> -->
+
+    </VCol>
     <!-- </VRow> -->
 </template>
 
@@ -36,10 +38,10 @@
 import { helperStore } from '@/helper';
 import { toRefs, computed } from 'vue'
 const props = defineProps<{
-    modelValue:any,
-    id:string,
-    type?:string,
-    label?:string,
+    modelValue: any,
+    id: string,
+    type?: string,
+    label?: string,
     rules?: any[],
     class?: Array<string>
 }>()
@@ -48,22 +50,24 @@ const emits = defineEmits(['update:model-value'])
 
 const helper = helperStore()
 
-const getErrorInput = computed(()=>{
+const getErrorInput = computed(() => {
     if (helper.errorsInput.length === 0) return ''
     return helper.errorsInput
-          .find(e => e.id === props.id)
-          ?.errorMessages[0] ?? ''
+        .find(e => e.id === props.id)
+        ?.errorMessages[0] ?? ''
 })
 </script>
 
 <style scoped>
-.color-border-primary{
-    border-color: #5043E9!important; 
+.color-border-primary {
+    border-color: #5043E9 !important;
 }
-.color-border-danger{
-    border-color: #FF0000!important;
+
+.color-border-danger {
+    border-color: #FF0000 !important;
 }
-.v-field__input input{
+
+.v-field__input input {
     margin-top: 211px;
 }
 </style>
