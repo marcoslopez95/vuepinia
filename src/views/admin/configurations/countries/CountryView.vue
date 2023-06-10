@@ -1,8 +1,8 @@
 <template>
     <VBtn @click="openModal">{{$t('buttons.create')}}</VBtn>
 
-    <CrudComponent :singular="$t('views.type_documents.title')" :rows="rows"></CrudComponent>
-    <h3>{{$t('views.type_documents.title',2)}}</h3>
+    <CrudComponent :singular="$t('views.countries.title')" :rows="rows"></CrudComponent>
+    <h3>{{$t('views.countries.title',2)}}</h3>
     <TableComponentVue
     optionsHabilit
     icon-update
@@ -31,22 +31,25 @@ import { useI18n } from 'vue-i18n';
 import type { PermissionCreate } from '@/interfaces/Permission/PermissionCreate.dto'
 import type { TypeDocument } from '@/interfaces/TypeDocument/TypeDocument.model';
 import type { TypeDocumentCreate } from '@/interfaces/TypeDocument/TypeDocument.dto';
+import type { Country } from '@/interfaces/Country/Country.model';
+import type { CountryCreate } from '@/interfaces/Country/Country.dto';
 const helper = helperStore()
-helper.url = 'type/documents'
+helper.url = 'countrys'
 
 helper.index()
 
-const openUpdate = (item:TypeDocument) => {
+const openUpdate = (item:Country) => {
     itemH.value = item
-    const itemUpdate: TypeDocumentCreate = {
-        type_document: item.attributes.type_document
+    const itemUpdate: CountryCreate = {
+        code: item.attributes.code,
+        name: item.attributes.name
     }
     formCrud.value = itemUpdate
     openModalCrud.value = true;
 }
 
 const openModal = async () => {
-    itemH.value = false
+    itemH.value = {}
     formCrud.value = {}
     clickIn.value = 'Create'
     openModalCrud.value = true;
@@ -63,10 +66,14 @@ const rows: Row[] = [
     {
         fields: [
             {
-                label: 'Nombre',
+                label: t('general-views.name'),
                 type: 'text',
-                valueForm: 'type_document',
-
+                valueForm: 'name',
+            },
+            {
+                label: t('general-views.code'),
+                type: 'text',
+                valueForm: 'code',
             }
         ]
     }
@@ -75,7 +82,11 @@ const rows: Row[] = [
 const headers: Head[] = [
     {
         name: t('general-views.name'),
-        value: 'attributes.type_document',
+        value: 'attributes.name',
+    },
+    {
+        name: t('general-views.code'),
+        value: 'attributes.code',
     },
 
 ]

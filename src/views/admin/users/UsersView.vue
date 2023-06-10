@@ -29,12 +29,13 @@ helper.url = 'users'
 
 helper.index()
 const openModal = async () => {
+    itemH.value = {}
   formCrud.value = {}
   clickIn.value = 'Create'
   openModalCrud.value = true;
 }
 const { t } = useI18n()
-const {formCrud,openModalCrud,clickIn,formRef} = storeToRefs(helper)
+const {formCrud,openModalCrud,item:itemH,clickIn,formRef} = storeToRefs(helper)
 const rows: Row[] = [
     {
         fields: [

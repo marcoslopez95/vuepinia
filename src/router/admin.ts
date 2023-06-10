@@ -37,6 +37,12 @@ const configurations: RouteRecordRaw[] = [
     component: () =>
       import("@/views/admin/configurations/type-documents/TypeDocumentsView.vue"),
   },
+  {
+    name: "admin-countries",
+    path: "/conf/countries",
+    component: () =>
+      import("@/views/admin/configurations/countries/CountryView.vue"),
+  },
 ]
 export default [
   ...security,

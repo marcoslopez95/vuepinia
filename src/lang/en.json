@@ -79,7 +79,8 @@
     "reject": {
       "content": "You sure of reject?",
       "message": "Reject successfull"
-    }
+    },
+    "code": "Code"
   },
   "general-messages": {
     "editedSuccessfully": "Update Successfull",

@@ -17,7 +17,7 @@ const {singular} = toRefs(props)
 
 const CreateOrUpdate = async () => {
   let res:unknown
-  if(item.value){
+  if(clickIn.value == 'Edit'){
     res = await helper.put(item.value.id,formCrud.value)
   }else{
     res = await helper.create(formCrud.value)

@@ -77,6 +77,11 @@ const sidebarItems: SidebarItem[] = [
     to: "admin-type-documents",
   },
   {
+    title: 'Países',
+    icon: 'mdi-security',
+    to: "admin-countries",
+  },
+  {
     title: "Configuración",
     icon: ConfigurationIcon,
     to: "Alerts",

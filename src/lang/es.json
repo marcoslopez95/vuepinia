@@ -79,7 +79,8 @@
     "reject": {
       "content": "¿Estás seguro de rechazar?",
       "message": "Se ha rechazado correctamente"
-    }
+    },
+    "code": "Código"
   },
   "general-messages": {
     "editedSuccessfully": "Actualizado correctament",
