@@ -21,6 +21,7 @@
             :item-value="field.select!.itemValue"
             :rules="field.rules"
             :menu-props="field.select!.menuProps"
+            :multiple="field.select!.multiple"
           />
           <InputComponent 
             v-else

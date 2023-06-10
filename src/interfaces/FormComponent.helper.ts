@@ -21,6 +21,7 @@ interface Select {
   itemTitle: string
   items: Array<any> | Ref<any[]>
   menuProps?: Object
+  multiple?: boolean
 }
 
 type typeField = 'text'

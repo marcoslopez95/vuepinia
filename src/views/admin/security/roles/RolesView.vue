@@ -26,10 +26,15 @@ import type { Row } from '@/interfaces/FormComponent.helper';
 import type { Head } from '@/interfaces/TableComponent.helper';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
+import { RoleStore } from '@/stores/RoleStore'
 const helper = helperStore()
 helper.url = 'roles'
-
 helper.index()
+
+const roleStore = RoleStore();
+roleStore.getPermissions()
+const {permissions} = storeToRefs(roleStore);
+
 const openModal = async () => {
   formCrud.value = {}
   clickIn.value = 'Create'
@@ -41,11 +46,21 @@ const rows: Row[] = [
     {
         fields: [
             {
-                label: 'Nombre',
+                label: t('general-views.name'),
                 type: 'text',
                 valueForm: 'name',
-
-            }
+            },
+            {
+                label: t('views.permissions.title'),
+                type: 'select',
+                select: {
+                    items: permissions,
+                    itemTitle: 'attributes.name',
+                    itemValue: 'id',
+                    multiple:true
+                },
+                valueForm: 'permissions',
+            },
         ]
     }
 ]
