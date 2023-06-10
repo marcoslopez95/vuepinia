@@ -10,11 +10,38 @@
       "email": "Correo Electrónico",
       "estate-verification": "Estado de Verificación",
       "referred-by": "Referido Por",
-      "created_at": "Fecha de Ingreso"
+      "created_at": "Fecha de Ingreso",
+      "first_name": "Primer Nombre",
+      "second_name": "Segundo Nombre",
+      "last_name": "Apellido",
+      "second_last_name": "Segundo Apellido",
+      "password": "Contraseña",
+      "code_phone": "Código de telefono",
+      "phone": "Teléfono",
+      "username": "Usuario",
+      "referred_by": "Referido por",
+      "document": "Documento",
+      "address": "Dirección",
+      "birth": "Fecha de Nacimiento"
     },
     "permissions": {
       "guard_name": "Guard Name",
       "title": "Permiso | Permisos"
+    },
+    "roles": {
+      "title": "Rol | Roles"
+    },
+    "countries": {
+      "title": "País | Países"
+    },
+    "type_documents": {
+      "title": "Tipo de Documento | Tipos de Documentos"
+    },
+    "departments": {
+      "title": "Departamento | Departamentos"
+    },
+    "municipalities": {
+      "title": "Municipio | Municipios"
     }
   },
   "genereal-views": {

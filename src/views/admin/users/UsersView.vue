@@ -39,11 +39,95 @@ const rows: Row[] = [
     {
         fields: [
             {
-                label: 'Nombre',
+                label: t('views.users.first_name'),
                 type: 'text',
-                valueForm: 'name',
-
-            }
+                valueForm:'first_name'
+            },
+            {
+                label: t('views.users.second_name'),
+                type: 'text',
+                valueForm:'second_name'
+            },
+            {
+                label: t('views.users.last_name'),
+                type: 'text',
+                valueForm:'last_name'
+            },
+            {
+                label: t('views.users.second_last_name'),
+                type: 'text',
+                valueForm:'second_last_name'
+            },
+            {
+                label: t('views.users.email'),
+                type: 'text',
+                valueForm:'email'
+            },
+            {
+                label: t('views.users.password'),
+                type: 'text',
+                valueForm:'password'
+            },
+            {
+                label: t('views.users.code_phone'),
+                type: 'text',
+                valueForm:'code_phone'
+            },
+            {
+                label: t('views.users.phone'),
+                type: 'text',
+                valueForm:'phone'
+            },
+            {
+                label: t('views.users.username'),
+                type: 'text',
+                valueForm:'username'
+            },
+            {
+                label: t('views.users.referred_by'),
+                type: 'text',
+                valueForm:'referred_by'
+            },
+            {
+                label: t('views.roles.title'),
+                type: 'text',
+                valueForm:'role_id'
+            },
+            {
+                label: t('views.countries.title'),
+                type: 'text',
+                valueForm:'country_id'
+            },
+            {
+                label: t('views.type_documents.title'),
+                type: 'text',
+                valueForm:'type_documents_id'
+            },
+            {
+                label: t('views.departments.title'),
+                type: 'text',
+                valueForm:'department_id'
+            },
+            {
+                label: t('views.municipalities.title'),
+                type: 'text',
+                valueForm:'municipalitie_id'
+            },
+            {
+                label: t('views.users.document'),
+                type: 'text',
+                valueForm:'document'
+            },
+            {
+                label: t('views.users.address'),
+                type: 'text',
+                valueForm:'address'
+            },
+            {
+                label: t('views.users.birth'),
+                type: 'text',
+                valueForm:'birth'
+            },
         ]
     }
 ]

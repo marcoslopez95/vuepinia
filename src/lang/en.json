@@ -10,11 +10,38 @@
       "email": "Email",
       "estate-verification": "Verification Estate",
       "referred-by": "Referred By",
-      "created_at": "Register Date"
+      "created_at": "Register Date",
+      "first_name": "First Name",
+      "second_name": "Second Name",
+      "last_name": "Last Name",
+      "second_last_name": "Second Lastname",
+      "password": "Password",
+      "code_phone": "Code Phone",
+      "phone": "Phone",
+      "username": "Username",
+      "referred_by": "Referred By",
+      "document": "Document",
+      "address": "Adress",
+      "birth": "Birthday"
     },
     "permissions": {
       "guard_name": "Guard Name",
       "title": "Permission | Permissions"
+    },
+    "roles": {
+      "title": "Role | Roles"
+    },
+    "countries": {
+      "title": "Country | Countries"
+    },
+    "type_documents": {
+      "title": "Type Document | Type Documents"
+    },
+    "departments": {
+      "title": "Departament | Departaments"
+    },
+    "municipalities": {
+      "title": "Municipality | Municipalities"
     }
   },
   "genereal-views": {

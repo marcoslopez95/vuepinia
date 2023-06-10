@@ -25,7 +25,7 @@ const emit = defineEmits([
 
 <template>
     <div class="text-center">
-        <VDialog v-model="dialog" persistent close-delay open-delay :fullscreen="fullscreen" :width="fullscreen ? '' : widthDialog">
+        <VDialog v-model="dialog" persistent close-delay="1" open-delay="1" :fullscreen="fullscreen" :width="fullscreen ? '' : widthDialog">
             <VCard>
                 <VCardTitle class="mb-0 d-flex justify-space-between ">
                     <h3>

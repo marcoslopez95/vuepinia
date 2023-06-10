@@ -19,7 +19,7 @@ export declare interface Field{
 interface Select {
   itemValue: string
   itemTitle: string
-  items: Array<any> | Ref<any[]>
+  items: Ref<any[]>
   menuProps?: Object
   multiple?: boolean
 }

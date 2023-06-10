@@ -72,6 +72,11 @@ const sidebarItems: SidebarItem[] = [
     ]
   },
   {
+    title: 'Tipos de Documentos',
+    icon: 'mdi-security',
+    to: "admin-type-documents",
+  },
+  {
     title: "Configuración",
     icon: ConfigurationIcon,
     to: "Alerts",

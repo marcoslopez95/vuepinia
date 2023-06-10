@@ -29,8 +29,18 @@ const generals: RouteRecordRaw[] = [
       import("@/views/admin/users/UsersView.vue"),
   },
 ]
+
+const configurations: RouteRecordRaw[] = [
+  {
+    name: "admin-type-documents",
+    path: "/conf/type-documents",
+    component: () =>
+      import("@/views/admin/configurations/type-documents/TypeDocumentsView.vue"),
+  },
+]
 export default [
   ...security,
   ...generals,
+  ...configurations,
 ]
 

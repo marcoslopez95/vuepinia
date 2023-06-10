@@ -1,7 +1,7 @@
 export declare interface BaseModel<Attributes,Relationships> {
     id:number
     attributes: Attributes,
-    relationships: Relationships[]
+    relationships?: Relationships[]
     created_at: Date
     updated_at: Date
 }
