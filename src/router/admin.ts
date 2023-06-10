@@ -43,6 +43,12 @@ const configurations: RouteRecordRaw[] = [
     component: () =>
       import("@/views/admin/configurations/countries/CountryView.vue"),
   },
+  {
+    name: "admin-departaments",
+    path: "/conf/departaments",
+    component: () =>
+      import("@/views/admin/configurations/departaments/DepartamentsView.vue"),
+  },
 ]
 export default [
   ...security,

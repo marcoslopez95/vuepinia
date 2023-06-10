@@ -42,6 +42,9 @@
     },
     "municipalities": {
       "title": "Municipality | Municipalities"
+    },
+    "departaments": {
+      "title": "Departament  | Departaments"
     }
   },
   "genereal-views": {
