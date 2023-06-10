@@ -11,6 +11,10 @@
       "estate-verification": "Estado de Verificación",
       "referred-by": "Referido Por",
       "created_at": "Fecha de Ingreso"
+    },
+    "permissions": {
+      "guard_name": "Guard Name",
+      "title": "Permiso | Permisos"
     }
   },
   "genereal-views": {
@@ -49,5 +53,11 @@
       "content": "¿Estás seguro de rechazar?",
       "message": "Se ha rechazado correctamente"
     }
+  },
+  "general-messages": {
+    "editedSuccessfully": "Actualizado correctament",
+    "createdSuccessfully": "Creado Correctamente",
+    "restoredSuccessfully": "Restaurado correctamente",
+    "deletedSuccessfully": "Eliminado correctamente"
   }
 }

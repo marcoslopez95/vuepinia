@@ -65,6 +65,10 @@ const sidebarItems: SidebarItem[] = [
         title: 'Roles',
         to: 'admin-roles',
       },
+      {
+        title: 'Permisos',
+        to: 'admin-permissions',
+      },
     ]
   },
   {

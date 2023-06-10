@@ -14,11 +14,14 @@
                 color="#5C6776"
                 :rules="rules"
                 autocomplete="off"
-                class="rounded-pill pl-3 border" 
+                class="rounded-pill pl-3 border pa-0" 
                 :class="getErrorInput ? 'color-border-danger' : 'color-border-primary' "
                 style="max-height: 40px!important; color:#5C6776;"
                 @update:model-value="emits('update:model-value',$event)"
                 >
+                <template #label>
+                    {{label}}
+                </template>
                 <template #message class="">
                     <div style="margin-top: -9px;">
                         {{ getErrorInput }}

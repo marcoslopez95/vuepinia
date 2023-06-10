@@ -11,6 +11,10 @@
       "estate-verification": "Verification Estate",
       "referred-by": "Referred By",
       "created_at": "Register Date"
+    },
+    "permissions": {
+      "guard_name": "Guard Name",
+      "title": "Permission | Permissions"
     }
   },
   "genereal-views": {
@@ -49,5 +53,11 @@
       "content": "You sure of reject?",
       "message": "Reject successfull"
     }
+  },
+  "general-messages": {
+    "editedSuccessfully": "Update Successfull",
+    "createdSuccessfully": "Created Successfull",
+    "restoredSuccessfully": "Restore Successfull",
+    "deletedSuccessfully": "Deleted Successfull"
   }
 }

@@ -1,10 +1,12 @@
 import { isAutenticated } from "@/helper";
 import { createRouter, createWebHistory } from "vue-router";
-
+import admin from './admin'
+console.log(admin)
 const router = createRouter({
   //history: createWebHistory(import.meta.env.BASE_URL),
   history: createWebHistory("/"),
   routes: [
+   
     {
       path: "/auth",
       redirect: "/auth",
@@ -23,34 +25,12 @@ const router = createRouter({
       redirect: "/dashboard",
       component: () => import("@/layouts/full/FullLayout.vue"),
       children: [
+        ...admin,
         {
           name: "Dashboard",
           path: "/dashboard",
           component: () =>
             import("@/views/dashboard/Dashboard.vue"),
-        },
-        {
-          path: '/admin/',
-          children: [
-            {
-              name: "admin-kyc",
-              path: "/kyc",
-              component: () =>
-                import("@/views/admin/kyc/Kyc.vue"),
-            },
-            {
-              name: "admin-users",
-              path: "/users",
-              component: () =>
-                import("@/views/admin/users/UsersView.vue"),
-            },
-            {
-              name: "admin-roles",
-              path: "/roles",
-              component: () =>
-                import("@/views/admin/roles/RolesView.vue"),
-            },
-          ]
         },
         {
           name: "Alerts",
@@ -87,17 +67,17 @@ const router = createRouter({
   ],
 });
 
-router.beforeEach(async (to, from,next) => {
+router.beforeEach(async (to, from, next) => {
 
   if (!isAutenticated()) {
     // if(to.name != 'Login' && to.name != 'register' && to.name != 'auth-forgot-password'){
-    if(to.name != 'Login'){
+    if (to.name != 'Login') {
       next({ name: 'Login' });
     }
-  }else 
-  if(isAutenticated() && to.name == 'Login'){
-    next({ name: 'Dashboard' });
-  }
+  } else
+    if (isAutenticated() && to.name == 'Login') {
+      next({ name: 'Dashboard' });
+    }
   next();
 })
 

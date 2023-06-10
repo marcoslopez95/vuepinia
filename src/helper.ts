@@ -111,13 +111,13 @@ export const helperStore = defineStore('helper',<T>() => {
       params: {
         ...params,
         perPage: pagination.perPage,
-        currentPage: pagination.currentPage,
-        paginated: 1
+        page: pagination.currentPage,
+        pag: pagination.perPage
       }
     })
-    items.value = response.data.response    
-    pagination.to = response.data.to
-    pagination.total = response.data.last_page
+    items.value = response.data.response.data ?? response.data.response
+    pagination.to = response.data.response.to
+    pagination.total = response.data.response.last_page
   }
 
   const show = (id:any) => {
@@ -135,7 +135,7 @@ export const helperStore = defineStore('helper',<T>() => {
   const put = (id:any, data:any, notification: boolean = true) => {
     return new Promise(async (resolve, reject) => {
       try{
-        let message = notification ? t("commons.editedSuccessfully") : ''
+        let message = notification ? t("general-messages.editedSuccessfully") : ''
         let response = await http(url.value+'/'+id,'put',{data},message)
         
         resolve(response)
@@ -148,7 +148,7 @@ export const helperStore = defineStore('helper',<T>() => {
   const create = (data:any, notificacion: boolean = true) => {
     return new Promise(async (resolve, reject) => {
       try{
-        let message = notificacion ? t("commons.createdSuccessfully") : ''
+        let message = notificacion ? t("general-messages.createdSuccessfully") : ''
         let response = await http(url.value,'post',{data}, message)
         
         resolve(response)
@@ -165,7 +165,7 @@ export const helperStore = defineStore('helper',<T>() => {
       try {
         let message = ''
         if(notificacion){
-          message = isDeleted(id) ? t("commons.restoredSuccessfully") : t("commons.deletedSuccessfully")
+          message = isDeleted(id) ? t("general-messages.restoredSuccessfully") : t("general-messages.deletedSuccessfully")
         }
         let response;
         if(isDeleted(id)){
