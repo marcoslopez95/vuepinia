@@ -49,6 +49,9 @@
     },
     "configurations": {
       "title": "Configuration | Configurations"
+    },
+    "banks": {
+      "title": "Bank | Banks"
     }
   },
   "genereal-views": {
@@ -89,7 +92,8 @@
       "message": "Reject successfull"
     },
     "code": "Code",
-    "search": "Search"
+    "search": "Search",
+    "description": "Description"
   },
   "general-messages": {
     "editedSuccessfully": "Update Successfull",

@@ -16,6 +16,8 @@ const props = defineProps<Props>()
 const {singular} = toRefs(props)
 
 const CreateOrUpdate = async () => {
+  const { valid } = await formRef.value.validate()
+  if(!valid) return
   let res:unknown
   if(clickIn.value == 'Edit'){
     res = await helper.put(item.value.id,formCrud.value)

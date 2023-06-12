@@ -1,14 +1,7 @@
 <template>
     <div class="d-flex justify-space-between">
-        <VResponsive max-width="500px">
-            <v-text-field class="custom-text-field" :loading="helper.loading" density="compact" variant="solo"
-                append-inner-icon="mdi-magnify" single-line v-model="search" bg-color="#E1E7EC" hide-details
-                @click:append-inner="getSearch">
-                <template #label>
-                    <span class="font-weight-bold" style="color: #809FB8;">{{ $t('general-views.search') }}1</span>
-                </template>
-            </v-text-field>
-        </VResponsive>
+        <SearchInputComponentVue v-model="search" @onSearch="getSearch" />
+
         <VBtn @click="openModal" prepend-icon="mdi-plus" class="rounded-xl">
             {{ $t('buttons.add') }}
         </VBtn>
@@ -31,13 +24,14 @@ import CrudComponent from '@/components/global/CrudComponent.vue';
 import TableComponentVue from '@/components/global/TableComponent.vue';
 import { helperStore } from '@/helper';
 import type { Row } from '@/interfaces/FormComponent.helper';
-import type { Permission } from '@/interfaces/Permission/Permission.model';
 import type { Head } from '@/interfaces/TableComponent.helper';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 import type { Municipality } from '@/interfaces/Municipality/Municipality.model';
 import type { MunicipalityCreate } from '@/interfaces/Municipality/Municipality.dto';
 import { MunicipalityStore } from '@/stores/MunicipalityStore'
+import SearchInputComponentVue from '@/components/global/SearchInputComponent.vue';
+import * as validator from '@/validator'
 const helper = helperStore()
 helper.url = 'municipalitys'
 
@@ -46,7 +40,7 @@ helper.index()
 const search = ref<string>('')
 const getSearch = () => {
     helper.index({
-        type_document: search.value
+        name: search.value
     })
 }
 const municipalityStore = MunicipalityStore();
@@ -84,11 +78,17 @@ const rows: Row[] = [
                 label: t('general-views.name'),
                 type: 'text',
                 valueForm: 'name',
+                rules: [
+                    validator.required
+                ]
             },
             {
                 label: t('views.departaments.title'),
                 type: 'select',
                 valueForm: 'department_id',
+                rules: [
+                    validator.required
+                ],
                 select: {
                     items: departaments,
                     itemTitle: 'attributes.name',

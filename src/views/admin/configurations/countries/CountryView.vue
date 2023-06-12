@@ -1,14 +1,6 @@
 <template>
     <div class="d-flex justify-space-between">
-        <VResponsive max-width="500px" class="rounded-xl">
-            <v-text-field class="" :loading="helper.loading" density="compact" variant="solo"
-                append-inner-icon="mdi-magnify" single-line v-model="search" bg-color="#E1E7EC" hide-details
-                @click:append-inner="getSearch">
-                <template #label>
-                    <span class="font-weight-bold" style="color: #809FB8;">{{ $t('general-views.search') }}</span>
-                </template>
-            </v-text-field>
-        </VResponsive>
+        <SearchInputComponentVue v-model="search" @onSearch="getSearch" />
         <VBtn @click="openModal" prepend-icon="mdi-plus" class="rounded-xl">
             {{ $t('buttons.add') }}
         </VBtn>
@@ -43,6 +35,8 @@ import { storeToRefs} from 'pinia';
 import { useI18n } from 'vue-i18n';
 import type { Country } from '@/interfaces/Country/Country.model';
 import type { CountryCreate } from '@/interfaces/Country/Country.dto';
+import SearchInputComponentVue from '@/components/global/SearchInputComponent.vue';
+import * as validator from '@/validator'
 const helper = helperStore()
 helper.url = 'countrys'
 
@@ -50,7 +44,7 @@ helper.index()
 const search = ref<string>('')
 const getSearch = () => {
     helper.index({
-        type_document: search.value
+        name: search.value
     })
 }
 const openUpdate = (item:Country) => {
@@ -84,11 +78,17 @@ const rows: Row[] = [
                 label: t('general-views.name'),
                 type: 'text',
                 valueForm: 'name',
+                rules: [
+                    validator.required
+                ]
             },
             {
                 label: t('general-views.code'),
                 type: 'text',
                 valueForm: 'code',
+                rules: [
+                    validator.required
+                ]
             }
         ]
     }

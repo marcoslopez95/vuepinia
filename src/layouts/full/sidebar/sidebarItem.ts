@@ -5,34 +5,64 @@ import AccountingIcon from "@/assets/icons/sidebar/AccountingIcon.vue"
 import UserIcon from "@/assets/icons/sidebar/UserIcon.vue"
 import TiendaIcon from "@/assets/icons/sidebar/TiendaIcon.vue"
 import ConfigurationIcon from "@/assets/icons/sidebar/ConfigurationIcon.vue"
-import type { SidebarItem } from "@/interfaces/SidebarItems.interface";
-
+import type {  SidebarItem } from "@/interfaces/SidebarItems.interface";
+import { ROLES } from '@/interfaces/Role/Role.enum'
 const sidebarItems: SidebarItem[] = [
   {
     title: "Dashboard",
     icon: DashboardIconVue,
     to: "Dashboard",
+    roles: [
+      ROLES.ADMIN,
+      ROLES.USER,
+      ROLES.AGENT
+    ]
   },
   {
     title: "Transacciones",
     icon: TransactionsIcon,
     to: "",
+    roles: [
+      ROLES.ADMIN,
+      ROLES.USER,
+      ROLES.AGENT
+    ],
     children: [
       {
         title: 'Pendientes',
-        to: ''
+        to: '',
+        roles: [
+          ROLES.ADMIN,
+          ROLES.USER,
+          ROLES.AGENT
+        ],
       },
       {
         title: 'Tomadas',
-        to: ''
+        to: '',
+        roles: [
+          ROLES.ADMIN,
+          ROLES.USER,
+          ROLES.AGENT
+        ],
       },
       {
         title: 'Aprobadas',
-        to: ''
+        to: '',
+        roles: [
+          ROLES.ADMIN,
+          ROLES.USER,
+          ROLES.AGENT
+        ],
       },
       {
         title: 'Todas',
-        to: ''
+        to: '',
+        roles: [
+          ROLES.ADMIN,
+          ROLES.USER,
+          ROLES.AGENT
+        ],
       },
     ]
   },
@@ -40,34 +70,55 @@ const sidebarItems: SidebarItem[] = [
     title: "Kyc",
     icon: FileIcon,
     to: "admin-kyc",
+    roles: [
+      ROLES.ADMIN,
+    ],
   },
   {
     title: "Contabilidad",
     icon: AccountingIcon,
     to: "Alerts",
+    roles: [
+      ROLES.ADMIN,
+    ],
   },
   {
     title: "Usuarios",
     icon: UserIcon,
     to: "admin-users",
+    roles: [
+      ROLES.ADMIN,
+    ],
   },
   {
     title: "Tienda",
     icon: TiendaIcon,
     to: "Alerts",
+    roles: [
+      ROLES.ADMIN,
+    ],
   },
   {
     title: "Seguridad",
     icon: 'mdi-security',
     to: "",
+    roles: [
+      ROLES.ADMIN,
+    ],
     children: [
       {
         title: 'Roles',
         to: 'admin-roles',
+        roles: [
+          ROLES.ADMIN,
+        ],
       },
       {
         title: 'Permisos',
         to: 'admin-permissions',
+        roles: [
+          ROLES.ADMIN,
+        ],
       },
     ]
   },
@@ -95,6 +146,9 @@ const sidebarItems: SidebarItem[] = [
     title: "Configuración",
     icon: ConfigurationIcon,
     to: "admin-configurations",
+    roles: [
+      ROLES.ADMIN,
+    ],
   },
   // {
   //   title: "Alert",

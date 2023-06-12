@@ -49,6 +49,9 @@
     },
     "configurations": {
       "title": "Configuración | Configuraciones"
+    },
+    "banks": {
+      "title": "Banco | Bancos"
     }
   },
   "genereal-views": {
@@ -89,7 +92,8 @@
       "message": "Se ha rechazado correctamente"
     },
     "code": "Código",
-    "search": "Buscar"
+    "search": "Buscar",
+    "description": "Descripción"
   },
   "general-messages": {
     "editedSuccessfully": "Actualizado correctament",

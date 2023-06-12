@@ -7,6 +7,7 @@ import { useRouter } from 'vue-router';
 import {type ToastOptions, toast } from 'vue3-toastify';
 import type { CheckedOrBlockedType, StatusOperationVerified } from './db';
 import db from './db';
+import type { UserAuth } from './interfaces/User/User.auth';
 
 export const helperStore = defineStore('helper',<T>() => {
   const { t } = useI18n()
@@ -281,6 +282,6 @@ export const formatNumber = (number: number): string => {
     return Intl.NumberFormat(["ban", "id"]).format(number)
   }
 
-export const getUserAuth = () => {
-  return JSON.parse(localStorage.getItem('user')!)
+export const getUserAuth = () : UserAuth=> {
+  return JSON.parse(localStorage.getItem('user')!) as UserAuth
 }

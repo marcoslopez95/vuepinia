@@ -7,8 +7,18 @@ import type { StyleValue } from "vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
 import type { SidebarItem } from "@/interfaces/SidebarItems.interface";
 import ConfigurationIcon from "@/assets/icons/sidebar/ConfigurationIcon.vue"
+import { computed } from "vue";
+import { getUserAuth } from "@/helper";
+import type { ROLES } from '@/interfaces/Role/Role.enum'
 
-const sidebarMenu = ref<SidebarItem[]>(sidebarItems);
+const sidebarMenu = computed(()=>{
+  return sidebarItems.map((item) =>{
+      item.children = item.children?.filter(child => child.roles.includes(getUserAuth().roles[0].name as ROLES))
+      return item
+  })
+  .filter(item => item.roles.includes(getUserAuth().roles[0].name as ROLES))
+})
+// const sidebarMenu = ref<SidebarItem[]>(sidebarItems);
 const verifyWidthWindow = ref(useDisplay().mdAndUp)
 const router = useRouter()
 

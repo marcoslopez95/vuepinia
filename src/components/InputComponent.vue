@@ -14,13 +14,15 @@
                 color="#5C6776" 
                 :rules="rules" 
                 autocomplete="off" 
-                class="rounded-pill pl-3 border pa-0 mb-2"
+                class="rounded-pill pl-3 border pa-0 mb-2 mt-2"
                 :class="getErrorInput ? 'color-border-danger' : 'color-border-primary'"
                 style="max-height: 40px!important; color:#5C6776;" @update:model-value="emits('update:model-value', $event)">
-                <template #label>
-                    <spa style="margin-top: -3px;">
+                <template #label="{isActive,isFocused}">
+                    <span 
+                        style="margin-top: -5px;" 
+                        :style="(isActive || isFocused)? 'font-size:14px;':''">
                         {{ label }}
-                    </spa>
+                    </span>
                 </template>
                 <template #message class="">
                     <div style="margin-top: -9px;">

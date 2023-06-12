@@ -34,6 +34,7 @@ import TypeDocumentsView from './type-documents/TypeDocumentsView.vue';
 import { helperStore } from '@/helper';
 import { storeToRefs } from 'pinia';
 import { watch , shallowRef} from 'vue';
+import BanksView from './banks/BanksView.vue';
 const { t } = useI18n()
 const helper = helperStore()
 const tabActive = ref('')
@@ -53,6 +54,10 @@ const tabs = shallowRef<{name:string,value:any}[]>([
     {
         name: t('views.type_documents.title'),
         value: TypeDocumentsView
+    },
+    {
+        name: t('views.banks.title'),
+        value: BanksView
     },
 ])
 

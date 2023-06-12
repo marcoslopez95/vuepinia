@@ -10,7 +10,7 @@
         </VBtn>
     </div>
     
-    <CrudComponent :singular="$t('views.type_documents.title')" :rows="rows"></CrudComponent>
+    <CrudComponent :singular="$t('views.banks.title')" :rows="rows"></CrudComponent>
     <!-- <h3>{{$t('views.type_documents.title',2)}}</h3> -->
     <TableComponentVue
     optionsHabilit
@@ -37,14 +37,18 @@ import type { Row } from '@/interfaces/FormComponent.helper';
 import type { Head } from '@/interfaces/TableComponent.helper';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
-import type { TypeDocument } from '@/interfaces/TypeDocument/TypeDocument.model';
-import type { TypeDocumentCreate } from '@/interfaces/TypeDocument/TypeDocument.dto';
+import type { Bank } from '@/interfaces/Bank/Bank.model';
+import type { BankCreate } from '@/interfaces/Bank/Bank.dto';
 import SearchInputComponentVue from '@/components/global/SearchInputComponent.vue';
+import { BankStore } from '@/stores/BankStore'
 import * as validator from '@/validator'
 const helper = helperStore()
-helper.url = 'type/documents'
-
+helper.url = 'banks'
 helper.index()
+
+const bankStore = BankStore()
+const { countries } = storeToRefs(bankStore)
+bankStore.getCountries()
 
 const search = ref<string>('')
 const getSearch = () => {
@@ -52,10 +56,13 @@ const getSearch = () => {
         type_document: search.value
     })
 }
-const openUpdate = (item:TypeDocument) => {
+const openUpdate = (item:Bank) => {
     itemH.value = item
-    const itemUpdate: TypeDocumentCreate = {
-        type_document: item.attributes.type_document
+    const itemUpdate: BankCreate = {
+        country_id: item.relationships?.country.id ?? 0,
+        description: item.attributes.description,
+        name: item.attributes.name,
+        status: item.attributes.status
     }
     formCrud.value = itemUpdate
     openModalCrud.value = true;
@@ -79,13 +86,35 @@ const rows: Row[] = [
     {
         fields: [
             {
-                label: 'Nombre',
+                label: t('general-views.name'),
                 type: 'text',
                 valueForm: 'type_document',
                 rules: [
                     validator.required
                 ]
+            },
+            {
+                label: t('general-views.description'),
+                type: 'text',
+                valueForm: 'description',
             }
+        ]
+    },
+    {
+        fields: [
+            {
+                label: t('views.countries.title'),
+                type: 'select',
+                valueForm: 'country_id',
+                select: {
+                    items: countries,
+                    itemTitle: 'attributes.name',
+                    itemValue: 'id',
+                },
+                rules: [
+                    validator.required
+                ]
+            },
         ]
     }
 ]
@@ -93,7 +122,15 @@ const rows: Row[] = [
 const headers: Head[] = [
     {
         name: t('general-views.name'),
-        value: 'attributes.type_document',
+        value: 'attributes.name',
+    },
+    {
+        name: t('general-views.description'),
+        value: 'attributes.description',
+    },
+    {
+        name: t('views.countries.title'),
+        value: 'relationships.country.attributes.name',
     },
 
 ]
