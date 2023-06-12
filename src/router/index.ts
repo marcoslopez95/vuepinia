@@ -9,7 +9,7 @@ const router = createRouter({
    
     {
       path: "/auth",
-      redirect: "/auth",
+      redirect: "/login",
       component: () => import("@/layouts/auth/authLayout.vue"),
       children: [
         {
@@ -17,6 +17,12 @@ const router = createRouter({
           path: "/login",
           component: () =>
             import("@/views/auth/Login.vue"),
+        },
+        {
+          name: "Register",
+          path: "/register",
+          component: () =>
+            import("@/views/auth/Register.vue"),
         },
       ]
     },
@@ -71,7 +77,7 @@ router.beforeEach(async (to, from, next) => {
 
   if (!isAutenticated()) {
     // if(to.name != 'Login' && to.name != 'register' && to.name != 'auth-forgot-password'){
-    if (to.name != 'Login') {
+    if (to.name != 'Login' && to.name != 'Register') {
       next({ name: 'Login' });
     }
   } else

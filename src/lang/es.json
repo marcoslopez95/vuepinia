@@ -3,7 +3,10 @@
   "views": {
     "login": {
       "title": "Iniciar Sesión",
-      "button": "Iniciar Sesión"
+      "button": "Iniciar Sesión",
+      "you-have-a-account": "¿Tienes ya una cuenta?",
+      "you-donnot-have-an-account": "¿No tienes una cuenta?",
+      "register": "Regístrate"
     },
     "users": {
       "user": "Usuario",
@@ -52,6 +55,33 @@
     },
     "banks": {
       "title": "Banco | Bancos"
+    },
+    "register": {
+      "you-have-an-account": " ¿Ya tienes cuenta?",
+      "login": "Login",
+      "button": "Register",
+      "success": "Registro Exitoso",
+      "title": "Registro",
+      "step-one": {
+        "personal-data": "Datos Personales",
+        "ubication-data": "Ubicación",
+        "contact-data": "Datos de contacto",
+        "account-data": "Datos de la cuenta",
+        "general-data": "Datos Generales"
+      },
+      "first_name": "Primer nombre",
+      "second_name": "Segundo Nombre",
+      "lastname": "Apellido",
+      "second_lastname": "Segundo Apellido",
+      "address": "Dirección",
+      "email": "Correo Electrónico",
+      "code_phone": "Código de Telefono",
+      "phone": "Teléfono",
+      "referred_by": "Referido por",
+      "username": "Usuario",
+      "password": "Contraseña",
+      "password_confirmation": "Confirmar Contraseña",
+      "birth": "Fecha de nacimiento"
     }
   },
   "genereal-views": {
@@ -93,7 +123,9 @@
     },
     "code": "Código",
     "search": "Buscar",
-    "description": "Descripción"
+    "description": "Descripción",
+    "next": "Siguiente",
+    "back": "Atrás"
   },
   "general-messages": {
     "editedSuccessfully": "Actualizado correctament",

@@ -14,15 +14,27 @@
                 color="#5C6776" 
                 :rules="rules" 
                 autocomplete="off" 
-                class="rounded-pill pl-3 border pa-0 mb-2 mt-2"
+                @click:append-inner="emits('click:append-inner',$event)"
+                class="rounded-pill pl-3 border pa-0 mb-2 mt-2 pr-5"
                 :class="getErrorInput ? 'color-border-danger' : 'color-border-primary'"
-                style="max-height: 40px!important; color:#5C6776;" @update:model-value="emits('update:model-value', $event)">
+                style="max-height: 40px!important; color:#5C6776;" 
+                @update:model-value="emits('update:model-value', $event)">
                 <template #label="{isActive,isFocused}">
                     <span 
+                        class="font-weight-bold"
                         style="margin-top: -5px;" 
                         :style="(isActive || isFocused)? 'font-size:14px;':''">
                         {{ label }}
                     </span>
+                </template>
+                <template v-if="appendIcon" #append-inner="{}">
+                    <VBtn 
+                        @click.prevent="emits('click:append-inner',$event)" 
+                        :icon="appendIcon" 
+                        color="transparent" 
+                        :active="false"
+                        style="margin-top: -5px;"
+                        />
                 </template>
                 <template #message class="">
                     <div style="margin-top: -9px;">
@@ -46,9 +58,10 @@ const props = defineProps<{
     label?: string,
     rules?: any[],
     class?: Array<string>
+    appendIcon?: any
 }>()
 const { modelValue } = toRefs(props)
-const emits = defineEmits(['update:model-value'])
+const emits = defineEmits(['update:model-value','click:append-inner'])
 
 const helper = helperStore()
 

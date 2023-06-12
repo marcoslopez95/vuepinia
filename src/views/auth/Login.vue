@@ -44,12 +44,12 @@ const setUser = (user:Object) => {
         <v-col cols="12" sm="12" lg="11">
             <v-card class="py-5">
                 <VRow>
-                    <VCol cols="12" sm="4" lg="6" class="text-center d-flex align-center">
+                    <VCol cols="12" sm="8" lg="8" class="text-center d-flex align-center">
                         <div class="mx-auto">
                             Esto es un logo
                         </div>
                     </VCol>
-                    <VCol cols="12" sm="8" lg="6" class="text-center">
+                    <VCol cols="12" sm="4" lg="4" class="text-center">
                         <v-toolbar color="transparent">
                             <v-toolbar-title class="font-weight-medium">
                                 {{ $t('views.login.title')}}
@@ -69,8 +69,15 @@ const setUser = (user:Object) => {
                                 {{$t('views.login.button')}}
                             </v-btn>
                         </div>
+                        <VRow>
+                            <VCol>
+                                {{ $t('views.login.you-donnot-have-an-account') }} <RouterLink :to="{name:'Register'}" >{{ $t('views.login.register') }}</RouterLink>
+                            </VCol>
+                        </VRow>
                     </VCol>
                 </VRow>
+                <VSpacer></VSpacer>
+                
             </v-card>
         </v-col>
     </v-row>

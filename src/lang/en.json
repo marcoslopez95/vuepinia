@@ -3,7 +3,10 @@
   "views": {
     "login": {
       "title": "Sign In",
-      "button": "Sign In"
+      "button": "Sign In",
+      "you-have-a-account": "You have a account?",
+      "you-donnot-have-an-account": "You don't have an account?",
+      "register": "Sign Up"
     },
     "users": {
       "user": "Username",
@@ -52,6 +55,33 @@
     },
     "banks": {
       "title": "Bank | Banks"
+    },
+    "register": {
+      "you-have-an-account": "You have an account?",
+      "login": "Sign In",
+      "button": "Sign Up",
+      "success": "Register Succesfull",
+      "title": "Sign Up",
+      "step-one": {
+        "personal-data": "Personal Data",
+        "ubication-data": "Ubication",
+        "contact-data": "Contact Data",
+        "account-data": "Account data",
+        "general-data": "General Data"
+      },
+      "first_name": "First name",
+      "second_name": "Second Name",
+      "lastname": "Lastname",
+      "second_lastname": "Second lastname",
+      "address": "Address",
+      "email": "Email",
+      "code_phone": "Code Phone",
+      "phone": "Phone",
+      "referred_by": "Referred By",
+      "username": "Username",
+      "password": "Password",
+      "password_confirmation": "Password Confirmation",
+      "birth": "Birth"
     }
   },
   "genereal-views": {
@@ -93,7 +123,9 @@
     },
     "code": "Code",
     "search": "Search",
-    "description": "Description"
+    "description": "Description",
+    "next": "Next",
+    "back": "Back"
   },
   "general-messages": {
     "editedSuccessfully": "Update Successfull",

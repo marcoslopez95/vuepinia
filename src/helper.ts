@@ -52,12 +52,12 @@ export const helperStore = defineStore('helper',<T>() => {
         }
         resolve(response)
       }catch(error: AxiosResponse | any){
-        let messages: string[] | string = error.response.data.errors ?error.response.data.errors:error.response.data.message
+        let messages: string[] | string = error.response.data.message ?? error.response.data.data.errors
 
         if(typeof messages === 'string'){
           showNotify(messages,{type:'error'})
         }else{
-          getErrors(error.response.data.errors)
+          getErrors(error.response.data.data.errors)
         }
         if(error.response && error.response.status === 401) {
           localStorage.removeItem('token')
@@ -77,10 +77,11 @@ export const helperStore = defineStore('helper',<T>() => {
       type: 'error',
     }
     if(errors){
-    for(let err in errors){
-      error.push(errors[err][0])
+      for(let err in errors){
+        error.push(errors[err])
+      }
     }
-    }
+    console.log(error)
     error.forEach(er => showNotify(er,op))
     
   }

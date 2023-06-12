@@ -32,7 +32,16 @@ export default createVuetify({
       light: Lighttheme,
     },
   },
+  aliases:{
+    VBtnPrimary: components.VBtn,
+    // VBtnPrimary: components.VBtn,
+  },
   defaults: {
+    VBtnPrimary: {
+      color: 'primary',
+      rounded: 'pill',
+      class: 'w-25'
+    },
     VBtn: {
       color: "primary",
       rounded: "md",
