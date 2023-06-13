@@ -6,7 +6,6 @@ const router = createRouter({
   //history: createWebHistory(import.meta.env.BASE_URL),
   history: createWebHistory("/"),
   routes: [
-   
     {
       path: "/auth",
       redirect: "/login",
@@ -24,7 +23,13 @@ const router = createRouter({
           component: () =>
             import("@/views/auth/Register.vue"),
         },
-      ]
+        {
+          name: "Unauthorized",
+          path: "/unauthorized",
+          component: () =>
+            import("@/views/auth/Unauthorized.vue"),
+        },
+      ],
     },
     {
       path: "/",
@@ -70,6 +75,17 @@ const router = createRouter({
         },
       ],
     },
+    { 
+      path: '/:pathMatch(.*)*', 
+      redirect: 'notFound',
+      component: () => import("@/layouts/auth/authLayout.vue"),
+      children:[
+        {
+          path: 'notFound',
+          component: () => import('@/views/auth/404.vue') 
+        }
+      ]
+    }
   ],
 });
 

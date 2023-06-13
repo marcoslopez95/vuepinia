@@ -1,6 +1,9 @@
 {
   "hello": "mundo",
   "views": {
+    "404": {
+      "title": "404 No encontrado"
+    },
     "login": {
       "title": "Iniciar Sesión",
       "button": "Iniciar Sesión",
@@ -82,6 +85,9 @@
       "password": "Contraseña",
       "password_confirmation": "Confirmar Contraseña",
       "birth": "Fecha de nacimiento"
+    },
+    "unauthorized": {
+      "title": "Sin autorización"
     }
   },
   "genereal-views": {
@@ -125,7 +131,9 @@
     "search": "Buscar",
     "description": "Descripción",
     "next": "Siguiente",
-    "back": "Atrás"
+    "back": "Atrás",
+    "come-back": "Regresar",
+    "goin-dashboard": "Ir al inicio"
   },
   "general-messages": {
     "editedSuccessfully": "Actualizado correctament",

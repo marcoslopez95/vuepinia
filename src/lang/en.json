@@ -1,6 +1,9 @@
 {
   "hello": "world",
   "views": {
+    "404": {
+      "title": "404 not found"
+    },
     "login": {
       "title": "Sign In",
       "button": "Sign In",
@@ -82,6 +85,9 @@
       "password": "Password",
       "password_confirmation": "Password Confirmation",
       "birth": "Birth"
+    },
+    "unauthorized": {
+      "title": "Unauthorized"
     }
   },
   "genereal-views": {
@@ -125,7 +131,9 @@
     "search": "Search",
     "description": "Description",
     "next": "Next",
-    "back": "Back"
+    "back": "Back",
+    "come-back": "Come Back",
+    "goin-dashboard": "Going to Dashboard"
   },
   "general-messages": {
     "editedSuccessfully": "Update Successfull",

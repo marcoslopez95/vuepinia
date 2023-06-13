@@ -13,10 +13,10 @@ import type { ROLES } from '@/interfaces/Role/Role.enum'
 
 const sidebarMenu = computed(()=>{
   return sidebarItems.map((item) =>{
-      item.children = item.children?.filter(child => child.roles.includes(getUserAuth().roles[0].name as ROLES))
+      item.children = item.children?.filter(child => child.roles.length > 0 ? child.roles.includes(getUserAuth().roles[0].name as ROLES): true)
       return item
   })
-  .filter(item => item.roles.includes(getUserAuth().roles[0].name as ROLES))
+  .filter(item => item.roles.length> 0 ? item.roles.includes(getUserAuth().roles[0].name as ROLES) : true)
 })
 // const sidebarMenu = ref<SidebarItem[]>(sidebarItems);
 const verifyWidthWindow = ref(useDisplay().mdAndUp)
