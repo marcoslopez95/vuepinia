@@ -3,8 +3,7 @@
   "include": [
       "env.d.ts",
       "src/**/*",
-      "src/**/*.vue",
-      "vue-i18n.d.ts"
+      "src/**/*.vue"
     ],
   
   "compilerOptions": {

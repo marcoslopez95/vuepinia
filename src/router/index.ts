@@ -1,7 +1,8 @@
 import { isAutenticated } from "@/helper";
 import { createRouter, createWebHistory } from "vue-router";
 import admin from './admin'
-console.log(admin)
+import user from './user'
+
 const router = createRouter({
   //history: createWebHistory(import.meta.env.BASE_URL),
   history: createWebHistory("/"),
@@ -37,6 +38,7 @@ const router = createRouter({
       component: () => import("@/layouts/full/FullLayout.vue"),
       children: [
         ...admin,
+        ...user,
         {
           name: "Dashboard",
           path: "/dashboard",

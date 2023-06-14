@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref,computed } from "vue";
-import { profile } from "./data";
+import { profile, type ToItems } from "./data";
 import MessageIcon from "@/assets/icons/header/MessageIcon.vue";
 import NotificationIcon from "@/assets/icons/header/NotificationIcon.vue";
 import ProfileIcon from "@/assets/icons/header/ProfileIcon.vue";
@@ -38,6 +38,28 @@ const fullname = computed(()=>{
 const xelerCop = computed(()=> {
   return formatNumber(500000) + ' XLRP'
 })
+
+const clickInProfile =  (to: ToItems ) : undefined => {
+  const userRole = getUserAuth().roles[0].name as ROLES;
+  
+  if(profileRoutes[userRole][to] === '#') return 
+  router.push({name: profileRoutes[userRole][to]})
+}
+
+const profileRoutes = {
+  Admin: {
+    profile: '#',
+    activity: '#'
+  },
+  User: {
+    profile: 'user-profile',
+    activity: '#'
+  },
+  Agent: {
+    profile: '#',
+    activity: '#'
+  }
+}
 </script>
 
 <template>
@@ -89,8 +111,14 @@ const xelerCop = computed(()=> {
                   </VAvatar>
                 </template>
               </v-list-item>
-              <v-list-item class=" pa-0 ma-0 text-item-menu" v-for="(item, i) in userprofile" :key="i" :value="item"
-                :title="item.title">
+              <v-list-item class=" pa-0 ma-0 text-item-menu" v-for="(item, i) in userprofile" 
+                :key="i" 
+                :value="item"
+                @click="clickInProfile(item.to)"
+                >
+                <template #title>
+                  {{ item.title }}
+                </template>
                 <template #prepend>
                   <VAvatar class="pa-0 ma-0">
                     <VIcon :icon="item.icon"></VIcon>

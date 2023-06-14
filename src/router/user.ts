@@ -60,7 +60,7 @@ const configurations: RouteRecordRaw[] = [
         name: "user-profile",
         path: "/user/profile",
         component: () =>
-            import("@/views/admin/configurations/ConfigurationView.vue"),
+            import("@/views/user/Profile.vue"),
         meta: {
             roles: [
                 ROLES.USER
