@@ -144,5 +144,9 @@
   "header": {
     "log-out": "Logout",
     "hi": "Hi!"
+  },
+  "menu-right": {
+    "complete-your-kyc": "complete your verification",
+    "kyc": "KYC"
   }
 }

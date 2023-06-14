@@ -21,6 +21,7 @@ const Lighttheme: ThemeDefinition = {
     secondary: "#0cb9c5",
     active: '#6E60E8',
     disabled: '#809FB8',
+    sky: '#20ABE6'
   },
 };
 
