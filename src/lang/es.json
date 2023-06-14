@@ -140,5 +140,9 @@
     "createdSuccessfully": "Creado Correctamente",
     "restoredSuccessfully": "Restaurado correctamente",
     "deletedSuccessfully": "Eliminado correctamente"
+  },
+  "header": {
+    "log-out": "Cerrar Sesión",
+    "hi": "Hola!"
   }
 }

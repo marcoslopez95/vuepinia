@@ -8,6 +8,7 @@ import {type ToastOptions, toast } from 'vue3-toastify';
 import type { CheckedOrBlockedType, StatusOperationVerified } from './db';
 import db from './db';
 import type { UserAuth } from './interfaces/User/User.auth';
+import type { ROLES } from './interfaces/Role/Role.enum';
 
 export const helperStore = defineStore('helper',<T>() => {
   const { t } = useI18n()
@@ -279,10 +280,18 @@ export const isAutenticated = () => {
   return localStorage.getItem('token') || false
 }
 
-export const formatNumber = (number: number): string => {
-    return Intl.NumberFormat(["ban", "id"]).format(number)
-  }
+export const formatNumber = (number: number,decimals:string = '.',miles:string = ','): string => {
+    return Intl.NumberFormat(["ban", "id"])
+                .format(number)
+                .replace('.','|')
+                .replace(',',decimals)
+                .replace('|',miles)
+}
 
 export const getUserAuth = () : UserAuth=> {
   return JSON.parse(localStorage.getItem('user')!) as UserAuth
+}
+
+export const isRole = (role: ROLES): boolean => {
+  return getUserAuth().roles[0].name === role
 }

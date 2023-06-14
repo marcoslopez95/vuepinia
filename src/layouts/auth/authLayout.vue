@@ -22,7 +22,7 @@ const innerW = ref(useDisplay().smAndDown);
     background-color: $color-primary !important;
 }
 
-.bg-sidebar {
-    background: linear-gradient(180deg, #5043E9 6.77%, #16B4E6 77.6%);
-}
+// .bg-sidebar {
+//     background: linear-gradient(180deg, #5043E9 6.77%, #16B4E6 77.6%);
+// }
 </style>

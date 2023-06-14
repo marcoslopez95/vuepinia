@@ -5,6 +5,7 @@ import SidebarVue from "./sidebar/Sidebar.vue";
 import HeaderVue from "./header/Header.vue";
 import { useDisplay } from 'vuetify'
 import LogoDark from "./logo/LogoDark.vue";
+import MenuRightVue from "./menuRight/MenuRight.vue";
 const drawer = ref(undefined || true);
 const innerW = ref(useDisplay().smAndDown);
 
@@ -54,10 +55,11 @@ onMounted(() => {
     <!-- ---------------------------------------------- -->
     <!---Page Wrapper -->
     <!-- ---------------------------------------------- -->
-    <v-main>
+    <v-main class="d-flex">
       <v-container fluid class="page-wrapper">
         <RouterView />
       </v-container>
+      <MenuRightVue class="mr-4 mt-10" style="min-width: 340px; display: block;" />
     </v-main>
   </v-app>
 </template>
@@ -67,7 +69,5 @@ onMounted(() => {
 .bg-navbar-mobile{
   background-color: $color-primary !important;
 }
-.bg-sidebar {
-  background: linear-gradient(180deg, #5043E9 6.77%, #16B4E6 77.6%);
-}
+
 </style>
