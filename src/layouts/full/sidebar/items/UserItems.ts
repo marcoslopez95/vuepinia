@@ -1,121 +1,43 @@
-import DashboardIconVue from "@/assets/icons/sidebar/DashboardIcon.vue";
-import TransactionsIcon from "@/assets/icons/sidebar/TransactionsIcon.vue"
-import FileIcon from "@/assets/icons/sidebar/FileIcon.vue"
-import AccountingIcon from "@/assets/icons/sidebar/AccountingIcon.vue"
-import UserIcon from "@/assets/icons/sidebar/UserIcon.vue"
-import TiendaIcon from "@/assets/icons/sidebar/TiendaIcon.vue"
-import ConfigurationIcon from "@/assets/icons/sidebar/ConfigurationIcon.vue"
 import type { SidebarItem } from "@/interfaces/SidebarItems.interface"
 import { ROLES } from '@/interfaces/Role/Role.enum'
+import BuyIcon from "@/assets/icons/sidebar/user/BuyIcon.vue"
+import SellIcon from "@/assets/icons/sidebar/user/SellIcon.vue"
+import TransactionIcon from "@/assets/icons/sidebar/user/TransactionIcon.vue"
+import ReferredIcon from "@/assets/icons/sidebar/user/ReferredIcon.vue"
 
 const items: SidebarItem[] = [
-    // {
-    //     title: "Dashboard",
-    //     icon: DashboardIconVue,
-    //     to: "Dashboard",
-    //     roles: []
-    // },
+    {
+        title: "Comprar",
+        icon: BuyIcon,
+        to: "",
+        roles: [
+            ROLES.USER,
+        ],
+    },
+    {
+        title: "Vender",
+        icon: SellIcon,
+        to: "",
+        roles: [
+            ROLES.USER,
+        ],
+    },
     {
         title: "Transacciones",
-        icon: TransactionsIcon,
+        icon: TransactionIcon,
         to: "",
         roles: [
-            ROLES.ADMIN,
-        ],
-        children: [
-            {
-                title: 'Pendientes',
-                to: '',
-                roles: [
-                    ROLES.ADMIN,
-                ],
-            },
-            {
-                title: 'Tomadas',
-                to: '',
-                roles: [
-                    ROLES.ADMIN,
-                ],
-            },
-            {
-                title: 'Aprobadas',
-                to: '',
-                roles: [
-                    ROLES.ADMIN,
-                ],
-            },
-            {
-                title: 'Todas',
-                to: '',
-                roles: [
-                    ROLES.ADMIN,
-                ],
-            },
-        ]
-    },
-    {
-        title: "Kyc",
-        icon: FileIcon,
-        to: "admin-kyc",
-        roles: [
-            ROLES.ADMIN,
+            ROLES.USER,
         ],
     },
     {
-        title: "Contabilidad",
-        icon: AccountingIcon,
-        to: "Alerts",
-        roles: [
-            ROLES.ADMIN,
-        ],
-    },
-    {
-        title: "Usuarios",
-        icon: UserIcon,
-        to: "admin-users",
-        roles: [
-            ROLES.ADMIN,
-        ],
-    },
-    {
-        title: "Tienda",
-        icon: TiendaIcon,
-        to: "Alerts",
-        roles: [
-            ROLES.ADMIN,
-        ],
-    },
-    {
-        title: "Seguridad",
-        icon: 'mdi-security',
+        title: "Referidos",
+        icon: ReferredIcon,
         to: "",
         roles: [
-            ROLES.ADMIN,
-        ],
-        children: [
-            {
-                title: 'Roles',
-                to: 'admin-roles',
-                roles: [
-                    ROLES.ADMIN,
-                ],
-            },
-            {
-                title: 'Permisos',
-                to: 'admin-permissions',
-                roles: [
-                    ROLES.ADMIN,
-                ],
-            },
-        ]
-    },
-    {
-        title: "Configuración",
-        icon: ConfigurationIcon,
-        to: "admin-configurations",
-        roles: [
-            ROLES.ADMIN,
+            ROLES.USER,
         ],
     },
+    
 ]
 export default items

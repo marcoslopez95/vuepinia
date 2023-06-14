@@ -1,6 +1,11 @@
 {
   "extends": "@vue/tsconfig/tsconfig.web.json",
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
+  "include": [
+      "env.d.ts",
+      "src/**/*",
+      "src/**/*.vue",
+      "vue-i18n.d.ts"
+    ],
   
   "compilerOptions": {
     "ignoreDeprecations": "5.0",

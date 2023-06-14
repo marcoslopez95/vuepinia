@@ -148,5 +148,13 @@
   "menu-right": {
     "complete-your-kyc": "Completa tu verificación",
     "kyc": "KYC"
+  },
+  "sidebar": {
+    "user": {
+      "buy": "Comprar",
+      "sell": "Vender",
+      "transactions": "Transacciones",
+      "referred": "Referidos"
+    }
   }
 }
