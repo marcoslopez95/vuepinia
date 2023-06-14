@@ -6,6 +6,11 @@ import HeaderVue from "./header/Header.vue";
 import { useDisplay } from 'vuetify'
 import LogoDark from "./logo/LogoDark.vue";
 import MenuRightVue from "./menuRight/MenuRight.vue";
+import TelegramIcon from '@/assets/icons/layout/footer/TelegramIcon.vue'
+import InstagramIcon from '@/assets/icons/layout/footer/InstagramIcon.vue'
+import TwitterIcon from '@/assets/icons/layout/footer/TwitterIcon.vue'
+import FacebookIcon from '@/assets/icons/layout/footer/FacebookIcon.vue'
+
 const drawer = ref(undefined || true);
 const innerW = ref(useDisplay().smAndDown);
 
@@ -59,8 +64,22 @@ onMounted(() => {
       <v-container fluid class="page-wrapper">
         <RouterView />
       </v-container>
-      <MenuRightVue class="mr-4 mt-10" style="min-width: 340px; display: block;" />
+      <MenuRightVue v-if="!innerW" class="mr-4 mt-10" style="min-width: 340px; display: block;" />
     </v-main>
+    <VFooter>
+      <div class="w-100 text-center">
+        <div class="d-flex justify-center">
+          <VIcon title="Telegram" color="table" :icon="TelegramIcon" />
+          <VIcon title="Instagram" color="table" icon="mdi-instagram" />
+          <VIcon title="Twitter" color="table" icon="mdi-twitter" />
+          <VIcon title="Facebook" color="table" icon="mdi-facebook" />
+        </div>
+        <span class="font-weight-bold text-table">
+          2022 Xeler Go Todos los derechos reservados
+        </span>
+      </div>
+    </VFooter>
+
   </v-app>
 </template>
 <style lang="scss">
