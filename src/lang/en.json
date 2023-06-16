@@ -98,7 +98,10 @@
         "lastname": "Lastname",
         "second-lastname": "Second Lastname",
         "email": "Email",
-        "phone": "Phone"
+        "phone": "Phone",
+        "document": "N. Document",
+        "birthday": "Birthday",
+        "address": "Address"
       }
     }
   },
@@ -116,7 +119,9 @@
   "commons": {
     "show-title-modal": "Show {singular}",
     "update-title-modal": "Update {singular}",
-    "create-title-modal": "Create {singular}"
+    "create-title-modal": "Create {singular}",
+    "update-successfull": "Update Successfull",
+    "update": "Update"
   },
   "general-views": {
     "state": "State",

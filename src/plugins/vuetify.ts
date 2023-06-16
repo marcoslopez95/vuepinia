@@ -41,7 +41,8 @@ export default createVuetify({
     VBtnPrimary: {
       color: 'primary',
       rounded: 'pill',
-      class: 'w-25'
+      class: 'w-25',
+      style:"min-width:140px"
     },
     VBtn: {
       color: "primary",

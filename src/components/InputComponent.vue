@@ -1,88 +1,68 @@
 <template>
-    <!-- <VRow class="d-flex my-2 align-center px-15"> -->
-    <!-- <VCol v-if="label" class="mr-2 custom-label text-right" cols="3" sm="4" lg="3">
-            {{label}}:
-        </VCol> -->
-    <VCol :class="class">
-        <!-- <VResponsive> -->
-            <v-text-field :id="id" 
-                auto 
-                v-model="modelValue" 
-                :type="type ?? 'text'" 
-                variant="plain" 
-                :label="label"
-                color="#5C6776" 
-                :rules="rules" 
-                autocomplete="off" 
-                @click:append-inner="emits('click:append-inner',$event)"
-                class="rounded-pill pl-3 border pa-0 mb-2 mt-2 pr-5"
-                :class="getErrorInput ? 'color-border-danger' : 'color-border-primary'"
-                style="max-height: 40px!important; color:#5C6776;" 
-                @update:model-value="emits('update:model-value', $event)">
-                <template #label="{isActive,isFocused}">
-                    <span 
-                        class="font-weight-bold"
-                        style="margin-top: -5px;" 
-                        :style="(isActive || isFocused)? 'font-size:14px;':''">
-                        {{ label }}
-                    </span>
-                </template>
-                <template v-if="appendIcon" #append-inner="{}">
-                    <VBtn 
-                        @click.prevent="emits('click:append-inner',$event)" 
-                        :icon="appendIcon" 
-                        color="transparent" 
-                        :active="false"
-                        style="margin-top: -5px;"
-                        />
-                </template>
-                <template #message class="">
-                    <div style="margin-top: -9px;">
-                        {{ getErrorInput }}
-                    </div>
-                </template>
-            </v-text-field>
-        <!-- </VResponsive> -->
-
-    </VCol>
-    <!-- </VRow> -->
+    <VLabel class="pl-3 text-capitalize font-weight-bold" style="">{{name}}</VLabel>
+    <VResponsive class="v-text-field__slot">
+        <VTextField 
+            :rounded="40" 
+            variant="filled" 
+            class="ma-0 pa-0" 
+            :name="name"
+            hide-details 
+            single-line
+            v-model="modelValue" 
+            style="max-height: 40px;" 
+            :type="type ?? 'text'"
+            :rules="rules" 
+            density="compact"
+            :active="active??false"
+            @update:model-value="emits('update:model-value',$event)"
+            >
+        </VTextField>
+    </VResponsive>
+    <div class="w-100 text-center ma-0 pa-0">
+        <VLabel v-if="errors" class="text-error ml-5 font-weight-bold ">
+            {{ errors }}
+        </VLabel>
+    </div>
 </template>
 
 <script setup lang="ts">
 import { helperStore } from '@/helper';
-import { toRefs, computed } from 'vue'
+import { toRefs } from 'vue';
+import { computed } from 'vue';
+
+const emits = defineEmits(['update:model-value'])
 const props = defineProps<{
     modelValue: any,
-    id: string,
-    type?: string,
-    label?: string,
-    rules?: any[],
-    class?: Array<string>
-    appendIcon?: any
+    rules?: any | any[]
+    name: string
+    type?: string
+    active?: boolean
 }>()
 const { modelValue } = toRefs(props)
-const emits = defineEmits(['update:model-value','click:append-inner'])
-
 const helper = helperStore()
 
-const getErrorInput = computed(() => {
-    if (helper.errorsInput.length === 0) return ''
-    return helper.errorsInput
-        .find(e => e.id === props.id)
-        ?.errorMessages[0] ?? ''
+const errors = computed(()=>{
+    const errors = helper.formRef?.errors as ErrorType[] | null
+    if(!errors) return false
+
+    const errorIn =errors.find(err => err.id == props.name)
+    if(!errorIn) return false
+
+    return errorIn.errorMessages[0]
 })
+
+interface ErrorType{
+    id:string
+    errorMessages: string[]
+}
 </script>
 
 <style scoped>
-.color-border-primary {
-    border-color: #5043E9 !important;
-}
-
-.color-border-danger {
-    border-color: #FF0000 !important;
-}
-
-.v-field__input input {
-    margin-top: 211px;
+.v-text-field__slot {
+  background: linear-gradient(white, white) padding-box, linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(80,67,233,1) 0%, rgba(22,180,229,1) 100%) border-box;
+  border: 1px solid transparent;
+  border-radius: 20px;
+  text-align: center;
+  color: #5D5FEF;
 }
 </style>

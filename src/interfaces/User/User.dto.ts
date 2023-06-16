@@ -6,6 +6,7 @@ export declare interface Profile extends Omit<Required<UserAttributes>,OmitField
     municipalitie_id: '' | number
     address: string
     birth: string
+    document: string
 }
 
 type OmitFields = 'affiliate_id'

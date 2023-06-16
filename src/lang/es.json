@@ -98,7 +98,10 @@
         "lastname": "Apellido",
         "second-lastname": "Segundo Apellido",
         "email": "Correo Electrónico",
-        "phone": "Teléfono celular"
+        "phone": "Teléfono celular",
+        "document": "Nro. Documento",
+        "birthday": "Fecha de nacimiento",
+        "address": "Dirección de habitación"
       }
     }
   },
@@ -116,7 +119,9 @@
   "commons": {
     "show-title-modal": "Ver {singular}",
     "update-title-modal": "Actualizar {singular}",
-    "create-title-modal": "Crear {singular}"
+    "create-title-modal": "Crear {singular}",
+    "update-successfull": "Actualizado Correctamente",
+    "update": "Actualizar"
   },
   "general-views": {
     "state": "Estado",

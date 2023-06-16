@@ -79,7 +79,19 @@ export const UserStore = defineStore('user', () => {
             }
         })
     }
+
+    const userAuth = ref<User>()
+    const updateUserAuth = (): Promise<void> =>{
+        return new Promise<void>(async () =>{
+            const url = 'users/activite/user'
+            let res = await helper.http(url,'get')
+            userAuth.value = res.data.response as User
+
+        })
+    }
     return {
+        userAuth,
+        updateUserAuth,
         getDepartaments,
         departaments,
         municipalities,

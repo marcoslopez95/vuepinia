@@ -9,6 +9,7 @@ import { createI18n } from "vue-i18n";
 import Vue3Toastify, { type ToastContainerOptions } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import messages from '@/lang';
+import 'vue-tel-input/vue-tel-input.css';
 
 const app = createApp(App);
 const pinia = createPinia()
