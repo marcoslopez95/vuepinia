@@ -88,6 +88,18 @@
     },
     "unauthorized": {
       "title": "Sin autorización"
+    },
+    "profile": {
+      "title": "Perfil | Perfiles",
+      "personal-data": {
+        "title": "Datos Personales",
+        "name": "Nombre",
+        "second-name": "Segundo Nombre",
+        "lastname": "Apellido",
+        "second-lastname": "Segundo Apellido",
+        "email": "Correo Electrónico",
+        "phone": "Teléfono celular"
+      }
     }
   },
   "genereal-views": {

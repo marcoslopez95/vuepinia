@@ -88,6 +88,18 @@
     },
     "unauthorized": {
       "title": "Unauthorized"
+    },
+    "profile": {
+      "title": "Profile | Profiles",
+      "personal-data": {
+        "title": "Personal Data",
+        "name": "Name",
+        "second-name": "Second Name",
+        "lastname": "Lastname",
+        "second-lastname": "Second Lastname",
+        "email": "Email",
+        "phone": "Phone"
+      }
     }
   },
   "genereal-views": {

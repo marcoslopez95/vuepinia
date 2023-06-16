@@ -1,8 +1,8 @@
 import type { BaseModelSoftDelete } from "../Base.model";
 import type { Role } from "../Role/Role.model";
 
-export declare interface User extends BaseModelSoftDelete<Attributes,Relationships> {}
-interface Attributes {
+export declare interface User extends BaseModelSoftDelete<UserAttributes,Relationships> {}
+export interface UserAttributes {
   first_name: string;
   second_name?: any;
   last_name?: any;
