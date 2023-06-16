@@ -142,30 +142,51 @@ const valid = async () => {
     updateData()
 }
 const userStore = UserStore()
-userStore.updateUserAuth()
-
+const phoneFormat = ref('')
 const { userAuth } = storeToRefs(userStore)
+
+const form = reactive<Profile>({
+    address:'',
+    birth:'',
+    code_phone:'',
+    country_id:'',
+    department_id:'',
+    municipalitie_id:'',
+    email:'',
+    document:'',
+    first_name:'',
+    last_name:'',
+    phone:'',
+    second_last_name:'',
+    second_name:'',
+    username:'',
+})
+
+userStore.updateUserAuth().then(()=>{
+    console.log('aqui')
+    phoneFormat.value = '+'
+        +userAuth.value?.attributes.code_phone
+        +userAuth.value?.attributes.phone
+        
+    form.address = userAuth.value?.relationships?.userDetail.attributes.address ?? ''
+    form.birth = userAuth.value?.relationships?.userDetail.attributes.birth ?? ''
+    form.code_phone = userAuth.value?.attributes.code_phone ?? ''
+    form.country_id = userAuth.value?.relationships?.userDetail.relationships?.country.id ?? ''
+    form.department_id = userAuth.value?.relationships?.userDetail.relationships?.department.id ?? ''
+    form.municipalitie_id = userAuth.value?.relationships?.userDetail.relationships?.municipalitie.id?? ''
+    form.email = userAuth.value?.attributes.email ?? ''
+    form.document = userAuth.value?.relationships?.userDetail.attributes.document ?? ''
+    form.first_name = userAuth.value?.attributes.first_name ?? '' 
+    form.last_name = userAuth.value?.attributes.last_name ?? '' 
+    form.phone = userAuth.value?.attributes.phone ?? '' 
+    form.second_last_name = userAuth.value?.attributes.second_last_name ?? '' 
+    form.second_name = userAuth.value?.attributes.second_name ?? '' 
+    form.username = userAuth.value?.attributes.username ?? '' 
+})
+
 const helper = helperStore()
 const { formRef } = storeToRefs(helper)
 const isPhoneValid = ref(false)
-const phoneFormat = ref('')
-
-const form = reactive<Profile>({
-    address: '',
-    birth: '',
-    code_phone: '',
-    country_id: '',
-    department_id: '',
-    email: '',
-    first_name: '',
-    last_name: '',
-    municipalitie_id: '',
-    phone: '',
-    second_last_name: '',
-    second_name: '',
-    username: '',
-    document: ''
-})
 
 userStore.getCountries()
 userStore.getDepartaments()

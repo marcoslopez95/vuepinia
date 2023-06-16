@@ -293,5 +293,5 @@ export const getUserAuth = () : UserAuth=> {
 }
 
 export const isRole = (role: ROLES): boolean => {
-  return getUserAuth().roles[0].name === role
+  return getUserAuth()?.roles[0].name === role
 }
