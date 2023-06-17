@@ -45,6 +45,12 @@
                     required
                     @isValid="(bool) => isPhoneValid = bool"
                     />
+                    <ValidationPhone
+                        :code-phone="form.code_phone"
+                        :phone="form.phone"
+                        @update-phone="getUserData"
+                        :isValidPhone="isPhoneValid"
+                    />
             </VCol>
             <VCol lg="6" sm="12">
                 <SelectComponentVue
@@ -129,9 +135,7 @@ import NewInputComponentVue from '@/components/InputComponent.vue';
 import SelectComponentVue from '@/components/SelectComponent.vue';
 import TelInput from '@/components/TelInput.vue';
 import { UserStore } from '@/stores/UserStore';
-import user from '@/router/user';
-import type { User } from '@/interfaces/User/User.model';
-
+import ValidationPhone from './ValidationPhone/ValidationPhone.vue'
 const { t } = useI18n()
 const valid = async () => {
     const { valid } = await formRef.value.validate()
@@ -162,27 +166,29 @@ const form = reactive<Profile>({
     username:'',
 })
 
-userStore.updateUserAuth().then(()=>{
-    console.log('aqui')
-    phoneFormat.value = '+'
-        +userAuth.value?.attributes.code_phone
-        +userAuth.value?.attributes.phone
-        
-    form.address = userAuth.value?.relationships?.userDetail.attributes.address ?? ''
-    form.birth = userAuth.value?.relationships?.userDetail.attributes.birth ?? ''
-    form.code_phone = userAuth.value?.attributes.code_phone ?? ''
-    form.country_id = userAuth.value?.relationships?.userDetail.relationships?.country.id ?? ''
-    form.department_id = userAuth.value?.relationships?.userDetail.relationships?.department.id ?? ''
-    form.municipalitie_id = userAuth.value?.relationships?.userDetail.relationships?.municipalitie.id?? ''
-    form.email = userAuth.value?.attributes.email ?? ''
-    form.document = userAuth.value?.relationships?.userDetail.attributes.document ?? ''
-    form.first_name = userAuth.value?.attributes.first_name ?? '' 
-    form.last_name = userAuth.value?.attributes.last_name ?? '' 
-    form.phone = userAuth.value?.attributes.phone ?? '' 
-    form.second_last_name = userAuth.value?.attributes.second_last_name ?? '' 
-    form.second_name = userAuth.value?.attributes.second_name ?? '' 
-    form.username = userAuth.value?.attributes.username ?? '' 
-})
+const getUserData = () => {
+    userStore.updateUserAuth().then(()=>{
+        // console.log('aqui')
+        phoneFormat.value = '+'
+            +userAuth.value?.attributes.code_phone
+            +userAuth.value?.attributes.phone
+            
+        form.address = userAuth.value?.relationships?.userDetail.attributes.address ?? ''
+        form.birth = userAuth.value?.relationships?.userDetail.attributes.birth ?? ''
+        form.code_phone = userAuth.value?.attributes.code_phone ?? ''
+        form.country_id = userAuth.value?.relationships?.userDetail.relationships?.country.id ?? ''
+        form.department_id = userAuth.value?.relationships?.userDetail.relationships?.department.id ?? ''
+        form.municipalitie_id = userAuth.value?.relationships?.userDetail.relationships?.municipalitie.id?? ''
+        form.email = userAuth.value?.attributes.email ?? ''
+        form.document = userAuth.value?.relationships?.userDetail.attributes.document ?? ''
+        form.first_name = userAuth.value?.attributes.first_name ?? '' 
+        form.last_name = userAuth.value?.attributes.last_name ?? '' 
+        form.phone = userAuth.value?.attributes.phone ?? '' 
+        form.second_last_name = userAuth.value?.attributes.second_last_name ?? '' 
+        form.second_name = userAuth.value?.attributes.second_name ?? '' 
+        form.username = userAuth.value?.attributes.username ?? '' 
+    })
+}
 
 const helper = helperStore()
 const { formRef } = storeToRefs(helper)
@@ -193,11 +199,13 @@ userStore.getDepartaments()
 userStore.getMunicipalities()
 userStore.getTypeDocuments()
 
+getUserData()
 const updateData = () =>{
     const url = 'users/update/profile'
     helper
         .http(url,'put',{data:form},t('commons.update-successfull'))
 }
+
 </script>
 
 <style scoped lang="scss">

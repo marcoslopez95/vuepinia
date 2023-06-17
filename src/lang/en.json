@@ -101,7 +101,13 @@
         "phone": "Phone",
         "document": "N. Document",
         "birthday": "Birthday",
-        "address": "Address"
+        "address": "Address",
+        "validation-phone": {
+          "title": "Validation Phone",
+          "code-verification": "Verification code",
+          "content": "When your received the verification code, your can verificated",
+          "success": "Verificated Succesfull"
+        }
       }
     }
   },
@@ -121,7 +127,8 @@
     "update-title-modal": "Update {singular}",
     "create-title-modal": "Create {singular}",
     "update-successfull": "Update Successfull",
-    "update": "Update"
+    "update": "Update",
+    "verificate": "Verificate"
   },
   "general-views": {
     "state": "State",

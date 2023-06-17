@@ -3,7 +3,7 @@
     <!-- <VResponsive class="v-text-field__slot"> -->
         <vue-tel-input 
             v-model="modelValue" 
-            autoDefaultCountry 
+            :autoDefaultCountry="false"
             styleClasses="v-text-field__slot"
             style="min-height: 40px;"
             @onInput="updateModel"

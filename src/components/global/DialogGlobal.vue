@@ -14,6 +14,10 @@ const props = defineProps({
         type: String,
         default: "800px",
     },
+    footer:{
+        type: Boolean,
+        default: false,
+    }
 });
 
 const { dialog } = toRefs(props)
@@ -24,14 +28,38 @@ const emit = defineEmits([
 </script>
 
 <template>
-    <div class="text-center">
-        <VDialog v-model="dialog" persistent close-delay="1" open-delay="1" :fullscreen="fullscreen" :width="fullscreen ? '' : widthDialog">
-            <VCard>
-                <VCardTitle class="mb-0 d-flex justify-space-between ">
+    <div class="text-center" >
+        <VDialog 
+            v-model="dialog" 
+            persistent 
+            close-delay="1" 
+            open-delay="1" 
+            :fullscreen="fullscreen" 
+            :width="fullscreen ? '' : widthDialog"
+            >
+            <div 
+                class="w-100 text-right" 
+                style="
+                    margin-bottom: -15px;
+                    z-index: 1;
+                ">
+                <VBtn 
+                    elevation="5"
+                    icon="mdi-close" 
+                    density="comfortable" 
+                    @click="emit('closeDialog')" 
+                    color="white"
+                    class="text-primary"
+                    type="button"
+                    style="margin-right: -15px;"
+                >
+                </VBtn>
+            </div>
+            <VCard elevation="15" class="rounded-xl pa-3">
+                <VCardTitle class="mb-0 d-flex justify-space-between text-primary">
                     <h3>
                         <slot name="title"></slot>
                     </h3>
-                    <VIcon @click="emit('closeDialog')" icon="mdi-close-outline" size="24" />
                 </VCardTitle>
                 
                 <VCardSubtitle class="text-uppercase">
@@ -44,7 +72,7 @@ const emit = defineEmits([
                     <slot name="content"></slot>
                 </VCardText>
             
-                <VCardActions class="py-8">
+                <VCardActions class="py-8" v-if="footer">
                     <slot name="actions"></slot>
                 </VCardActions>
             </VCard>

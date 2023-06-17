@@ -101,7 +101,13 @@
         "phone": "Teléfono celular",
         "document": "Nro. Documento",
         "birthday": "Fecha de nacimiento",
-        "address": "Dirección de habitación"
+        "address": "Dirección de habitación",
+        "validation-phone": {
+          "title": "Validación de telefono",
+          "code-verification": "Código de verificación",
+          "content": "Cuando recibas el código de verificación, puedes continuar",
+          "success": "Verificación Exitosa"
+        }
       }
     }
   },
@@ -121,7 +127,8 @@
     "update-title-modal": "Actualizar {singular}",
     "create-title-modal": "Crear {singular}",
     "update-successfull": "Actualizado Correctamente",
-    "update": "Actualizar"
+    "update": "Actualizar",
+    "verificate": "Verificar"
   },
   "general-views": {
     "state": "Estado",
