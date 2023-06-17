@@ -31,13 +31,18 @@ import PersonalData from './Profile/PersonalData.vue';
 import { helperStore } from '@/helper';
 import { storeToRefs } from 'pinia';
 import { watch , shallowRef} from 'vue';
+import KycView from './Kyc/KycView.vue';
 const { t } = useI18n()
 const helper = helperStore()
-const tabActive = ref('')
+const tabActive = ref(KycView)
 const tabs = shallowRef<{name:string,value:any}[]>([
     {
         name: t('views.profile.personal-data.title'),
         value: PersonalData
+    },
+    {
+        name: t('views.profile.kyc.title'),
+        value: KycView
     },
 ])
 

@@ -5,14 +5,17 @@
         </VCol>
     </VRow>
     <VRow>
-        <InputComponent id="first_name" :label="$t('views.register.first_name')" v-model="form.first_name"
+        <InputComponent 
+        id="first_name" 
+        :name="$t('views.register.first_name')" 
+        v-model="form.first_name"
             :rules="[validator.required]" />
-        <InputComponent id="second_name" :label="$t('views.register.second_name')" v-model="form.second_name" :rules="[]" />
+        <InputComponent id="second_name" :name="$t('views.register.second_name')" v-model="form.second_name" :rules="[]" />
     </VRow>
     <VRow>
-        <InputComponent id="lastname" :label="$t('views.register.lastname')" v-model="form.last_name"
+        <InputComponent id="lastname" :name="$t('views.register.lastname')" v-model="form.last_name"
             :rules="[validator.required]" />
-        <InputComponent id="second_lastname" :label="$t('views.register.second_lastname')" v-model="form.second_last_name"
+        <InputComponent id="second_lastname" :name="$t('views.register.second_lastname')" v-model="form.second_last_name"
             :rules="[]" />
     </VRow>
    

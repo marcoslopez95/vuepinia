@@ -5,15 +5,15 @@
         </VCol>
     </VRow>
     <VRow>
-        <InputComponent id="email" :label="$t('views.register.email')" v-model="form.email" :rules="[validator.required]" />
-        <InputComponent id="code_phone" :label="$t('views.register.code_phone')" v-model="form.code_phone"
+        <InputComponent id="email" :name="$t('views.register.email')" v-model="form.email" :rules="[validator.required]" />
+        <InputComponent id="code_phone" :name="$t('views.register.code_phone')" v-model="form.code_phone"
             :rules="[validator.required]" />
-        <InputComponent id="phone" :label="$t('views.register.phone')" v-model="form.phone" :rules="[]" />
+        <InputComponent id="phone" :name="$t('views.register.phone')" v-model="form.phone" :rules="[]" />
     </VRow>
     <VRow>
         <InputComponent
             id="birth" 
-            :label="$t('views.register.birth')" 
+            :name="$t('views.register.birth')" 
             type="date"
             v-model="form.birth" 
             :rules="[validator.required]" />

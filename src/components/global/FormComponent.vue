@@ -23,23 +23,24 @@
               :menu-props="field.select!.menuProps"
               :multiple="field.select!.multiple"
             />
-            <InputComponent 
+            <!-- <InputComponent 
               v-else
+
               v-model="form[field.valueForm]"
               :type="field.type"
               :class="field.fieldClass"
               :rules="field.rules"
               :label="field.label"
               :id="field.valueForm"
-            />
-            <!-- <VTextField
+            /> -->
+            <VTextField
               v-else
               v-model="form[field.valueForm]"
               :type="field.type"
               :class="field.fieldClass"
               :rules="field.rules"
               :label="field.label"
-            /> -->
+            />
           </VCol>
         </slot>
       </VRow>

@@ -108,6 +108,17 @@
           "content": "When your received the verification code, your can verificated",
           "success": "Verificated Succesfull"
         }
+      },
+      "kyc": {
+        "title": "Kyc",
+        "verification-identity": "Verification Identity",
+        "upload-documents": "Upload documents, follow the next steps",
+        "title-intructions": "To avoid delays when checking your account, make sure:",
+        "instructions": {
+          "one": "The document must be in good condition and clearly visible",
+          "two": "Make sure there are no flashes of light in the documentation.",
+          "three": "Supported images formats"
+        }
       }
     }
   },

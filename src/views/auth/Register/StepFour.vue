@@ -5,15 +5,15 @@
         </VCol>
     </VRow>
     <VRow>
-        <InputComponent id="referref_by" :label="$t('views.register.referred_by')" v-model="form.referred_by" />
-        <InputComponent id="username" :label="$t('views.register.username')" v-model="form.username"
+        <InputComponent id="referref_by" :name="$t('views.register.referred_by')" v-model="form.referred_by" />
+        <InputComponent id="username" :name="$t('views.register.username')" v-model="form.username"
             :rules="[validator.required]" />
     </VRow>
     <VRow>
         <InputComponent 
             :type="showPassword ? 'password' : 'text'" 
             id="password" 
-            :label="$t('views.register.password')" 
+            :name="$t('views.register.password')" 
             v-model="form.password" 
             :rules="[validator.required]" 
             @click:append-inner="showPassword=!showPassword"
@@ -22,7 +22,7 @@
         <InputComponent 
             :type="showPasswordConfirmated ? 'password' : 'text'" 
             id="password_confirmation" 
-            :label="$t('views.register.password_confirmation')" 
+            :name="$t('views.register.password_confirmation')" 
             v-model="form.password_confirmation"
             @click:append-inner="showPasswordConfirmated=!showPasswordConfirmated"
             :rules="[validator.required]" 

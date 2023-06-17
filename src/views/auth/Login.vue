@@ -59,8 +59,8 @@ const setUser = (user:Object) => {
                         <div class="">
                             <VForm ref="refForm" @keypress.enter="SigIn">
                                 <template #default>
-                                    <InputComponent id="email" label="Email" v-model="form.email" :rules="[validator.required]"/>
-                                    <InputComponent id="password" label="Contraseña" type="password" v-model="form.password" :rules="[validator.required]"/>
+                                    <InputComponent id="email" name="Email" v-model="form.email" :rules="[validator.required]"/>
+                                    <InputComponent id="password" name="Contraseña" type="password" v-model="form.password" :rules="[validator.required]"/>
                                 </template>
                             </VForm>
                         </div>

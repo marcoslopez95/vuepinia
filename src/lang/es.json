@@ -108,6 +108,17 @@
           "content": "Cuando recibas el código de verificación, puedes continuar",
           "success": "Verificación Exitosa"
         }
+      },
+      "kyc": {
+        "title": "Kyc",
+        "verification-identity": "Verificación de Identidad",
+        "title-intructions": "Para evitar retrasos al verificar su cuenta, asegurate de :",
+        "upload-documents": "Carga los documentos como se indica a continuación",
+        "instructions": {
+          "one": "El documento debe estar en buen estado y claramente visible",
+          "two": "Asegúrate de que no haya destellos de luz en la documentación.",
+          "three": "Formatos de imagen soportados:"
+        }
       }
     }
   },

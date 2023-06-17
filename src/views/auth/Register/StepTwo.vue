@@ -7,7 +7,7 @@
     <VRow>
         <VCol>
             <SelectComponentVue
-                :label="$t('views.countries.title')"
+                :name="$t('views.countries.title')"
                 :items="userStore.countries"
                 itemTitle="attributes.name"
                 itemValue="id"
@@ -18,7 +18,7 @@
         </VCol>
         <VCol>
             <SelectComponentVue
-                :label="$t('views.departaments.title')"
+                :name="$t('views.departaments.title')"
                 :items="userStore.departaments"
                 itemTitle="attributes.name"
                 itemValue="id"
@@ -29,7 +29,7 @@
         </VCol>
         <VCol>
             <SelectComponentVue
-                :label="$t('views.municipalities.title')"
+                :name="$t('views.municipalities.title')"
                 :items="userStore.municipalities"
                 itemTitle="attributes.name"
                 itemValue="id"
@@ -42,7 +42,7 @@
     <VRow>
         <InputComponent 
             id="dirrecion" 
-            :label="$t('views.register.address')" 
+            :name="$t('views.register.address')" 
             v-model="form.address"
             :rules="[validator.required]" />
     </VRow>
