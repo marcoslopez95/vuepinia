@@ -29,7 +29,8 @@
       "document": "Document",
       "address": "Adress",
       "birth": "Birthday",
-      "title": "User | Users"
+      "title": "User | Users",
+      "password-confirmation": "Password Confirmation"
     },
     "permissions": {
       "guard_name": "Guard Name",
@@ -84,7 +85,8 @@
       "username": "Username",
       "password": "Password",
       "password_confirmation": "Password Confirmation",
-      "birth": "Birth"
+      "birth": "Birth",
+      "accept-terms-and-conditions": "I accept the <a class=\"font-weight-bold text-primary\">terms and  condictions </a>"
     },
     "unauthorized": {
       "title": "Unauthorized"
@@ -145,7 +147,8 @@
     "update": "Update",
     "verificate": "Verificate",
     "send": "Send",
-    "invalid-format": "Invalid Format"
+    "invalid-format": "Invalid Format",
+    "system-error": "System Error, please contact a admin"
   },
   "general-views": {
     "state": "State",

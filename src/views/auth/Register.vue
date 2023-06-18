@@ -9,30 +9,25 @@ import { useRouter } from "vue-router";
 import { toast } from "vue3-toastify";
 import { useI18n } from "vue-i18n";
 import { RegisterStore } from '@/stores/RegisterStore'
+import TelInput from '@/components/TelInput.vue';
 import { computed } from "vue";
-import StepOne from './Register/StepOne.vue'
-import StepTwo from './Register/StepTwo.vue'
-import { UserStore } from "@/stores/UserStore";
-import StepThree from "./Register/StepThree.vue";
-import StepFour from "./Register/StepFour.vue";
 
 const { t } = useI18n()
 const helper = helperStore()
 const router = useRouter()
-const { errorsInput } = storeToRefs(helper)
-const refForm = ref<any>(null)
+const { formRef } = storeToRefs(helper)
 const registerStore = RegisterStore()
-const { form, steps } = storeToRefs(registerStore)
-const userStore = UserStore()
-userStore.getCountries()
-userStore.getDepartaments()
-userStore.getMunicipalities()
+const { form } = storeToRefs(registerStore)
+const isPhoneValid = ref(false)
+const phoneFormat = ref('')
+const accepTerms = ref(false)
+
+const showPassword = ref(false)
+const showPasswordConfirmation = ref(false)
 
 const SigUp = async () => {
-    const { valid, errors } = await refForm.value?.validate()
+    const { valid } = await formRef.value?.validate()
     if (!valid) {
-        errorsInput.value = errors
-        steps.value = 1
         return
     }
     helper
@@ -41,100 +36,84 @@ const SigUp = async () => {
             toast.success(t('views.register.success'))
             router.push({ name: 'Login' })
         })
-        .catch((err) => {
-            steps.value = 1
-        })
-}
-
-const finished = ref(false)
-const getStep = computed(() => {
-    switch (steps.value) {
-        case 1:
-            return StepOne;
-        case 2:
-            return StepTwo;
-        case 3:
-            return StepThree;
-        case 4:
-            return StepFour;
-    }
-})
-
-const clickInNext = () => {
-    if(steps.value < 4){
-        steps.value++
-        return
-    }
-    SigUp()
 }
 </script>
 
 <template>
-    <v-row class="d-flex justify-center align-center h-100">
-        <v-col cols="12" sm="12" lg="11">
-            <v-card class="py-5">
+    <v-toolbar color="transparent" class="text-center">
+        <v-toolbar-title class="font-weight-medium text-primary">
+            {{ $t('views.register.title') }}
+        </v-toolbar-title>
+    </v-toolbar>
+    <div class="">
+        <VForm ref="formRef" class="mx-3" style="min-height: 212px;">
+            <template #default>
                 <VRow>
-                    <VCol class="text-center">
-                        <v-toolbar color="transparent">
-                            <v-toolbar-title class="font-weight-medium">
-                                {{ $t('views.register.title') }}
-                            </v-toolbar-title>
-                        </v-toolbar>
-                        <v-divider />
-                        <div class="ma-7">
-                            <VForm 
-                                ref="refForm"
-                                class="mx-3" 
-                                style="min-height: 212px;">
-                                <template #default>
-                                    <Component :is="getStep" />
-                                </template>
-                            </VForm>
-                            <VRow>
-                                <VCol>
-                                    <VBtn @click="steps ===1 ? null :steps--" :disabled="steps===1" color="error" class="w-25" rounded="pill">
-                                        {{ $t('general-views.back') }}
-                                    </VBtn>
-                                </VCol>
-                                <VCol>
-                                    <VBtnPrimary 
-                                        @click="clickInNext">
-                                        {{ steps === 4 ? $t('views.register.button') : $t('general-views.next') }}
-                                    </VBtnPrimary>
-                                </VCol>
-                            </VRow>
-                        </div>
-                        <VRow>
-                            <VCol>
-                                {{ $t('views.register.you-have-an-account') }} <RouterLink :to="{ name: 'Login' }">{{
-                                    $t('views.register.login') }}</RouterLink>
-                            </VCol>
-                        </VRow>
+                    <VCol cols="12">
+                        <InputComponent :name="$t('views.users.username')" v-model="form.username"
+                            :rules="[validator.required]" />
+                    </VCol>
+                    <VCol cols="12">
+                        <InputComponent :name="$t('views.users.first_name')" v-model="form.first_name"
+                            :rules="[validator.required]" />
+                    </VCol>
+                    <VCol cols="12">
+                        <InputComponent :name="$t('views.users.last_name')" v-model="form.last_name"
+                            :rules="[validator.required]" />
+                    </VCol>
+                    <VCol cols="12">
+                        <InputComponent :name="$t('views.users.email')" v-model="form.email"
+                            :rules="[validator.required]" />
+                    </VCol>
+                    <VCol cols="12">
+                        <TelInput v-model="phoneFormat" @phone="(phone) => form.phone = phone"
+                            @phoneCode="(code) => form.code_phone = code" :name="$t('views.profile.personal-data.phone')"
+                            required @isValid="(bool) => isPhoneValid = bool" />
+                    </VCol>
+                    <VCol cols="12">
+                        <InputComponent 
+                            :name="$t('views.users.password')" 
+                            v-model="form.password"
+                            :rules="[validator.required]"
+                            :type="!showPassword? 'password' : 'text'"
+                            :appendIcon="!showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                            @click:append-icon="showPassword = !showPassword"
+                            />
+                    </VCol>
+                    <VCol cols="12">
+                        <InputComponent 
+                            :name="$t('views.users.password-confirmation')" 
+                            v-model="form.password_confirmation"
+                            :rules="[validator.required]"
+                            :type="!showPasswordConfirmation? 'password' : 'text'"
+                            :appendIcon="!showPasswordConfirmation ? 'mdi-eye' : 'mdi-eye-off'"
+                            @click:append-icon="showPasswordConfirmation = !showPasswordConfirmation"
+                            />
                     </VCol>
                 </VRow>
-                <VSpacer></VSpacer>
-
-            </v-card>
-        </v-col>
-    </v-row>
+            </template>
+        </VForm>
+    </div>
+    <VCheckbox v-model="accepTerms">
+        <template #label>
+            <div v-html="$t('views.register.accept-terms-and-conditions')">
+            </div>
+        </template>
+    </VCheckbox>
+    <div class="text-center mt-1">
+        <VBtnPrimary @click="SigUp" :disabled="!accepTerms">
+            {{ $t('views.register.button') }}
+        </VBtnPrimary>
+    </div>
+    <VRow>
+        <VCol class="text-center text-table mt-3">
+            {{ $t('views.register.you-have-an-account') }}
+            <RouterLink :to="{ name: 'Login' }" class="text-primary font-weight-bold" style="text-decoration: none;">
+                {{ $t('views.register.login') }}
+            </RouterLink>
+        </VCol>
+    </VRow>
 </template>
 <style >
-.custom-label {
-    color: gray;
-}
 
-.v-field__field input {
-    padding-top: 0px;
-    text-align: center;
-}
-
-.v-field {
-    --v-input-control-height: 48px !important;
-    --v-field-input-padding-top: 0px !important;
-    --v-field-input-padding-bottom: 0px !important;
-    --v-field-input-min-height: 42px !important;
-    --v-input-padding-top: 2px !important;
-    --v-field-padding-top: 0px !important;
-    --v-field-padding-bottom: 1px !important;
-}
 </style>

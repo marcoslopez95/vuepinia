@@ -8,96 +8,70 @@ import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
 const helper = helperStore()
 const router = useRouter()
-const { errorsInput } = storeToRefs(helper)
-const refForm = ref<any>(null)
+const { formRef,errorsInput } = storeToRefs(helper)
 const form = ref({
     email: "",
     password: "",
 })
 
 const SigIn = async () => {
-    const {valid, errors} = await refForm.value?.validate()
-    if (!valid){
-        errorsInput.value = errors
+    const { valid } = await formRef.value?.validate()
+    if (!valid) {
+        return
     }
     helper
-        .http('login','post',{data: form.value})
-        .then((res)=>{
-            const {user,token} = res.data
+        .http('login', 'post', { data: form.value })
+        .then((res) => {
+            const { user, token } = res.data
             setLocalStorage(token)
             setUser(user)
-            router.push({name:'Dashboard'})
+            router.push({ name: 'Dashboard' })
         })
 }
 
-const setLocalStorage = (token:string) => {
+const setLocalStorage = (token: string) => {
     const getToken = token.split('|')[1]
     localStorage.setItem('token', getToken)
 }
-const setUser = (user:Object) => {
+const setUser = (user: Object) => {
     localStorage.setItem('user', JSON.stringify(user))
 }
 </script>
 
 <template>
-    <v-row class="d-flex justify-center align-center h-100">
-        <v-col cols="12" sm="12" lg="11">
-            <v-card class="py-5">
+    <v-toolbar color="transparent" class="text-center">
+        <v-toolbar-title class="font-weight-medium text-primary">
+            {{ $t('views.login.title') }}
+        </v-toolbar-title>
+    </v-toolbar>
+    <div class="">
+        <VForm ref="formRef" @keypress.enter="SigIn">
+            <template #default>
                 <VRow>
-                    <VCol cols="12" sm="8" lg="8" class="text-center d-flex align-center">
-                        <div class="mx-auto">
-                            Esto es un logo
-                        </div>
+                    <VCol cols="12">
+                        <InputComponent id="email" name="Email" v-model="form.email" :rules="[validator.required]" />
                     </VCol>
-                    <VCol cols="12" sm="4" lg="4" class="text-center">
-                        <v-toolbar color="transparent">
-                            <v-toolbar-title class="font-weight-medium">
-                                {{ $t('views.login.title')}}
-                            </v-toolbar-title>
-                        </v-toolbar>
-                        <v-divider />
-                        <div class="">
-                            <VForm ref="refForm" @keypress.enter="SigIn">
-                                <template #default>
-                                    <InputComponent id="email" name="Email" v-model="form.email" :rules="[validator.required]"/>
-                                    <InputComponent id="password" name="Contraseña" type="password" v-model="form.password" :rules="[validator.required]"/>
-                                </template>
-                            </VForm>
-                        </div>
-                        <div class="pa-5 px-15">
-                            <v-btn @click="SigIn" color="primary" class="w-75" rounded="pill">
-                                {{$t('views.login.button')}}
-                            </v-btn>
-                        </div>
-                        <VRow>
-                            <VCol>
-                                {{ $t('views.login.you-donnot-have-an-account') }} <RouterLink :to="{name:'Register'}" >{{ $t('views.login.register') }}</RouterLink>
-                            </VCol>
-                        </VRow>
+                    <VCol cols="12">
+                        <InputComponent id="password" name="Contraseña" type="password" v-model="form.password"
+                            :rules="[validator.required]" />
                     </VCol>
                 </VRow>
-                <VSpacer></VSpacer>
-                
-            </v-card>
-        </v-col>
-    </v-row>
+            </template>
+        </VForm>
+    </div>
+    <div class="text-center mt-6">
+        <VBtnPrimary @click="SigIn" >
+            {{ $t('views.login.button') }}
+        </VBtnPrimary>
+    </div>
+    <VRow>
+        <VCol class="text-table text-center mt-3">
+            {{ $t('views.login.you-donnot-have-an-account') }} 
+            <RouterLink  :to="{ name: 'Register' }" class="text-primary font-weight-bold" style="text-decoration: none;">
+                {{ $t('views.login.register') }}
+            </RouterLink>
+        </VCol>
+    </VRow>
 </template>
 <style>
-.custom-label {
-    color: gray;
-}
-
-.v-field__field input {
-    padding-top: 0px;
-    text-align: center;
-}
-.v-field{
-    --v-input-control-height: 48px !important;
-    --v-field-input-padding-top: 0px !important;
-    --v-field-input-padding-bottom: 0px !important;
-    --v-field-input-min-height:42px !important;
-    --v-input-padding-top: 2px !important;
-    --v-field-padding-top: 0px !important;
-    --v-field-padding-bottom: 1px !important;
-}
 </style>

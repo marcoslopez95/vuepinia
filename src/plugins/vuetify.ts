@@ -58,6 +58,9 @@ export default createVuetify({
     VTextField:{
       variant:"outlined",
       class: ''
+    },
+    VCheckbox: {
+      color: "primary",
     }
   },
 });

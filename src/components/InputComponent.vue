@@ -8,7 +8,7 @@
             :name="name"
             hide-details 
             single-line
-            v-model="modelValue" 
+            v-model="mValue" 
             style="max-height: 40px;" 
             :type="type ?? 'text'"
             :rules="rules" 
@@ -16,6 +16,14 @@
             :active="active??false"
             @update:model-value="emits('update:model-value',$event)"
             >
+            <template v-if="appendIcon" #append>
+                <VBtn 
+                    color="transparent" 
+                    :icon="appendIcon"
+                    style="max-height: 40px;" 
+                    @click="emits('click:append-icon')"
+                    ></VBtn>
+            </template>
         </VTextField>
     </VResponsive>
     <div class="w-100 text-center ma-0 pa-0">
@@ -30,15 +38,19 @@ import { helperStore } from '@/helper';
 import { toRefs } from 'vue';
 import { computed } from 'vue';
 
-const emits = defineEmits(['update:model-value'])
+const emits = defineEmits<{
+    (e:'update:model-value',value:any):void
+    (e:'click:append-icon'):void
+}>()
 const props = defineProps<{
     modelValue: any,
     rules?: any | any[]
     name: string
     type?: string
     active?: boolean
+    appendIcon?: string
 }>()
-const { modelValue } = toRefs(props)
+const { modelValue:mValue } = toRefs(props)
 const helper = helperStore()
 
 const errors = computed(()=>{

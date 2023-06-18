@@ -53,7 +53,12 @@ export const helperStore = defineStore('helper',<T>() => {
         }
         resolve(response)
       }catch(error: AxiosResponse | any){
-        let messages: string[] | string = error.response.data.message ?? error.response.data.data.errors
+        let messages: string[] | string;
+        if(error.response && error.response.status >= 500){
+          messages = t('commons.system-error')
+        }{
+          messages = error.response.data.message ?? error.response.data.data.errors
+        }
 
         if(typeof messages === 'string'){
           showNotify(messages,{type:'error'})

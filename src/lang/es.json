@@ -29,7 +29,8 @@
       "document": "Documento",
       "address": "Dirección",
       "birth": "Fecha de Nacimiento",
-      "title": "Usuario | Usuarios"
+      "title": "Usuario | Usuarios",
+      "password-confirmation": "Confirmar Contraseña"
     },
     "permissions": {
       "guard_name": "Guard Name",
@@ -61,8 +62,8 @@
     },
     "register": {
       "you-have-an-account": " ¿Ya tienes cuenta?",
-      "login": "Login",
-      "button": "Register",
+      "login": "Iniciar Sesión",
+      "button": "Crear Cuenta",
       "success": "Registro Exitoso",
       "title": "Registro",
       "step-one": {
@@ -84,7 +85,8 @@
       "username": "Usuario",
       "password": "Contraseña",
       "password_confirmation": "Confirmar Contraseña",
-      "birth": "Fecha de nacimiento"
+      "birth": "Fecha de nacimiento",
+      "accept-terms-and-conditions": "Acepto los <a class=\"font-weight-bold text-primary\">términos y condiciones</a>"
     },
     "unauthorized": {
       "title": "Sin autorización"
@@ -145,7 +147,8 @@
     "update": "Actualizar",
     "verificate": "Verificar",
     "send": "Enviar",
-    "invalid-format": "Formato Inválido"
+    "invalid-format": "Formato Inválido",
+    "system-error": "Error de Sistema, por favor contacte con un administrador"
   },
   "general-views": {
     "state": "Estado",
