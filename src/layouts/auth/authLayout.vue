@@ -8,8 +8,15 @@ const innerW = ref(useDisplay().smAndDown);
 
 <template>
     <v-app>
+        <v-navigation-drawer class="bg-sidebar h-100">
+            <v-list>
+                <v-list-item title="Navigation drawer">
+                </v-list-item>
+            </v-list>
+        </v-navigation-drawer>
+        
         <v-main >
-            <v-container fluid class="h-100 w-100 bg-sidebar ">
+            <v-container fluid class="h-100 w-100 ">
                 <RouterView />
             </v-container>
         </v-main>
