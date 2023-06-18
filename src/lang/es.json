@@ -118,6 +118,10 @@
           "one": "El documento debe estar en buen estado y claramente visible",
           "two": "Asegúrate de que no haya destellos de luz en la documentación.",
           "three": "Formatos de imagen soportados:"
+        },
+        "checkbox": {
+          "all-information": "Toda la información personal es correcta",
+          "terms-and-conditions": "He leído los <a href=\"#\" class=\"text-primary font-weight-bold\">términos y condiciones</a>, y la <a href=\"#\" class=\"text-primary font-weight-bold\">política de tratamiento de datos personales</a>"
         }
       }
     }
@@ -139,7 +143,9 @@
     "create-title-modal": "Crear {singular}",
     "update-successfull": "Actualizado Correctamente",
     "update": "Actualizar",
-    "verificate": "Verificar"
+    "verificate": "Verificar",
+    "send": "Enviar",
+    "invalid-format": "Formato Inválido"
   },
   "general-views": {
     "state": "Estado",

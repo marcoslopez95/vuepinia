@@ -118,6 +118,10 @@
           "one": "The document must be in good condition and clearly visible",
           "two": "Make sure there are no flashes of light in the documentation.",
           "three": "Supported images formats"
+        },
+        "checkbox": {
+          "all-information": "All personal data is correct",
+          "terms-and-conditions": "I have read the <a href=\"#\" class=\"text-primary font-weight-bold\">terms and conditions</a>, and the <a href=\"#\" class=\"text-primary font-weight-bold\">personal data processing policy</a>"
         }
       }
     }
@@ -139,7 +143,9 @@
     "create-title-modal": "Create {singular}",
     "update-successfull": "Update Successfull",
     "update": "Update",
-    "verificate": "Verificate"
+    "verificate": "Verificate",
+    "send": "Send",
+    "invalid-format": "Invalid Format"
   },
   "general-views": {
     "state": "State",
