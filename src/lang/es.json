@@ -124,8 +124,22 @@
         "checkbox": {
           "all-information": "Toda la información personal es correcta",
           "terms-and-conditions": "He leído los <a href=\"#\" class=\"text-primary font-weight-bold\">términos y condiciones</a>, y la <a href=\"#\" class=\"text-primary font-weight-bold\">política de tratamiento de datos personales</a>"
+        },
+        "warning": {
+          "failed-type-document": "Actualiza la información del tipo de documento",
+          "failed-document": "Actualiza el número de documento",
+          "failed-country": "Actualiza el país",
+          "failed-nationality": "Actualiza la nacionalidad"
+        },
+        "alert-verification": {
+          "in-verification": "Tus documentos estan en verificación",
+          "reject": "Tu verificación ha sido rechazada",
+          "accept": "Tu verificación ha sido exitosa"
         }
       }
+    },
+    "nationalityi": {
+      "title": "Nacionalidad"
     }
   },
   "genereal-views": {
@@ -148,7 +162,8 @@
     "verificate": "Verificar",
     "send": "Enviar",
     "invalid-format": "Formato Inválido",
-    "system-error": "Error de Sistema, por favor contacte con un administrador"
+    "system-error": "Error de Sistema, por favor contacte con un administrador",
+    "message-success": "{message} Exitoso"
   },
   "general-views": {
     "state": "Estado",

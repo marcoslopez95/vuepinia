@@ -4,6 +4,7 @@ import type { Departament } from "../Departament/Departament.model";
 import type { Municipality } from "../Municipality/Municipality.model";
 import type { Role } from "../Role/Role.model";
 import type { TypeDocument } from "../TypeDocument/TypeDocument.model";
+import type { Kyc } from "./Kyc/Kyc.model";
 
 export declare interface User extends BaseModelSoftDelete<UserAttributes,Relationships> {}
 export interface UserAttributes {
@@ -27,11 +28,13 @@ export interface UserAttributes {
 interface Relationships {
   roles: Role[];
   userDetail: UserDetail
+  kyc: Kyc
 }
 
 interface UserDetail extends BaseModelSoftDelete<UserDetailAttributes,UserDetailRelationships>{}
 interface UserDetailRelationships {
   country: Country;
+  nationality: Country;
   typeDocument: TypeDocument;
   municipalitie: Municipality;
   department: Departament;
@@ -40,6 +43,7 @@ interface UserDetailAttributes {
   user_id: number;
   country_id: number;
   type_documents_id: number;
+  nationality_id: number;
   department_id: number;
   municipalitie_id: number;
   document: string;

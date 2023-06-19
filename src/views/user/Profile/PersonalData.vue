@@ -1,18 +1,19 @@
 <template>
-    <VForm ref="formRef" @submit="valid">
+    <VForm ref="formRef" @submit="valid" >
         <VRow>
             <VCol lg="6" sm="12">
                 <NewInputComponentVue 
                     v-model="form.first_name" 
                     :name="$t('views.profile.personal-data.name')" 
                     :rules="[validator.required]"
+                    :disabled="statusKyc == KYC_STATUS.IN_VERIFICATION || statusKyc == KYC_STATUS.ACCEPT"
                     />
             </VCol>
             <VCol lg="6" sm="12">
                 <NewInputComponentVue 
                     v-model="form.second_name" 
                     :name="$t('views.profile.personal-data.second-name')" 
-                    :rules="[validator.required]" 
+                    :disabled="statusKyc == KYC_STATUS.IN_VERIFICATION || statusKyc == KYC_STATUS.ACCEPT"
                     />
             </VCol>
             <VCol lg="6" sm="12">
@@ -20,13 +21,14 @@
                     v-model="form.last_name" 
                     :name="$t('views.profile.personal-data.lastname')" 
                     :rules="[validator.required]" 
+                    :disabled="statusKyc == KYC_STATUS.IN_VERIFICATION || statusKyc == KYC_STATUS.ACCEPT"
                     />
             </VCol>
             <VCol lg="6" sm="12">
                 <NewInputComponentVue 
                     v-model="form.second_last_name" 
                     :name="$t('views.profile.personal-data.second-lastname')" 
-                    :rules="[validator.required]" 
+                    :disabled="statusKyc == KYC_STATUS.IN_VERIFICATION || statusKyc == KYC_STATUS.ACCEPT"
                     />
             </VCol>
             <VCol lg="6" sm="12">
@@ -55,10 +57,11 @@
             <VCol lg="6" sm="12">
                 <SelectComponentVue
                 :items="userStore.typeDocuments"
-                v-model="form.country_id"
+                v-model="form.type_documents_id"
                 :name="$t('views.type_documents.title')"
                 itemTitle="attributes.type_document"
                 itemValue="id"
+                :disabled="statusKyc == KYC_STATUS.IN_VERIFICATION || statusKyc == KYC_STATUS.ACCEPT"
                 />
             </VCol>
             <VCol lg="6" sm="12">
@@ -66,6 +69,7 @@
                     v-model="form.document" 
                     :name="$t('views.profile.personal-data.document')" 
                     :rules="[validator.required]" 
+                    :disabled="statusKyc == KYC_STATUS.IN_VERIFICATION || statusKyc == KYC_STATUS.ACCEPT"
                     />
             </VCol>
             <VCol lg="6" sm="12">
@@ -74,10 +78,18 @@
                     type="date"
                     :name="$t('views.profile.personal-data.birthday')" 
                     :rules="[validator.required]" 
+                    :disabled="statusKyc == KYC_STATUS.IN_VERIFICATION || statusKyc == KYC_STATUS.ACCEPT"
                     />
             </VCol>
             <VCol lg="6" sm="12">
-                falta nacionalidad
+                <SelectComponentVue
+                :items="userStore.countries"
+                v-model="form.nationality_id"
+                :name="$t('views.nationalityi.title')"
+                itemTitle="attributes.name"
+                itemValue="id"
+                :disabled="statusKyc == KYC_STATUS.IN_VERIFICATION || statusKyc == KYC_STATUS.ACCEPT"
+                />
             </VCol>
             <VCol lg="6" sm="12">
                 <SelectComponentVue
@@ -86,6 +98,7 @@
                 :name="$t('views.countries.title')"
                 itemTitle="attributes.name"
                 itemValue="id"
+                :disabled="statusKyc == KYC_STATUS.IN_VERIFICATION || statusKyc == KYC_STATUS.ACCEPT"
                 />
             </VCol>
             <VCol lg="6" sm="12">
@@ -95,6 +108,8 @@
                 :name="$t('views.departaments.title')"
                 itemTitle="attributes.name"
                 itemValue="id"
+                :rules="[validator.required]" 
+                :disabled="statusKyc == KYC_STATUS.IN_VERIFICATION || statusKyc == KYC_STATUS.ACCEPT"
                 />
             </VCol>
             <VCol lg="6" sm="12">
@@ -104,13 +119,14 @@
                 :name="$t('views.municipalities.title')"
                 itemTitle="attributes.name"
                 itemValue="id"
+                :disabled="statusKyc == KYC_STATUS.IN_VERIFICATION || statusKyc == KYC_STATUS.ACCEPT"
                 />
             </VCol>
             <VCol lg="6" sm="12">
                 <NewInputComponentVue 
                     v-model="form.address" 
                     :name="$t('views.profile.personal-data.address')" 
-                    :rules="[validator.required]" 
+                    :disabled="statusKyc == KYC_STATUS.IN_VERIFICATION || statusKyc == KYC_STATUS.ACCEPT"
                     />
             </VCol>
         </VRow>
@@ -136,6 +152,8 @@ import SelectComponentVue from '@/components/SelectComponent.vue';
 import TelInput from '@/components/TelInput.vue';
 import { UserStore } from '@/stores/UserStore';
 import ValidationPhone from './ValidationPhone/ValidationPhone.vue'
+import { KYC_STATUS } from '@/enums/Kyc.enum';
+import { computed } from 'vue';
 const { t } = useI18n()
 const valid = async () => {
     const { valid } = await formRef.value.validate()
@@ -148,7 +166,7 @@ const valid = async () => {
 const userStore = UserStore()
 const phoneFormat = ref('')
 const { userAuth } = storeToRefs(userStore)
-
+userStore.getTypeDocuments()
 const form = reactive<Profile>({
     address:'',
     birth:'',
@@ -156,6 +174,7 @@ const form = reactive<Profile>({
     country_id:'',
     department_id:'',
     municipalitie_id:'',
+    type_documents_id:'',
     email:'',
     document:'',
     first_name:'',
@@ -164,6 +183,7 @@ const form = reactive<Profile>({
     second_last_name:'',
     second_name:'',
     username:'',
+    nationality_id: ''
 })
 
 const getUserData = () => {
@@ -176,9 +196,9 @@ const getUserData = () => {
         form.address = userAuth.value?.relationships?.userDetail.attributes.address ?? ''
         form.birth = userAuth.value?.relationships?.userDetail.attributes.birth ?? ''
         form.code_phone = userAuth.value?.attributes.code_phone ?? ''
-        form.country_id = userAuth.value?.relationships?.userDetail.relationships?.country.id ?? ''
-        form.department_id = userAuth.value?.relationships?.userDetail.relationships?.department.id ?? ''
-        form.municipalitie_id = userAuth.value?.relationships?.userDetail.relationships?.municipalitie.id?? ''
+        form.country_id = userAuth.value?.relationships?.userDetail.relationships?.country?.id ?? ''
+        form.department_id = userAuth.value?.relationships?.userDetail.relationships?.department?.id ?? ''
+        form.municipalitie_id = userAuth.value?.relationships?.userDetail.relationships?.municipalitie?.id?? ''
         form.email = userAuth.value?.attributes.email ?? ''
         form.document = userAuth.value?.relationships?.userDetail.attributes.document ?? ''
         form.first_name = userAuth.value?.attributes.first_name ?? '' 
@@ -187,13 +207,18 @@ const getUserData = () => {
         form.second_last_name = userAuth.value?.attributes.second_last_name ?? '' 
         form.second_name = userAuth.value?.attributes.second_name ?? '' 
         form.username = userAuth.value?.attributes.username ?? '' 
+        form.type_documents_id = userAuth.value?.relationships?.userDetail.attributes.type_documents_id ?? ''
+        form.nationality_id = userAuth.value?.relationships?.userDetail.attributes.nationality_id ?? ''
     })
 }
 
 const helper = helperStore()
 const { formRef } = storeToRefs(helper)
 const isPhoneValid = ref(false)
-
+const statusKyc = computed((): KYC_STATUS | false =>{
+    const status = userAuth.value?.relationships?.kyc.attributes.status ?? false
+    return status
+})
 userStore.getCountries()
 userStore.getDepartaments()
 userStore.getMunicipalities()

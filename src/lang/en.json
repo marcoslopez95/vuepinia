@@ -124,8 +124,22 @@
         "checkbox": {
           "all-information": "All personal data is correct",
           "terms-and-conditions": "I have read the <a href=\"#\" class=\"text-primary font-weight-bold\">terms and conditions</a>, and the <a href=\"#\" class=\"text-primary font-weight-bold\">personal data processing policy</a>"
+        },
+        "warning": {
+          "failed-type-document": "Update type document",
+          "failed-document": "Update document",
+          "failed-country": "Update country",
+          "failed-nationality": "Update nationality"
+        },
+        "alert-verification": {
+          "in-verification": "yours documents is in verification",
+          "reject": "Your verification is reject",
+          "accept": "Your verification is successfull"
         }
       }
+    },
+    "nationalityi": {
+      "title": "Nationality"
     }
   },
   "genereal-views": {
@@ -148,7 +162,8 @@
     "verificate": "Verificate",
     "send": "Send",
     "invalid-format": "Invalid Format",
-    "system-error": "System Error, please contact a admin"
+    "system-error": "System Error, please contact a admin",
+    "message-success": "{message} send successfull"
   },
   "general-views": {
     "state": "State",

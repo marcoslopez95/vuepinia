@@ -12,6 +12,7 @@
             :name="name"
             v-model="modelValue" 
             :rules="rules" 
+            :disabled="disabled"
             @update:model-value="emits('update:model-value',$event)"
             :multiple="multiple??false"
             :item-title="itemTitle"
@@ -51,6 +52,7 @@ const props = defineProps<{
     itemValue: string
     itemTitle: string
     multiple?: boolean
+    disabled?: boolean
 }>()
 const { modelValue,items } = toRefs(props)
 const helper = helperStore()

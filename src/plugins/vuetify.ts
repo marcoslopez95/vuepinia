@@ -42,7 +42,8 @@ export default createVuetify({
       color: 'primary',
       rounded: 'pill',
       class: 'w-25',
-      style:"min-width:140px"
+      style:"min-width:140px",
+      type: 'button'
     },
     VBtn: {
       color: "primary",
@@ -50,6 +51,7 @@ export default createVuetify({
       flat: true,
       fontWeight: "400",
       letterSpacing: "0",
+      type: 'button'
     },
     VCard: {
       flat: true,

@@ -13,6 +13,7 @@
             :type="type ?? 'text'"
             :rules="rules" 
             density="compact"
+            :disabled="disabled"
             :active="active??false"
             @update:model-value="emits('update:model-value',$event)"
             >
@@ -49,6 +50,7 @@ const props = defineProps<{
     type?: string
     active?: boolean
     appendIcon?: string
+    disabled?: boolean
 }>()
 const { modelValue:mValue } = toRefs(props)
 const helper = helperStore()

@@ -19,7 +19,7 @@ export const RegisterStore = defineStore('register', () => {
         department_id: '',
         municipalitie_id: '',
         address: "",
-        birth: dayjs().format('YYYY-MM-DD'),
+        birth: '',
     })
     
     const steps = ref(1)

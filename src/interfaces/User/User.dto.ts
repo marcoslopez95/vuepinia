@@ -1,9 +1,11 @@
 import type { UserAttributes } from "./User.model"
 
 export declare interface Profile extends Omit<Required<UserAttributes>,OmitFields>{
+    nationality_id: '' | number
     country_id: '' | number
     department_id: '' | number
     municipalitie_id: '' | number
+    type_documents_id: '' | number
     address: string
     birth: string
     document: string
