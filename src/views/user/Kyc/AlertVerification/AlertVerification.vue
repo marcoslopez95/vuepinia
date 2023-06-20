@@ -1,14 +1,14 @@
 <template>
     <div v-if="statusKyc" class="d-flex mt-8" style="flex-flow:column ; gap:12px">
-        <VAlert v-if="statusKyc === KYC_STATUS.IN_VERIFICATION " type="info">
+        <VAlertWarning v-if="statusKyc === KYC_STATUS.IN_VERIFICATION " >
             {{ $t('views.profile.kyc.alert-verification.in-verification') }}
-        </VAlert>
-        <VAlert v-if="statusKyc === KYC_STATUS.REJECT " type="error">
+        </VAlertWarning>
+        <VAlertError v-if="statusKyc === KYC_STATUS.REJECT " >
             {{ $t('views.profile.kyc.alert-verification.reject') }}
-        </VAlert>
-        <VAlert v-if="statusKyc === KYC_STATUS.ACCEPT " type="success">
+        </VAlertError>
+        <VAlertSuccess v-if="statusKyc === KYC_STATUS.ACCEPT " >
             {{ $t('views.profile.kyc.alert-verification.accept') }}
-        </VAlert>
+        </VAlertSuccess>
     </div>
 </template>
 
@@ -26,6 +26,9 @@ const emits = defineEmits<{
 const statusKyc = computed((): KYC_STATUS | false =>{
     const status = userAuth.value?.relationships?.kyc.attributes.status ?? false
     emits('existKyc', status)
+    if(status == KYC_STATUS.ACCEPT){
+        localStorage.setItem('kyc','1');
+    }
     return status
 })
 </script>

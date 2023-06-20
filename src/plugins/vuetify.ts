@@ -46,8 +46,31 @@ export default createVuetify({
     VChipSuccess: components.VChip,
     VChipError: components.VChip,
     VChipWarning: components.VChip,
+    //--------
+    VAlertSuccess: components.VAlert,
+    VAlertError: components.VAlert,
+    VAlertWarning: components.VAlert,
   },
   defaults: {
+    VAlertSuccess: {
+      color: 'ok',
+      class: 'font-weight-bold ',
+      variant: 'tonal',
+      type:"success"
+    },
+    VAlertError: {
+      color: 'erro',
+      class: 'font-weight-bold ',
+      variant: 'tonal',
+      type:"error"
+    },
+    VAlertWarning: {
+      color: 'disabled',
+      class: 'font-weight-bold ',
+      variant: 'tonal',
+      type:"info"
+    },
+    //...........
     VChipSuccess: {
       color: 'ok',
       class: 'font-weight-bold text-uppercase',
