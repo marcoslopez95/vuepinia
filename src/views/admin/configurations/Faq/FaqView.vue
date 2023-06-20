@@ -32,8 +32,8 @@ import type { Row } from '@/interfaces/FormComponent.helper';
 import type { Head } from '@/interfaces/TableComponent.helper';
 import { storeToRefs} from 'pinia';
 import { useI18n } from 'vue-i18n';
-import type { CategoryFaq } from '@/interfaces/Faq/CategoryFaq/CategoryFaq.model';
-import type { CategoryFaqCreate } from '@/interfaces/Faq/CategoryFaq/CategoryFaq.dto';
+import type { Faq } from '@/interfaces/Faq/Faq.model';
+import type { FaqCreate } from '@/interfaces/Faq/Faq.dto';
 import SearchInputComponentVue from '@/components/global/SearchInputComponent.vue';
 import * as validator from '@/validator'
 import { FaqStore } from '@/stores/FaqStore';
@@ -52,10 +52,12 @@ const getSearch = () => {
         name: search.value
     })
 }
-const openUpdate = (item:CategoryFaq) => {
+const openUpdate = (item:Faq) => {
     itemH.value = item
-    const itemUpdate: CategoryFaqCreate = {
-        name: item.attributes.name,
+    const itemUpdate: FaqCreate = {
+        title: item.attributes.title,
+        body: item.attributes.body,
+        category_faq_id: item.attributes.category_faq_id
     }
     formCrud.value = itemUpdate
     openModalCrud.value = true;
@@ -113,8 +115,12 @@ const rows: Row[] = [
 
 const headers: Head[] = [
     {
-        name: t('general-views.name'),
-        value: 'attributes.name',
+        name: t('general-views.title'),
+        value: 'attributes.title',
+    },
+    {
+        name: t('general-views.body'),
+        value: 'attributes.body',
     },
 
 ]
