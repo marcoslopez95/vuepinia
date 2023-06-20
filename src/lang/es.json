@@ -164,6 +164,12 @@
       "title": "Moneda | Monedas",
       "abbreviation": "Abreviación",
       "symbol": "Símbolo"
+    },
+    "type-company-account": {
+      "title": "Método de Pago | Métodos de Pago"
+    },
+    "type-bank-account": {
+      "title": "Tipo de Cuenta | Tipos de Cuentas"
     }
   },
   "genereal-views": {
