@@ -79,7 +79,7 @@ const getButton = computed(():string => {
 
     <template #actions>
       <v-row class="paddingBtn">
-        <VBtn @click="closeModal()"> {{ $t('buttons.cancel') }} </VBtn>
+        <VBtnPrimary variant="outlined" @click="closeModal()"> {{ $t('buttons.cancel') }} </VBtnPrimary>
         <v-spacer></v-spacer>
         <VBtnPrimary 
           v-if="clickIn != 'Show'" 

@@ -170,6 +170,12 @@
     },
     "type-bank-account": {
       "title": "Tipo de Cuenta | Tipos de Cuentas"
+    },
+    "categories-faq": {
+      "title": "Categoría Faq | Categorías Faq"
+    },
+    "faq": {
+      "title": "Faq"
     }
   },
   "genereal-views": {
@@ -224,7 +230,9 @@
     "come-back": "Regresar",
     "goin-dashboard": "Ir al inicio",
     "status": "Estado",
-    "id": "Id"
+    "id": "Id",
+    "body": "Cuerpo",
+    "title": "Título"
   },
   "general-messages": {
     "editedSuccessfully": "Actualizado correctament",

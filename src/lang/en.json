@@ -171,6 +171,12 @@
     },
     "type-bank-account": {
       "title": "Type Bank Account | Type Bank Accounts"
+    },
+    "categories-faq": {
+      "title": "Category Faq | Categories Faq"
+    },
+    "faq": {
+      "title": "Faq"
     }
   },
   "genereal-views": {
@@ -225,7 +231,9 @@
     "come-back": "Come Back",
     "goin-dashboard": "Going to Dashboard",
     "status": "Status",
-    "id": "Id"
+    "id": "Id",
+    "body": "Body",
+    "title": "Title"
   },
   "general-messages": {
     "editedSuccessfully": "Update Successfull",
