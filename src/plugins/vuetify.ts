@@ -21,7 +21,11 @@ const Lighttheme: ThemeDefinition = {
     secondary: "#0cb9c5",
     active: '#6E60E8',
     disabled: '#809FB8',
-    sky: '#20ABE6'
+    sky: '#20ABE6',
+    'bg-ok':'#BBF3E0',
+    'bg-erro':'#E9AAC4',
+    'ok':'#1AD598',
+    'erro':'#D51A1A',
   },
 };
 
@@ -35,15 +39,57 @@ export default createVuetify({
   },
   aliases:{
     VBtnPrimary: components.VBtn,
-    // VBtnPrimary: components.VBtn,
+    VBtnSecondary: components.VBtn,
+    VBtnSuccess: components.VBtn,
+    VBtnDanger: components.VBtn,
+    //--------
+    VChipSuccess: components.VChip,
+    VChipError: components.VChip,
+    VChipWarning: components.VChip,
   },
   defaults: {
+    VChipSuccess: {
+      color: 'ok',
+      class: 'font-weight-bold text-uppercase',
+      variant: 'outlined'
+    },
+    VChipError: {
+      color: 'erro',
+      class: 'font-weight-bold text-uppercase',
+      variant: 'outlined'
+    },
+    VChipWarning: {
+      color: 'disabled',
+      class: 'font-weight-bold text-uppercase',
+      variant: 'outlined'
+    },
+    //--------------------------------
+    VBtnSuccess: {
+      rounded: 'pill',
+      style: 'color: #1AD598 !important; background-color: #BBF3E0 !important;',
+      type: 'button',
+      variant: 'flat'
+    },
+    VBtnDanger: {
+      rounded: 'pill',
+      style: 'color: #D51A1A !important; background-color: #E9AAC4 !important;',
+      type: 'button',
+      variant: 'flat'
+    },
+    // 
     VBtnPrimary: {
       color: 'primary',
       rounded: 'pill',
       class: 'w-25',
       style:"min-width:140px",
       type: 'button'
+    },
+    VBtnSecondary: {
+      color:  'primary',
+      rounded:'pill',
+      style:  "min-width:140px",
+      type:   'button',
+      variant: 'outlined'
     },
     VBtn: {
       color: "primary",

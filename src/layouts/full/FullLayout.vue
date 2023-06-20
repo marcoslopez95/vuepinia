@@ -7,6 +7,8 @@ import { useDisplay } from 'vuetify'
 import LogoDark from "./logo/LogoDark.vue";
 import MenuRightVue from "./menuRight/MenuRight.vue";
 import FooterComponent from "./FooterComponent.vue";
+import { getUserAuth } from "@/helper";
+import { ROLES } from "@/interfaces/Role/Role.enum";
 
 const drawer = ref(undefined || true);
 const innerW = ref(useDisplay().smAndDown);
@@ -16,6 +18,8 @@ onMounted(() => {
     drawer.value = !drawer.value;
   }
 });
+
+const userRole = getUserAuth().roles[0].name
 </script>
 
 <template>
@@ -61,10 +65,10 @@ onMounted(() => {
       <v-container fluid class="page-wrapper">
         <RouterView />
       </v-container>
-      <MenuRightVue v-if="!innerW" class="mr-4 mt-10" style="min-width: 340px; display: block;" />
+      <MenuRightVue v-if="!innerW && userRole !== ROLES.ADMIN" class="mr-4 mt-10" style="min-width: 340px; display: block;" />
     </v-main>
+    <FooterComponent />
     
-   <FooterComponent />
   </v-app>
 </template>
 <style lang="scss">

@@ -30,7 +30,11 @@
       "address": "Adress",
       "birth": "Birthday",
       "title": "User | Users",
-      "password-confirmation": "Password Confirmation"
+      "password-confirmation": "Password Confirmation",
+      "nationality": "Nationality",
+      "nationalities": {
+        "title": "Nacionality"
+      }
     },
     "permissions": {
       "guard_name": "Guard Name",
@@ -140,6 +144,22 @@
     },
     "nationalityi": {
       "title": "Nationality"
+    },
+    "admin": {
+      "kyc": {
+        "title": "Kyc",
+        "show": {
+          "title": "KYC information of <span class=\"text-sky\"> {fullname} </span>"
+        },
+        "geolocation": "Geolocation",
+        "check-list": "Check Lists",
+        "last-check": "Last Check",
+        "deplucity-sistem": "Duplicity System",
+        "login-valid": "SigIn Valid",
+        "selfie": "Selfie",
+        "front": "Front",
+        "back": "Back"
+      }
     }
   },
   "genereal-views": {
@@ -192,7 +212,9 @@
     "next": "Next",
     "back": "Back",
     "come-back": "Come Back",
-    "goin-dashboard": "Going to Dashboard"
+    "goin-dashboard": "Going to Dashboard",
+    "status": "Status",
+    "id": "Id"
   },
   "general-messages": {
     "editedSuccessfully": "Update Successfull",

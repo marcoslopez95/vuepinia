@@ -30,7 +30,11 @@
       "address": "Dirección",
       "birth": "Fecha de Nacimiento",
       "title": "Usuario | Usuarios",
-      "password-confirmation": "Confirmar Contraseña"
+      "password-confirmation": "Confirmar Contraseña",
+      "nationality": "Nacionalidad",
+      "nationalities": {
+        "title": "Nacionalidad"
+      }
     },
     "permissions": {
       "guard_name": "Guard Name",
@@ -140,6 +144,21 @@
     },
     "nationalityi": {
       "title": "Nacionalidad"
+    },
+    "admin": {
+      "kyc": {
+        "title": "Kyc",
+        "show": {
+          "title": "Información KYC de <span class=\"text-sky\">{fullname}</span>"
+        },
+        "geolocation": "Geolocalización",
+        "check-list": "Lista de Checkeo",
+        "last-check": "Último chequeo",
+        "deplucity-sistem": "Duplicidad en sistema",
+        "selfie": "Selfie",
+        "front": "Frente",
+        "back": "Reverso"
+      }
     }
   },
   "genereal-views": {
@@ -192,7 +211,9 @@
     "next": "Siguiente",
     "back": "Atrás",
     "come-back": "Regresar",
-    "goin-dashboard": "Ir al inicio"
+    "goin-dashboard": "Ir al inicio",
+    "status": "Estado",
+    "id": "Id"
   },
   "general-messages": {
     "editedSuccessfully": "Actualizado correctament",

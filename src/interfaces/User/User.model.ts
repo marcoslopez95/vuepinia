@@ -4,6 +4,7 @@ import type { Departament } from "../Departament/Departament.model";
 import type { Municipality } from "../Municipality/Municipality.model";
 import type { Role } from "../Role/Role.model";
 import type { TypeDocument } from "../TypeDocument/TypeDocument.model";
+import type { ActivityUser } from "./Activities/Activity.model";
 import type { Kyc } from "./Kyc/Kyc.model";
 
 export declare interface User extends BaseModelSoftDelete<UserAttributes,Relationships> {}
@@ -29,6 +30,7 @@ interface Relationships {
   roles: Role[];
   userDetail: UserDetail
   kyc: Kyc
+  last_connection: ActivityUser
 }
 
 interface UserDetail extends BaseModelSoftDelete<UserDetailAttributes,UserDetailRelationships>{}
