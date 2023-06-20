@@ -160,6 +160,11 @@
         "front": "Front",
         "back": "Back"
       }
+    },
+    "currencies": {
+      "title": "Currency | Currencies",
+      "abbreviation": "Abbreviation",
+      "symbol": "Symbol"
     }
   },
   "genereal-views": {

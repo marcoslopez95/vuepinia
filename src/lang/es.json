@@ -159,6 +159,11 @@
         "front": "Frente",
         "back": "Reverso"
       }
+    },
+    "currencies": {
+      "title": "Moneda | Monedas",
+      "abbreviation": "Abreviación",
+      "symbol": "Símbolo"
     }
   },
   "genereal-views": {

@@ -66,23 +66,27 @@ const getButton = computed(():string => {
 </script>
 
 <template>
-  <DialogBase :dialog="openModalCrud" :widthDialog="'1000px'" @closeDialog="openModalCrud = false">
+  <DialogBase 
+    :dialog="openModalCrud" 
+    :widthDialog="'1000px'" 
+    @closeDialog="openModalCrud = false"
+    footer>
     <template #title>{{ getTitle }}</template>
 
     <template #content>
-      <FormComponent :rows="rows" />
+      <FormComponent :rows="rows"></FormComponent>
     </template>
 
     <template #actions>
       <v-row class="paddingBtn">
         <VBtn @click="closeModal()"> {{ $t('buttons.cancel') }} </VBtn>
         <v-spacer></v-spacer>
-        <VBtn 
-          v-if="helper.clickIn !== 'Show'" 
+        <VBtnPrimary 
+          v-if="clickIn != 'Show'" 
           variant="elevated" 
           @click="CreateOrUpdate"> 
           {{ getButton }} 
-          </VBtn>
+          </VBtnPrimary>
       </v-row>
     </template>
   </DialogBase>

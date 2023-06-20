@@ -35,29 +35,34 @@ import { helperStore } from '@/helper';
 import { storeToRefs } from 'pinia';
 import { watch , shallowRef} from 'vue';
 import BanksView from './banks/BanksView.vue';
+import CurrencyView from './currencies/CurrencyView.vue';
 const { t } = useI18n()
 const helper = helperStore()
 const tabActive = ref('')
 const tabs = shallowRef<{name:string,value:any}[]>([
     {
-        name: t('views.countries.title'),
+        name: t('views.countries.title',2),
         value: CountryView
     },
     {
-        name: t('views.departaments.title'),
+        name: t('views.departaments.title',2),
         value: DepartamentsView
     },
     {
-        name: t('views.municipalities.title'),
+        name: t('views.municipalities.title',2),
         value: MunicipalitiesView
     },
     {
-        name: t('views.type_documents.title'),
+        name: t('views.type_documents.title',2),
         value: TypeDocumentsView
     },
     {
-        name: t('views.banks.title'),
+        name: t('views.banks.title',2),
         value: BanksView
+    },
+    {
+        name: t('views.currencies.title',2),
+        value: CurrencyView
     },
 ])
 
