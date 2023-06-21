@@ -24,7 +24,7 @@ const emits = defineEmits<{
     (e: 'existKyc',value: KYC_STATUS | false): void
 }>()
 const statusKyc = computed((): KYC_STATUS | false =>{
-    const status = userAuth.value?.relationships?.kyc.attributes.status ?? false
+    const status = userAuth.value?.relationships?.kyc?.attributes?.status ?? false
     emits('existKyc', status)
     if(status == KYC_STATUS.ACCEPT){
         localStorage.setItem('kyc','1');

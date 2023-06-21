@@ -216,7 +216,7 @@ const helper = helperStore()
 const { formRef } = storeToRefs(helper)
 const isPhoneValid = ref(false)
 const statusKyc = computed((): KYC_STATUS | false =>{
-    const status = userAuth.value?.relationships?.kyc.attributes.status ?? false
+    const status = userAuth.value?.relationships?.kyc?.attributes?.status ?? false
     return status
 })
 userStore.getCountries()

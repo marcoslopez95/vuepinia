@@ -199,7 +199,7 @@
     "send": "Enviar",
     "invalid-format": "Formato Inválido",
     "system-error": "Error de Sistema, por favor contacte con un administrador",
-    "message-success": "{message} Exitoso"
+    "message-success": "{message} enviado Exitosamente"
   },
   "general-views": {
     "state": "Estado",

@@ -1,6 +1,8 @@
 <template>
     <h2 class="text-primary">{{ $t('views.profile.kyc.verification-identity') }}</h2>
     <AlertVerification @exist-kyc="(e) => existKyc = e"/>
+    <WarningPersonalData v-model="validPersonalData" @personal-data="setForm" />
+
     <div v-if="!existKyc || existKyc == KYC_STATUS.REJECT">
         <div>
             <p class="text-table mt-4">
@@ -55,7 +57,6 @@
                     </template>
                 </VCheckbox>
             </VForm>
-            <WarningPersonalData v-model="validPersonalData" @personal-data="setForm" />
             <div class="w-100 text-center">
                 <VBtnPrimary @click="sendKyc" :disabled="!enabledButton" class=""> {{ $t('commons.send') }} </VBtnPrimary>
             </div>
