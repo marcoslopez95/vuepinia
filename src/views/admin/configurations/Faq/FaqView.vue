@@ -38,7 +38,7 @@ import SearchInputComponentVue from '@/components/global/SearchInputComponent.vu
 import * as validator from '@/validator'
 import { FaqStore } from '@/stores/FaqStore';
 const helper = helperStore()
-helper.url = 'category/faq'
+helper.url = 'faq'
 
 helper.index()
 
