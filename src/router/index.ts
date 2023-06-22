@@ -8,6 +8,12 @@ const router = createRouter({
   history: createWebHistory("/"),
   routes: [
     {
+      name: "Home",
+      path: "/home",
+      component: () =>
+        import("@/views/HomeView.vue"),
+    },
+    {
       path: "/auth",
       redirect: "/login",
       component: () => import("@/layouts/auth/authLayout.vue"),
@@ -39,6 +45,7 @@ const router = createRouter({
       children: [
         ...admin,
         ...user,
+        
         {
           name: "Dashboard",
           path: "/dashboard",
