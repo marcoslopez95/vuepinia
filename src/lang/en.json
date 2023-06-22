@@ -59,7 +59,11 @@
       "title": "Departament  | Departaments"
     },
     "configurations": {
-      "title": "Configuration | Configurations"
+      "title": "Configuration | Configurations",
+      "tabs": {
+        "general-configs": "General Configs",
+        "finanncing": "Finanncing"
+      }
     },
     "banks": {
       "title": "Bank | Banks"
