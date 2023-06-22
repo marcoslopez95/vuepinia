@@ -70,8 +70,8 @@ const selectedItem  = () => {
 }
 
 const itemsWithSelectable = computed(()=>{
-    if(!items.value.find((e) => e.id == '')){
-        items.value.unshift(selectedItem())
+    if(!items.value?.find((e) => e.id == '')){
+        items.value?.unshift(selectedItem())
     }
     return items.value
 })

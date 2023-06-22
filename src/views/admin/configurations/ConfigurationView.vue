@@ -40,6 +40,8 @@ import PaymentMethodView from './PaymentMethod/PaymentMethodView.vue';
 import TypeBankAccountView from './TypeBankAccount/TypeBankAccountView.vue';
 import CategoriesFaqView from './Faq/CategoriesFaqView.vue';
 import FaqView from './Faq/FaqView.vue';
+import BankAccountCompanyView from './CompanyAccounts/Bank/BankAccountCompanyView.vue';
+
 const { t } = useI18n()
 const helper = helperStore()
 const tabActive = ref('')
@@ -83,6 +85,10 @@ const tabs = shallowRef<{name:string,value:any}[]>([
     {
         name: t('views.faq.title',2),
         value: FaqView
+    },
+    {
+        name: t('views.company-accounts.bank.title',2),
+        value: BankAccountCompanyView
     },
 ])
 

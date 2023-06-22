@@ -14,7 +14,7 @@
             />
             <SelectComponent
               v-else-if="field.type === 'select'"
-              :items="(field.select?.items.value as any[])"
+              :items="(field.select!.items as any)"
               v-model="form[field.valueForm]"
               :name="field.label"
               :item-title="field.select!.itemTitle"

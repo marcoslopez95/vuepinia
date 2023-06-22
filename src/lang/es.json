@@ -176,6 +176,14 @@
     },
     "faq": {
       "title": "Faq"
+    },
+    "company-accounts": {
+      "bank": {
+        "title": "Cuenta Bancaria | Cuentas Bancarias",
+        "account-number": "Número de Cuenta",
+        "beneficiary": "Beneficiario",
+        "identification-document": "Documento de Identidad"
+      }
     }
   },
   "genereal-views": {

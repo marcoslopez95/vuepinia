@@ -113,6 +113,7 @@ export const helperStore = defineStore('helper',<T>() => {
     5, 10, 15
   ]
 
+  const defaultParams = ref<any>({})
   const index = async (params:any = {}) => {
     items.value = []
     let response:any = await http(url.value,'get',{
@@ -120,7 +121,8 @@ export const helperStore = defineStore('helper',<T>() => {
         ...params,
         perPage: pagination.perPage,
         page: pagination.currentPage,
-        pag: pagination.perPage
+        pag: pagination.perPage,
+        ...defaultParams.value
       }
     })
     items.value = response.data.response?.data ?? response.data.response
@@ -277,7 +279,8 @@ export const helperStore = defineStore('helper',<T>() => {
     clickIn,
     formCrud,
     formRef,
-    openModalCrud
+    openModalCrud,
+    defaultParams
   }
 })
 

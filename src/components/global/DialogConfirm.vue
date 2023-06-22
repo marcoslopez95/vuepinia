@@ -45,7 +45,7 @@ const emit = defineEmits([
 </script>
 
 <template>
-    <DialogBase :dialog="dialog" :widthDialog="widthDialog" @closeDialog="emit('closeDialog')">
+    <DialogBase footer :dialog="dialog" :widthDialog="widthDialog" @closeDialog="emit('closeDialog')">
         <template #title>{{ title }}</template>
         <template #content>
             {{ content }}

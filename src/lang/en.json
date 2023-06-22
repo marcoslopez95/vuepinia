@@ -177,6 +177,14 @@
     },
     "faq": {
       "title": "Faq"
+    },
+    "company-accounts": {
+      "bank": {
+        "title": "Bank Account |  Bank Accounts",
+        "account-number": "Account Number",
+        "beneficiary": "Beneficiary",
+        "identification-document": "Identification Document"
+      }
     }
   },
   "genereal-views": {

@@ -88,7 +88,7 @@ const rows: Row[] = [
             {
                 label: t('general-views.name'),
                 type: 'text',
-                valueForm: 'type_document',
+                valueForm: 'name',
                 rules: [
                     validator.required
                 ]
@@ -97,11 +97,11 @@ const rows: Row[] = [
                 label: t('general-views.description'),
                 type: 'text',
                 valueForm: 'description',
-            }
-        ]
+            // }
+        // ]
     },
-    {
-        fields: [
+    // {
+        // fields: [
             {
                 label: t('views.countries.title'),
                 type: 'select',
