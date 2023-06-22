@@ -212,11 +212,11 @@ interface Props {
 </script>
 
 <template>
-  <VTable :fixed-header="fixedHeader" :height="fixedHeader ? heightTable : ''" hide-default-footer disable-sort>
+  <VTable density="compact" :fixed-header="fixedHeader" :height="fixedHeader ? heightTable : ''" hide-default-footer disable-sort>
     <thead style="background-color: #FBFBFB; font-size: 16px;">
-      <tr>
+      <tr >
         <slot v-for="head, i in headers" :name="setNameHead(head.value)">
-          <th class="text-center text-primary text-capitalize">
+          <th class="text-center text-primary text-capitalize" >
             {{ head.name }}
           </th>
         </slot>
