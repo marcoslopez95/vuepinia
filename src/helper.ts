@@ -146,7 +146,12 @@ export const helperStore = defineStore('helper',<T>() => {
     return new Promise(async (resolve, reject) => {
       try{
         let message = notification ? t("general-messages.editedSuccessfully") : ''
-        let response = await http(url.value+'/'+id,'put',{data},message)
+        let response = await http(url.value+'/'+id,'put',{
+          data: {
+            ...data,
+            ...defaultParamsByCrud.value
+          }
+        },message)
         
         resolve(response)
       }catch(err){
@@ -155,11 +160,17 @@ export const helperStore = defineStore('helper',<T>() => {
     })
   }
 
+  const defaultParamsByCrud = ref<any>({})
   const create = (data:any, notificacion: boolean = true) => {
     return new Promise(async (resolve, reject) => {
       try{
         let message = notificacion ? t("general-messages.createdSuccessfully") : ''
-        let response = await http(url.value,'post',{data}, message)
+        let response = await http(url.value,'post',{
+          data: {
+            ...data,
+            ...defaultParamsByCrud.value
+          }
+        }, message)
         
         resolve(response)
       }catch(err){
@@ -280,7 +291,8 @@ export const helperStore = defineStore('helper',<T>() => {
     formCrud,
     formRef,
     openModalCrud,
-    defaultParams
+    defaultParams,
+    defaultParamsByCrud
   }
 })
 

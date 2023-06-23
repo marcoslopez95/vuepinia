@@ -77,7 +77,9 @@ import TypeBankAccountView from './TypeBankAccount/TypeBankAccountView.vue';
 import CategoriesFaqView from './Faq/CategoriesFaqView.vue';
 import FaqView from './Faq/FaqView.vue';
 import BankAccountCompanyView from './CompanyAccounts/Bank/BankAccountCompanyView.vue';
+import EfectyAccountCompanyView from './CompanyAccounts/Efecty/EfectyAccountCompanyView.vue'
 import items from '@/layouts/full/sidebar/items/AdminItems';
+import OtherAccountCompanyView from './CompanyAccounts/Other/OtherAccountCompanyView.vue';
 
 const { t } = useI18n()
 const helper = helperStore()
@@ -131,12 +133,20 @@ const tabs = shallowRef<ItemTab[]>([
     },
   
     {
-        name: t('views.configurations.tabs.finanncing'),
+        name: t('views.configurations.tabs.company-account.title'),
         value: 'finanzas',
         children: [
             {
                 name: t('views.company-accounts.bank.title',2),
                 value: BankAccountCompanyView
+            },
+            {
+                name: t('views.company-accounts.efecty.title',2),
+                value: EfectyAccountCompanyView
+            },
+            {
+                name: t('views.company-accounts.other.title',2),
+                value: OtherAccountCompanyView
             },
         ]
     },

@@ -62,7 +62,10 @@
       "title": "Configuration | Configurations",
       "tabs": {
         "general-configs": "General Configs",
-        "finanncing": "Finanncing"
+        "finanncing": "Finanncing",
+        "company-account": {
+          "title": "Company Account"
+        }
       }
     },
     "banks": {
@@ -187,7 +190,18 @@
         "title": "Bank Account |  Bank Accounts",
         "account-number": "Account Number",
         "beneficiary": "Beneficiary",
-        "identification-document": "Identification Document"
+        "identification-document": "Identification Document",
+        "limit": "Limit",
+        "recommendation": "Recomendation",
+        "coordinate": "Coordinate"
+      },
+      "efecty": {
+        "title": "Ubication | Ubications",
+        "link": "Link",
+        "location": "Location"
+      },
+      "other": {
+        "title": "Other Account | Other Accounts"
       }
     }
   },

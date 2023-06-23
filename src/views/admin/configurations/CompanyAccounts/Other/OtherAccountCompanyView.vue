@@ -6,7 +6,7 @@
         </VBtn>
     </div>
 
-    <CrudComponent :singular="$t('views.company-accounts.bank.title')" :rows="rows"></CrudComponent>
+    <CrudComponent :singular="$t('views.company-accounts.other.title')" :rows="rows"></CrudComponent>
     <TableComponentVue
     optionsHabilit
     icon-update
@@ -32,16 +32,16 @@ import type { Row } from '@/interfaces/FormComponent.helper';
 import type { Head } from '@/interfaces/TableComponent.helper';
 import { storeToRefs} from 'pinia';
 import { useI18n } from 'vue-i18n';
-import type { BankAccount } from '@/interfaces/CompanyAccount/BankAccount/BankAccount.model';
-import type { BankAccountCreate } from '@/interfaces/CompanyAccount/BankAccount/BankAccount.dto';
+import type { OtherAccount } from '@/interfaces/CompanyAccount/OtherAccount/OtherAccount.model';
+import type { OtherAccountCreate } from '@/interfaces/CompanyAccount/OtherAccount/OtherAccount.dto';
 import SearchInputComponentVue from '@/components/global/SearchInputComponent.vue';
 import * as validator from '@/validator'
 import { PAYMENT_METHODS_AVAILABLE } from '@/enums/PaymentMethod.enum';
 import { CompanyAccountStore } from '@/stores/CompanyAccountStore';
 const helper = helperStore()
 helper.url = 'company/account'
-helper.defaultParams.type_company_account_id = PAYMENT_METHODS_AVAILABLE.BANK
-helper.defaultParamsByCrud.type_company_account_id = PAYMENT_METHODS_AVAILABLE.BANK
+helper.defaultParams.type_company_account_id = PAYMENT_METHODS_AVAILABLE.OTHER
+helper.defaultParamsByCrud.type_company_account_id = PAYMENT_METHODS_AVAILABLE.OTHER
 helper.index()
 
 const search = ref<string>('')
@@ -58,20 +58,20 @@ companyAccount.getPaymentMethods()
 companyAccount.getTypeBankAccounts()
 const { banks,currencies,paymentMethods,typeBankAccounts } = storeToRefs(companyAccount)
 
-const openUpdate = (item:BankAccount) => {
+const openUpdate = (item:OtherAccount) => {
     itemH.value = item
-    const itemUpdate: BankAccountCreate = {
+
+    const itemUpdate: OtherAccountCreate = {
         account_number: item.attributes.account_number,
-        bank_id: item.attributes.bank_id,
         beneficiary: item.attributes.beneficiary,
         currency_id: item.relationships!.currency.id,
         description: item.attributes.description,
         identification_document: item.attributes.identification_document,
-        limit: item.attributes.limit,
         recommendation: item.attributes.recommendation,
         type_company_account_id: item.attributes.type_company_account_id,
-        type_company_bank_account_id: item.attributes.type_company_bank_account_id
-
+        code_phone: item.attributes.code_phone,
+        limit: item.attributes.limit,
+        phone: item.attributes.phone,
     }
     formCrud.value = itemUpdate
     openModalCrud.value = true;
@@ -105,34 +105,9 @@ const rows: Row[] = [
                     items: currencies,
                     itemTitle: 'attributes.name',
                     itemValue: 'id',
-                }
+                },
+                
             },
-            {
-                label: t('views.banks.title'),
-                valueForm: 'bank_id',
-                rules: [
-                    validator.required
-                ],
-                type: 'select',
-                select: {
-                    items: banks,
-                    itemTitle: 'attributes.name',
-                    itemValue: 'id',
-                }
-            },
-            {
-                label: t('views.type-bank-account.title'),
-                valueForm: 'type_company_bank_account_id',
-                rules: [
-                    validator.required
-                ],
-                type: 'select',
-                select: {
-                    items: typeBankAccounts,
-                    itemTitle: 'attributes.name',
-                    itemValue: 'id',
-                }
-            }
         ]
     },
     {
@@ -158,6 +133,25 @@ const rows: Row[] = [
                 valueForm: 'identification_document',
                 rules: [
                     validator.required
+                ],
+                type: 'text',
+            }
+        ]
+    },
+    {
+        fields: [
+            {
+                label: t('views.users.code_phone'),
+                valueForm: 'code_phone',
+                rules: [
+                    validator.required
+                ],
+                type: 'text',
+            },
+            {
+                label: t('views.users.phone'),
+                valueForm: 'phone',
+                rules: [
                 ],
                 type: 'text',
             }
@@ -199,14 +193,6 @@ const rows: Row[] = [
 
 const headers: Head[] = [
     {
-        name: t('views.banks.title'),
-        value: 'relationships.bank.attributes.name',
-    },
-    {
-        name: t('views.type-bank-account.title'),
-        value: 'relationships.typeAccountBank.attributes.name',
-    },
-    {
         name: t('views.currencies.title'),
         value: 'relationships.currency.attributes.abbreviation',
     },
@@ -217,6 +203,10 @@ const headers: Head[] = [
     {
         name: t('views.company-accounts.bank.account-number'),
         value: 'attributes.account_number',
+    },
+    {
+        name: t('views.company-accounts.bank.limit'),
+        value: 'attributes.limit',
     },
 
 ]
