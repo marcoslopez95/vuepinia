@@ -27,7 +27,7 @@
             </template>
         </VTextField>
     </VResponsive>
-    <div class="w-100 text-center ma-0 pa-0">
+    <div class="w-100 text-center ma-0 pa-0" >
         <VLabel v-if="errors" class="text-error ml-5 font-weight-bold ">
             {{ errors }}
         </VLabel>
