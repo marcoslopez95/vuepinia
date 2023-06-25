@@ -11,14 +11,24 @@
         <!-- Contenido de la barra de navegación -->
         <template #append>
             <LangComponent :class="isScrolled ? 'text-white' : 'text-table'" />
-            <VBtnPrimary 
-                class="font-weight-bold mr-4" 
-                :class="[isScrolled?'text-white' : 'text-table']"
-                :variant="isScrolled ? 'flat' : 'plain'" 
-                >{{$t('views.login.title')}}</VBtnPrimary>
-            <VBtnPrimary
-                :color="isScrolled ? 'white':'primary'" 
-            >{{$t('views.register.title')}}</VBtnPrimary>
+            <div v-if="!userLogged" class="">
+                <VBtnPrimary 
+                    class="font-weight-bold mr-4" 
+                    :class="[isScrolled?'text-white' : 'text-table']"
+                    :variant="isScrolled ? 'flat' : 'plain'" 
+                    @click="router.push({name: 'Login'})"
+                    >{{$t('views.login.title')}}</VBtnPrimary>
+                <VBtnPrimary
+                    :color="isScrolled ? 'white':'primary'" 
+                    @click="router.push({name: 'Register'})"
+                >{{$t('views.register.title')}}</VBtnPrimary>
+            </div>
+            <div v-else>
+                <VBtnPrimary
+                    :color="isScrolled ? 'white':'primary'" 
+                    @click="router.push({name: 'Dashboard'})"
+                >{{$t('views.home.dashboard')}}</VBtnPrimary>
+            </div>
         </template>
     </VAppBar>
 </template>
@@ -29,8 +39,13 @@ import { onMounted, onUnmounted } from 'vue';
 import LogoLight from './NavBar/LightLogo.vue'
 import LangComponent from '@/components/LangComponent.vue'
 import { computed } from 'vue';
+import { useRouter } from 'vue-router';
+import { isAutenticated } from '@/helper';
 
+const router = useRouter()
 const currentColor = ref('transparent')
+
+const userLogged = isAutenticated()
 const handleScroll = () => {
     const scrollTop = window.scrollY;
     const scrollThreshold = 200; // Umbral de desplazamiento para cambiar el estado

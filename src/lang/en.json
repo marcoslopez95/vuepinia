@@ -207,7 +207,8 @@
     "home": {
       "calculator": {
         "title": "Calculator Transactions"
-      }
+      },
+      "dashboard": "Dashboard"
     }
   },
   "genereal-views": {

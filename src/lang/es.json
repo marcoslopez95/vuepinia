@@ -206,7 +206,8 @@
     "home": {
       "calculator": {
         "title": "Calcula tu transancción"
-      }
+      },
+      "dashboard": "Dashboard"
     }
   },
   "genereal-views": {
