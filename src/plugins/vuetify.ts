@@ -26,7 +26,13 @@ const Lighttheme: ThemeDefinition = {
     'bg-erro':'#E9AAC4',
     'ok':'#1AD598',
     'erro':'#D51A1A',
-    'tab': '#809FB8'
+    'tab': '#809FB8',
+    //....................
+    'purple': '#7415AE',
+    'green': '#15AE49',
+    'red-300': '#DF4385',
+    'blue-sky': '#1697DF'
+
   },
 };
 

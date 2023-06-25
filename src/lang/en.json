@@ -203,6 +203,11 @@
       "other": {
         "title": "Other Account | Other Accounts"
       }
+    },
+    "home": {
+      "calculator": {
+        "title": "Calculator Transactions"
+      }
     }
   },
   "genereal-views": {

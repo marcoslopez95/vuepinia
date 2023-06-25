@@ -40,7 +40,7 @@ const router = createRouter({
     },
     {
       path: "/",
-      redirect: "/dashboard",
+      redirect: "/home",
       component: () => import("@/layouts/full/FullLayout.vue"),
       children: [
         ...admin,

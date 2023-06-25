@@ -4,7 +4,7 @@ import { useRouter } from "vue-router";
 const router = useRouter()
 
 const comeBack = () => {
-    return router.push({name: 'Dashboard'})
+    return router.push({name: 'Home'})
 }
 </script>
 

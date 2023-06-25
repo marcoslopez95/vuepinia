@@ -202,6 +202,11 @@
       "other": {
         "title": "Otra Cuenta | Otras Cuentas"
       }
+    },
+    "home": {
+      "calculator": {
+        "title": "Calcula tu transancción"
+      }
     }
   },
   "genereal-views": {
