@@ -13,6 +13,7 @@
             </VSpacer>
             <FourElement />
         </v-main>
+        <FooterComponent />
     </v-app>
 </template>
 
@@ -22,4 +23,6 @@ import FirstElement from './Home/FirstElement.vue';
 import SecondElement from './Home/SecondElement.vue';
 import ThreeElement from './Home/ThreeElement.vue';
 import FourElement from './Home/FourElement.vue'
+import FooterComponent from '@/layouts/full/FooterComponent.vue';
+
 </script>
