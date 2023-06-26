@@ -9,6 +9,9 @@
             <VSpacer class="my-3">
             </VSpacer>
             <ThreeElement />
+            <VSpacer class="my-3">
+            </VSpacer>
+            <FourElement />
         </v-main>
     </v-app>
 </template>
@@ -18,4 +21,5 @@ import NavBar from './Home/NavBar.vue';
 import FirstElement from './Home/FirstElement.vue';
 import SecondElement from './Home/SecondElement.vue';
 import ThreeElement from './Home/ThreeElement.vue';
+import FourElement from './Home/FourElement.vue'
 </script>
