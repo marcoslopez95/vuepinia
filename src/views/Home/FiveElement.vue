@@ -2,7 +2,7 @@
     <VRow>
         <VCol :cols="isMobile ? 12:6">
             <VList>
-                <VListItem v-for="item,i in (isMobile ? [...firstColumn,...secondColumn] as Element[] : firstColumn)" :key="i" class="text-h6 my-3">
+                <VListItem v-for="item,i in firstColumnComputed" :key="i" class="text-h6 my-3">
                     <template #prepend>
                         <div class="bg-primary rounded-lg"
                             :class="isMobile? 'pa-2':'pa-1'">
@@ -46,6 +46,7 @@ import CheckShieldIcon from './FiveElement/CheckShield.vue'
 import OperationIcon from './FiveElement/OperationIcon.vue'
 import { ref } from 'vue'
 import { useDisplay } from 'vuetify/lib/framework.mjs'
+import { computed } from 'vue'
 
 const isMobile = ref(useDisplay().smAndDown)
 
@@ -79,6 +80,12 @@ const secondColumn : Element[] = [
     },
 ]
 
+const firstColumnComputed = computed((): Element[]=>{
+    if(isMobile.value){
+        return [...firstColumn,...secondColumn] 
+    }
+    return firstColumn
+})
 interface Element {
     text: string
     icon: any
