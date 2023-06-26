@@ -1,27 +1,41 @@
 <template>
-    <div class="fond_monedas px-3 text-white" >
-        <VRow>
-            <VCol cols="6" class="text-center d-flex" style="flex-direction: column;">
+    <div class="px-3 text-white mb-4 mt-10" 
+    :class="!isMobile ? 'fond_monedas' : '' "
+    >
+        <VRow class="px-6">
+            <VCol :cols="isMobile ? 12 :6" 
+                class="text-center d-flex" 
+                style="flex-direction: column;">
                 <div>
-                    <VIcon size="500" :icon="img1" />
+                    <VIcon :size="isMobile? 300 :500" :icon="img1" />
                 </div>
-                <div>
-                    <p class="text-h4 font-weight-bold">
+                <div class="text-left" :class="{
+                    'text-table': isMobile
+                }">
+                    <p class="text-h4 font-weight-bold text-center"
+                    :class="{
+                        'text-primary': isMobile
+                    }">
                         Nuestro objetivo: La Rapidez  
                     </p>
-                    <p>La palabra CELER proviene del latin y significa rápido, y las transaciones en criptomonedas deben ser rapidas y eficientes.</p>
-                    <p>xeler nace en Colombia en 2019 como plataforma automatizada, en base a la experiencia adquirida desde el 2014 en el mercado persona  a persona.</p>
-                    <p>Entendemos que el dinero en efectivo cumple una función primordial en la economía colombiana por lo tanto esta 100% integrado a nuestras operaciones.</p>
+                    <p class="my-4">La palabra CELER proviene del latin y significa rápido, y las transaciones en criptomonedas deben ser rapidas y eficientes.</p>
+                    <p class="my-4">xeler nace en Colombia en 2019 como plataforma automatizada, en base a la experiencia adquirida desde el 2014 en el mercado persona  a persona.</p>
+                    <p class="my-4">Entendemos que el dinero en efectivo cumple una función primordial en la economía colombiana por lo tanto esta 100% integrado a nuestras operaciones.</p>
                 </div>
             </VCol>
-            <VCol cols="6" class="text-center d-flex" style="flex-direction: column;">
+            <VCol 
+                :cols="isMobile ? 12 :6" 
+                class="text-center d-flex" 
+                style="flex-direction: column;"
+                :class="isMobile ? 'fond_monedas' : '' "
+            >
                 <div>
-                    <VIcon size="500" :icon="img2" />
+                    <VIcon :size="isMobile? 300 :500" :icon="img2" />
                 </div>
-                <div>
+                <div class="text-left">
 
-                    <p class="text-h4 font-weight-bold">Las mejores Criptomonedas </p>
-                    <p>Estamos en constante actualización incluyendo en nuestro sistema las criptomonedas de mayor capitalización, las cuales puedes intercambiar por pesos y viceversa, listamos las monedas que consideramos tienen un volumen importante de operaciones y por supuesto los proyectos solidos.</p>
+                    <p class="text-h4 font-weight-bold text-center">Las mejores Criptomonedas </p>
+                    <p class="my-4">Estamos en constante actualización incluyendo en nuestro sistema las criptomonedas de mayor capitalización, las cuales puedes intercambiar por pesos y viceversa, listamos las monedas que consideramos tienen un volumen importante de operaciones y por supuesto los proyectos solidos.</p>
                 </div>
             </VCol>
         </VRow>
@@ -31,6 +45,11 @@
 <script setup lang="ts">
 import img1 from './FourElement/img1.vue'
 import img2 from './FourElement/img2.vue'
+import { ref } from 'vue'
+import { useDisplay } from 'vuetify/lib/framework.mjs'
+
+const isMobile = ref(useDisplay().smAndDown)
+
 </script>
 
 <style scoped>

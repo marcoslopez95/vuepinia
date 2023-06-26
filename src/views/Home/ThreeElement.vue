@@ -1,6 +1,6 @@
 <template>
     <VRow class="d-flex align-center justify-space-between" style="max-height: 400px;">
-        <VCol cols="1">
+        <VCol cols="1" v-if="!isMobile">
 
             <VIcon size="50" @click="back">
                 <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -12,24 +12,68 @@
             </VIcon>
         </VCol>
 
-        <VCol >
-            <VCarousel :show-arrows="false" hide-delimiters v-model="model">
-                <v-carousel-item value="0" cover>
-                    <VRow class="d-flex align-center h-100" style="">
-                        <VCol cols="6">
+        <VCol>
+            <VCarousel :height="isMobileSmall ? 450:300" hide-delimiter-background cycle interval="2000" :show-arrows="false" :hide-delimiters="!isMobile"  v-model="model">
+                <v-carousel-item v-if="!isMobile" :value="i" cover v-for="item, i in items" :key="i">
+                    <div class="d-flex align-center h-100" style="gap:12px">
+                        <div>
+                            <VCard class="mx-auto firstCard" height="250px" >
+                                <VCardText class="">
+                                    <div class="d-flex align-center" style="flex-flow: row; gap: 12px;">
+                                        <div>
+                                            <VIcon :size="isMd ? 140 :172" :icon="item.element[0].icon"></VIcon>
+                                        </div>
+                                        <div>
+                                            <div>
+                                                <p class="text-md-h6 text-lg-h5 text-table" v-html="item.element[0].text">
+                                                </p>
 
-                            <VCard class="mx-auto" style="
-                        background: linear-gradient(115deg, rgba(71, 68, 216, 0.19) 0%, rgba(231, 230, 244, 0.19) 100%);
-                        " height="250px" width="500px">
-                              <VCardText class="">
+                                            </div>
+                                            <div class="align-self-end">
+
+                                                <p class="text-primary font-weight-bold ">
+                                                    haz click para mas detalles >
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </VCardText>
+                            </VCard>
+                        </div>
+                        <div>
+                            <VCard class="mx-auto secondCard" height="250px" >
+                                <VCardText class="">
                                     <VRow class="d-flex align-center">
                                         <VCol>
-                                            <VIcon size="172" :icon="img1"></VIcon>
+                                            <VIcon :size="isMd ? 140 :172"  :icon="item.element[1].icon"></VIcon>
                                         </VCol>
-                                        <VCol class="d-flex" style="flex-direction: column;">
+                                        <VCol>
+                                            <p class="text-md-h6 text-lg-h5  text-table" v-html="item.element[1].text">
+                                            </p>
+                                            <p class="text-primary font-weight-bold align-self-end mb-0">
+                                                haz click para mas detalles >
+                                            </p>
+                                        </VCol>
+                                    </VRow>
+                                </VCardText>
+                            </VCard>
+                        </div>
+
+                    </div>
+
+                </v-carousel-item>
+                <v-carousel-item class="" v-if="isMobile" :value="i"  v-for="item, i in itemsMobile" :key="i">
+                    <!-- <VRow class="d-flex align-center " style=""> -->
+                        <!-- <VCol cols="6" class="mx-14"> -->
+                            <VCard class="mx-auto firstCard"  :width="isMobileSmall ? 300 : 500">
+                                <VCardText class="">
+                                    <VRow class="align-center">
+                                        <VCol :cols="isMobileSmall?12:''">
+                                            <VIcon size="172" :icon="item.icon"></VIcon>
+                                        </VCol>
+                                        <VCol :cols="isMobileSmall?12:''" class="" style="flex-direction: column;word-wrap: normal;">
                                             <div>
-                                                <p class="text-h5 text-table">
-                                                    ¿Sabias que los puntos referido de Xeler han pasado a ser <span class="text-primary font-weight-bold">XELERCOP</span>? 
+                                                <p class="text-h5 text-table" v-html="item.text">
                                                 </p>
 
                                             </div>
@@ -43,61 +87,15 @@
                                     </VRow>
                                 </VCardText>
                             </VCard>
-                        </VCol>
-                        <VCol cols="6">
+                        <!-- </VCol> -->
 
-                            <VCard class="mx-auto" style="
-                        background: linear-gradient(106deg, rgba(199, 18, 126, 0.19) 3.03%, rgba(231, 230, 244, 0.19) 100%);
-
-                        " height="250px" width="500px">
-                                <VCardText class="">
-                                    <VRow class="d-flex align-center">
-                                        <VCol>
-                                            <VIcon size="172" :icon="img2"></VIcon>
-                                        </VCol>
-                                        <VCol>
-                                            <p class="text-h5 text-table">
-                                                ¿Tenemos un nuevo punto de recepcion de <span class="text-primary font-weight-bold">efectivo</span> en Bogota.
-                                            </p>
-                                            <p class="text-primary font-weight-bold align-self-end mb-0">
-                                                haz click para mas detalles >
-                                            </p>
-                                        </VCol>
-                                    </VRow>
-                                </VCardText>
-                            </VCard>
-                        </VCol>
-
-                    </VRow>
-
-                </v-carousel-item>
-                <v-carousel-item value="1" cover>
-                    <VRow class="d-flex align-center h-100" style="">
-                        <VCol cols="6">
-
-                            <VCard class="mx-auto" style="
-                        background: linear-gradient(115deg, rgba(71, 68, 216, 0.19) 0%, rgba(231, 230, 244, 0.19) 100%);
-                        " height="250px" width="500px">
-                                as
-                            </VCard>
-                        </VCol>
-                        <VCol cols="6">
-
-                            <VCard class="mx-auto" style="
-                        background: linear-gradient(106deg, rgba(199, 18, 126, 0.19) 3.03%, rgba(231, 230, 244, 0.19) 100%);
-
-                        " height="250px" width="500px">
-                                as
-                            </VCard>
-                        </VCol>
-
-                    </VRow>
+                    <!-- </VRow> -->
 
                 </v-carousel-item>
             </VCarousel>
         </VCol>
 
-        <VCol cols="1">
+        <VCol cols="1" v-if="!isMobile">
 
             <VIcon size="50" @click="next">
 
@@ -117,6 +115,12 @@
 import { ref } from 'vue';
 import img1 from './Carousel/img_card1.vue'
 import img2 from './Carousel/img_card2.vue'
+import { useDisplay } from 'vuetify/lib/framework.mjs'
+import { computed } from 'vue';
+
+const isMobile = ref(useDisplay().smAndDown)
+const isMobileSmall = ref(useDisplay().xs)
+const isMd = ref(useDisplay().md)
 const model = ref(0)
 
 const back = () => {
@@ -134,6 +138,62 @@ const next = () => {
     }
     model.value++
 }
+
+const items: itemDesktop[] = [
+    {
+        element:
+            [
+                {
+                    text: '¿Sabias que los puntos referido de Xeler han pasado a ser <span class="text-primary font-weight-bold">XELERCOP</span>?',
+                    icon: img1,
+                    link: '#'
+                },
+                {
+                    text: '¿Tenemos un nuevo punto de recepcion de <span class="text-primary font-weight-bold">efectivo</span> en Bogota.',
+                    icon: img2,
+                    link: '#'
+                }
+            ]
+    },
+    {
+        element:
+            [
+                {
+                    text: '¿Sabias que los puntos referido de Xeler han pasado a ser <span class="text-primary font-weight-bold">XELERCOP</span>?',
+                    icon: img1,
+                    link: '#'
+                },
+                {
+                    text: '¿Tenemos un nuevo punto de recepcion de <span class="text-primary font-weight-bold">efectivo</span> en Bogota.',
+                    icon: img2,
+                    link: '#'
+                }
+            ]
+    },
+]
+
+const itemsMobile = computed(()=>{
+    let itemNew: Item[] = []
+    items.forEach(item => itemNew.push(...item.element))
+    return itemNew
+})
+interface itemDesktop {
+    element: Item[]
+}
+
+interface Item {
+    icon: any
+    text: string
+    link: string
+}
 </script>
 
-<style scoped></style>
+<style scoped>
+.firstCard {
+    background: linear-gradient(115deg, rgba(71, 68, 216, 0.19) 0%, rgba(231, 230, 244, 0.19) 100%);
+}
+
+.secondCard {
+    background: linear-gradient(106deg, rgba(199, 18, 126, 0.19) 3.03%, rgba(231, 230, 244, 0.19) 100%);
+}
+</style>

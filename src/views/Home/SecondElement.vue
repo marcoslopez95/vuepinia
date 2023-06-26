@@ -1,8 +1,8 @@
 <template>
     <VRow class="d-flex align-center">
-        <VCol cols="9">
+        <VCol sm="8" cols="9" v-if="!isMobile">
             <VRow>
-                <VCol cols="3" v-for="currency, i in currencies" :key="i">
+                <VCol sm="4" lg="3" cols="3" v-for="currency, i in currencies" :key="i">
                     <VCard elevation="5" class="">
                         <VCardText class="px-5 py-4">
 
@@ -45,8 +45,11 @@
                 </VCol>
             </VRow>
         </VCol>
-        <VCol cols="3" class="h-100">
-            <CalculatorComponent></CalculatorComponent>
+        <VCol  :sm="isMobile?12:4" :cols="isMobile ? 12 :3" class="h-100"
+        :class="isMobile? 'mx-1' : ''"
+            
+            >
+            <CalculatorComponent class="mx-auto" style="max-width: 400px;"></CalculatorComponent>
         </VCol>
     </VRow>
 </template>
@@ -55,6 +58,10 @@
 import BtcIcon from '@/assets/images/home/BtcIcon.png'
 import { formatNumber } from '@/helper';
 import CalculatorComponent from './PricingCards/CalculatorComponent.vue'
+import { useDisplay } from 'vuetify/lib/framework.mjs'
+import { ref } from 'vue'
+const isMobile = ref(useDisplay().smAndDown)
+
 const currencies: currenciesHome[] = [
     {
         abbreviation: 'BTC',

@@ -3,13 +3,15 @@
         <VCol class="">
             <VImg class="mx-auto" :src="FirstImage" width="573px" height="369px" />
         </VCol>
-        <VCol class="text-primary font-weight-bold text-h3 text-wrap">
+        <VCol 
+            class="text-primary font-weight-bold text-h5 text-sm-h4 text-lg-h3 text-wrap"
+            :class="[isMobile ? 'text-center':'']">
             <!-- <div class="text-primary font-weight-bold text-h1" > -->
             Xeler go es la plataforma más rápida y eficiente para comprar y vender Tether en Colombia.
             <!-- </div> -->
         </VCol>
     </VRow>
-    <VRow>
+    <VRow v-if="!isMobile">
         <VCol cols="6">
             <VRow>
 
@@ -30,6 +32,10 @@
 import FirstImage from '@/assets/images/home/FirstImage.png'
 import InputComponent from '@/components/InputComponent.vue';
 import { ref } from 'vue'
+import { useDisplay } from 'vuetify/lib/framework.mjs'
+
+const isMobile = ref(useDisplay().smAndDown)
+
 const email = ref('')
 </script>
 

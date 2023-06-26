@@ -1,0 +1,88 @@
+<template>
+    <VRow>
+        <VCol :cols="isMobile ? 12:6">
+            <VList>
+                <VListItem v-for="item,i in (isMobile ? [...firstColumn,...secondColumn] as Element[] : firstColumn)" :key="i" class="text-h6 my-3">
+                    <template #prepend>
+                        <div class="bg-primary rounded-lg"
+                            :class="isMobile? 'pa-2':'pa-1'">
+                            <VIcon :size="isMobile ? 40 :60" :icon="item.icon">
+                            </VIcon>
+
+                        </div>
+                    </template>
+                    <p class="ml-4">
+                        {{ item.text }}
+                    </p>
+                </VListItem>
+            </VList>
+        </VCol>
+        <VCol v-if="!isMobile" :cols="6">
+            <VList>
+                <VListItem v-for="item,i in secondColumn" :key="i" class="text-h6 my-3">
+                    <template #prepend>
+                        <div class="bg-primary rounded-lg"
+                            :class="isMobile? 'pa-2':'pa-1'">
+                            <VIcon :size="isMobile ? 40 :60" :icon="item.icon">
+                            </VIcon>
+
+                        </div>
+                    </template>
+                    <p class="ml-4">
+                        {{ item.text }}
+                    </p>
+                </VListItem>
+            </VList>
+        </VCol>
+    </VRow>
+</template>
+
+<script setup lang="ts">
+import RayoIcon from './FiveElement/RayoIcon.vue'
+import SoporteIcon from './FiveElement/SoporteIcon.vue'
+import MaletaIcon from './FiveElement/MaletaIcon.vue'
+import MoneyIcon from './FiveElement/MoneyIcon.vue'
+import CheckShieldIcon from './FiveElement/CheckShield.vue'
+import OperationIcon from './FiveElement/OperationIcon.vue'
+import { ref } from 'vue'
+import { useDisplay } from 'vuetify/lib/framework.mjs'
+
+const isMobile = ref(useDisplay().smAndDown)
+
+const firstColumn: Element[] = [
+    {
+        text: 'Transacciones super rapidas',
+        icon : RayoIcon
+    },
+    {
+        text: 'Soporte Personalizado',
+        icon : SoporteIcon
+    },
+    {
+        text: 'Servicio OTC',
+        icon: MaletaIcon
+    },
+]
+
+const secondColumn : Element[] = [
+    {
+        text: 'Acumula Xelercop en cada operacion',
+        icon : MoneyIcon
+    },
+    {
+        text: 'Respaldo y seguridad',
+        icon : CheckShieldIcon
+    },
+    {
+        text: 'Operaciones Bancarias y en Efectivo',
+        icon: OperationIcon
+    },
+]
+
+interface Element {
+    text: string
+    icon: any
+}
+</script>
+
+<style scoped></style>
