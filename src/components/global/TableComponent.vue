@@ -6,13 +6,13 @@ import db from '@/db';
 import { formatNumber, helperStore } from '@/helper';
 import DialogConfirm from '@/components/global/DialogConfirm.vue';
 import dayjs from 'dayjs';
-import { type Ref, ref,inject,toRefs, computed, reactive } from 'vue';
+import { type Ref, ref, inject, toRefs, computed, reactive } from 'vue';
 import { useI18n } from 'vue-i18n';
-
+import OptionsIcon from '@/assets/icons/OptionsIcon.vue'
 const { t } = useI18n()
 const helper = helperStore()
 
-const { methodVerificatedStatus, item:itemHelper,clickIn} = storeToRefs(helper)
+const { methodVerificatedStatus, item: itemHelper, clickIn } = storeToRefs(helper)
 const props = defineProps<Props>()
 
 const { headers } = toRefs(props)
@@ -53,14 +53,20 @@ const statusText = ((text: string | boolean) => {
 })
 
 
-const getValue = (item: any, head: Head) => {
-  const value = head.value
+const getValue = (item: any, head: Head | string) => {
+  const value = typeof head == 'string' ? head : head.value
   let valueArray = value.split('.')
   let res = item;
+  console.log('head', head)
 
   valueArray.forEach((pos: string) => {
     res = res[pos] ?? ''
   })
+
+  if (typeof head == 'string') {
+    console.log('res', res)
+    return res;
+  }
 
   switch (head.type) {
     case 'date':
@@ -146,7 +152,7 @@ const confirmAction = (item: any, bool: CheckedOrBlockedType) => {
   console.log(itemHelper)
   console.log(item, bool)
   modalOpen.value = 'acceptReject'
-  console.log('aqui',itemHelper)
+  console.log('aqui', itemHelper)
   itemHelper.value = item
   confirmOrReject.value = bool
   title.value = t('general-views.update')
@@ -207,16 +213,94 @@ interface Props {
   paginatedFront?: boolean,
   acceptReject?: StatusOperationVerified,
   acceptRejectURL?: string,
+  simple?: boolean,
+  optionsSimple?: {
+    max_columns: number
+    value: string
+    withStatus?: boolean
+  }
 }
 
+const total_columns = 12;
+const columns = props.optionsSimple?.max_columns ?? 1
+
+const getMinWidth = computed(() => {
+  return columns * 100 / total_columns
+})
+
+const maxColumns = computed(() => {
+  return total_columns / columns
+})
 </script>
 
 <template>
-  <VTable density="compact" :fixed-header="fixedHeader" :height="fixedHeader ? heightTable : ''" hide-default-footer disable-sort>
+  <VRow v-if="simple" class="pa-4 border mx-1">
+    <VCol v-for="(item, i) in itemsNew" :key="i" class="text-table font-weight-bold" :cols="maxColumns">
+      <VRow style="max-width: 300px">
+        <div class="d-flex align-center w-100">
+          <VCol v-for="head, k in headers" :key="k">
+            <VChip v-if="head.status === true || head.status === 'deleted'" small :color="getStatusColor(item, head)"
+              class=" font-weight-medium">
+              <span class="">{{ getStatus(item, head) }}</span>
+            </VChip>
+
+            <slot v-if="optionsHabilit && head.value == 'actions'" name="actions">
+              <v-menu>
+                <template v-slot:activator="{ props }">
+                  <v-btn size="small" icon color="transparent" v-bind="props">
+                    <VIcon color="primary" size="25" :icon="OptionsIcon" />
+                  </v-btn>
+                </template>
+
+                <v-list>
+                  <v-list-item>
+                    <v-list-item-title>
+                      <VBtn v-if="iconShow && !isDeleted(item.id)" :title="'Show'" color="transparent" size="x-small"
+                        elevation="0" icon>
+                        <VIcon color="primary" @click="() => { clickIn = 'Show'; emit('show', item) }" size="24"
+                          icon="mdi-eye-outline" />
+                      </VBtn>
+                    </v-list-item-title>
+                    <v-list-item-title>
+                      <VBtn v-if="iconUpdate && !isDeleted(item.id)" :title="'Update'" color="transparent" size="x-small"
+                        elevation="0" icon>
+                        <VIcon color="primary" @click="() => { clickIn = 'Edit'; emit('update', item) }" size="24"
+                          icon="mdi-pencil-outline" />
+                      </VBtn>
+                    </v-list-item-title>
+                    <v-list-item-title>
+                      <slot v-if="newButtons" name="newButtons" :data="item"></slot>
+                    </v-list-item-title>
+                    <v-list-item-title>
+                      <VBtn v-if="iconDelete" :title="!isDeleted(item.id) ? 'Delete' : 'Restore'" color="transparent"
+                        size="x-small" elevation="0" icon>
+                        <VIcon color="primary" @click="openConfirmModal(item.id)" size="24"
+                          :icon="!isDeleted(item.id) ? 'mdi-delete' : 'mdi-delete-restore'" />
+                      </VBtn>
+                    </v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+            </slot>
+            <!-- <VCol  class="me-auto "> -->
+            <slot v-else name="value" :data="item">
+              {{ getValue(item, head) }}
+            </slot>
+
+            <!-- </VCol> -->
+          </VCol>
+
+        </div>
+      </VRow>
+    </VCol>
+  </VRow>
+
+  <VTable v-if="!simple" density="compact" :fixed-header="fixedHeader" :height="fixedHeader ? heightTable : ''"
+    hide-default-footer disable-sort>
     <thead style="background-color: #FBFBFB; font-size: 16px;">
-      <tr >
+      <tr>
         <slot v-for="head, i in headers" :name="setNameHead(head.value)">
-          <th class="text-center text-primary text-capitalize" >
+          <th class="text-center text-primary text-capitalize">
             {{ head.name }}
           </th>
         </slot>
@@ -234,18 +318,74 @@ interface Props {
             </VChip>
 
             <span v-else>{{ getValue(item, head) }}</span>
-            <div v-if="optionsHabilit && head.value == 'actions'" class="d-flex justify-center" style="gap: 8px">
+            <slot v-if="optionsHabilit && head.value == 'actions'" name="actions">
+              <v-menu>
+                <template v-slot:activator="{ props }">
+                  <v-btn size="small" icon color="transparent" v-bind="props">
+                    <VIcon color="primary" size="25" :icon="OptionsIcon" />
+                  </v-btn>
+                </template>
+
+                <v-list>
+                  <v-list-item>
+                    <v-list-item-title class="cursor-pointer" v-if="iconShow && !isDeleted(item.id)" @click="() => { clickIn = 'Show'; emit('show', item) }">
+                      <VBtn  :title="'Show'" color="transparent" size="x-small"
+                        elevation="0" icon>
+                        <VIcon color="primary"  size="24"
+                          icon="mdi-eye-outline" /> 
+                      </VBtn> {{$t('general-views.show')}}
+                    </v-list-item-title>
+                    <v-list-item-title class="cursor-pointer" v-if="iconUpdate && !isDeleted(item.id)"  @click="() => { clickIn = 'Edit'; emit('update', item) }">
+                      <VBtn  :title="'Update'" color="transparent" size="x-small"
+                        elevation="0" icon>
+                        <VIcon color="primary" size="24"
+                          icon="mdi-pencil-outline" />
+                      </VBtn> {{$t('general-views.edit')}}
+                    </v-list-item-title>
+                    <v-list-item-title class="cursor-pointer" v-if="newButtons">
+                      <slot  name="newButtons" :data="item"></slot>
+                    </v-list-item-title>
+                    <v-list-item-title class="cursor-pointer" v-if="iconDelete" @click="openConfirmModal(item.id)" >
+                      <VBtn :title="!isDeleted(item.id) ? 'Delete' : 'Restore'" color="transparent"
+                        size="x-small" elevation="0" icon>
+                        <VIcon color="primary"  size="24"
+                          :icon="!isDeleted(item.id) ? 'mdi-delete' : 'mdi-delete-restore'" />
+                      </VBtn> {{$t('general-views.delete-icon')}}
+                    </v-list-item-title>
+                    <div v-if="acceptReject && elementIsVerificated(item)" class="d-flex">
+                      <v-list-item-title class="cursor-pointer" @click="confirmAction(item, 'accept')">
+                        <VBtn  size="x-small" color="transparent" elevation="0" icon
+                          :title="$t('buttons.accept')">
+                          <VIcon icon="mdi-check-bold" />
+                        </VBtn> {{$t('general-views.accept-icon')}}
+                      </v-list-item-title>
+                      <v-list-item-title class="cursor-pointer" @click="confirmAction(item, 'reject')">
+
+                        <VBtn color="transparent"  size="x-small" elevation="0" icon
+                          :title="$t('buttons.reject')">
+                          <VIcon icon="mdi-block-helper" /> {{$t('general-views.reject-icon')}}
+                        </VBtn>
+                      </v-list-item-title>
+
+
+                    </div>
+
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+            </slot>
+            <!-- <div v-if="optionsHabilit && head.value == 'actions'" class="d-flex justify-center" style="gap: 8px">
               <VBtn v-if="iconShow && !isDeleted(item.id)" :title="'Show'" color="transparent" size="x-small"
                 elevation="0" icon>
-                <VIcon @click="() => {clickIn='Show';emit('show', item)}" size="24" icon="mdi-eye-outline" />
+                <VIcon @click="() => { clickIn = 'Show'; emit('show', item) }" size="24" icon="mdi-eye-outline" />
               </VBtn>
               <VBtn v-if="iconUpdate && !isDeleted(item.id)" :title="'Update'" color="transparent" size="x-small"
                 elevation="0" icon>
-                <VIcon @click="() => {clickIn='Edit';emit('update', item)}" size="24" icon="mdi-pencil-outline" />
+                <VIcon @click="() => { clickIn = 'Edit'; emit('update', item) }" size="24" icon="mdi-pencil-outline" />
               </VBtn>
               <slot v-if="newButtons" name="newButtons" :data="item"></slot>
-              <VBtn v-if="iconDelete" :title="!isDeleted(item.id) ? 'Delete' : 'Restore'" color="transparent" size="x-small"
-                elevation="0" icon>
+              <VBtn v-if="iconDelete" :title="!isDeleted(item.id) ? 'Delete' : 'Restore'" color="transparent"
+                size="x-small" elevation="0" icon>
                 <VIcon @click="openConfirmModal(item.id)" size="24"
                   :icon="!isDeleted(item.id) ? 'mdi-delete' : 'mdi-delete-restore'" />
               </VBtn>
@@ -260,12 +400,14 @@ interface Props {
                   <VIcon icon="mdi-block-helper" />
                 </VBtn>
               </div>
-            </div>
+            </div> -->
           </slot>
         </td>
       </tr>
     </tbody>
   </VTable>
+
+
   <VRow class="mt-2 px-5 py-2" v-if="!paginatedFront">
     <VCol>
       <VRow>
@@ -277,34 +419,24 @@ interface Props {
       </VRow>
     </VCol>
     <VCol>
-      <VPagination 
-        :total-visible="6" 
-        v-model="helper.pagination.currentPage" 
-        :length="helper.pagination.total"
-        active-color="#B46BFE"
-        color="#75757578"
-        variant="outlined"
-        @update:model-value="helper.index">
-        <template #prev="{onClick,disabled,icon}">
-          <button 
-            :disabled="disabled" 
-            @click="onClick" 
-            class="v-btn v-btn--icon v-theme--light v-btn--density-default v-btn--size-default v-btn--variant-outlined" aria-label="Next page" 
-            aria-disabled="false" 
+      <VPagination :total-visible="6" v-model="helper.pagination.currentPage" :length="helper.pagination.total"
+        active-color="#B46BFE" color="#75757578" variant="outlined" @update:model-value="helper.index">
+        <template #prev="{ onClick, disabled, icon }">
+          <button :disabled="disabled" @click="onClick"
+            class="v-btn v-btn--icon v-theme--light v-btn--density-default v-btn--size-default v-btn--variant-outlined"
+            aria-label="Next page" aria-disabled="false"
             style="color: rgba(117, 117, 117, 0.47); caret-color: rgba(117, 117, 117, 0.47);"
-            :style="disabled ?'background-color:#809fb880': ''">
-            <VIcon :icon="icon" :color="disabled ? '#f1f5f9' :'#809FB8'"></VIcon>
+            :style="disabled ? 'background-color:#809fb880' : ''">
+            <VIcon :icon="icon" :color="disabled ? '#f1f5f9' : '#809FB8'"></VIcon>
           </button>
         </template>
-        <template #next="{onClick,disabled,icon}">
-          <button 
-            :disabled="disabled" 
-            @click="onClick" 
-            class="v-btn v-btn--icon v-theme--light v-btn--density-default v-btn--size-default v-btn--variant-outlined" aria-label="Next page" 
-            aria-disabled="false" 
+        <template #next="{ onClick, disabled, icon }">
+          <button :disabled="disabled" @click="onClick"
+            class="v-btn v-btn--icon v-theme--light v-btn--density-default v-btn--size-default v-btn--variant-outlined"
+            aria-label="Next page" aria-disabled="false"
             style="color: rgba(117, 117, 117, 0.47); caret-color: rgba(117, 117, 117, 0.47);"
-            :style="disabled ?'background-color:#809fb880': ''">
-            <VIcon :icon="icon" :color="disabled ? '#f1f5f9' :'#809FB8'"></VIcon>
+            :style="disabled ? 'background-color:#809fb880' : ''">
+            <VIcon :icon="icon" :color="disabled ? '#f1f5f9' : '#809FB8'"></VIcon>
           </button>
         </template>
       </VPagination>
@@ -316,7 +448,8 @@ interface Props {
     <VCol>
       <VRow>
         <VCol cols="4">
-          <VSelect v-model="pagination.perPage" :items="perPage" label="Pagination" @update:model-value="pagination.currentPage = 1">
+          <VSelect v-model="pagination.perPage" :items="perPage" label="Pagination"
+            @update:model-value="pagination.currentPage = 1">
           </VSelect>
         </VCol>
       </VRow>

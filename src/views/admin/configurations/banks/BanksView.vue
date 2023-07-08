@@ -13,6 +13,8 @@
     <CrudComponent :singular="$t('views.banks.title')" :rows="rows"></CrudComponent>
     <!-- <h3>{{$t('views.type_documents.title',2)}}</h3> -->
     <TableComponentVue
+    simple
+    :options-simple="{value: 'attributes.name', max_columns:1}"
     optionsHabilit
     icon-update
     icon-delete
@@ -125,14 +127,10 @@ const headers: Head[] = [
         value: 'attributes.name',
     },
     {
-        name: t('general-views.description'),
-        value: 'attributes.description',
+        name: t('general-views.status'),
+        value: 'deleted',
+        status: true
     },
-    {
-        name: t('views.countries.title'),
-        value: 'relationships.country.attributes.name',
-    },
-
 ]
 
 

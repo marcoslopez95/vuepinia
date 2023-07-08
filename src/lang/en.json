@@ -265,7 +265,12 @@
     "status": "Status",
     "id": "Id",
     "body": "Body",
-    "title": "Title"
+    "title": "Title",
+    "show": "Show",
+    "edit": "Edit",
+    "delete-icon": "Delete",
+    "accept-icon": "Accept",
+    "reject-icon": "Reject"
   },
   "general-messages": {
     "editedSuccessfully": "Update Successfull",

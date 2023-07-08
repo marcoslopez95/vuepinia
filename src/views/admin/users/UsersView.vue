@@ -3,7 +3,7 @@
 
     <CrudComponent :singular="$t('views.users.title',2)" :rows="rows"></CrudComponent>
     <h3>{{$t('views.users.title',2)}}</h3>
-    <TableComponentVue :optionsHabilit="false" :headers="headers" :items="helper.items">
+    <TableComponentVue :optionsHabilit="true" icon-show :headers="headers" :items="helper.items">
         <template #cel-attributes.username="{ data }">
             <span class="text-primary">
                 {{ data.attributes.username }}

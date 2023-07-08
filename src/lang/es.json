@@ -264,7 +264,12 @@
     "status": "Estado",
     "id": "Id",
     "body": "Cuerpo",
-    "title": "Título"
+    "title": "Título",
+    "show": "Ver",
+    "edit": "Editar",
+    "delete-icon": "Eliminar",
+    "accept-icon": "Aceptar",
+    "reject-icon": "Rechazar"
   },
   "general-messages": {
     "editedSuccessfully": "Actualizado correctament",

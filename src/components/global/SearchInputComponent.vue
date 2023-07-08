@@ -1,5 +1,5 @@
 <template>
-    <VResponsive max-width="500px" class="rounded-xl">
+    <VResponsive max-width="500px" class="rounded-xl mb-5">
         <v-text-field 
             :loading="helper.loading" 
             density="compact" 

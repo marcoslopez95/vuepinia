@@ -6,7 +6,7 @@
             <v-tabs 
                 v-model="menuActive" 
                 bg-color="transparent"
-                
+                show-arrows
                 >
                 <v-tab 
                     v-for="item,i in tabs" 
