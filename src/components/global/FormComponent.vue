@@ -23,6 +23,21 @@
               :menu-props="field.select!.menuProps"
               :multiple="field.select!.multiple"
             />
+            <VSwitch 
+              v-else-if="field.type === 'switch'"
+              color="primary"
+              inset
+              v-model="form[field.valueForm]"
+              :class="field.fieldClass"
+              :rules="field.rules"
+              :label="field.label" />
+            <UploadImageComponent
+              v-else-if="field.type === 'image'"
+              v-model="form[field.valueForm]"
+              :text="field.label"
+              >
+              
+            </UploadImageComponent>
             <!-- <VSelect
               v-else-if="field.type === 'select'"
               :items="field.select?.items.value"
@@ -63,7 +78,7 @@ import type { Row } from '@/interfaces/FormComponent.helper'
 import InputComponent from '@/components/InputComponent.vue'
 import SelectComponent from '../SelectComponent.vue';
 import { storeToRefs } from 'pinia';
-
+import UploadImageComponent from '@/views/user/Kyc/components/UploadImageComponent.vue'
 const props = defineProps<Props>()
 
 const helper = helperStore()

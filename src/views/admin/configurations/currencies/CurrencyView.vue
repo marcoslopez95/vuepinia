@@ -36,10 +36,15 @@ import type { Currency } from '@/interfaces/Currency/Currency.model';
 import type { CurrencyCreate } from '@/interfaces/Currency/Currency.dto';
 import SearchInputComponentVue from '@/components/global/SearchInputComponent.vue';
 import * as validator from '@/validator'
+import { CurrencyStore } from '@/stores/CurrencyStore';
 const helper = helperStore()
 helper.url = 'currency'
 
 helper.index()
+const currencyStore = CurrencyStore()
+currencyStore.getCurrencyTypes()
+
+const { currencyTypes } = storeToRefs(currencyStore)
 const search = ref<string>('')
 const getSearch = () => {
     helper.index({
@@ -52,6 +57,11 @@ const openUpdate = (item:Currency) => {
         name: item.attributes.name,
         abbreviation: item.attributes.abbreviation,
         symbol: item.attributes.symbol,
+        type_currency_id: item.relationships?.typeCurrency?.id ??  '',
+        reference_system_currency: !!item.attributes.reference_system_currency,
+        wallet_default: !!item.attributes.wallet_default,
+        sale: !!item.attributes.sale,
+        buy: !!item.attributes.buy
     }
     formCrud.value = itemUpdate
     openModalCrud.value = true;
@@ -97,9 +107,60 @@ const rows: Row[] = [
                 rules: [
                     validator.required
                 ]
+            },
+            {
+                label: t('views.currency-types.title'),
+                type: 'select',
+                valueForm: 'type_currency_id',
+                rules: [
+                    validator.required
+                ],
+                select: {
+                    items: currencyTypes,
+                    itemTitle: 'attributes.name',
+                    itemValue: 'id'
+                }
             }
         ]
-    }
+    },
+    {
+        fields: [
+            {
+                label: t('views.currencies.buy'),
+                type: 'switch',
+                valueForm: 'buy',
+                rules: [ ]
+            },
+            {
+                label: t('views.currencies.sale'),
+                type: 'switch',
+                valueForm: 'sale',
+                rules: []
+            },
+            {
+                label: t('views.currencies.reference'),
+                type: 'switch',
+                valueForm: 'reference_system_currency',
+                rules: []
+            },
+            {
+                label: t('views.currencies.wallet-default'),
+                type: 'switch',
+                valueForm: 'wallet_default',
+                rules: []
+            }
+        ]
+    },
+    // {
+    //     fields: [
+    //         {
+    //             label: t('views.currencies.image'),
+    //             type: 'image',
+    //             valueForm: 'icon',
+    //             rules: [ ]
+    //         }
+    //     ]
+    // }
 ]
 
 const headers: Head[] = [

@@ -171,7 +171,12 @@
     "currencies": {
       "title": "Currency | Currencies",
       "abbreviation": "Abbreviation",
-      "symbol": "Symbol"
+      "symbol": "Symbol",
+      "buy": "Buy",
+      "sale": "Sale",
+      "reference": "System Reference",
+      "wallet-default": "Create Wallet by Default",
+      "image": "Icon"
     },
     "type-company-account": {
       "title": "Payment Method | Payment Methods"
@@ -209,6 +214,9 @@
         "title": "Calculator Transactions"
       },
       "dashboard": "Dashboard"
+    },
+    "currency-types": {
+      "title": "Currency Type | Currency Types"
     }
   },
   "genereal-views": {

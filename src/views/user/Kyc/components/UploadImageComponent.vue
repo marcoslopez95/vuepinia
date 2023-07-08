@@ -9,7 +9,7 @@
             </span>
             <VImg v-else :src="input" width="100%" class="mx-auto"></VImg>
         </div>
-        <div name="kyc" class="mx-4 my-auto">
+        <div v-if="image" name="kyc" class="mx-4 my-auto">
             <VImg :src="image" height="150" width="145"></VImg>
         </div>
         <div style="display: none;">
@@ -32,7 +32,7 @@ const emits = defineEmits<{
     (e: 'update:model-value', value: Blob): void
 }>()
 const props = defineProps<{
-    image: string,
+    image?: string,
     text: string,
     modelValue: any
 }>()

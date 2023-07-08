@@ -80,6 +80,7 @@ import BankAccountCompanyView from './CompanyAccounts/Bank/BankAccountCompanyVie
 import EfectyAccountCompanyView from './CompanyAccounts/Efecty/EfectyAccountCompanyView.vue'
 import items from '@/layouts/full/sidebar/items/AdminItems';
 import OtherAccountCompanyView from './CompanyAccounts/Other/OtherAccountCompanyView.vue';
+import CurrencyTypeView from './CurrencyType/CurrencyTypeView.vue';
 
 const { t } = useI18n()
 const helper = helperStore()
@@ -112,6 +113,10 @@ const tabs = shallowRef<ItemTab[]>([
     {
         name: t('views.currencies.title',2),
         value: CurrencyView
+    },
+    {
+        name: t('views.currency-types.title',2),
+        value: CurrencyTypeView
     },
     {
         name: t('views.type-company-account.title',2),

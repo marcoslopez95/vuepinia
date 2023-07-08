@@ -25,6 +25,7 @@
                 :active="activeItem(item.value)"
                 >
                 {{ item.title }}
+                
             </VListItem>
         </template>
         </VSelect>

@@ -170,7 +170,12 @@
     "currencies": {
       "title": "Moneda | Monedas",
       "abbreviation": "Abreviación",
-      "symbol": "Símbolo"
+      "symbol": "Símbolo",
+      "buy": "Compra",
+      "sale": "Venta",
+      "reference": "Referencia del sistema",
+      "wallet-default": "Crear wallet por default",
+      "image": "Ícono"
     },
     "type-company-account": {
       "title": "Método de Pago | Métodos de Pago"
@@ -208,6 +213,9 @@
         "title": "Calcula tu transancción"
       },
       "dashboard": "Dashboard"
+    },
+    "currency-types": {
+      "title": "Tipo de Moneda | Tipos de Monedas"
     }
   },
   "genereal-views": {

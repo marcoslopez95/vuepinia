@@ -6,7 +6,7 @@
         </VBtn>
     </div>
 
-    <CrudComponent :singular="$t('views.type-company-account.title')" :rows="rows"></CrudComponent>
+    <CrudComponent :singular="$t('views.currency-types.title')" :rows="rows"></CrudComponent>
     <TableComponentVue
     optionsHabilit
     icon-update
@@ -32,25 +32,27 @@ import type { Row } from '@/interfaces/FormComponent.helper';
 import type { Head } from '@/interfaces/TableComponent.helper';
 import { storeToRefs} from 'pinia';
 import { useI18n } from 'vue-i18n';
-import type { PaymentMethod } from '@/interfaces/PaymentMethod/PaymentMethod.model';
-import type { PaymentMethodCreate } from '@/interfaces/PaymentMethod/PaymentMethod.dto';
+import type { CurrencyType } from '@/interfaces/CurrencyType/CurrencyType.model';
+import type { CurrencyTypeCreate } from '@/interfaces/CurrencyType/CurrencyType.dto';
 import SearchInputComponentVue from '@/components/global/SearchInputComponent.vue';
 import * as validator from '@/validator'
+import { CurrencyStore } from '@/stores/CurrencyStore';
 const helper = helperStore()
-helper.url = 'payment/types'
+helper.url = 'type/currency'
 
 helper.index()
+
 const search = ref<string>('')
 const getSearch = () => {
     helper.index({
         name: search.value
     })
 }
-const openUpdate = (item:PaymentMethod) => {
+const openUpdate = (item:CurrencyType) => {
     itemH.value = item
-    const itemUpdate: PaymentMethodCreate = {
+    const itemUpdate: CurrencyTypeCreate = {
         name: item.attributes.name,
-        description: item.attributes.description ?? ''
+        description: item.attributes.description
     }
     formCrud.value = itemUpdate
     openModalCrud.value = true;
@@ -85,12 +87,10 @@ const rows: Row[] = [
                 label: t('general-views.description'),
                 type: 'text',
                 valueForm: 'description',
-                rules: [
-                    validator.required
-                ]
+                rules: []
             },
         ]
-    }
+    },
 ]
 
 const headers: Head[] = [
@@ -102,7 +102,6 @@ const headers: Head[] = [
         name: t('general-views.description'),
         value: 'attributes.description',
     },
-
 ]
 
 
@@ -110,4 +109,4 @@ const headers: Head[] = [
 
 <style scoped>
 
-</style>@/interfaces/PaymentMethod/TypeCompanyAccount.model@/interfaces/PaymentMethod/TypeCompanyAccount.dto
+</style>

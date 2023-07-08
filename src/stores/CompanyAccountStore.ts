@@ -3,7 +3,7 @@ import type { Bank } from "@/interfaces/Bank/Bank.model";
 import type { Currency } from "@/interfaces/Currency/Currency.model";
 import type { PaymentMethod } from "@/interfaces/PaymentMethod/PaymentMethod.model";
 import type { TypeBankAccount } from "@/interfaces/TypeBankAccount/TypeBankAccount.model";
-import { defineStore } from "pinia";
+import { defineStore, storeToRefs } from "pinia";
 import { ref } from "vue";
 
 export const CompanyAccountStore = defineStore('CompanyAccounts', () => {
@@ -14,17 +14,16 @@ export const CompanyAccountStore = defineStore('CompanyAccounts', () => {
         const res = await helper.http('banks','get')
         banks.value = res.data.response as Bank[];
     }
+    const paymentMethods = ref<PaymentMethod[]>([])
+    const getPaymentMethods = async () => {
+        const res = await helper.http('payment/types','get')
+        paymentMethods.value = res.data.response as PaymentMethod[]
+    }
 
     const currencies = ref<Currency[]>([])
     const getCurrencies = async () => {
         const res = await helper.http('currency','get')
         currencies.value = res.data.response as Currency[];
-    }
-
-    const paymentMethods = ref<PaymentMethod[]>([])
-    const getPaymentMethods = async () => {
-        const res = await helper.http('type/company/accounts','get')
-        paymentMethods.value = res.data.response as PaymentMethod[]
     }
 
     const typeBankAccounts = ref<TypeBankAccount[]>([])
