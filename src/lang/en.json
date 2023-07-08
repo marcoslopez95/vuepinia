@@ -65,7 +65,8 @@
         "finanncing": "Finanncing",
         "company-account": {
           "title": "Company Account"
-        }
+        },
+        "ubication": "Ubications"
       }
     },
     "banks": {
@@ -120,6 +121,9 @@
           "code-verification": "Verification code",
           "content": "When your received the verification code, your can verificated",
           "success": "Verificated Succesfull"
+        },
+        "validation-email": {
+          "title": "Validation Email"
         }
       },
       "kyc": {
@@ -217,6 +221,13 @@
     },
     "currency-types": {
       "title": "Currency Type | Currency Types"
+    },
+    "wallets": {
+      "address": "Wallet",
+      "title": "Wallet | Wallets"
+    },
+    "shipping-types": {
+      "title": "Shipping Type | Shipping Types"
     }
   },
   "genereal-views": {

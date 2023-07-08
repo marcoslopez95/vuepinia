@@ -14,6 +14,7 @@ const form = ref({
     password: "",
 })
 
+const showPassword = ref(false)
 const SigIn = async () => {
     const { valid } = await formRef.value?.validate()
     if (!valid) {
@@ -52,8 +53,17 @@ const setUser = (user: Object) => {
                         <InputComponent id="email" name="Email" v-model="form.email" :rules="[validator.required]" />
                     </VCol>
                     <VCol cols="12">
-                        <InputComponent id="password" name="Contraseña" type="password" v-model="form.password"
-                            :rules="[validator.required]" />
+                        <InputComponent 
+                            :name="$t('views.users.password-confirmation')" 
+                            v-model="form.password"
+                            :rules="[
+                                validator.required,
+                                validator.password,
+                            ]"
+                            :type="!showPassword? 'password' : 'text'"
+                            :appendIcon="!showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                            @click:append-icon="showPassword = !showPassword"
+                            />
                     </VCol>
                 </VRow>
             </template>

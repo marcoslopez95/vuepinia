@@ -1,13 +1,10 @@
 <template>
     <div class="text-center mt-2">
-        <VBtn :disabled="!isValidPhone" @click="openModal">Validar</VBtn>
+        <VBtn :disabled="!isValidEmail" @click="openModal">Validar</VBtn>
     </div>
-    <DialogGlobalVue
-    :dialog="openDialog"
-    @close-dialog="openDialog = false"
-    >
+    <DialogGlobalVue :dialog="openDialog" @close-dialog="openDialog = false">
         <template #title>
-            {{ $t('views.profile.personal-data.validation-phone.title') }}
+            {{ $t('views.profile.personal-data.validation-email.title') }}
         </template>
 
         <template #content>
@@ -16,10 +13,8 @@
             </p>
             <VRow>
                 <VCol cols="4" class="mx-auto">
-                    <NewInputComponentVue 
-                        v-model="code"
-                        :name="$t('views.profile.personal-data.validation-phone.code-verification')"
-                     />
+                    <NewInputComponentVue v-model="code"
+                        :name="$t('views.profile.personal-data.validation-phone.code-verification')" />
                 </VCol>
                 <VCol cols="12" class="text-center">
                     <VBtnPrimary :disabled="!code" @click.prevent="verificateCode">
@@ -40,59 +35,55 @@ import { ref } from 'vue'
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n()
-const emits = defineEmits(['updatePhone'])
+const emits = defineEmits(['updateEmail'])
 const openDialog = ref(false)
 const code = ref('')
 const userStore = UserStore()
 const helper = helperStore()
 const {
-    codePhone,
-    phone
+    email,
 } = defineProps<{
-    codePhone:string
-    phone:string
-    isValidPhone:boolean
+    email: string
+    isValidEmail: boolean
 }>()
 
-const openModal = async () =>{
-    const isEqualsPhone = phone == userStore.userAuth?.attributes.phone
+const openModal = async () => {
+    const isEqualsPhone = email == userStore.userAuth?.attributes.email
     // console.log(phone)
     // console.log(userStore.userAuth?.attributes.phone)
     openDialog.value = true
-    if(!isEqualsPhone){
-        await updatePhone()
+    if (!isEqualsPhone) {
+        await updateEmail()
     }
     sendCode()
 }
 
-const updatePhone = ():Promise<boolean> =>{
-    return new Promise<boolean>(async (resolve, reject) =>{
+const updateEmail = (): Promise<boolean> => {
+    return new Promise<boolean>(async (resolve, reject) => {
         const url = 'users/update/profile'
-        const data ={
-            code_phone: codePhone,
-            phone
+        const data = {
+            email
         }
-        try{
+        try {
             await helper
-                .http(url,'put',{data})
-                emits('updatePhone')
+                .http(url, 'put', { data })
+            emits('updateEmail')
             resolve(true)
-        }catch(e){
+        } catch (e) {
             reject(false)
         }
     })
 }
 
 const sendCode = () => {
-    const url = 'send/vefificate/phone'
-    helper.http(url,'get',{})
+    const url = 'send/vefificate/email/code'
+    helper.http(url, 'get', {})
 }
 
 const verificateCode = async () => {
-    const url = 'vefificate/code/phone/' + code.value
-    await helper.http(url,'get',{},t('views.profile.personal-data.validation-phone.success'))
-    emits('updatePhone')
-
+    const url = 'email/vefificate/code/' + code.value
+    await helper.http(url, 'get', {}, t('views.profile.personal-data.validation-phone.success'))
+    emits('updateEmail')
     openDialog.value = false
 }
 </script>

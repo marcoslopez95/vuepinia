@@ -65,7 +65,8 @@
         "finanncing": "Finanzas",
         "company-account": {
           "title": "Cuentas de Compañia"
-        }
+        },
+        "ubication": "Ubicaciones"
       }
     },
     "banks": {
@@ -120,6 +121,9 @@
           "code-verification": "Código de verificación",
           "content": "Cuando recibas el código de verificación, puedes continuar",
           "success": "Verificación Exitosa"
+        },
+        "validation-email": {
+          "title": "Validacion de Correo"
         }
       },
       "kyc": {
@@ -216,6 +220,13 @@
     },
     "currency-types": {
       "title": "Tipo de Moneda | Tipos de Monedas"
+    },
+    "wallets": {
+      "address": "Billetera",
+      "title": "Billetera | Billeteras"
+    },
+    "shipping-types": {
+      "title": "Tipo de envío | Tipos de envíos"
     }
   },
   "genereal-views": {

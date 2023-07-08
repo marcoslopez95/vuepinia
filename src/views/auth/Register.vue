@@ -74,7 +74,7 @@ const SigUp = async () => {
                         <InputComponent 
                             :name="$t('views.users.password')" 
                             v-model="form.password"
-                            :rules="[validator.required]"
+                            :rules="[validator.required,validator.password]"
                             :type="!showPassword? 'password' : 'text'"
                             :appendIcon="!showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                             @click:append-icon="showPassword = !showPassword"
@@ -84,7 +84,11 @@ const SigUp = async () => {
                         <InputComponent 
                             :name="$t('views.users.password-confirmation')" 
                             v-model="form.password_confirmation"
-                            :rules="[validator.required]"
+                            :rules="[
+                                validator.required,
+                                validator.password,
+                                validator.confirmPassword(form.password_confirmation, form.password)
+                            ]"
                             :type="!showPasswordConfirmation? 'password' : 'text'"
                             :appendIcon="!showPasswordConfirmation ? 'mdi-eye' : 'mdi-eye-off'"
                             @click:append-icon="showPasswordConfirmation = !showPasswordConfirmation"

@@ -32,26 +32,56 @@
                     />
             </VCol>
             <VCol lg="6" sm="12">
-                <NewInputComponentVue 
-                    v-model="form.email" 
-                    :name="$t('views.profile.personal-data.email')" 
-                    :rules="[validator.required]" 
+                <div class="d-flex align-center mx-auto">
+                    <div class="" style="width: 90%;">
+                        <NewInputComponentVue 
+                            v-model="form.email" 
+                            :name="$t('views.profile.personal-data.email')" 
+                            :rules="[validator.required]" 
+                            />
+                    </div>
+                    <div class="ml-4 mt-5">
+                        <VIcon
+                            size="25"
+                            :icon="!userAuth?.attributes.email_verified_at ? 'mdi-block-helper' : 'mdi-check'"
+                            :color="!userAuth?.attributes.email_verified_at ? 'error' : 'ok'"
+                            />
+
+                    </div>
+                </div>
+                    <ValidationEmail
+                        :email="form.email"
+                        @update-email="getUserData"
+                        :isValidEmail="permitValidateEmail"
                     />
+                
             </VCol>
             <VCol lg="6" sm="12">
-                <TelInput
-                    v-model="phoneFormat"
-                    @phone="(phone) => form.phone = phone"
-                    @phoneCode="(code) => form.code_phone = code"
-                    :name="$t('views.profile.personal-data.phone')"
-                    required
-                    @isValid="(bool) => isPhoneValid = bool"
-                    />
+                <div class="d-flex align-center mx-auto">
+                    <div class="" style="width: 90%;">
+                        <TelInput
+                            v-model="phoneFormat"
+                            @phone="(phone) => form.phone = phone"
+                            @phoneCode="(code) => form.code_phone = code"
+                            :name="$t('views.profile.personal-data.phone')"
+                            required
+                            @isValid="(bool) => isPhoneValid = bool"
+                            />
+                    </div>
+                    <div class="ml-4 mt-5">
+                        <VIcon
+                            size="25"
+                            :icon="permitValidatePhone || !isPhoneValid ? 'mdi-block-helper' : 'mdi-check'"
+                            :color="permitValidatePhone || !isPhoneValid? 'error' : 'ok'"
+                            />
+
+                    </div>
+                </div>
                     <ValidationPhone
                         :code-phone="form.code_phone"
                         :phone="form.phone"
                         @update-phone="getUserData"
-                        :isValidPhone="isPhoneValid"
+                        :isValidPhone="permitValidatePhone"
                     />
             </VCol>
             <VCol lg="6" sm="12">
@@ -152,6 +182,7 @@ import SelectComponentVue from '@/components/SelectComponent.vue';
 import TelInput from '@/components/TelInput.vue';
 import { UserStore } from '@/stores/UserStore';
 import ValidationPhone from './ValidationPhone/ValidationPhone.vue'
+import ValidationEmail from './ValidationEmail/ValidationEmail.vue'
 import { KYC_STATUS } from '@/enums/Kyc.enum';
 import { computed } from 'vue';
 const { t } = useI18n()
@@ -231,6 +262,16 @@ const updateData = () =>{
         .http(url,'put',{data:form},t('commons.update-successfull'))
 }
 
+const permitValidatePhone = computed((): boolean => {
+    if(!userAuth.value?.attributes.phone_verified_at) return true
+    return isPhoneValid.value 
+        && userAuth.value?.attributes.phone != form.phone
+})
+
+const permitValidateEmail = computed((): boolean => {
+    if(!userAuth.value?.attributes.email_verified_at) return true
+    return userAuth.value?.attributes.email != form.email
+})
 </script>
 
 <style scoped lang="scss">

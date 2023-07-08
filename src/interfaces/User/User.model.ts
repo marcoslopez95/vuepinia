@@ -14,11 +14,11 @@ export interface UserAttributes {
   last_name?: any;
   second_last_name?: any;
   email: string;
-  email_verified_at?: any;
+  email_verified_at?: Date;
   second_password?: any;
   code_phone?: any;
   phone?: any;
-  phone_verified_at?: any;
+  phone_verified_at?: Date;
   confirmation_code_phone?: any;
   confirmation_code_email?: any;
   username: string;
