@@ -1,7 +1,7 @@
 export const required = (value: any) : boolean | string => (value  ? true : 'Required')
 
 export const password = (pass: string) : boolean | string => {
-    const validate = /^(?=.*[a-záéíóúüñ])(?=.*[A-ZÁÉÍÓÚÜÑ])(?=.*\d)(?=.*[-_@$!%*?&€£.,¡¿])[A-Za-záéíóúüñÁÉÍÓÚÜÑ\d\-_@$!%*?&#€£.,¡¿]{8,}$/;
+    const validate = /^(?=.*[a-záéíóúüñ])(?=.*[0-9])(?=.*[A-ZÁÉÍÓÚÜÑ])(?=.*\d)(?=.*[-_@$!%*?&€£.,¡¿])[A-Za-záéíóúüñÁÉÍÓÚÜÑ\d\-_@$!%*?&#€£.,¡¿]{8,}$/;
     if (validate.test(pass)) {
         return true;
     } 

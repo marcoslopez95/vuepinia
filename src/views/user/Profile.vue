@@ -32,6 +32,7 @@ import { helperStore } from '@/helper';
 import { storeToRefs } from 'pinia';
 import { watch , shallowRef} from 'vue';
 import KycView from './Kyc/KycView.vue';
+import WalletView from './wallet/WalletView.vue';
 const { t } = useI18n()
 const helper = helperStore()
 const tabActive = ref(KycView)
@@ -43,6 +44,10 @@ const tabs = shallowRef<{name:string,value:any}[]>([
     {
         name: t('views.profile.kyc.title'),
         value: KycView
+    },
+    {
+        name: t('views.wallets.title',2),
+        value: WalletView
     },
 ])
 

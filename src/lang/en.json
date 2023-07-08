@@ -224,7 +224,8 @@
     },
     "wallets": {
       "address": "Wallet",
-      "title": "Wallet | Wallets"
+      "title": "Wallet | Wallets",
+      "alias": "Alias"
     },
     "shipping-types": {
       "title": "Shipping Type | Shipping Types"

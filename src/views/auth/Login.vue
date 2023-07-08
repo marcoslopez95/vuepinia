@@ -58,7 +58,6 @@ const setUser = (user: Object) => {
                             v-model="form.password"
                             :rules="[
                                 validator.required,
-                                validator.password,
                             ]"
                             :type="!showPassword? 'password' : 'text'"
                             :appendIcon="!showPassword ? 'mdi-eye' : 'mdi-eye-off'"

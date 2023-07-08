@@ -223,7 +223,8 @@
     },
     "wallets": {
       "address": "Billetera",
-      "title": "Billetera | Billeteras"
+      "title": "Billetera | Billeteras",
+      "alias": "Alias"
     },
     "shipping-types": {
       "title": "Tipo de envío | Tipos de envíos"
