@@ -5,21 +5,21 @@
     <p class="text-table text-18">
         Selecciona la moneda que deseas comprar, luego de seleccionar podrás elegir el método de pago.
     </p>
-    <CryptoCurrencySelect
-        v-model="currency"
-    >
+    <CryptoCurrencySelect v-model="currency">
     </CryptoCurrencySelect>
-    <PaymentMethods 
-        v-if="currency" 
-        v-model="paymentMethod">
-        </PaymentMethods>
-    <component 
-        v-if="paymentMethod"
-        :is="detailPaymentMethod!"
-        :itemsDetails="itemsDetails"
-        v-model="itemDetailSelected"
-        ></component>
-    <CalculadoraComponent></CalculadoraComponent>
+    <PaymentMethods v-if="currency" v-model="paymentMethod">
+    </PaymentMethods>
+    <component v-if="paymentMethod" :is="detailPaymentMethod!" :itemsDetails="itemsDetails" v-model="itemDetailSelected">
+    </component>
+    <div>
+        <h3 class="text-primary">
+            {{ $t('views.buy.amount') }}
+        </h3>
+        <p class="text-table text-18">
+            Ingresa la cantidad a calcular, puedes usar cualquiera de los campos para hacer el cálculo
+        </p>
+        <CalculadoraComponent></CalculadoraComponent>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -41,15 +41,15 @@ import { helperStore } from '@/helper';
 import CalculadoraComponent from '../components/intercambio/CalculadoraComponent.vue';
 
 const helper = helperStore()
-const currency = ref<Currency|null>(null)
-const paymentMethod = ref<PaymentMethod|null>(null)
+const currency = ref<Currency | null>(null)
+const paymentMethod = ref<PaymentMethod | null>(null)
 const itemsDetails = ref<BankAccount | EfectyAccount | OtherAccount | null>()
 const itemDetailSelected = ref<BankAccount | EfectyAccount | OtherAccount | null>()
 const detailPaymentMethod = computed(() => {
-    if(!paymentMethod.value) return null
-    
+    if (!paymentMethod.value) return null
+
     getDetailsForPaymentMethod()
-    switch(paymentMethod.value.id){
+    switch (paymentMethod.value.id) {
         case PAYMENT_METHODS_AVAILABLE.BANK:
             return BankComponent;
         case PAYMENT_METHODS_AVAILABLE.EFECTY:
@@ -69,9 +69,9 @@ const getDetailsForPaymentMethod = async () => {
     const params = {
         payment_type_id: paymentMethod.value!.id
     }
-    const res = await helper.http('company/account','get',{params})
+    const res = await helper.http('company/account', 'get', { params })
     itemsDetails.value = res.data.response
-    
+
 }
 </script>
 

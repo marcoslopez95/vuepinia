@@ -30,11 +30,11 @@ import { computed } from 'vue';
 import { reactive } from 'vue';
 import { ref } from 'vue';
 
-const {
-    monedaCrypto
-} = defineProps<{
-    monedaCrypto: Currency,
-}>()
+// const {
+//     // monedaCrypto
+// } = defineProps<{
+//     // monedaCrypto: Currency,
+// }>()
 const helper = helperStore()
 
 const calculadora = reactive<{

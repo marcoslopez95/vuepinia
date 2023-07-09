@@ -232,7 +232,8 @@
     },
     "buy": {
       "title": "Flash Buy",
-      "payment-method": "Payment Method"
+      "payment-method": "Payment Method",
+      "amount": "Amount Buy"
     }
   },
   "genereal-views": {

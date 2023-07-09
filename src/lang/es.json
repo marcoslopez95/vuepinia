@@ -231,7 +231,8 @@
     },
     "buy": {
       "title": "Compra Rápida",
-      "payment-method": "Método de Pago"
+      "payment-method": "Método de Pago",
+      "amount": "Monto a comprar"
     }
   },
   "genereal-views": {
