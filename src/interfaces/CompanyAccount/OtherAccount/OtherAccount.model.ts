@@ -6,7 +6,7 @@ export declare interface OtherAccount extends BaseModel<OtherAccountAttributes,O
 
 export declare interface OtherAccountAttributes {
     currency_id:number
-    type_company_account_id:number
+    payment_type_id:number
     limit:number
     account_number:string
     identification_document:string
@@ -19,5 +19,5 @@ export declare interface OtherAccountAttributes {
 
 export declare interface OtherAccountRelationships{
     currency: Currency
-    typeAccount: PaymentMethod
+    paymentType: PaymentMethod
 }

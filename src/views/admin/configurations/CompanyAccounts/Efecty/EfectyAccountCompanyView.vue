@@ -42,8 +42,8 @@ import { PAYMENT_METHODS_AVAILABLE } from '@/enums/PaymentMethod.enum';
 import { CompanyAccountStore } from '@/stores/CompanyAccountStore';
 const helper = helperStore()
 helper.url = 'company/account'
-helper.defaultParams.type_company_account_id = PAYMENT_METHODS_AVAILABLE.EFECTY
-helper.defaultParamsByCrud.type_company_account_id = PAYMENT_METHODS_AVAILABLE.EFECTY
+helper.defaultParams.payment_type_id = PAYMENT_METHODS_AVAILABLE.EFECTY
+helper.defaultParamsByCrud.payment_type_id = PAYMENT_METHODS_AVAILABLE.EFECTY
 helper.index()
 
 const search = ref<string>('')
@@ -70,7 +70,7 @@ const openUpdate = (item:EfectyAccount) => {
         identification_document: item.attributes.identification_document,
         link: item.attributes.link,
         recommendation: item.attributes.recommendation,
-        type_company_account_id: item.attributes.type_company_account_id,
+        payment_type_id: item.attributes.payment_type_id,
         coordinate: item.attributes.coordinate,
         location: item.attributes.location
     }

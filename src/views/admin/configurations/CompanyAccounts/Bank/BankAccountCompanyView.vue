@@ -40,8 +40,8 @@ import { PAYMENT_METHODS_AVAILABLE } from '@/enums/PaymentMethod.enum';
 import { CompanyAccountStore } from '@/stores/CompanyAccountStore';
 const helper = helperStore()
 helper.url = 'company/account'
-helper.defaultParams.type_company_account_id = PAYMENT_METHODS_AVAILABLE.BANK
-helper.defaultParamsByCrud.type_company_account_id = PAYMENT_METHODS_AVAILABLE.BANK
+helper.defaultParams.payment_type_id = PAYMENT_METHODS_AVAILABLE.BANK
+helper.defaultParamsByCrud.payment_type_id = PAYMENT_METHODS_AVAILABLE.BANK
 helper.index()
 
 const search = ref<string>('')
@@ -69,7 +69,7 @@ const openUpdate = (item:BankAccount) => {
         identification_document: item.attributes.identification_document,
         limit: item.attributes.limit,
         recommendation: item.attributes.recommendation,
-        type_company_account_id: item.attributes.type_company_account_id,
+        payment_type_id: item.attributes.payment_type_id,
         type_company_bank_account_id: item.attributes.type_company_bank_account_id
 
     }

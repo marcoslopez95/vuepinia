@@ -1,5 +1,5 @@
 export enum PAYMENT_METHODS_AVAILABLE {
-    BANK   = 1,
-    EFECTY = 2,
+    EFECTY = 1,
+    BANK   = 2,
     OTHER  = 3,
 }

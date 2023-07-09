@@ -228,6 +228,10 @@
     },
     "shipping-types": {
       "title": "Tipo de envío | Tipos de envíos"
+    },
+    "buy": {
+      "title": "Compra Rápida",
+      "payment-method": "Método de Pago"
     }
   },
   "genereal-views": {

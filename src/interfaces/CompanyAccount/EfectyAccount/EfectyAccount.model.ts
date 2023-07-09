@@ -6,7 +6,7 @@ export declare interface EfectyAccount extends BaseModel<EfectyAccountAttributes
 
 export declare interface EfectyAccountAttributes {
     currency_id: number
-    type_company_account_id: number
+    payment_type_id: number
     account_number:string
     identification_document:string
     beneficiary:string
@@ -19,5 +19,5 @@ export declare interface EfectyAccountAttributes {
 
 export declare interface EfectyAccountRelationships {
     currency: Currency
-    typeAccount: PaymentMethod
+    paymentType: PaymentMethod
 }

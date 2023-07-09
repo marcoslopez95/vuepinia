@@ -9,7 +9,7 @@ const generals: RouteRecordRaw[] = [
         name: "user-buy",
         path: "/user/buy",
         component: () =>
-            import("@/views/admin/kyc/Kyc.vue"),
+            import("@/views/user/Compra/CompraView.vue"),
         meta: {
             roles: [
                 ROLES.USER
@@ -21,7 +21,7 @@ const generals: RouteRecordRaw[] = [
         name: "user-sell",
         path: "/user/sell",
         component: () =>
-            import("@/views/admin/users/UsersView.vue"),
+            import("@/views/user/Venta/VentaView.vue"),
         meta: {
             roles: [
                 ROLES.USER

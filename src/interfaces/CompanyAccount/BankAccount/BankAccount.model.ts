@@ -10,7 +10,7 @@ export declare interface BankAccountAttributes {
     bank_id: number
     currency_id: number
     type_company_bank_account_id: number
-    type_company_account_id: number
+    payment_type_id: number
     account_number:string
     identification_document:string
     beneficiary:string
@@ -21,7 +21,7 @@ export declare interface BankAccountAttributes {
 
 export declare interface BankAccountRelationships{
     currency: Currency
-    typeAccount: PaymentMethod
+    paymentType: PaymentMethod
     bank: Bank
     typeAccountBank: TypeBankAccount
 }

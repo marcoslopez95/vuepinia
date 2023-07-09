@@ -45,6 +45,7 @@ export default createVuetify({
     },
   },
   aliases:{
+    VBtnDegree: components.VBtn,
     VBtnPrimary: components.VBtn,
     VBtnSecondary: components.VBtn,
     VBtnSuccess: components.VBtn,
@@ -94,6 +95,12 @@ export default createVuetify({
       variant: 'outlined'
     },
     //--------------------------------
+    VBtnDegree: {
+      rounded: 'pill',
+      type: 'button',
+      variant: 'flat',
+      class: 'text-table font-weight-bold v-text-field__slot',
+    },
     VBtnSuccess: {
       rounded: 'pill',
       style: 'color: #1AD598 !important; background-color: #BBF3E0 !important;',

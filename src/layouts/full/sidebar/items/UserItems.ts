@@ -9,7 +9,7 @@ const items: SidebarItem[] = [
     {
         title: "Comprar",
         icon: BuyIcon,
-        to: "",
+        to: "user-buy",
         roles: [
             ROLES.USER,
         ],
@@ -17,7 +17,7 @@ const items: SidebarItem[] = [
     {
         title: "Vender",
         icon: SellIcon,
-        to: "",
+        to: "user-sell",
         roles: [
             ROLES.USER,
         ],

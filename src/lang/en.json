@@ -229,6 +229,10 @@
     },
     "shipping-types": {
       "title": "Shipping Type | Shipping Types"
+    },
+    "buy": {
+      "title": "Flash Buy",
+      "payment-method": "Payment Method"
     }
   },
   "genereal-views": {

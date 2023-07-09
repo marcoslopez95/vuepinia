@@ -40,8 +40,8 @@ import { PAYMENT_METHODS_AVAILABLE } from '@/enums/PaymentMethod.enum';
 import { CompanyAccountStore } from '@/stores/CompanyAccountStore';
 const helper = helperStore()
 helper.url = 'company/account'
-helper.defaultParams.type_company_account_id = PAYMENT_METHODS_AVAILABLE.OTHER
-helper.defaultParamsByCrud.type_company_account_id = PAYMENT_METHODS_AVAILABLE.OTHER
+helper.defaultParams.payment_type_id = PAYMENT_METHODS_AVAILABLE.OTHER
+helper.defaultParamsByCrud.payment_type_id = PAYMENT_METHODS_AVAILABLE.OTHER
 helper.index()
 
 const search = ref<string>('')
@@ -68,7 +68,7 @@ const openUpdate = (item:OtherAccount) => {
         description: item.attributes.description,
         identification_document: item.attributes.identification_document,
         recommendation: item.attributes.recommendation,
-        type_company_account_id: item.attributes.type_company_account_id,
+        payment_type_id: item.attributes.payment_type_id,
         code_phone: item.attributes.code_phone,
         limit: item.attributes.limit,
         phone: item.attributes.phone,
