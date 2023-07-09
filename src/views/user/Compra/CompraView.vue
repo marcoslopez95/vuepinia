@@ -19,6 +19,7 @@
         :itemsDetails="itemsDetails"
         v-model="itemDetailSelected"
         ></component>
+    <CalculadoraComponent></CalculadoraComponent>
 </template>
 
 <script setup lang="ts">
@@ -37,6 +38,7 @@ import type { BankAccount } from '@/interfaces/CompanyAccount/BankAccount/BankAc
 import type { EfectyAccount } from '@/interfaces/CompanyAccount/EfectyAccount/EfectyAccount.model';
 import type { OtherAccount } from '@/interfaces/CompanyAccount/OtherAccount/OtherAccount.model';
 import { helperStore } from '@/helper';
+import CalculadoraComponent from '../components/intercambio/CalculadoraComponent.vue';
 
 const helper = helperStore()
 const currency = ref<Currency|null>(null)
