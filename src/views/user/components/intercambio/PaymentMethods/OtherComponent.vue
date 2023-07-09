@@ -1,17 +1,46 @@
 <template>
     <div>
-Esto es un pago por otro
-{{ itemsDetails }}
+        <VRow>
+            <VCol cols="4" v-for="OtherAccount, i in (itemsDetails as OtherAccount[])" :key="i"
+                @click="selectItem(OtherAccount)">
+                <VBtnDegree rounded="lg" :class="{
+                    'payment-selected': OtherAccount.id == modelValue?.id
+                }" color="primary">
+                   
+                    {{ OtherAccount.attributes.description }}
+                </VBtnDegree>
+            </VCol>
+        </VRow>
     </div>
 </template>
 
 <script setup lang="ts">
 import type { OtherAccount } from '@/interfaces/CompanyAccount/OtherAccount/OtherAccount.model';
-defineProps<{
+import { ref } from 'vue';
+const { modelValue } = defineProps<{
     itemsDetails: any
+    modelValue: any
 }>()
+
+const emits = defineEmits<{
+    (e: 'update:model-value', value: OtherAccount): void
+}>()
+
+const selectItem = (item: OtherAccount) => {
+    emits('update:model-value', item)
+    itemSelect.value = item
+}
+const itemSelect = ref<OtherAccount | null>(null)
+
 </script>
 
-<style scoped>
 
+<style scoped>
+.v-text-field__slot.payment-selected {
+    background: none;
+}
+
+.payment-selected {
+    color: white !important;
+}
 </style>
