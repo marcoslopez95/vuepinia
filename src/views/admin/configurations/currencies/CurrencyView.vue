@@ -6,7 +6,12 @@
         </VBtn>
     </div>
 
-    <CrudComponent :singular="$t('views.currencies.title')" :rows="rows"></CrudComponent>
+    <CrudComponent 
+        :singular="$t('views.currencies.title')" 
+        :rows="rows"
+        @click:post="postCurrency"
+    >
+    </CrudComponent>
     <TableComponentVue
     optionsHabilit
     icon-update
@@ -37,6 +42,7 @@ import type { CurrencyCreate } from '@/interfaces/Currency/Currency.dto';
 import SearchInputComponentVue from '@/components/global/SearchInputComponent.vue';
 import * as validator from '@/validator'
 import { CurrencyStore } from '@/stores/CurrencyStore';
+
 const helper = helperStore()
 helper.url = 'currency'
 
@@ -61,7 +67,8 @@ const openUpdate = (item:Currency) => {
         reference_system_currency: !!item.attributes.reference_system_currency,
         wallet_default: !!item.attributes.wallet_default,
         sale: !!item.attributes.sale,
-        buy: !!item.attributes.buy
+        buy: !!item.attributes.buy,
+        icon: item.relationships?.images[0].attributes.aws_url ?? ""
     }
     formCrud.value = itemUpdate
     openModalCrud.value = true;
@@ -151,16 +158,16 @@ const rows: Row[] = [
             }
         ]
     },
-    // {
-    //     fields: [
-    //         {
-    //             label: t('views.currencies.image'),
-    //             type: 'image',
-    //             valueForm: 'icon',
-    //             rules: [ ]
-    //         }
-    //     ]
-    // }
+    {
+        fields: [
+            {
+                label: t('views.currencies.image'),
+                type: 'image',
+                valueForm: 'icon',
+                rules: [ ]
+            }
+        ]
+    }
 ]
 
 const headers: Head[] = [
@@ -179,7 +186,29 @@ const headers: Head[] = [
 
 ]
 
+const postCurrency = async (item: CurrencyCreate) => {
+    const data = new FormData()
 
+    for(let key in formCrud.value){
+        if(key == 'icon'){
+            continue
+        }
+        data.append(key,formCrud.value[key])
+    }
+    const url = clickIn.value == 'Create' ? 'currency' : `currency/${itemH.value}`
+    const method = clickIn.value == 'Create' ? 'post' : 'put'
+    // const res = (await helper.http(url, method,{data}))
+    console.log(data)
+    // return
+    const res = clickIn.value == 'Edit' 
+            ? await helper.put(itemH.value.id, data)
+            : await helper.create(data)
+
+    if (res === false) return
+    formRef.value.reset()
+    openModalCrud.value = false
+    helper.index()
+}
 </script>
 
 <style scoped>

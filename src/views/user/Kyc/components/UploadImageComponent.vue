@@ -36,7 +36,7 @@ const props = defineProps<{
     text: string,
     modelValue: any
 }>()
-const input = ref()
+const input = ref(props.modelValue)
 const refInput = ref<HTMLInputElement>()
 
 const uploadImage = () => {

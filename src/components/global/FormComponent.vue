@@ -1,5 +1,9 @@
 <template>
-  <VForm ref="formRef" :readonly=" helper.clickIn == 'Show'">
+  <VForm 
+    ref="formRef" 
+    :readonly=" helper.clickIn == 'Show'"
+    enctype="multipart/form-data"
+    >
       <VRow v-for="(row,i) in rows" :key="i" :class="row.rowClass ?? 'mb-3'">
         <slot v-for="(field,j) in row.fields" :key="j" :name="field.valueForm">
           <VCol 
@@ -38,6 +42,7 @@
               >
               
             </UploadImageComponent>
+            <!-- <VTextField v-else-if="field.type === 'image'" type="file"  /> -->
             <!-- <VSelect
               v-else-if="field.type === 'select'"
               :items="field.select?.items.value"
@@ -88,6 +93,9 @@ interface Props {
   rows: Row[]
 }
 
+const verificateIfExistUpload = (): boolean => {
+  return props.rows.some(row => (row.fields.some(field => field.type == 'image')))
+}
 // -------------------------------------------
 </script>
 

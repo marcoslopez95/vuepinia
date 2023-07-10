@@ -11,7 +11,9 @@ const { t } = useI18n()
 const helper = helperStore()
 const { formRef, item, formCrud, openModalCrud, clickIn } = storeToRefs(helper)
 
-
+const emits = defineEmits<{
+  (e: 'click:post', value: any): void
+}>()
 const props = defineProps<Props>()
 const { singular } = toRefs(props)
 
@@ -19,24 +21,39 @@ const CreateOrUpdate = async () => {
   const { valid } = await formRef.value.validate()
   if (!valid) return
   let data;
-  // if (verificateIfExistUpload()) {
-  //   console.log(getFieldsName())
-  //   data = new FormData()
-  //   // for (let key in formCrud.value) {
-  //   //@ts-ignore
-  //   data.append('nuevo')
-  //   // },
-  //   console.log('nuevaData', data)
-  // } else {
-    data = formCrud.value
-  // }
-  let res: unknown
-  if (clickIn.value == 'Edit') {
-    res = await helper.put(item.value.id, data)
-  } else {
-    res = await helper.create(data)
+  if (verificateIfExistUpload()) {
+    // emits('click:post', formCrud.value)
+    data = new FormData()
+
+    for(let key in formCrud.value){
+      let value;
+      if(typeof formCrud.value[key] == 'boolean'){
+        value = formCrud.value[key] === true ? '1' : '0'
+      }else
+      if (typeof formCrud.value[key] == 'number'){
+        value = formCrud.value[key].toString()
+      }else{
+        value = formCrud.value[key]
+      }
+
+      data.append(key,value)
+    }
+    const url = clickIn.value === 'Create' ? helper.url : helper.url+`/${helper.item.id}`
+    helper
+        .http(url, 'post', { data })
+        .then(() => {
+            closeModal()
+            helper.index()
+        })
+    return
   }
+  data = formCrud.value
+  let res = clickIn.value == 'Edit' 
+            ? await helper.put(item.value.id, data)
+            : await helper.create(data)
+  
   if (res === false) return
+  
   closeModal()
   helper.index()
 
@@ -96,7 +113,8 @@ const getButton = computed((): string => {
     <template #title>{{ getTitle }}</template>
 
     <template #content>
-      <FormComponent :rows="rows"></FormComponent>
+      <FormComponent :rows="rows">
+      </FormComponent>
     </template>
 
     <template #actions>
