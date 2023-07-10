@@ -7,7 +7,17 @@
                     'payment-selected': bankAccount.id == modelValue?.id
                 }" color="primary">
                    
-                    {{ bankAccount.relationships?.bank.attributes.name }}
+                   <VImg 
+                        v-if="bankAccount.relationships!.bank.relationships!.images.length > 0"
+                        :src="bankAccount.relationships!.bank.relationships!.images[0].attributes.aws_url"
+                        width="150"
+                        cover
+                        :max-height="34"
+                    >
+                   </VImg>
+                   <span v-else>
+                       {{ bankAccount.relationships?.bank.attributes.name }}
+                   </span>
                 </VBtnDegree>
             </VCol>
         </VRow>
