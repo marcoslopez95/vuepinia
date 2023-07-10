@@ -295,7 +295,8 @@
     "delete-icon": "Eliminar",
     "accept-icon": "Aceptar",
     "reject-icon": "Rechazar",
-    "color": "Color"
+    "color": "Color",
+    "image": "Imagen"
   },
   "general-messages": {
     "editedSuccessfully": "Actualizado correctament",

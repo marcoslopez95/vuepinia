@@ -64,7 +64,8 @@ const openUpdate = (item:Bank) => {
         country_id: item.relationships?.country.id ?? 0,
         description: item.attributes.description,
         name: item.attributes.name,
-        status: item.attributes.status
+        status: item.attributes.status,
+        icon: item.relationships?.images[0].attributes.aws_url ?? ''
     }
     formCrud.value = itemUpdate
     openModalCrud.value = true;
@@ -99,11 +100,7 @@ const rows: Row[] = [
                 label: t('general-views.description'),
                 type: 'text',
                 valueForm: 'description',
-            // }
-        // ]
-    },
-    // {
-        // fields: [
+            },
             {
                 label: t('views.countries.title'),
                 type: 'select',
@@ -116,7 +113,16 @@ const rows: Row[] = [
                 rules: [
                     validator.required
                 ]
-            },
+            }
+        ]
+    },
+    {
+        fields: [
+            {
+                label: t('general-views.image'),
+                type: 'image',
+                valueForm: 'icon'
+            }
         ]
     }
 ]

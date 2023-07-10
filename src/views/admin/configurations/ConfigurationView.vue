@@ -1,5 +1,5 @@
 <template>
-    <h2 class="text-table font-weight-bold">{{ $t('views.configurations.title', 2) }}</h2>
+    <h2 class="text-table font-weight-bold">{{ $t('views.configurations.title', 2) }} - {{ menuActive }} {{ submenuActive ? ' - ' +submenuActive : '' }}</h2>
 
     <v-card>
         <div class="border-b-md">

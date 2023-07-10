@@ -254,29 +254,29 @@ const maxColumns = computed(() => {
 
                 <v-list>
                   <v-list-item>
-                    <v-list-item-title>
-                      <VBtn v-if="iconShow && !isDeleted(item.id)" :title="'Show'" color="transparent" size="x-small"
+                    <v-list-item-title v-if="iconShow && !isDeleted(item.id)" class="cursor-pointer" @click="() => { clickIn = 'Show'; emit('show', item) }">
+                      <VBtn  :title="'Show'" color="transparent" size="x-small"
                         elevation="0" icon>
-                        <VIcon color="primary" @click="() => { clickIn = 'Show'; emit('show', item) }" size="24"
+                        <VIcon color="primary"  size="24"
                           icon="mdi-eye-outline" />
-                      </VBtn>
+                      </VBtn> {{$t('general-views.show')}}
                     </v-list-item-title>
-                    <v-list-item-title>
-                      <VBtn v-if="iconUpdate && !isDeleted(item.id)" :title="'Update'" color="transparent" size="x-small"
+                    <v-list-item-title class="cursor-pointer" v-if="iconUpdate && !isDeleted(item.id)" @click="() => { clickIn = 'Edit'; emit('update', item) }">
+                      <VBtn :title="'Update'" color="transparent" size="x-small"
                         elevation="0" icon>
-                        <VIcon color="primary" @click="() => { clickIn = 'Edit'; emit('update', item) }" size="24"
+                        <VIcon color="primary"  size="24"
                           icon="mdi-pencil-outline" />
-                      </VBtn>
+                      </VBtn> {{$t('general-views.edit')}}
                     </v-list-item-title>
                     <v-list-item-title>
                       <slot v-if="newButtons" name="newButtons" :data="item"></slot>
                     </v-list-item-title>
-                    <v-list-item-title>
-                      <VBtn v-if="iconDelete" :title="!isDeleted(item.id) ? 'Delete' : 'Restore'" color="transparent"
+                    <v-list-item-title class="cursor-pointer" v-if="iconDelete"  @click="openConfirmModal(item.id)">
+                      <VBtn  :title="!isDeleted(item.id) ? 'Delete' : 'Restore'" color="transparent"
                         size="x-small" elevation="0" icon>
-                        <VIcon color="primary" @click="openConfirmModal(item.id)" size="24"
+                        <VIcon color="primary" size="24"
                           :icon="!isDeleted(item.id) ? 'mdi-delete' : 'mdi-delete-restore'" />
-                      </VBtn>
+                      </VBtn> {{ !isDeleted(item.id) ? t('general-views.delete.title') : t('general-views.restore.title') }}
                     </v-list-item-title>
                   </v-list-item>
                 </v-list>
