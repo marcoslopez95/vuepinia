@@ -1,9 +1,24 @@
 <template>
-    <div class="d-flex justify-center my-6" id="container-img-kyc">
-        <div  id="img" @click="uploadImage" class="cursor-pointer v-text-field__slot px-4 py-3 border-md"
-            style="max-width: 284px;min-width: 284px;">
+    <div 
+        class="d-flex justify-center my-6" 
+        id="container-img-kyc"
+    >
+        <div 
+            id="img" 
+            @click="uploadImage" 
+            class="cursor-pointer v-text-field__slot px-4 py-3 border-md"
+            :style="[
+                `max-width: ${sizeImage ?? 284}px`,
+                `min-width: ${sizeImage ?? 284}px`,
+            ]
+            "
+        >
             <span v-if='!input'>
-                <VIcon size="57" color="primary" :icon="UploadIcon"></VIcon>
+                <VIcon 
+                    size="57" 
+                    color="primary" 
+                    :icon="UploadIcon">
+                </VIcon>
                 <p class="text-table" style="font-size: 17px;" v-html="text">
                 </p>
             </span>
@@ -34,7 +49,8 @@ const emits = defineEmits<{
 const props = defineProps<{
     image?: string,
     text: string,
-    modelValue: any
+    modelValue: any,
+    sizeImage?: number
 }>()
 const input = ref(props.modelValue)
 const refInput = ref<HTMLInputElement>()

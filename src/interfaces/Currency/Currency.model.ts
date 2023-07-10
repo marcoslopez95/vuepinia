@@ -13,6 +13,7 @@ export declare interface CurrencyAttributes {
     sale: boolean
     buy: boolean
     icon: '' | string
+    color: string | null
 }
 
 export declare interface CurrencyRelationships {

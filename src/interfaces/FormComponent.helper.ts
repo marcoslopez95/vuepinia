@@ -13,7 +13,9 @@ export declare interface Field{
   select?: Select
   colClass?: Array<string>
   fieldClass?: Array<string>
-  
+  colStyle?: Array<string>
+  fieldStyle?: Array<string>
+  props?: any
 }
 
 interface Select {
@@ -33,3 +35,4 @@ type typeField = 'text'
 | 'hidden'
 | 'switch'
 | 'image'
+| 'color'

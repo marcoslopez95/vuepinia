@@ -8,6 +8,7 @@
         <slot v-for="(field,j) in row.fields" :key="j" :name="field.valueForm">
           <VCol 
             :class="field.colClass && field.colClass.length > 0 ? field.colClass : 'v-col'"
+            :style="field.colStyle && field.colStyle.length > 0 ? field.colStyle : ''"
             >
             <VTextarea 
               v-if="field.type === 'textarea'"
@@ -15,6 +16,7 @@
               :class="field.fieldClass"
               :rules="field.rules"
               :label="field.label"
+              :style="field.fieldStyle && field.fieldStyle.length > 0 ? field.fieldStyle : ''"
             />
             <SelectComponent
               v-else-if="field.type === 'select'"
@@ -26,6 +28,7 @@
               :rules="field.rules"
               :menu-props="field.select!.menuProps"
               :multiple="field.select!.multiple"
+              :style="field.fieldStyle && field.fieldStyle.length > 0 ? field.fieldStyle : ''"
             />
             <VSwitch 
               v-else-if="field.type === 'switch'"
@@ -34,11 +37,15 @@
               v-model="form[field.valueForm]"
               :class="field.fieldClass"
               :rules="field.rules"
-              :label="field.label" />
+              :label="field.label" 
+              :style="field.fieldStyle && field.fieldStyle.length > 0 ? field.fieldStyle : ''"
+              />
             <UploadImageComponent
               v-else-if="field.type === 'image'"
               v-model="form[field.valueForm]"
               :text="field.label"
+              :style="field.fieldStyle && field.fieldStyle.length > 0 ? field.fieldStyle : ''"
+              v-bind="field.props"
               >
               
             </UploadImageComponent>
@@ -54,6 +61,17 @@
               :menu-props="field.select!.menuProps"
               :multiple="field.select!.multiple"
             /> -->
+            <v-color-picker 
+              v-else-if="field.type === 'color'"
+              v-model="form[field.valueForm]"
+              v-bind="field.props"
+              hide-inputs
+              elevation="10"
+              mode="rgba"
+              :border="100"
+              color="#605f5f99"
+            >
+            </v-color-picker>
             <InputComponent 
               v-else
               v-model="form[field.valueForm]"
@@ -62,6 +80,7 @@
               :rules="field.rules"
               :name="field.label"
               :id="field.valueForm"
+              :style="field.fieldStyle && field.fieldStyle.length > 0 ? field.fieldStyle : ''"
             />
             <!-- <VTextField
               v-else

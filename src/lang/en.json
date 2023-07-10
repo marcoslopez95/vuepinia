@@ -295,7 +295,8 @@
     "edit": "Edit",
     "delete-icon": "Delete",
     "accept-icon": "Accept",
-    "reject-icon": "Reject"
+    "reject-icon": "Reject",
+    "color": "Color"
   },
   "general-messages": {
     "editedSuccessfully": "Update Successfull",

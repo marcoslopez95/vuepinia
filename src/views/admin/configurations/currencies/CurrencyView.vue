@@ -68,7 +68,8 @@ const openUpdate = (item:Currency) => {
         wallet_default: !!item.attributes.wallet_default,
         sale: !!item.attributes.sale,
         buy: !!item.attributes.buy,
-        icon: item.relationships?.images[0].attributes.aws_url ?? ""
+        icon: item.relationships?.images[0].attributes.aws_url ?? "",
+        color: item.attributes.color
     }
     formCrud.value = itemUpdate
     openModalCrud.value = true;
@@ -164,8 +165,16 @@ const rows: Row[] = [
                 label: t('views.currencies.image'),
                 type: 'image',
                 valueForm: 'icon',
-                rules: [ ]
-            }
+                rules: [ ],
+                props: {
+                    sizeImage: 100
+                }
+            },
+            {
+                label: t('general-views.color'),
+                type: 'color',
+                valueForm: 'color',
+            },
         ]
     }
 ]
