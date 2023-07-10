@@ -68,7 +68,7 @@ const openUpdate = (item:Currency) => {
         wallet_default: !!item.attributes.wallet_default,
         sale: !!item.attributes.sale,
         buy: !!item.attributes.buy,
-        icon: item.relationships?.images[0].attributes.aws_url ?? "",
+        icon: item.relationships?.images && item.relationships.images.length>0 ? item.relationships?.images[0].attributes.aws_url : "",
         color: item.attributes.color
     }
     formCrud.value = itemUpdate

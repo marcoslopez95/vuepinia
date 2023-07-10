@@ -18,5 +18,5 @@ export declare interface CurrencyAttributes {
 
 export declare interface CurrencyRelationships {
     typeCurrency?: CurrencyType
-    images: Image[]
+    images?: Image[]
 }
