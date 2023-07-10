@@ -108,10 +108,6 @@ const rows: Row[] = [
                 },
                 
             },
-        ]
-    },
-    {
-        fields: [
             {
                 label: t('views.company-accounts.bank.account-number'),
                 valueForm: 'account_number',
@@ -120,6 +116,11 @@ const rows: Row[] = [
                 ],
                 type: 'text',
             },
+        ]
+    },
+    {
+        fields: [
+           
             {
                 label: t('views.company-accounts.bank.beneficiary'),
                 valueForm: 'beneficiary',
@@ -135,25 +136,18 @@ const rows: Row[] = [
                     validator.required
                 ],
                 type: 'text',
-            }
-        ]
-    },
-    {
-        fields: [
-            {
-                label: t('views.users.code_phone'),
-                valueForm: 'code_phone',
-                rules: [
-                    validator.required
-                ],
-                type: 'text',
             },
             {
                 label: t('views.users.phone'),
-                valueForm: 'phone',
+                valueForm: 'phoneFormat',
                 rules: [
                 ],
-                type: 'text',
+                type: 'phone',
+                phone: {
+                    fieldCode: 'code',
+                    fieldPhone: 'phone',
+                    fieldValid: 'phoneIsValid'
+                }
             }
         ]
     },

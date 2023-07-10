@@ -16,6 +16,11 @@ export declare interface Field{
   colStyle?: Array<string>
   fieldStyle?: Array<string>
   props?: any
+  phone?: {
+    fieldCode: string,
+    fieldPhone: string
+    fieldValid: string
+  }
 }
 
 interface Select {
@@ -36,3 +41,4 @@ type typeField = 'text'
 | 'switch'
 | 'image'
 | 'color'
+| 'phone'

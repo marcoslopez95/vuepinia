@@ -72,6 +72,15 @@
               color="#605f5f99"
             >
             </v-color-picker>
+            <TelInput
+              v-else-if="field.type === 'phone'"
+              v-model="form[field.valueForm]"
+              :name="field.label"
+              v-bind="field.props"
+              @phone="(phone)    => form[field.phone!.fieldPhone] = phone"
+              @phoneCode="(code) => form[field.phone!.fieldCode] = code"
+              @is-valid="(isValid) => form[field.phone!.fieldValid] = isValid"
+            ></TelInput>
             <InputComponent 
               v-else
               v-model="form[field.valueForm]"
@@ -103,6 +112,7 @@ import InputComponent from '@/components/InputComponent.vue'
 import SelectComponent from '../SelectComponent.vue';
 import { storeToRefs } from 'pinia';
 import UploadImageComponent from '@/views/user/Kyc/components/UploadImageComponent.vue'
+import TelInput from '../TelInput.vue';
 const props = defineProps<Props>()
 
 const helper = helperStore()
