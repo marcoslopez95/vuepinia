@@ -11,7 +11,7 @@
     </PaymentMethods>
     <component v-if="paymentMethod" :is="detailPaymentMethod!" :itemsDetails="itemsDetails" v-model="itemDetailSelected">
     </component>
-    <div>
+    <div class="mt-5" v-if="itemDetailSelected">
         <h3 class="text-primary">
             {{ $t('views.buy.amount') }}
         </h3>
