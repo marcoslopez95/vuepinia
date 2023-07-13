@@ -36,10 +36,15 @@ import SearchInputComponentVue from '@/components/global/SearchInputComponent.vu
 import * as validator from '@/validator'
 import type { ShippingType } from '@/interfaces/ShippingType/ShippingType.model';
 import type { ShippingTypeCreate } from '@/interfaces/ShippingType/ShippingType.dto';
+import { ShippingTypeStore } from '@/stores/ShippingTypeStore';
 const helper = helperStore()
 helper.url = 'shipping/types'
 
 helper.index()
+
+const shippingTypeStore = ShippingTypeStore()
+const { paymentMethods } = storeToRefs(shippingTypeStore)
+shippingTypeStore.getPaymentMethods()
 
 const search = ref<string>('')
 const getSearch = () => {
@@ -51,7 +56,8 @@ const openUpdate = (item:ShippingType) => {
     itemH.value = item
     const itemUpdate: ShippingTypeCreate = {
         name: item.attributes.name,
-        description: item.attributes.description
+        description: item.attributes.description,
+        payment_type_id: item.relationships?.payment.id ?? ''
     }
     formCrud.value = itemUpdate
     openModalCrud.value = true;
@@ -87,10 +93,21 @@ const rows: Row[] = [
                 type: 'text',
                 valueForm: 'description',
                 rules: [
-                    validator.required
                 ]
             },
-            
+            {
+                label: t('views.type-company-account.title'),
+                type: 'select',
+                valueForm: 'payment_type_id',
+                rules: [
+                    validator.required
+                ],
+                select: {
+                    items: paymentMethods,
+                    itemTitle: 'attributes.name',
+                    itemValue: 'id'
+                }
+            },
         ]
     }
 ]
@@ -103,6 +120,10 @@ const headers: Head[] = [
     {
         name: t('general-views.description'),
         value: 'attributes.description',
+    },
+    {
+        name: t('views.type-company-account.title'),
+        value: 'relationships.payment.attributes.name',
     }
 ]
 
