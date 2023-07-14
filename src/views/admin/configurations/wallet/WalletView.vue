@@ -55,7 +55,8 @@ const openUpdate = (item:Wallet) => {
     itemH.value = item
     const itemUpdate: WalletCreate = {
         currency_id: item.relationships!.currency.id,
-        wallet_id: item.attributes.wallet_id
+        address: item.attributes.address,
+        alias: item.attributes.alias
     }
     formCrud.value = itemUpdate
     openModalCrud.value = true;

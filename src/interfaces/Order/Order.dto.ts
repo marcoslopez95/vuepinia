@@ -1,6 +1,6 @@
 import type { OrderAttributes } from "./Order.model";
 
-export declare interface OrderCreate extends OrderAttributes { }
+export declare interface OrderCreate extends OmitField { }
 
 type OmitField = Omit<OrderAttributes,
     | 'user_id'
@@ -8,5 +8,4 @@ type OmitField = Omit<OrderAttributes,
     | 'status_id'
     | 'processed_by'
     | 'account_delivery_type'
-    | 'address_send'
 >

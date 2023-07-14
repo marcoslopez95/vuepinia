@@ -8,21 +8,22 @@ export const ConfirmOrderStore = defineStore('confirm-order', () => {
     const helper = helperStore()
 
     const form = ref<OrderCreate>({
-        amount_currency: 0,
+        amount_currency: '0',
         currency_id: '',
-        currency_price: 0,
-        exchange_local: 0,
-        exchange_reference: 0,
-        fee: 0,
+        currency_price: '0',
+        exchange_local: '0',
+        exchange_reference: '0',
+        fee: '0',
         payment_type_id: '',
-        received_amount: 0,
+        received_amount: '0',
         shipping_type_id: '',
-        total_exchange_local: 0,
-        total_exchange_reference: 0,
+        total_exchange_local: '0',
+        total_exchange_reference: '0',
         type: 'Compra',
         account_delivery_id: '',
         wallet_id: '',
         address_send: '',
+        
     })
 
     const shippingType = ref<ShippingType[]>([])
@@ -36,8 +37,8 @@ export const ConfirmOrderStore = defineStore('confirm-order', () => {
 
     const createOrder = async () => {
         const url = 'order'
-        form.value.currency_price = (form.value.currency_price as number).toFixed(2)
-        form.value.received_amount = (form.value.received_amount as number).toFixed(8)
+        form.value.currency_price = parseFloat(form.value.currency_price).toFixed(2)
+        form.value.received_amount = parseFloat(form.value.received_amount).toFixed(8)
         const res = await helper.http(url, 'post',{
             data: form.value
         })

@@ -16,7 +16,7 @@
                     :class="[isHovering || modelValue?.id == currency.id  ? 'bg-orange2 ' : '']"
                     :style="{
                         'background-color': getColorHover(isHovering,currency),
-                        'border': `2px solid ${currency.attributes.color ?? black}`
+                        'border': `2px solid ${currency.attributes.color ?? 'black'}`
                     }
                     "
                     >

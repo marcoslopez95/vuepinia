@@ -26,9 +26,7 @@ export declare interface OrderAttributes {
         status_id: number;
         processed_by?: any;
         account_delivery_type: string;
-        address_send: string;
         
-        grades?: any;
 }
 
 export declare interface OrderRelationships {

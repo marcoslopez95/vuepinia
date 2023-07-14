@@ -24,7 +24,7 @@ export const onlyNumbers = (number: string): boolean | string => {
     const validate = /^[0-9 ]+$/i; if (validate.test(number)) { return true; } return 'Only numbers';
 };
 
-export const amountFormat = (event: string, length = 3): string => {
+export const amountFormat = (event: any, length = 3): string => {
     const text = event.target.value
     let reem = text
         .toString()
@@ -51,7 +51,7 @@ export const amountFormat = (event: string, length = 3): string => {
     }
     console.log('numero',reem)
                                             // 9        - (8 -1)
-    const partInteger = reem.substring(0, reem.length - (length - 1)) // parte entera 
+    let partInteger = reem.substring(0, reem.length - (length - 1)) // parte entera 
     if(partInteger.length == 2 && partInteger == '00') {
         partInteger = '0'
     }
