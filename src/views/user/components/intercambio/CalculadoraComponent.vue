@@ -3,13 +3,23 @@
         <VCol>
             <div class="d-flex justify-center">
                     <div style="width: 150px;">
-                        <InputComponent v-model="amountFiat" @update:model-value="updateCrypto" name="COP"></InputComponent>
+                        <InputComponent 
+                            v-model="amountFiat" 
+                            :events="eventsFiat"
+                            :rules="[onlyNumbers]"
+                            name="COP">
+                        </InputComponent>
                     </div>
                     <div class="my-auto mx-3 pt-6 text-center" cols="1" style="font-size: 1.5rem;">
                         =
                     </div>
                     <div style="width: 150px;">
-                        <InputComponent v-model="amountCrypto" @update:model-value="updateFiat" name="Crypto"></InputComponent>
+                        <InputComponent 
+                            v-model="amountCrypto" 
+                            :events="eventsCrypto"
+                            :rules="[onlyNumbers]"
+                            name="Crypto">
+                        </InputComponent>
                     </div>
             </div>
             <div class="w-100 text-center font-weight-bold text-table">
@@ -29,12 +39,9 @@ import type { Currency } from '@/interfaces/Currency/Currency.model';
 import { computed } from 'vue';
 import { reactive } from 'vue';
 import { ref } from 'vue';
+import type { EventComponent } from '@/interfaces/Components.helper'
+import { amountFormat,transformAmount,onlyNumbers,keyPressIsNumber } from '@/validator';
 
-// const {
-//     // monedaCrypto
-// } = defineProps<{
-//     // monedaCrypto: Currency,
-// }>()
 const helper = helperStore()
 
 const calculadora = reactive<{
@@ -53,6 +60,32 @@ const calculadora = reactive<{
     criptoOficial: 1
 })
 
+const eventsFiat: EventComponent = {
+    keypress: (event:any) => {
+        if(!(keyPressIsNumber(event)) && event.key != 'Backscape'){
+            event.preventDefault();
+            return
+        }
+        // amountFiat.value = amountFormat(event)
+        
+    },
+    keyup: (event:any) => {
+        amountFiat.value = amountFormat(event)
+        updateCrypto()
+    }
+}
+const eventsCrypto: EventComponent = {
+    keypress: (event:any) => {
+        if(!(keyPressIsNumber(event))){
+            event.preventDefault();
+        }
+    },
+    keyup: (event:any) => {
+        amountCrypto.value = amountFormat(event,8)
+        updateFiat()
+    }
+}
+
 const priceSelect = ref<Price|null>(null)
 const oficialValue = ref(1)
 const prices = ref<Price[]>([])
@@ -68,22 +101,23 @@ const getPrices = async () => {
 
 getPrices()
 
-const amountFiat = ref(0)
-const amountCrypto = ref(0)
+const amountFiat = ref<string>('0,00')
+const amountCrypto = ref<string>('0,00000000')
 
 const updateCrypto = () => {
-    calculadora.amountFiat = amountFiat.value
-    const division = amountFiat.value / (priceSelect.value?.buy ?? 1);
-    calculadora.amountCrypto = division.toFixed(5);
-    amountCrypto.value = parseFloat(calculadora.amountCrypto)
+    calculadora.amountFiat = transformAmount(amountFiat.value)
+
+    const division = calculadora.amountFiat / (priceSelect.value?.buy ?? 1);
+    calculadora.amountCrypto = division.toFixed(8);
+    amountCrypto.value = calculadora.amountCrypto
     calculadora.amountUsd = (parseFloat(calculadora.amountCrypto) * oficialValue.value).toFixed(2);
 }
 
 const updateFiat = () => {
-    calculadora.amountCrypto = amountCrypto.value;
-    calculadora.amountFiat = amountCrypto.value * (priceSelect.value?.buy ?? 1);
+    calculadora.amountCrypto = transformAmount(amountCrypto.value);
+    calculadora.amountFiat = calculadora.amountCrypto * (priceSelect.value?.buy ?? 1);
     calculadora.amountUsd = (calculadora.amountCrypto * oficialValue.value).toFixed(2);
-    amountFiat.value = calculadora.amountFiat
+    amountFiat.value = calculadora.amountFiat.toFixed(2)
 }
 // --------------
 interface Price {

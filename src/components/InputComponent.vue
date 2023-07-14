@@ -15,6 +15,7 @@
             density="compact"
             :disabled="disabled"
             :active="active??false"
+            v-on="events ?? {}"
             @update:model-value="emits('update:model-value',$event)"
             >
             <template v-if="appendIcon" #append>
@@ -38,7 +39,7 @@
 import { helperStore } from '@/helper';
 import { toRefs } from 'vue';
 import { computed } from 'vue';
-
+import type { PropsComponents } from '@/interfaces/Components.helper'
 const emits = defineEmits<{
     (e:'update:model-value',value:any):void
     (e:'click:append-icon'):void
@@ -50,7 +51,8 @@ const props = defineProps<{
     type?: string
     active?: boolean
     appendIcon?: string
-    disabled?: boolean
+    disabled?: boolean,
+    events?: Object
 }>()
 const { modelValue:mValue } = toRefs(props)
 const helper = helperStore()
