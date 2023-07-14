@@ -31,8 +31,9 @@ const Lighttheme: ThemeDefinition = {
     'purple': '#7415AE',
     'green': '#15AE49',
     'red-300': '#DF4385',
-    'blue-sky': '#1697DF'
-
+    'blue-sky': '#1697DF',
+    'soft-error': '#ef5da84d',
+    'soft-error-border': '#EF5DA8'
   },
 };
 

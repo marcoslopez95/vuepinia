@@ -1,5 +1,7 @@
 <template>
-    <VLabel class="pl-3 text-capitalize font-weight-bold" style="">{{name}}</VLabel>
+    <slot name="label">
+        <VLabel class="pl-3 text-capitalize font-weight-bold" style="">{{name}}</VLabel>
+    </slot>
     <VResponsive class="v-text-field__slot">
         <VTextField 
             :rounded="40" 

@@ -1,5 +1,7 @@
 <template>
-    <VLabel class="pl-3 text-capitalize font-weight-bold" style="">{{name}}</VLabel>
+    <slot name="label">
+        <VLabel class="pl-3 text-capitalize font-weight-bold" :class="classLabel" style="">{{name}}</VLabel>
+    </slot>
     <VResponsive class="v-text-field__slot">
         <VSelect
             variant="filled"
@@ -54,6 +56,7 @@ const props = defineProps<{
     itemTitle: string
     multiple?: boolean
     disabled?: boolean
+    classLabel?: string | string[]
 }>()
 const { modelValue,items } = toRefs(props)
 const helper = helperStore()

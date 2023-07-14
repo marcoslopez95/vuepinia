@@ -234,6 +234,9 @@
       "title": "Flash Buy",
       "payment-method": "Payment Method",
       "amount": "Amount Buy"
+    },
+    "order": {
+      "address": "Address Send"
     }
   },
   "genereal-views": {
@@ -274,7 +277,8 @@
     "update": "Update",
     "accept": {
       "content": "You sure of accept?",
-      "message": "Accept successfull"
+      "message": "Accept successfull",
+      "title": "Confirm"
     },
     "reject": {
       "content": "You sure of reject?",
@@ -297,7 +301,8 @@
     "accept-icon": "Accept",
     "reject-icon": "Reject",
     "color": "Color",
-    "image": "Image"
+    "image": "Image",
+    "continue": "Continue"
   },
   "general-messages": {
     "editedSuccessfully": "Update Successfull",

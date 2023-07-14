@@ -233,6 +233,9 @@
       "title": "Compra Rápida",
       "payment-method": "Método de Pago",
       "amount": "Monto a comprar"
+    },
+    "order": {
+      "address": "Dirección de destino"
     }
   },
   "genereal-views": {
@@ -273,7 +276,8 @@
     "update": "Actualizar",
     "accept": {
       "content": "¿Estás seguro de aceptar?",
-      "message": "Se ha aceptado correctamente"
+      "message": "Se ha aceptado correctamente",
+      "title": "Aceptar"
     },
     "reject": {
       "content": "¿Estás seguro de rechazar?",
@@ -296,7 +300,8 @@
     "accept-icon": "Aceptar",
     "reject-icon": "Rechazar",
     "color": "Color",
-    "image": "Imagen"
+    "image": "Imagen",
+    "continue": "Continuar"
   },
   "general-messages": {
     "editedSuccessfully": "Actualizado correctament",
