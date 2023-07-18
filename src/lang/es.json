@@ -241,6 +241,14 @@
       "preview-order": {
         "title": "Resumen de tu Orden"
       }
+    },
+    "transactions": {
+      "title": "Transacción | Transacciones",
+      "txn_no": "Txn No",
+      "local_currency": "Pesos",
+      "reference_currency": "USD",
+      "crypto_currency": "Crypto",
+      "wallet": "Dirección"
     }
   },
   "genereal-views": {
@@ -306,7 +314,8 @@
     "reject-icon": "Rechazar",
     "color": "Color",
     "image": "Imagen",
-    "continue": "Continuar"
+    "continue": "Continuar",
+    "date": "Fecha"
   },
   "general-messages": {
     "editedSuccessfully": "Actualizado correctament",

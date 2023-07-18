@@ -242,6 +242,14 @@
       "preview-order": {
         "title": "Order Resume"
       }
+    },
+    "transactions": {
+      "title": "Transaction | Transactions",
+      "txn_no": "Txn No",
+      "local_currency": "Pesos",
+      "reference_currency": "USD",
+      "crypto_currency": "Crypto",
+      "wallet": "Wallet"
     }
   },
   "genereal-views": {
@@ -307,7 +315,8 @@
     "reject-icon": "Reject",
     "color": "Color",
     "image": "Image",
-    "continue": "Continue"
+    "continue": "Continue",
+    "date": "Date"
   },
   "general-messages": {
     "editedSuccessfully": "Update Successfull",

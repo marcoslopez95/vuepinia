@@ -295,11 +295,17 @@ const maxColumns = computed(() => {
     </VCol>
   </VRow>
 
-  <VTable v-if="!simple" density="compact" :fixed-header="fixedHeader" :height="fixedHeader ? heightTable : ''"
-    hide-default-footer disable-sort>
+  <VTable v-if="!simple" 
+    density="compact" 
+    :fixed-header="fixedHeader" 
+    :height="fixedHeader ? heightTable : ''"
+    hide-default-footer 
+    disable-sort
+    hover
+    >
     <thead style="background-color: #FBFBFB; font-size: 16px;">
       <tr>
-        <slot v-for="head, i in headers" :name="setNameHead(head.value)">
+        <slot v-for="head, i in headers" :name="setNameHead(head.value)" :data="head.name">
           <th class="text-center text-primary text-capitalize">
             {{ head.name }}
           </th>
