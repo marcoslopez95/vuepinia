@@ -2,7 +2,7 @@
     <slot name="label">
         <VLabel class="pl-3 text-capitalize font-weight-bold" :class="classLabel" style="">{{name}}</VLabel>
     </slot>
-    <VResponsive class="v-text-field__slot">
+    <VResponsive class="v-text-field__slot" @click="menu=true">
         <VSelect
             variant="filled"
             :items="itemsWithSelectable"
@@ -19,10 +19,11 @@
             :multiple="multiple??false"
             :item-title="itemTitle"
             :item-value="itemValue"
+            :menu="menu"
         >
         <template #item="{item,props}">
             <VListItem 
-                class="text-error" 
+                class="text-primary" 
                 @click="selectItem(item.value)"
                 :active="activeItem(item.value)"
                 >
@@ -44,6 +45,9 @@ import { helperStore } from '@/helper';
 import { toRefs } from 'vue';
 import { ref,computed,onMounted } from 'vue';
 
+const menuConsole = (value:boolean) => {
+    console.log('valor',value)
+}
 const menu = ref(false)
 const emits = defineEmits(['update:model-value'])
 const props = defineProps<{

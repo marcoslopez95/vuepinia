@@ -6,6 +6,19 @@ const security: RouteRecordRaw[] = []
 
 const generals: RouteRecordRaw[] = [
     {
+        name: "user-check-buy",
+        path: "/user/check-buy/:numTransaction",
+        props: true,
+        component: () =>
+            import("@/views/user/Compra/CheckBuy/CheckBuy.vue"),
+        meta: {
+            roles: [
+                ROLES.USER
+            ]
+        },
+        beforeEnter: checkedRole
+    },
+    {
         name: "user-buy",
         path: "/user/buy",
         component: () =>

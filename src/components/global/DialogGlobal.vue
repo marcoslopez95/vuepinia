@@ -70,6 +70,7 @@ const emit = defineEmits([
 
                 <VCardText class="mb-0">
                     <slot name="content"></slot>
+                    <slot></slot>
                 </VCardText>
             
                 <VCardActions class="py-8" v-if="footer">

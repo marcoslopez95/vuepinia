@@ -13,13 +13,13 @@
             ]
             "
         >
-            <span v-if='!input'>
+            <span v-if='!input' :class="classInput" :style="styleInput">
                 <VIcon 
                     size="57" 
                     color="primary" 
                     :icon="UploadIcon">
                 </VIcon>
-                <p class="text-table" style="font-size: 17px;" v-html="text">
+                <p class="text-table" :class="classText" :style="styleText" style="font-size: 17px;" v-html="text">
                 </p>
             </span>
             <VImg v-else :src="input" width="100%" class="mx-auto"></VImg>
@@ -51,6 +51,10 @@ const props = defineProps<{
     text: string,
     modelValue: any,
     sizeImage?: number
+    classText?: string[]
+    styleText?: string[]
+    classInput?: string[]
+    styleInput?: string[]
 }>()
 const input = ref(props.modelValue)
 const refInput = ref<HTMLInputElement>()

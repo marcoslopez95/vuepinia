@@ -121,10 +121,10 @@ const clickInContinue = () => {
     form.value.total_exchange_local = calculatorValue.value.amountFiat.toFixed(2)
     form.value.currency_price = (calculatorValue.value.tasaCompra as number).toFixed(8)
     form.value.exchange_reference = (calculatorValue.value.criptoOficial as number).toFixed(2)
-    form.value.total_exchange_reference = (calculatorValue.value.amountUsd as number).toFixed(2)
+    form.value.total_exchange_reference = parseFloat(calculatorValue.value.amountUsd as string).toFixed(2)
     form.value.exchange_local = (calculatorValue.value.localOficial as number).toFixed(2)
     form.value.total_exchange_local = calculatorValue.value.amountFiat.toFixed(2)
-    form.value.amount_currency = (calculatorValue.value.amountCrypto as number).toFixed(8)
+    form.value.amount_currency = parseFloat(calculatorValue.value.amountCrypto as string).toFixed(8)
     form.value.received_amount = (parseFloat(form.value.amount_currency as string) + parseFloat(form.value.fee as string)).toFixed(8)
     emits('click:continue')
 }

@@ -140,9 +140,9 @@ import { ref } from "vue";
 import { reactive } from "vue";
 import { storeToRefs } from "pinia";
 
-const confirmOrderStore = ConfirmOrderStore()
-const { shippingType,form } = storeToRefs(confirmOrderStore)
-const { getShippingTypes } = confirmOrderStore
+const confirmOrderStore = ConfirmOrderStore();
+const { shippingType, form } = storeToRefs(confirmOrderStore);
+const { getShippingTypes } = confirmOrderStore;
 
 const emits = defineEmits<{
     (e: "confirmOrder"): void;
@@ -157,28 +157,28 @@ const comisiones = reactive<Comisiones>({
     feesPriority: false,
 });
 
-form.value.fee = '11'
+form.value.fee = "11";
 const checkboxes: Checkboxes[] = [
     {
         label: "groupTransaction",
         text: ` <span class="text-primary font-weight-bold">Agrupar</span> mi transaccion con otras de esta manera se paga una
                 comision mas alta por todas y esto hace que se confirme mas
                 rapido el tiempo de espera es de (1-3 horas).`,
-        fees: '5'
+        fees: "5",
     },
     {
         label: "payFee",
         text: ` <span class="text-primary font-weight-bold">Pagar</span> una comision normal de 0.00001536 BTC equivalentes a -
                 (0.31 USD) con esta opcion es mas probable tener una
                 confirmacion mas rapido.`,
-        fees: '10'
+        fees: "10",
     },
     {
         label: "sendNormal",
         text: ` <span class="text-primary font-weight-bold">Enviar</span> mi transaccion inmediatamente con la comision que xeler
                 puede asumir entiendo que no hay tiempo estimado de confirmacion
                 pueden ser varias horas.`,
-        fees: '11'
+        fees: "11",
     },
     {
         label: "feesPriority",
@@ -186,18 +186,20 @@ const checkboxes: Checkboxes[] = [
                 equivalentes a (3 USD) esta opcion el envio se envia con la
                 comision mas alta posible para ser confirmado en diez minutos o
                 maximo 20.`,
-        fees: '15'
+        fees: "15",
     },
 ];
 
 const clickInOption = (label: keyof Comisiones) => {
-    for(let key in comisiones){
-        comisiones[key as keyof Comisiones] = key === label
-        if(key === label){
-            form.value.fee = checkboxes.find((check) => check.label === label)!.fees
+    for (let key in comisiones) {
+        comisiones[key as keyof Comisiones] = key === label;
+        if (key === label) {
+            form.value.fee = checkboxes.find(
+                (check) => check.label === label
+            )!.fees;
         }
     }
-}
+};
 
 interface Checkboxes {
     label: keyof Comisiones;

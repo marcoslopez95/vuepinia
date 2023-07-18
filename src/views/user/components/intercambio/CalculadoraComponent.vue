@@ -98,18 +98,18 @@ const prices = ref<Price[]>([])
 const getPrices = async () => {
     const url = 'https://ticker.xeler.io/v1/ticker'
     const res = await helper.http(url)
-    prices.value = res.data.data
+    prices.value = res.data?.data
     // priceSelect.value = prices.value[0]
     priceSelect.value = prices.value
                         .find( price => ('T'+price.symbol.toLocaleUpperCase()) == props.currency.attributes.abbreviation.toUpperCase()) ?? null
-    if(!priceSelect.value){
-        emits('noPrice');
-        return
-    }
-    calculadora.criptoOficial = priceSelect.value.oficial ?? 1
+    // if(!priceSelect.value){
+    //     emits('noPrice');
+    //     return
+    // }
+    calculadora.criptoOficial = priceSelect.value?.oficial ?? 1
     oficialValue.value = calculadora.criptoOficial / (parseFloat(priceSelect.value?.trm?? '1') );
     calculadora.tasaCompra = oficialValue.value
-    calculadora.localOficial = priceSelect.value.oficial
+    calculadora.localOficial = priceSelect.value?.oficial ?? 1
 }
 
 getPrices()

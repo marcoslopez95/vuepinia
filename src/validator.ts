@@ -81,9 +81,12 @@ export const amountFormat = (event: any, length = 3): string => {
 }
 
 export const transformAmount = (amount: string): number => {
-    const newstring = amount
-        .replace('.', '')
-        .replace(',', '.')
+        let  newstring = amount
+                        .split('.')
+                        .join('')
+        console.log('este es el monto '+ newstring)
+        newstring =newstring.replace(',', '.')
+        console.log('este es el monto '+ newstring)
     return parseFloat(newstring)
 }
 

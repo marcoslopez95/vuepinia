@@ -3,8 +3,11 @@ import type { OrderCreate } from '@/interfaces/Order/Order.dto'
 import type { ShippingType } from '@/interfaces/ShippingType/ShippingType.model'
 import { reactive, ref } from 'vue'
 import { defineStore } from 'pinia'
+import { useRouter } from 'vue-router'
+import type { Order } from '@/interfaces/Order/Order.model'
 
 export const ConfirmOrderStore = defineStore('confirm-order', () => {
+    const router = useRouter()
     const helper = helperStore()
 
     const form = ref<OrderCreate>({
@@ -43,6 +46,12 @@ export const ConfirmOrderStore = defineStore('confirm-order', () => {
             data: form.value
         })
 
+        router.push({
+            name: 'user-check-buy',
+            params:{
+                numTransaction: (res.data.response as Order).attributes.tranx_no
+            }
+        })
     }
     return {
         form,

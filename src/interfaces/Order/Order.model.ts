@@ -1,5 +1,11 @@
-import type { BaseModelSoftDelete } from "../Base.model";
+import type { BaseModel, BaseModelSoftDelete } from "../Base.model";
+import type { BankAccount } from "../CompanyAccount/BankAccount/BankAccount.model";
+import type { EfectyAccount } from "../CompanyAccount/EfectyAccount/EfectyAccount.model";
+import type { OtherAccount } from "../CompanyAccount/OtherAccount/OtherAccount.model";
 import type { Currency } from "../Currency/Currency.model";
+import type { PaymentMethod } from "../PaymentMethod/PaymentMethod.model";
+import type { ShippingType } from "../ShippingType/ShippingType.model";
+import type { User } from "../User/User.model";
 
 export declare interface Order extends BaseModelSoftDelete<OrderAttributes, OrderRelationships> { }
 
@@ -30,4 +36,33 @@ export declare interface OrderAttributes {
 }
 
 export declare interface OrderRelationships {
+        account_delivery: BankAccount | EfectyAccount | OtherAccount
+        adminProcess?: null
+        currency: Currency
+        currencyExchangeOrder: CurrencyExchangeOrder
+        payment: PaymentMethod
+        shipping: ShippingType
+        status: OrderStatus
+        user: User
 }
+
+// ----------------------------------------------------------------
+export declare interface OrderStatus extends BaseModel<OrderStatusAttributes,null>{}
+interface OrderStatusAttributes {
+        name: string;
+        description: string;
+}
+
+export declare interface CurrencyExchangeOrder extends BaseModel<CurrencyExchangeOrderAttributes,null>{}
+
+interface CurrencyExchangeOrderAttributes {
+        order_id:3
+        local_currency_id:number
+        reference_currency_id:number
+        exchange_local: string
+        exchange_reference: string
+        total_exchange_local: string
+        total_exchange_reference: string
+       
+}
+

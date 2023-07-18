@@ -236,6 +236,11 @@
     },
     "order": {
       "address": "Dirección de destino"
+    },
+    "menu-right": {
+      "preview-order": {
+        "title": "Resumen de tu Orden"
+      }
     }
   },
   "genereal-views": {
