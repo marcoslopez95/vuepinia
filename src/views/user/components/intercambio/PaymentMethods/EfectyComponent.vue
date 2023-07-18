@@ -16,7 +16,7 @@
         </VRow>
 
         <VRow v-if="itemSelect" class="px-5">
-            <VCol class="font-weight-bold text-table">
+            <VCol cols="12" sm="6" class="font-weight-bold text-table">
                 <p>Dirección: {{ itemSelect?.attributes.description }}</p>
                 <p>Nombre: {{ itemSelect?.attributes.beneficiary }}</p>
                 <VSpacer></VSpacer>
@@ -28,7 +28,7 @@
                 </ul>
                 </p>
             </VCol>
-            <VCol>
+            <VCol cols="12" sm="6">
                 <GoogleMap :api-key="apiGoogleKey" style="width: 100%; height: 500px;">
                     <Marker :options="markerOptions" />
                 </GoogleMap>

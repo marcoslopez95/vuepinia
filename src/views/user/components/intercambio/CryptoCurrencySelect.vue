@@ -3,7 +3,9 @@
         
         <VCol 
             class="cursor-pointer" 
-            cols="6" 
+            cols="12"
+            sm="6"
+            md="6"
             v-for="currency, i in walletStore.currencies" 
             :key="i"
             @click="emits('update:model-value',currency)"
