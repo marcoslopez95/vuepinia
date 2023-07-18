@@ -1,27 +1,27 @@
-export const required = (value: any): boolean | string => (value ? true : 'Required')
+export const required = (value: any): boolean | string => (value ? true : 'Requerido')
 
 export const password = (pass: string): boolean | string => {
     const validate = /^(?=.*[a-záéíóúüñ])(?=.*[0-9])(?=.*[A-ZÁÉÍÓÚÜÑ])(?=.*\d)(?=.*[-_@$!%*?&€£.,¡¿])[A-Za-záéíóúüñÁÉÍÓÚÜÑ\d\-_@$!%*?&#€£.,¡¿]{8,}$/;
     if (validate.test(pass)) {
         return true;
     }
-    return 'Format password invalid';
+    return 'No cumple con lo establecido';
 };
 
-export const confirmPassword = (value: string, confirm: string): boolean | string => value === confirm || 'Passwords not equals'
+export const confirmPassword = (value: string, confirm: string): boolean | string => value === confirm || 'Las contraseñas no coinciden'
 
 export const email = (email: string): boolean | string => {
     const validate = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (validate.test(email)) { return true; } return 'Format email invalid';
+    if (validate.test(email)) { return true; } return 'Debe ser un correo válido';
 };
 
 export const onlyLetters = (email: string): boolean | string => {
     const validate = /^[A-ZÁÉÍÓÚÑ ]+$/i;
-    if (validate.test(email)) { return true; } return 'Only letters';
+    if (validate.test(email)) { return true; } return 'Solo letras';
 };
 
 export const onlyNumbers = (number: string): boolean | string => {
-    const validate = /^[0-9 ]+$/i; if (validate.test(number)) { return true; } return 'Only numbers';
+    const validate = /^[0-9 ]+$/i; if (validate.test(number)) { return true; } return 'Solo números';
 };
 
 export const amountFormat = (event: any, length = 3): string => {

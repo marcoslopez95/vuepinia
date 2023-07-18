@@ -65,7 +65,7 @@ const openUpdate = (item:Bank) => {
         description: item.attributes.description,
         name: item.attributes.name,
         status: item.attributes.status,
-        icon: item.relationships?.images[0].attributes.aws_url ?? ''
+        icon: item.relationships?.images && item.relationships?.images.length>0 ? item.relationships?.images[0].attributes.aws_url : ''
     }
     formCrud.value = itemUpdate
     openModalCrud.value = true;

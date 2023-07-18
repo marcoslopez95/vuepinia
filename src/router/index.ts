@@ -102,7 +102,7 @@ router.beforeEach(async (to, from, next) => {
 
   if (!isAutenticated()) {
     // if(to.name != 'Login' && to.name != 'register' && to.name != 'auth-forgot-password'){
-    if (to.name != 'Login' && to.name != 'Register') {
+    if (to.name != 'Login' && to.name != 'Register' && to.name != 'Home') {
       next({ name: 'Login' });
     }
   } else

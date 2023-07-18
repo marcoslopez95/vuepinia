@@ -125,7 +125,7 @@
 
     <VRow>
         <VCol cols="12" class="text-center">
-            <VBtnPrimary @click="() => emits('confirmOrder')">
+            <VBtnPrimary :disabled="!confirmAddress" @click="() => emits('confirmOrder')">
                 {{ $t("general-views.accept.title") }}
             </VBtnPrimary>
         </VCol>

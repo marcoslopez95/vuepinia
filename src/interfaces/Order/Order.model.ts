@@ -53,7 +53,7 @@ interface OrderStatusAttributes {
         description: string;
 }
 
-export declare interface CurrencyExchangeOrder extends BaseModel<CurrencyExchangeOrderAttributes,null>{}
+export declare interface CurrencyExchangeOrder extends BaseModel<CurrencyExchangeOrderAttributes,CurrencyExchangeOrderRelationships>{}
 
 interface CurrencyExchangeOrderAttributes {
         order_id:3
@@ -66,3 +66,7 @@ interface CurrencyExchangeOrderAttributes {
        
 }
 
+interface CurrencyExchangeOrderRelationships {
+        localCurrency: Currency
+        referenceCurrency: Currency
+}

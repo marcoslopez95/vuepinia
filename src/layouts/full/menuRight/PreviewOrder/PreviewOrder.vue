@@ -1,5 +1,5 @@
 <template>
-    <VCard class="v-text-field__slot d-flex flex-column" style="height: 446px">
+    <VCard v-if="transactionStore.order" class="v-text-field__slot d-flex flex-column" style="height: 446px">
         <h3 class="text-center text-primary">
             {{ $t("views.menu-right.preview-order.title") }}
         </h3>
@@ -7,20 +7,23 @@
             <div class="my-6 d-flex " style="justify-content: space-between ;">
                 <span>Cantidad:</span>
                 <span class="">
-                    {{ transactionStore.order?.attributes.amount_currency }}
+                    {{ transactionStore.order!.attributes.amount_currency }} {{  transactionStore.order!.relationships!.currency.attributes.abbreviation }}
                 </span>
             </div>
             <div class="my-6 d-flex " style="justify-content: space-between ;">
                 <span>Pesos:</span>              
                 <span class="">
-                    {{ transactionStore.order?.relationships?.currencyExchangeOrder.attributes.total_exchange_local }}
+                    {{ formatNumber(parseFloat(transactionStore.order!.relationships!.currencyExchangeOrder.attributes.total_exchange_local)) }}
+                    {{ transactionStore.order!.relationships!.currencyExchangeOrder.relationships?.localCurrency.attributes.abbreviation }}
+
                 </span>
             </div>
             <div class="my-6 d-flex " style="justify-content: space-between ;">
 
                 <span>Doláres:</span>            
                 <span class="">
-                    {{ transactionStore.order?.relationships?.currencyExchangeOrder.attributes.total_exchange_reference }}
+                    {{ formatNumber(parseFloat(transactionStore.order?.relationships!.currencyExchangeOrder.attributes.total_exchange_reference)) }}
+                    {{ transactionStore.order?.relationships?.currencyExchangeOrder.relationships?.referenceCurrency.attributes.abbreviation }}
                 </span>
             </div>
             <div class="my-6 d-flex " style="justify-content: space-between ;">
@@ -49,7 +52,7 @@
 <script setup lang="ts">
 import { TransactionStore } from "@/stores/TransactionStore";
 import BtcIcon from "@/views/Home/PricingCards/BtcIcon.vue";
-
+import { formatNumber } from '@/helper'
 const transactionStore = TransactionStore()
 </script>
 

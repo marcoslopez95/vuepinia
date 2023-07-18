@@ -71,6 +71,7 @@ const SigUp = async () => {
                             required @isValid="(bool) => isPhoneValid = bool" />
                     </VCol>
                     <VCol cols="12">
+                        
                         <InputComponent 
                             :name="$t('views.users.password')" 
                             v-model="form.password"
@@ -79,6 +80,16 @@ const SigUp = async () => {
                             :appendIcon="!showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                             @click:append-icon="showPassword = !showPassword"
                             />
+                            <br>
+                        <span class="text-table">
+                            La contraseña debe cumplir con:<br>
+                            <ul class="ml-8">
+                                <li>1 mayúscula</li>
+                                <li>1 caractér especial (./_*?¿)</li>
+                                <li>1 número</li>
+                                <li>mínimo 8 dígitos</li>
+                            </ul>
+                        </span>
                     </VCol>
                     <VCol cols="12">
                         <InputComponent 

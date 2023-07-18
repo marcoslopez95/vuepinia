@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RouterView } from "vue-router";
+import { RouterView, useRouter } from "vue-router";
 import { ref } from "vue";
 import { useDisplay } from 'vuetify'
 import LogoLight from '@/assets/images/logos/logo-ligth.svg'
@@ -7,6 +7,12 @@ import FooterComponent from "../full/FooterComponent.vue";
 import monitor from '@/assets/images/authLayout/monitos2.svg'
 const drawer = ref(undefined || true);
 const innerW = ref(useDisplay().smAndDown);
+
+const router = useRouter()
+const clickInLogo = () => {
+    router.push('/home')
+}
+
 </script>
 
 <template>
@@ -20,7 +26,7 @@ const innerW = ref(useDisplay().smAndDown);
             <VCol :cols="innerW ? 12 :4" class="ma-0 pa-0">
                 <v-main class="px-10">
                     <v-container fluid class="h-100 w-100 ">
-                        <VImg class="mb-10 mt-6" height="74px" :src="LogoLight"></VImg>
+                        <VImg @click="clickInLogo" class="mb-10 mt-6 cursor-pointer" height="74px" :src="LogoLight"></VImg>
                         <RouterView />
                     </v-container>
                 </v-main>
