@@ -306,7 +306,7 @@ const maxColumns = computed(() => {
     <thead style="background-color: #FBFBFB; font-size: 16px;">
       <tr>
         <slot v-for="head, i in headers" :name="setNameHead(head.value)" :data="head.name">
-          <th class="text-center text-primary text-capitalize">
+          <th class="text-center text-primary text-capitalize" :style="head.style" :class="head.class">
             {{ head.name }}
           </th>
         </slot>
