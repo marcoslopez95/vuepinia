@@ -256,6 +256,9 @@
       "send-sms": "Enviar SMS",
       "start-chat": "Iniciar Chat",
       "send-email": "Enviar Mensaje"
+    },
+    "other-payments": {
+      "title": "Otro Pago | Otros Pagos"
     }
   },
   "genereal-views": {

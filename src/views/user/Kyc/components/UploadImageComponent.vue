@@ -64,12 +64,20 @@ const uploadImage = () => {
 }
 
 const changeInput = () => {
-    let acceptTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif']
+    let acceptTypes = ['.jpeg', '.jpg', '.png', '.gif', '.svg', '.ico'];
+    let fileName = refInput.value!.files![0].name;
+    let fileExtension = fileName.substring(fileName.lastIndexOf('.'));
 
-    if (!acceptTypes.includes(refInput.value!.files![0].type)) {
-        helper.showNotify(t('commons.invalid-format'), { type: 'error' })
-        return
+    if (!acceptTypes.includes(fileExtension.toLowerCase())) {
+        helper.showNotify(t('commons.invalid-format'), { type: 'error' });
+        return;
     }
+    // let acceptTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/svg', 'image/ico']
+
+    // if (!acceptTypes.includes(refInput.value!.files![0].type)) {
+    //     helper.showNotify(t('commons.invalid-format'), { type: 'error' })
+    //     return
+    // }
     input.value = URL.createObjectURL(refInput.value!.files![0])
     emits('update:model-value', refInput.value!.files![0])
 }

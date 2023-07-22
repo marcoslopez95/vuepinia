@@ -257,6 +257,9 @@
       "send-sms": "Send SMS",
       "start-chat": "Start Chat",
       "send-email": "Send Email"
+    },
+    "other-payments": {
+      "title": "Other Payment | Other Payments"
     }
   },
   "genereal-views": {

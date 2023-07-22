@@ -1,0 +1,139 @@
+<template>
+    <div class="d-flex justify-space-between">
+        <SearchInputComponentVue v-model="search" @onSearch="getSearch" />
+        <VBtn @click="openModal" prepend-icon="mdi-plus" class="rounded-xl">
+            {{ $t('buttons.add') }}
+        </VBtn>
+    </div>
+
+    <CrudComponent :singular="$t('views.other-payments.title')" :rows="rows"></CrudComponent>
+    <TableComponentVue
+    optionsHabilit
+    icon-update
+    icon-delete
+    :headers="headers"
+    @update="openUpdate"
+    :items="helper.items"
+    >
+    <template #cel-attributes.username="{data}">
+        <span class="text-primary"> 
+            {{ data.attributes.username }}
+        </span>
+    </template>
+    </TableComponentVue>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import CrudComponent from '@/components/global/CrudComponent.vue';
+import TableComponentVue from '@/components/global/TableComponent.vue';
+import { helperStore } from '@/helper';
+import type { Row } from '@/interfaces/FormComponent.helper';
+import type { Head } from '@/interfaces/TableComponent.helper';
+import { storeToRefs} from 'pinia';
+import { useI18n } from 'vue-i18n';
+import type { OtherPayment } from '@/interfaces/OtherPayment/OtherPayment.model';
+import type { OtherPaymentCreate, OtherPaymentUpdate } from '@/interfaces/OtherPayment/OtherPayment.dto';
+import SearchInputComponentVue from '@/components/global/SearchInputComponent.vue';
+import * as validator from '@/validator'
+import { OtherPaymentStore } from '@/stores/OtherPaymentStore';
+import { PAYMENT_METHODS_AVAILABLE } from '@/enums/PaymentMethod.enum';
+const helper = helperStore()
+helper.url = 'sub/payment/type'
+
+helper.index()
+
+const otherPaymentStore = OtherPaymentStore()
+otherPaymentStore.getPaymentMethods()
+const { paymentMethods } = storeToRefs(otherPaymentStore)
+const search = ref<string>('')
+const getSearch = () => {
+    helper.index({
+        name: search.value
+    })
+}
+
+const openUpdate = (item: OtherPayment) => {
+    itemH.value = item
+    const itemUpdate: OtherPaymentUpdate = {
+        name: item.attributes.name,
+        description: item.attributes.description,
+        payment_type_id: item.relationships?.payment.id ?? '',
+        file: ''
+    }
+    formCrud.value = itemUpdate
+    formCrud.value['payment_type_id'] = PAYMENT_METHODS_AVAILABLE.OTHER
+    openModalCrud.value = true;
+}
+
+const openModal = async () => {
+    itemH.value = {}
+    formCrud.value = {}
+    formCrud.value['payment_type_id'] = PAYMENT_METHODS_AVAILABLE.OTHER
+    clickIn.value = 'Create'
+    openModalCrud.value = true;
+}
+
+const { t } = useI18n()
+const {
+    formCrud,
+    openModalCrud,
+    clickIn,
+    formRef,
+    item:itemH} = storeToRefs(helper)
+const rows: Row[] = [
+    {
+        fields: [
+            {
+                label: t('general-views.name'),
+                type: 'text',
+                valueForm: 'name',
+                rules: [
+                    validator.required
+                ]
+            },
+            {
+                label: t('general-views.description'),
+                type: 'text',
+                valueForm: 'description',
+                rules: []
+            },
+            // {
+            //     label: t('views.type-company-account.title'),
+            //     type: 'select',
+            //     valueForm: 'payment_',
+            //     rules: []
+            // },
+        ]
+    },
+    {
+        fields: [
+            {
+                label: t('general-views.image'),
+                type: 'image',
+                valueForm: 'file',
+                rules: [
+                    validator.required
+                ]
+            }
+        ]
+    },
+]
+
+const headers: Head[] = [
+    {
+        name: t('general-views.name'),
+        value: 'attributes.name',
+    },
+    {
+        name: t('general-views.description'),
+        value: 'attributes.description',
+    },
+]
+
+
+</script>
+
+<style scoped>
+
+</style>
