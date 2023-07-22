@@ -99,6 +99,7 @@ import CurrencyTypeView from "./CurrencyType/CurrencyTypeView.vue";
 import WalletView from "./wallet/WalletView.vue";
 import ShippingTypeView from "./ShippingTypes/ShippingTypeView.vue";
 import OtherPaymentsView from "./OtherPayments/OtherPaymentsView.vue";
+import PenaltyTypeView from "./PenaltyTypes/PenaltyTypeView.vue";
 
 const { t } = useI18n();
 const helper = helperStore();
@@ -158,16 +159,20 @@ const tabs = shallowRef<ItemTab[]>([
                 name: t("views.shipping-types.title", 2),
                 value: ShippingTypeView,
             },
+            {
+                name: t("views.penalties-types.title", 2),
+                value: PenaltyTypeView,
+            },
         ],
     },
-    {
-        name: t("views.categories-faq.title", 2),
-        value: CategoriesFaqView,
-    },
-    {
-        name: t("views.faq.title", 2),
-        value: FaqView,
-    },
+    // {
+    //     name: t("views.categories-faq.title", 2),
+    //     value: CategoriesFaqView,
+    // },
+    // {
+    //     name: t("views.faq.title", 2),
+    //     value: FaqView,
+    // },
     {
         name: t("views.configurations.tabs.company-account.title"),
         value: "finanzas",

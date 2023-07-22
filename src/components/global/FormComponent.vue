@@ -90,6 +90,7 @@
               :name="field.label"
               :id="field.valueForm"
               :style="field.fieldStyle && field.fieldStyle.length > 0 ? field.fieldStyle : ''"
+              v-bind="field.props"
             />
             <!-- <VTextField
               v-else

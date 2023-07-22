@@ -260,6 +260,9 @@
     },
     "other-payments": {
       "title": "Other Payment | Other Payments"
+    },
+    "penalties-types": {
+      "title": "Penalty Type | Penalty Types"
     }
   },
   "genereal-views": {
@@ -326,7 +329,8 @@
     "color": "Color",
     "image": "Image",
     "continue": "Continue",
-    "date": "Date"
+    "date": "Date",
+    "time": "Time (minutes)"
   },
   "general-messages": {
     "editedSuccessfully": "Update Successfull",

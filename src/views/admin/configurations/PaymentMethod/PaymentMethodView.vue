@@ -1,9 +1,9 @@
 <template>
     <div class="d-flex justify-space-between">
         <SearchInputComponentVue v-model="search" @onSearch="getSearch" />
-        <VBtn @click="openModal" prepend-icon="mdi-plus" class="rounded-xl">
+        <!-- <VBtn @click="openModal" prepend-icon="mdi-plus" class="rounded-xl">
             {{ $t('buttons.add') }}
-        </VBtn>
+        </VBtn> -->
     </div>
 
     <CrudComponent :singular="$t('views.type-company-account.title')" :rows="rows"></CrudComponent>

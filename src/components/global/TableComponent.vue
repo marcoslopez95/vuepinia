@@ -60,7 +60,7 @@ const getValue = (item: any, head: Head | string) => {
   const value = typeof head == 'string' ? head : head.value
   let valueArray = value.split('.')
   let res = item;
-  console.log('head', head)
+  // console.log('head', head)
 
   valueArray.forEach((pos: string) => {
     res = res[pos] ?? ''
@@ -152,10 +152,10 @@ const elementIsVerificated = (item: any) => {
 const confirmOrReject = ref<CheckedOrBlockedType>('accept')
 
 const confirmAction = (item: any, bool: CheckedOrBlockedType) => {
-  console.log(itemHelper)
+  // console.log(itemHelper)
   console.log(item, bool)
   modalOpen.value = 'acceptReject'
-  console.log('aqui', itemHelper)
+  // console.log('aqui', itemHelper)
   itemHelper.value = item
   confirmOrReject.value = bool
   title.value = t('general-views.update')
@@ -164,7 +164,7 @@ const confirmAction = (item: any, bool: CheckedOrBlockedType) => {
   message.value = `${props.singularName ?? ''} `
   message.value += bool == 'accept' ? t('general-views.accept.message') : t('general-views.reject.message')
   dialogAction.value = true
-  console.log(item)
+  // console.log(item)
 
 }
 
