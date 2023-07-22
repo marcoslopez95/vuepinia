@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "Vue.js: npm run dev",
+        "runtimeExecutable": "npm",
+        "runtimeArgs": ["run", "dev"],
+        "cwd": "${workspaceFolder}",
+        // "port": 8080, // Si tu aplicación usa un puerto diferente, cámbialo aquí
+        "console": "integratedTerminal",
+        "internalConsoleOptions": "neverOpen",
+        "skipFiles": ["<node_internals>/**"]
+      }
+    ]
+  }

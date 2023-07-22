@@ -1,7 +1,7 @@
 const db = {
   status: {
-    Active: 'Active',
-    Inactive: 'Inactive',
+    Active: 'Activo',
+    Inactive: 'Suspendido',
     Verification: 'En verificacion',
     Awaiting: 'En espera de comprobante',
     Accept: 'Aceptado',

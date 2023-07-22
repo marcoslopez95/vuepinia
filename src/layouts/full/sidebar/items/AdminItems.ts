@@ -77,14 +77,14 @@ const items: SidebarItem[] = [
             ROLES.ADMIN,
         ],
     },
-    {
-        title: "Tienda",
-        icon: TiendaIcon,
-        to: "Alerts",
-        roles: [
-            ROLES.ADMIN,
-        ],
-    },
+    // {
+    //     title: "Tienda",
+    //     icon: TiendaIcon,
+    //     to: "Alerts",
+    //     roles: [
+    //         ROLES.ADMIN,
+    //     ],
+    // },
     {
         title: "Seguridad",
         icon: 'mdi-security',

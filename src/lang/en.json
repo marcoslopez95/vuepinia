@@ -34,7 +34,8 @@
       "nationality": "Nationality",
       "nationalities": {
         "title": "Nacionality"
-      }
+      },
+      "activity": "Activity"
     },
     "permissions": {
       "guard_name": "Guard Name",
@@ -250,6 +251,12 @@
       "reference_currency": "USD",
       "crypto_currency": "Crypto",
       "wallet": "Wallet"
+    },
+    "user": {
+      "resend-verification": "Resend Verification",
+      "send-sms": "Send SMS",
+      "start-chat": "Start Chat",
+      "send-email": "Send Email"
     }
   },
   "genereal-views": {

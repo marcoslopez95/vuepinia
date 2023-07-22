@@ -151,12 +151,12 @@ const rows: Row[] = [
                 valueForm: 'reference_system_currency',
                 rules: []
             },
-            {
-                label: t('views.currencies.wallet-default'),
-                type: 'switch',
-                valueForm: 'wallet_default',
-                rules: []
-            }
+            // {
+            //     label: t('views.currencies.wallet-default'),
+            //     type: 'switch',
+            //     valueForm: 'wallet_default',
+            //     rules: []
+            // }
         ]
     },
     {

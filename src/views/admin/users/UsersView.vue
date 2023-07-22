@@ -8,9 +8,7 @@
     </div>
     <!-- <VBtn @click="openModal">{{ $t('buttons.create') }}</VBtn> -->
     <v-tabs class="mb-5" v-model="role_id" color="primary">
-        <v-tab 
-            v-for="role,i in userStore.roles" 
-            :value="role.id">
+        <v-tab v-for="(role, i) in userStore.roles" :value="role.id">
             {{ role.attributes.name }}
         </v-tab>
     </v-tabs>
@@ -21,8 +19,10 @@
     <TableComponentVue
         :optionsHabilit="true"
         icon-show
+        icon-update
         :headers="headers"
         :items="helper.items"
+        new-buttons
     >
         <template #cel-attributes.username="{ data }">
             <span class="text-primary">
@@ -34,7 +34,7 @@
             <span class="text-table">
                 <VIcon
                     :icon="CheckedIcon"
-                    :color="emailVerificated(data) ? 'green' : ''"
+                    :color="emailVerificated(data) ? 'success' : 'inactive'"
                 >
                 </VIcon>
                 Email
@@ -42,7 +42,7 @@
             <span class="text-table">
                 <VIcon
                     :icon="CheckedIcon"
-                    :color="phoneVerificated(data) ? 'green' : ''"
+                    :color="phoneVerificated(data) ? 'success' : 'inactive'"
                 >
                 </VIcon>
                 Teléfono
@@ -50,11 +50,15 @@
             <span class="text-table">
                 <VIcon
                     :icon="CheckedIcon"
-                    :color="kycVerificated(data) ? 'green' : ''"
+                    :color="kycVerificated(data) ? 'success' : 'inactive'"
                 >
                 </VIcon>
                 Kyc
             </span>
+        </template>
+        <!-- Botones -->
+        <template #newButtons="{ data }">
+            <OptionsMenu :user="data"></OptionsMenu>
         </template>
     </TableComponentVue>
 </template>
@@ -71,10 +75,11 @@ import { useI18n } from "vue-i18n";
 import CheckedIcon from "@/assets/icons/CheckedIcon.vue";
 import type { User } from "@/interfaces/User/User.model";
 import { KYC_STATUS } from "@/enums/Kyc.enum";
-import { ref,watch } from "vue";
+import { ref, watch } from "vue";
 import SearchInputComponentVue from "@/components/global/SearchInputComponent.vue";
+import OptionsMenu from "./OptionsMenu/OptionsMenu.vue";
 
-const role_id =  ref<number | ''>('');
+const role_id = ref<number | "">("");
 
 const helper = helperStore();
 helper.url = "users";
@@ -83,25 +88,25 @@ const search = ref<string>("");
 const getSearch = () => {
     helper.index({
         name: search.value,
-        role_id: role_id.value
+        role_id: role_id.value,
     });
 };
 const userStore = UserStore();
 userStore.getDepartaments();
 userStore.getMunicipalities();
 userStore.getUsers();
-userStore.getRoles().then(()=>{
-    if(userStore.roles.length > 0){
-        role_id.value = userStore.roles[0].id;
+userStore.getRoles().then(() => {
+    if (userStore.roles.length > 0) {
+        role_id.value = userStore.roles[1].id;
     }
-    getSearch()
+    getSearch();
 });
 userStore.getCountries();
 userStore.getTypeDocuments();
 
-watch(role_id,() => {
-    getSearch()
-})
+watch(role_id, () => {
+    getSearch();
+});
 
 const { departaments, municipalities, users, roles, countries, typeDocuments } =
     storeToRefs(userStore);

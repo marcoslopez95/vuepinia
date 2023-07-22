@@ -6,13 +6,16 @@ import db from '@/db';
 import { formatNumber, helperStore } from '@/helper';
 import DialogConfirm from '@/components/global/DialogConfirm.vue';
 import dayjs from 'dayjs';
-import { type Ref, ref, inject, toRefs, computed, reactive } from 'vue';
+import { type Ref, ref, inject, toRefs, computed, reactive, onUnmounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import OptionsIcon from '@/assets/icons/OptionsIcon.vue'
+
 const { t } = useI18n()
 const helper = helperStore()
-
-const { methodVerificatedStatus, item: itemHelper, clickIn } = storeToRefs(helper)
+const { methodVerificatedStatus, item: itemHelper, clickIn, pagination: paginationH } = storeToRefs(helper)
+onUnmounted(() => {
+  paginationH.value.currentPage = 1 
+})
 const props = defineProps<Props>()
 
 const { headers } = toRefs(props)
@@ -332,8 +335,8 @@ const maxColumns = computed(() => {
                   </v-btn>
                 </template>
 
-                <v-list>
-                  <v-list-item>
+                <v-list > 
+                  <v-list-item >
                     <v-list-item-title class="cursor-pointer" v-if="iconShow && !isDeleted(item.id)" @click="() => { clickIn = 'Show'; emit('show', item) }">
                       <VBtn  :title="'Show'" color="transparent" size="x-small"
                         elevation="0" icon>
@@ -348,9 +351,9 @@ const maxColumns = computed(() => {
                           icon="mdi-pencil-outline" />
                       </VBtn> {{$t('general-views.edit')}}
                     </v-list-item-title>
-                    <v-list-item-title class="cursor-pointer" v-if="newButtons">
-                      <slot  name="newButtons" :data="item"></slot>
-                    </v-list-item-title>
+                    <!-- <v-list-item-title class="cursor-pointer" > -->
+                      <slot v-if="newButtons" name="newButtons" :data="item"></slot>
+                    <!-- </v-list-item-title> -->
                     <v-list-item-title class="cursor-pointer" v-if="iconDelete" @click="openConfirmModal(item.id)" >
                       <VBtn :title="!isDeleted(item.id) ? 'Delete' : 'Restore'" color="transparent"
                         size="x-small" elevation="0" icon>

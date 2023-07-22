@@ -33,7 +33,8 @@ const Lighttheme: ThemeDefinition = {
     'red-300': '#DF4385',
     'blue-sky': '#1697DF',
     'soft-error': '#ef5da84d',
-    'soft-error-border': '#EF5DA8'
+    'soft-error-border': '#EF5DA8',
+    'inactive': '#D9D9D9'
   },
 };
 
@@ -147,6 +148,9 @@ export default createVuetify({
     },
     VCheckbox: {
       color: "primary",
+    },
+    VListItemTitle: {
+      class: 'hover-black'
     }
   },
 });
