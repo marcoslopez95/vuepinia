@@ -5,7 +5,6 @@
                 <VCol sm="4" lg="3" cols="3" v-for="currency, i in currencies" :key="i">
                     <VCard elevation="5" class="">
                         <VCardText class="px-5 py-4">
-
                             <VRow>
                                 <VImg inline width="50px" :src="currency.image"></VImg>
                                 <VCol class="d-flex">
@@ -16,17 +15,21 @@
                                     <VBtn elevation="0" size="small" :flat="false"
                                         style="width: 24px!important; height: 24px;" class="rounded"
                                         :class="`bg-${colors[currency.band]}`" icon>
-                                        <VIcon icon="mdi-arrow-down" :class="`arrow-${colors[currency.band]}`" :style="`
-                                            transform: rotate(${orientationArrow[currency.band]}deg);
-                                        `"></VIcon>
+                                        <VIcon 
+                                            icon="mdi-arrow-down" 
+                                            :class="`arrow-${colors[currency.band]}`" 
+                                            :style="`
+                                                transform: rotate(${orientationArrow[currency.band]}deg);
+                                            `">
+                                        </VIcon>
                                     </VBtn>
                                 </VCol>
                             </VRow>
                             <VRow>
-                                <VCol cols="12" class="text-h5 font-weight-bold mb-0 pb-0">
+                                <VCol cols="12" class="text-h6 font-weight-bold mb-0 pb-0">
                                     COP {{ formatNumber(currency.price) }}
                                 </VCol>
-                                <VCol cols="12" class="text-h8 font-weight-bold mt-0 pt-0"
+                                <VCol cols="12" class="font-weight-bold mt-0 pt-0"
                                     :class="`text-${colorsText[currency.band]}`">
                                     {{ currency.porcent }} %
                                 </VCol>
@@ -40,15 +43,14 @@
                                 </VCol>
                             </VRow>
                         </VCardText>
-
                     </VCard>
                 </VCol>
             </VRow>
         </VCol>
         <VCol  
+            class="h-100"
             :sm="isMobile?12:4" 
             :cols="isMobile ? 12 :3" 
-            class="h-100"
             :class="isMobile? 'mx-1' : ''"
             >
             <CalculatorComponent 

@@ -1,19 +1,24 @@
 <template>
     <VCard 
-        class="h-100">
+        class="h-100 v-text-field__slot">
         <VCardTitle 
             class="text-center"
             :class="[
                 !xs 
                     ? 'bg-primary'
-                    : 'text-primary '
+                    : 'text-primary'
             ]"
+            :style="[xs ? 'font-size:18px': '']"
             >
             {{ $t('views.home.calculator.title') }} 
         </VCardTitle>
         <VCardText class="px-3 border-primary">
-            <VRow dense class="d-flex justify-lg-space-between px-0">
-                <VCol cols="6">
+            <VRow dense class="justify-lg-space-between px-0">
+                <VCol cols="6" 
+                    :style="[
+                        xs ? 'font-size:12px!important':''
+                    ]"
+                    >
                     <SwitchComponent 
                         v-model="isSell" 
                         title-on="Vender" 
@@ -22,7 +27,11 @@
                         color-on="red-300">
                     </SwitchComponent>
                 </VCol>
-                <VCol cols="6">
+                <VCol cols="6"
+                    :style="[
+                        xs ? 'font-size:12px!important':''
+                    ]"
+                    >
                     <SwitchComponent 
                         v-model="isBank" 
                         title-on="Banco" 
@@ -63,13 +72,23 @@
                 </VCol>
             </VRow>
         </VCardText>
-        <VCardActions class="bg-primary text-white pa-0">
-            <VRow class="d-flex align-center my-1 justify-center">
+        <VCardActions class=" pa-0"
+                :class="[
+                    !xs 
+                        ? 'bg-primary text-white'
+                        : 'text-primary mb-3'
+                ]">
+            <VRow 
+                class="d-flex align-center my-1 justify-center"
+                >
                 <div >
                     <VIcon :icon="BtcIcon" size="60" />
                 </div>
                 <div class="text-center ">
-                    <p style="font-size: 30px;" class="font-weight-bold">0.110001 BTC</p>
+                    <p :style="[
+                        `font-size: ${!xs ? 30 : 20}px;`
+                        ]" 
+                        class="font-weight-bold">0.110001 BTC</p>
                     <p style="font-size: 10px;">equivalente a <b>3000 USDT</b></p>
                     <p style="font-size: 10px;">Aproximadamente</p>
                 </div>

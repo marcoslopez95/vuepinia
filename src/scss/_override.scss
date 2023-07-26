@@ -59,3 +59,7 @@ html {
 .hover-black:hover {
   background-color: rgba(0,0,0,0.1);
 }
+
+.custom-border-primary{
+  border-color: $color-primary!important;
+}

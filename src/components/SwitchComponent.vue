@@ -64,7 +64,7 @@ interface Props {
 
 .textOn {
     margin-right: auto;
-    margin-left: -10%;
+    margin-left: -25%;
 }
 
 .textOff {

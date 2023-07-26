@@ -38,6 +38,7 @@
                         <template v-slot:activator="{ props }">
                             <v-app-bar-nav-icon
                                 variant="text"
+                                :color="isScrolled ? 'white' : 'primary'"
                                 v-bind="props"
                             ></v-app-bar-nav-icon>
                         </template>

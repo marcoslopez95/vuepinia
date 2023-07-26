@@ -1,15 +1,15 @@
 <template>
-    <div class="px-3 text-white mb-4 mt-10" 
+    <div class="px-3 text-white mb-4 mt-10 margin-full" 
     :class="!isMobile ? 'fond_monedas' : '' "
     >
         <VRow class="px-6">
             <VCol :cols="isMobile ? 12 :6" 
-                class="text-center d-flex" 
+                class="text-center d-flex px-5 " 
                 style="flex-direction: column;">
                 <div>
                     <VIcon :size="isMobile? 300 :500" :icon="img1" />
                 </div>
-                <div class="text-left" :class="{
+                <div class="text-justify" :class="{
                     'text-table': isMobile
                 }">
                     <p class="text-h4 font-weight-bold text-center"
@@ -25,14 +25,14 @@
             </VCol>
             <VCol 
                 :cols="isMobile ? 12 :6" 
-                class="text-center d-flex" 
+                class="text-center d-flex px-5" 
                 style="flex-direction: column;"
-                :class="isMobile ? 'fond_monedas' : '' "
+                :class="isMobile ? 'fond_monedas ' : '' "
             >
                 <div>
                     <VIcon :size="isMobile? 300 :500" :icon="img2" />
                 </div>
-                <div class="text-left">
+                <div class="text-justify">
 
                     <p class="text-h4 font-weight-bold text-center">Las mejores Criptomonedas </p>
                     <p class="my-4">Estamos en constante actualización incluyendo en nuestro sistema las criptomonedas de mayor capitalización, las cuales puedes intercambiar por pesos y viceversa, listamos las monedas que consideramos tienen un volumen importante de operaciones y por supuesto los proyectos solidos.</p>
@@ -54,9 +54,13 @@ const isMobile = ref(useDisplay().smAndDown)
 
 <style scoped>
 .fond_monedas{
-    margin-left: -40px;
-    margin-right: -40px;
+    
     background: linear-gradient(90deg, #5043E8 22.21%, #17B4E6 71.31%);
     background-size: 200% 100%; /*Asignamos un ancho para el background del 300% y altura 100%*/
-  }
+}
+
+.margin-full {
+    margin-left: -40px;
+    margin-right: -40px;
+}
 </style>
