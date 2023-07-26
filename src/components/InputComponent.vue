@@ -2,7 +2,11 @@
     <slot name="label">
         <VLabel class="pl-3 text-capitalize font-weight-bold" style="">{{name}}</VLabel>
     </slot>
-    <VResponsive class="v-text-field__slot">
+    <VResponsive class="v-text-field__slot"
+        :style="{
+            height
+        }"
+        >
         <VTextField 
             :rounded="40" 
             variant="filled" 
@@ -55,6 +59,7 @@ const props = defineProps<{
     appendIcon?: string
     disabled?: boolean,
     events?: Object
+    height?: any
 }>()
 const { modelValue:mValue } = toRefs(props)
 const helper = helperStore()

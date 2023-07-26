@@ -45,11 +45,19 @@
                 </VCol>
             </VRow>
         </VCol>
-        <VCol  :sm="isMobile?12:4" :cols="isMobile ? 12 :3" class="h-100"
-        :class="isMobile? 'mx-1' : ''"
-            
+        <VCol  
+            :sm="isMobile?12:4" 
+            :cols="isMobile ? 12 :3" 
+            class="h-100"
+            :class="isMobile? 'mx-1' : ''"
             >
-            <CalculatorComponent class="mx-auto" style="max-width: 400px;"></CalculatorComponent>
+            <CalculatorComponent 
+                class="mx-auto" 
+                style="max-height: 401;"
+                :style="[
+                    `max-width:${xs ? 240 : 275}px`
+                ]">
+            </CalculatorComponent>
         </VCol>
     </VRow>
 </template>
@@ -60,7 +68,10 @@ import { formatNumber } from '@/helper';
 import CalculatorComponent from './PricingCards/CalculatorComponent.vue'
 import { useDisplay } from 'vuetify/lib/framework.mjs'
 import { ref } from 'vue'
-const isMobile = ref(useDisplay().smAndDown)
+const {
+    smAndDown:isMobile,
+    xs
+    } = useDisplay()
 
 const currencies: currenciesHome[] = [
     {

@@ -15,10 +15,17 @@
     @update="openUpdate"
     :items="helper.items"
     >
-    <template #cel-attributes.username="{data}">
-        <span class="text-primary"> 
-            {{ data.attributes.username }}
-        </span>
+    <template #cel-relationships.currency.attributes.name="{data}">
+        <div class="d-flex justify-space-between">
+            <VIcon>
+                {{ moneyIcon(data) }}
+            </VIcon>
+            <div>
+                <span class=""> 
+                    {{ (data as Wallet).relationships?.currency.attributes.name }}
+                </span>
+            </div>
+        </div>
     </template>
     </TableComponentVue>
 </template>
@@ -55,7 +62,7 @@ const openUpdate = (item:Wallet) => {
     itemH.value = item
     const itemUpdate: WalletCreate = {
         currency_id: item.relationships!.currency.id,
-        address: item.attributes.address,
+        wallet_id: item.attributes.wallet_id,
         alias: item.attributes.alias
     }
     formCrud.value = itemUpdate
@@ -116,7 +123,12 @@ const headers: Head[] = [
     }
 ]
 
+const moneyIcon = (item: Wallet): string => {
+    const images = item.relationships?.currency.relationships?.images ?? false
+    if(!images || images.length == 0) return 'mdi-bitcoin'
 
+    return images[0].attributes.aws_url
+}
 </script>
 
 <style scoped>

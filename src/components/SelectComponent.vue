@@ -2,7 +2,13 @@
     <slot name="label">
         <VLabel class="pl-3 text-capitalize font-weight-bold" :class="classLabel" style="">{{name}}</VLabel>
     </slot>
-    <VResponsive class="v-text-field__slot" @click="menu=true">
+    <VResponsive 
+        class="v-text-field__slot" 
+        @click="menu=true"
+        :style="{
+            height
+        }"
+        >
         <VSelect
             variant="filled"
             :items="itemsWithSelectable"
@@ -61,6 +67,7 @@ const props = defineProps<{
     multiple?: boolean
     disabled?: boolean
     classLabel?: string | string[]
+    height?: any
 }>()
 const { modelValue,items } = toRefs(props)
 const helper = helperStore()
