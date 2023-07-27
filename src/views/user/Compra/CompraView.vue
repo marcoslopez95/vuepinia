@@ -9,6 +9,7 @@
         una nueva orden hasta dentro de
         <span class="text-error text-h6">30 minutos</span>
     </div>
+    <PenaltyModal @have-penalization="(value)=> havePenalization = value" :TypePenalty="PENALTY_TYPES.COMPRA"></PenaltyModal>
 </template>
 
 <script setup lang="ts">
@@ -18,15 +19,23 @@ import InitBuy from "./InitBuy.vue";
 import ConfirmOrder from "./ConfirmOrder.vue";
 import dayjs from "dayjs";
 import { ConfirmOrderStore } from "./CompraStore";
+import { helperStore } from "@/helper";
+import { createPenalty } from '@/stores/PenaltyStore'
+import { PENALTY_TYPES } from "@/enums/PenaltyTypes.enum";
+import PenaltyModal from "../components/Penalty/PenaltyModal.vue";
 
+const helper = helperStore()
 const confirmOrderStore = ConfirmOrderStore();
 
 const confirmatedOrder = ref(false);
-const alerta = () => alert("se acbo");
-const timeSet = dayjs().add(5, "minute").format();
+const havePenalization = ref(false);
+const alerta = () => {
+    createPenalty(PENALTY_TYPES.COMPRA)
+};
+const timeSet = dayjs().add(5, "minutes").format();
 
 const createOrder2 = () => {
-    alert("Confirmado!");
+    if(havePenalization) return
     confirmOrderStore.createOrder();
     // console.log('pagos', confirmOrderStore.form)
 };

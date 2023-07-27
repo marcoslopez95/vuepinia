@@ -69,9 +69,11 @@
     </VRow>
     <VRow>
         <VCol cols="12">
+            <VForm ref="formRef">
             <InputComponent
                 v-model="form.address_send"
                 :name="$t('views.order.address')"
+                :rules="[validateAddress]"
             >
                 <template #label>
                     <div class="text-primary font-weight-bold">
@@ -79,6 +81,7 @@
                     </div>
                 </template>
             </InputComponent>
+            </VForm>
         </VCol>
         <VCol cols="12">
             <div class="w-100 py-2 px-1 text-primary d-flex" style="gap: 15px">
@@ -125,7 +128,9 @@
 
     <VRow>
         <VCol cols="12" class="text-center">
-            <VBtnPrimary :disabled="!confirmAddress" @click="() => emits('confirmOrder')">
+            <VBtnPrimary 
+                :disabled="!confirmAddress" 
+                @click="emitConfirmOrder">
                 {{ $t("general-views.accept.title") }}
             </VBtnPrimary>
         </VCol>
@@ -139,11 +144,31 @@ import { ConfirmOrderStore } from "./CompraStore";
 import { ref } from "vue";
 import { reactive } from "vue";
 import { storeToRefs } from "pinia";
+import { addressValid } from '@/validator'
+import { WalletStore } from "@/stores/WalletStore"
+import { helperStore } from "@/helper";
 
+const helper = helperStore()
+const { formRef } = storeToRefs(helper)
+const walletStore = WalletStore()
 const confirmOrderStore = ConfirmOrderStore();
 const { shippingType, form } = storeToRefs(confirmOrderStore);
 const { getShippingTypes } = confirmOrderStore;
 
+const emitConfirmOrder = async () => {
+    const { valid } = await formRef.value.validate()
+    console.log('valido',valid)
+    if(!valid) return
+    // return
+    emits('confirmOrder')
+}
+
+const validateAddress = () => {
+    const currency = walletStore.currencies
+        .find(currencyIterable => currencyIterable.id === form.value.currency_id)!
+
+    return addressValid(form.value.address_send!,currency.attributes.abbreviation)
+}
 const emits = defineEmits<{
     (e: "confirmOrder"): void;
 }>();

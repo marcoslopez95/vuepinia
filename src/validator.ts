@@ -1,3 +1,16 @@
+//@ts-ignore
+import WAValidator from 'multicoin-address-validator'
+
+export const addressValid = (value:string, crypto:string):boolean|string => {
+    const env = import.meta.env.VITE_ENV_NETWORK
+    console.log('env',env)
+    if(env == 'testnet'){
+        crypto = crypto.slice(1)
+    }
+    const valid = WAValidator.validate(value,crypto.toLocaleUpperCase(),env)
+    if(valid) return true
+    return 'Dirección inválida, por favor verificar'
+}
 export const required = (value: any): boolean | string => (value ? true : 'Requerido')
 
 export const password = (pass: string): boolean | string => {

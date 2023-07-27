@@ -18,6 +18,7 @@
             style="max-height: 40px;" 
             :type="type ?? 'text'"
             :rules="rules" 
+            validate-on="input"
             density="compact"
             :disabled="disabled"
             :active="active??false"

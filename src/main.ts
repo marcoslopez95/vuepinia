@@ -10,6 +10,11 @@ import Vue3Toastify, { type ToastContainerOptions } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import messages from '@/lang';
 import 'vue-tel-input/vue-tel-input.css';
+import { Buffer } from 'buffer';
+
+// Asigna la variable global de Buffer para que esté disponible en tu aplicación
+//@ts-ignore
+window.Buffer = Buffer;
 
 const app = createApp(App);
 const pinia = createPinia()
