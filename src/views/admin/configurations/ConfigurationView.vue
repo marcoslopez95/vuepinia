@@ -100,6 +100,7 @@ import WalletView from "./wallet/WalletView.vue";
 import ShippingTypeView from "./ShippingTypes/ShippingTypeView.vue";
 import OtherPaymentsView from "./OtherPayments/OtherPaymentsView.vue";
 import PenaltyTypeView from "./PenaltyTypes/PenaltyTypeView.vue";
+import NetworkTypeView from "./NetworkType/NetworkTypeView.vue";
 
 const { t } = useI18n();
 const helper = helperStore();
@@ -162,6 +163,10 @@ const tabs = shallowRef<ItemTab[]>([
             {
                 name: t("views.penalties-types.title", 2),
                 value: PenaltyTypeView,
+            },
+            {
+                name: t("views.network-type.title", 2),
+                value: NetworkTypeView,
             },
         ],
     },

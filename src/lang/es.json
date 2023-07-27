@@ -266,6 +266,9 @@
     },
     "penalties-types": {
       "title": "Tipo Penalización | Tipos de Penalizaciones"
+    },
+    "network-type": {
+      "title": "Tipo de Red | Tipos de Redes"
     }
   },
   "genereal-views": {
