@@ -5,7 +5,8 @@ export declare interface Wallet extends BaseModel<WalletAttributes,WalletRelatio
 
 export declare interface WalletAttributes {
     currency_id: number
-    wallet_id: string
+    wallet_id?: string
+    address?: string
     alias: string
 }
 

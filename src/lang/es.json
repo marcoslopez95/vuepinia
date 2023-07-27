@@ -233,7 +233,11 @@
     "buy": {
       "title": "Compra Rápida",
       "payment-method": "Método de Pago",
-      "amount": "Monto a comprar"
+      "amount": "Monto a comprar",
+      "select-wallet": {
+        "title": "Selecciona una de tus Direcciones",
+        "content": "Asegúrate de seleccionar la dirección correcta y compatible con la red escogida, cualquier dirección errada puede causar pérdidas  irreversibles"
+      }
     },
     "order": {
       "address": "Dirección de destino"

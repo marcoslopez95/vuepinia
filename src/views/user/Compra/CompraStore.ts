@@ -5,6 +5,7 @@ import { reactive, ref } from 'vue'
 import { defineStore } from 'pinia'
 import { useRouter } from 'vue-router'
 import type { Order } from '@/interfaces/Order/Order.model'
+import type { Wallet } from '@/interfaces/Wallet/Wallet.model'
 
 export const ConfirmOrderStore = defineStore('confirm-order', () => {
     const router = useRouter()
@@ -53,10 +54,19 @@ export const ConfirmOrderStore = defineStore('confirm-order', () => {
             }
         })
     }
+
+    const wallets = ref<Wallet[]>([])
+    const getWallets = async () => {
+        const url = 'client/wallet'
+        const res = await helper.http(url, 'get')
+        wallets.value = res.data.response as Wallet[]
+    }
     return {
         form,
         shippingType,
         getShippingTypes,
-        createOrder
+        createOrder,
+        wallets,
+        getWallets
     }
 })

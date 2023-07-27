@@ -234,7 +234,11 @@
     "buy": {
       "title": "Flash Buy",
       "payment-method": "Payment Method",
-      "amount": "Amount Buy"
+      "amount": "Amount Buy",
+      "select-wallet": {
+        "title": "Select a wallet",
+        "content": "Be sure to select the correct address and compatible with the chosen network, any wrong address can cause irreversible losses."
+      }
     },
     "order": {
       "address": "Address Send"

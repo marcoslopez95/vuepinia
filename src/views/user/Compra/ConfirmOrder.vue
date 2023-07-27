@@ -74,6 +74,8 @@
                 v-model="form.address_send"
                 :name="$t('views.order.address')"
                 :rules="[validateAddress]"
+                :append-icon="WalletIcon"
+                @click:append-icon="modalSelectWallet = true"
             >
                 <template #label>
                     <div class="text-primary font-weight-bold">
@@ -82,6 +84,13 @@
                 </template>
             </InputComponent>
             </VForm>
+            <SelectWallet
+                :dialog="modalSelectWallet"
+                @close-dialog="modalSelectWallet = false"
+                @select-wallet="(value) => form.address_send = value.attributes.address"
+            >
+
+            </SelectWallet>
         </VCol>
         <VCol cols="12">
             <div class="w-100 py-2 px-1 text-primary d-flex" style="gap: 15px">
@@ -147,7 +156,10 @@ import { storeToRefs } from "pinia";
 import { addressValid } from '@/validator'
 import { WalletStore } from "@/stores/WalletStore"
 import { helperStore } from "@/helper";
+import WalletIcon from "@/assets/icons/WalletIcon.vue";
+import SelectWallet from "./ConfirmOrder/SelectWallet.vue";
 
+const modalSelectWallet = ref(false)
 const helper = helperStore()
 const { formRef } = storeToRefs(helper)
 const walletStore = WalletStore()

@@ -57,7 +57,7 @@ const props = defineProps<{
     name: string
     type?: string
     active?: boolean
-    appendIcon?: string
+    appendIcon?: any
     disabled?: boolean,
     events?: Object
     height?: any

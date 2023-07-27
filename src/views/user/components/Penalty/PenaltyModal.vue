@@ -30,7 +30,7 @@ getPenaltyOfUserSession().then((res) => {
     penalty.value = penalties.value.find(penaltyItem => penaltyItem.attributes.type_penaltie_id == props.TypePenalty)
     if(!penalty.value) return 
 
-    // dialog.value  =  true
+    dialog.value  =  true
     emits('havePenalization',true)
 })
 
