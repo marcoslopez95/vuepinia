@@ -151,6 +151,10 @@
         </VRow>
     </div>
 
+    <PreviewOrderForConfirm 
+        class="mb-5 mx-auto" v-if="transactionStore.showPreviewOrder && smAndDown"
+        style="max-width:350px"
+        />
     <VRow>
         <VCol cols="6" class="text-center">
             <VBtnSecondary
@@ -183,7 +187,10 @@ import WalletIcon from "@/assets/icons/WalletIcon.vue";
 import SelectWallet from "./ConfirmOrder/SelectWallet.vue";
 import { computed } from "vue";
 import { TransactionStore } from "@/stores/TransactionStore";
+import PreviewOrderForConfirm from '@/layouts/full/menuRight/PreviewOrder/PreviewOrderForConfirm.vue';
+import { useDisplay } from "vuetify/lib/framework.mjs";
 
+const { smAndDown } = useDisplay()
 const transactionStore = TransactionStore()
 const modalSelectWallet = ref(false)
 const helper = helperStore()

@@ -2,10 +2,14 @@
     <div>
         <VRow>
             <VCol
-                cols="4"
+                cols="6"
+                sm="4"
+                md="6"
+                lg="4"
                 v-for="bankAccount, i in (itemsDetails as Bank[])"
                 :key="i"
                 @click="selectItem(bankAccount)"
+                
             >
                 <VBtnDegree
                     rounded="lg"
