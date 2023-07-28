@@ -49,29 +49,23 @@
               >
               
             </UploadImageComponent>
-            <!-- <VTextField v-else-if="field.type === 'image'" type="file"  /> -->
-            <!-- <VSelect
-              v-else-if="field.type === 'select'"
-              :items="field.select?.items.value"
-              v-model="form[field.valueForm]"
-              :label="field.label"
-              :item-title="field.select!.itemTitle"
-              :item-value="field.select!.itemValue"
-              :rules="field.rules"
-              :menu-props="field.select!.menuProps"
-              :multiple="field.select!.multiple"
-            /> -->
-            <v-color-picker 
-              v-else-if="field.type === 'color'"
-              v-model="form[field.valueForm]"
-              v-bind="field.props"
-              hide-inputs
-              elevation="10"
-              mode="rgba"
-              :border="100"
-              color="#605f5f99"
+            <div
+            v-else-if="field.type === 'color'"
+            class="text-center"
             >
-            </v-color-picker>
+              <VLabel class="text-center font-weight-bold">{{ field.label }}</VLabel>
+              <v-color-picker
+                class="mx-auto" 
+                v-model="form[field.valueForm]"
+                v-bind="field.props"
+                hide-inputs
+                elevation="10"
+                mode="rgba"
+                :border="100"
+                color="#605f5f99"
+              >
+              </v-color-picker>
+            </div>
             <TelInput
               v-else-if="field.type === 'phone'"
               v-model="form[field.valueForm]"

@@ -30,7 +30,7 @@
                             <VIcon v-else icon="mdi-bitcoin" size="40"></VIcon>
                         </VCol>
                         <VCol class="my-auto"> {{ currency.attributes.name }} </VCol>
-                        <VCol class="my-auto"> Precio </VCol>
+                        <VCol class="my-auto"> {{ getFormatPrice(currency)}} </VCol>
                     </VRow>
                     
                 </VCard>
@@ -41,10 +41,12 @@
 </template>
 
 <script setup lang="ts">
+import { formatNumber } from "@/helper";
 import type { Currency } from "@/interfaces/Currency/Currency.model";
 import { WalletStore } from "@/stores/WalletStore"
 const walletStore = WalletStore()
 walletStore.getCurrencies()
+walletStore.getCurrencyTicker()
 
 const emits = defineEmits<{
     (e:'update:model-value',value: Currency):void
@@ -66,7 +68,14 @@ const getColorHover = (isHovering:boolean |undefined, currency: Currency) => {
     return ''
 }
 
+const getFormatPrice = (currency:Currency) => {
+    let str = 'COP '
+    const priceCurrencyTicker = walletStore.getCurrencyTickerByAbbreviation(currency.attributes.abbreviation)?.oficial ?? null
+    if(!priceCurrencyTicker) return str
 
+    return str + formatNumber(priceCurrencyTicker,',','.')
+
+}
 </script>
 
 <style scoped lang="scss">

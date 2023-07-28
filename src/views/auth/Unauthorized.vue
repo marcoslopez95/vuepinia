@@ -10,7 +10,7 @@ const helper = helperStore()
 const router = useRouter()
 
 const comeBack = () => {
-    return router.go(-1)
+    return router.push({name:"Home"})
 }
 </script>
 

@@ -6,12 +6,14 @@ import { defineStore } from 'pinia'
 import { useRouter } from 'vue-router'
 import type { Order } from '@/interfaces/Order/Order.model'
 import type { Wallet } from '@/interfaces/Wallet/Wallet.model'
+import type { NetworkType } from '@/interfaces/NetworkType/NetworkType.model'
 
 export const ConfirmOrderStore = defineStore('confirm-order', () => {
     const router = useRouter()
     const helper = helperStore()
 
     const form = ref<OrderCreate>({
+        red_id: '',
         amount_currency: '0',
         currency_id: '',
         currency_price: '0',
@@ -61,12 +63,21 @@ export const ConfirmOrderStore = defineStore('confirm-order', () => {
         const res = await helper.http(url, 'get')
         wallets.value = res.data.response as Wallet[]
     }
+
+    const networkTypes = ref<NetworkType[]>([])
+    const getNetworkTypes = async () => {
+        const url = 'reds'
+        const res = await helper.http(url, 'get')
+        networkTypes.value = res.data.response as NetworkType[]
+    }
     return {
         form,
         shippingType,
         getShippingTypes,
         createOrder,
         wallets,
-        getWallets
+        getWallets,
+        networkTypes,
+        getNetworkTypes
     }
 })

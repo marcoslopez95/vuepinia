@@ -16,6 +16,7 @@ export declare interface OrderAttributes {
         shipping_type_id: number | ''
         account_delivery_id: number | ''
         type: 'Compra' | 'Venta'
+        red_id: number | ''
         amount_currency: string
         received_amount: string
         fee: string

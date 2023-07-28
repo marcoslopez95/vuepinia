@@ -20,7 +20,7 @@
                         <template #label>
                             <div>
                                 <div class="text-black font-weight-bold">
-                                    {{ item.attributes.alias }}
+                                    {{ item.attributes.alias }} ({{ item.relationships?.currency.attributes.abbreviation }})
                                 </div>
                                 <div class="text-table font-weight-bold">
                                     {{ item.attributes.address }}

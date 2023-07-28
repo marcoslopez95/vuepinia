@@ -69,6 +69,22 @@
     </VRow>
     <VRow>
         <VCol cols="12">
+            <SelectComponent
+                v-model="form.red_id"
+                :items="networkTypes"
+                :name="$t('views.network-type.title')"
+                itemValue="id"
+                itemTitle="attributes.name"
+                classLabel="text-primary"
+            >
+                <template #label>
+                    <div class="text-primary font-weight-bold">
+                        {{ $t("views.network-type.title") }}
+                    </div>
+                </template>
+            </SelectComponent>
+        </VCol>
+        <VCol cols="12">
             <VForm ref="formRef">
             <InputComponent
                 v-model="form.address_send"
@@ -136,13 +152,20 @@
     </div>
 
     <VRow>
-        <VCol cols="12" class="text-center">
-            <VBtnPrimary 
-                :disabled="!confirmAddress" 
-                @click="emitConfirmOrder">
+        <VCol cols="6" class="text-center">
+            <VBtnSecondary
+            @click="clickInBack">
+            {{ $t("general-views.back") }}
+        </VBtnSecondary>
+    </VCol>
+    <VCol cols="6" class="text-center">
+        <VBtnPrimary 
+            :disabled="disabledButton" 
+            @click="emitConfirmOrder">
                 {{ $t("general-views.accept.title") }}
             </VBtnPrimary>
         </VCol>
+        
     </VRow>
 </template>
 
@@ -158,15 +181,17 @@ import { WalletStore } from "@/stores/WalletStore"
 import { helperStore } from "@/helper";
 import WalletIcon from "@/assets/icons/WalletIcon.vue";
 import SelectWallet from "./ConfirmOrder/SelectWallet.vue";
+import { computed } from "vue";
 
 const modalSelectWallet = ref(false)
 const helper = helperStore()
 const { formRef } = storeToRefs(helper)
 const walletStore = WalletStore()
 const confirmOrderStore = ConfirmOrderStore();
-const { shippingType, form } = storeToRefs(confirmOrderStore);
+const { shippingType, form, networkTypes } = storeToRefs(confirmOrderStore);
 const { getShippingTypes } = confirmOrderStore;
 
+confirmOrderStore.getNetworkTypes()
 const emitConfirmOrder = async () => {
     const { valid } = await formRef.value.validate()
     console.log('valido',valid)
@@ -183,10 +208,22 @@ const validateAddress = () => {
 }
 const emits = defineEmits<{
     (e: "confirmOrder"): void;
+    (e: 'back'):void
 }>();
 getShippingTypes();
 const confirmAddress = ref(false);
 
+const disabledButton = computed(():boolean => {
+    return !confirmAddress.value || form.value.shipping_type_id == '' || form.value.red_id == '' || validateAddress() !== true
+})
+
+const clickInBack = () => {
+    form.value.shipping_type_id = ''
+    form.value.red_id = ''
+    form.value.address_send = ''
+    confirmAddress.value = false
+    emits('back')
+}
 const comisiones = reactive<Comisiones>({
     groupTransaction: false,
     payFee: false,

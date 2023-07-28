@@ -242,6 +242,7 @@ const maxColumns = computed(() => {
       <VRow style="max-width: 300px">
         <div class="d-flex align-center w-100">
           <VCol v-for="head, k in headers" :key="k">
+            <slot :name="`cel-${head.value}`" :data="item">
             <VChip v-if="head.status === true || head.status === 'deleted'" small :color="getStatusColor(item, head)"
               class=" font-weight-medium">
               <span class="">{{ getStatus(item, head) }}</span>
@@ -286,9 +287,10 @@ const maxColumns = computed(() => {
               </v-menu>
             </slot>
             <!-- <VCol  class="me-auto "> -->
-            <slot v-else name="value" :data="item">
+            <span v-else >
               {{ getValue(item, head) }}
-            </slot>
+            </span>
+          </slot>
 
             <!-- </VCol> -->
           </VCol>

@@ -1,7 +1,7 @@
 <template>
     <InitBuy v-if="!confirmatedOrder" @click:continue="confirmatedOrder = true">
     </InitBuy>
-    <confirm-order v-else @confirmOrder="createOrder2"> </confirm-order>
+    <confirm-order v-else @back="confirmatedOrder = false" @confirmOrder="createOrder2"> </confirm-order>
     <div class="text-table mt-7">
         Tienes
         <CountDown :dateFinish="timeSet" @endTime="alerta"></CountDown> minutos

@@ -22,10 +22,12 @@
     @update="openUpdate"
     :items="helper.items"
     >
-    <template #cel-attributes.username="{data}">
-        <span class="text-primary"> 
-            {{ data.attributes.username }}
-        </span>
+    <template #cel-name="{data}">
+        <div class="text-table" style="min-width: 150px!important;"> 
+            {{  //@ts-ignore
+                data.attributes.name
+            }}
+        </div>
     </template>
     </TableComponentVue>
 </template>
@@ -61,6 +63,7 @@ const getSearch = () => {
 const openUpdate = (item:Bank) => {
     itemH.value = item
     const itemUpdate: BankCreate = {
+        color: item.attributes.color,
         country_id: item.relationships?.country.id ?? 0,
         description: item.attributes.description,
         name: item.attributes.name,
@@ -121,7 +124,12 @@ const rows: Row[] = [
             {
                 label: t('general-views.image'),
                 type: 'image',
-                valueForm: 'icon'
+                valueForm: 'icon',
+            },
+            {
+                label: t('general-views.color'),
+                type: 'color',
+                valueForm: 'color'
             }
         ]
     }
@@ -130,7 +138,7 @@ const rows: Row[] = [
 const headers: Head[] = [
     {
         name: t('general-views.name'),
-        value: 'attributes.name',
+        value: 'name',
     },
     {
         name: t('general-views.status'),

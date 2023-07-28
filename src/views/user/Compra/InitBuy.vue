@@ -91,6 +91,11 @@ watch(paymentMethod, () => {
 })
 
 const getDetailsForPaymentMethod = async () => {
+    if(paymentMethod.value!.id === PAYMENT_METHODS_AVAILABLE.BANK) {
+        const res = await helper.http('banks/account/actives')
+        itemsDetails.value = res.data.response
+        return
+    }
     const params = {
         payment_type_id: paymentMethod.value!.id
     }

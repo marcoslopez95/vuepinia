@@ -43,6 +43,13 @@ import type { EventComponent } from '@/interfaces/Components.helper'
 import { amountFormat,transformAmount,onlyNumbers,keyPressIsNumber } from '@/validator';
 import { watch } from 'vue';
 import type { Calculator } from '@/interfaces/Calculadora.interface'
+import router from '@/router';
+import { WalletStore } from '@/stores/WalletStore';
+import { storeToRefs } from 'pinia';
+import type { CurrencyTicker } from "@/interfaces/Ticker/Ticker.model";
+
+const walletStore = WalletStore()
+const { currencyTicker: prices } = storeToRefs(walletStore)
 const props = defineProps<{
     currency: Currency
     modelValue:any
@@ -92,14 +99,12 @@ const eventsCrypto: EventComponent = {
     }
 }
 
-const priceSelect = ref<Price|null>(null)
+const priceSelect = ref<CurrencyTicker|null>(null)
 const oficialValue = ref(1)
-const prices = ref<Price[]>([])
+// const prices = ref<Price[]>([])
 const getPrices = async () => {
-    const url = 'https://ticker.xeler.io/v1/ticker'
-    const res = await helper.http(url)
-    prices.value = res.data?.data
-    // priceSelect.value = prices.value[0]
+        // prices.value = res.data?.data
+    priceSelect.value = prices.value[0]
     priceSelect.value = prices.value
                         .find( price => ('T'+price.symbol.toLocaleUpperCase()) == props.currency.attributes.abbreviation.toUpperCase()) ?? null
     // if(!priceSelect.value){

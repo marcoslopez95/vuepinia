@@ -9,6 +9,7 @@ export declare interface BankAttributes {
   country_id: number;
   description: string;
   status: boolean;
+  color:string
 }
 
 export declare interface BankRelationships {
