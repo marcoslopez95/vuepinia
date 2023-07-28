@@ -9,7 +9,7 @@
         una nueva orden hasta dentro de
         <span class="text-error text-h6">30 minutos</span>
     </div>
-    <!-- <PenaltyModal @have-penalization="(value)=> havePenalization = value" :TypePenalty="PENALTY_TYPES.COMPRA"></PenaltyModal> -->
+    <PenaltyModal @have-penalization="(value)=> havePenalization = value" :TypePenalty="PENALTY_TYPES.COMPRA"></PenaltyModal>
 </template>
 
 <script setup lang="ts">
@@ -38,16 +38,16 @@ const nextStep = () => {
     transactionStore.showPreviewOrder = true
 }
 const confirmatedOrder = ref(false);
-const havePenalization = ref(true);
+const havePenalization = ref(false);
 const alerta = () => {
     createPenalty(PENALTY_TYPES.COMPRA)
 };
 const timeSet = dayjs().add(30, "minutes").format();
 
 const createOrder2 = () => {
-    if(havePenalization) return
+    if(havePenalization.value) return
     confirmOrderStore.createOrder();
-    // console.log('pagos', confirmOrderStore.form)
+    console.log('pagos', confirmOrderStore.form)
 };
 </script>
 
