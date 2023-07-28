@@ -182,7 +182,9 @@ import { helperStore } from "@/helper";
 import WalletIcon from "@/assets/icons/WalletIcon.vue";
 import SelectWallet from "./ConfirmOrder/SelectWallet.vue";
 import { computed } from "vue";
+import { TransactionStore } from "@/stores/TransactionStore";
 
+const transactionStore = TransactionStore()
 const modalSelectWallet = ref(false)
 const helper = helperStore()
 const { formRef } = storeToRefs(helper)
@@ -232,6 +234,7 @@ const comisiones = reactive<Comisiones>({
 });
 
 form.value.fee = "11";
+transactionStore.feeMiner = form.value.fee
 const checkboxes: Checkboxes[] = [
     {
         label: "groupTransaction",
@@ -271,6 +274,7 @@ const clickInOption = (label: keyof Comisiones) => {
             form.value.fee = checkboxes.find(
                 (check) => check.label === label
             )!.fees;
+            transactionStore.feeMiner = form.value.fee
         }
     }
 };

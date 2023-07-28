@@ -1,7 +1,7 @@
 <template>
-    <InitBuy v-if="!confirmatedOrder" @click:continue="confirmatedOrder = true">
+    <InitBuy v-if="!confirmatedOrder" @click:continue="nextStep">
     </InitBuy>
-    <confirm-order v-else @back="confirmatedOrder = false" @confirmOrder="createOrder2"> </confirm-order>
+    <confirm-order v-else @back="backStep" @confirmOrder="createOrder2"> </confirm-order>
     <div class="text-table mt-7">
         Tienes
         <CountDown :dateFinish="timeSet" @endTime="alerta"></CountDown> minutos
@@ -23,10 +23,20 @@ import { helperStore } from "@/helper";
 import { createPenalty } from '@/stores/PenaltyStore'
 import { PENALTY_TYPES } from "@/enums/PenaltyTypes.enum";
 import PenaltyModal from "../components/Penalty/PenaltyModal.vue";
+import { TransactionStore } from "@/stores/TransactionStore";
 
 const helper = helperStore()
 const confirmOrderStore = ConfirmOrderStore();
-
+const transactionStore = TransactionStore()
+transactionStore.showPreviewOrder = false;
+const backStep = () => {
+    confirmatedOrder.value = false
+    transactionStore.showPreviewOrder = false
+}
+const nextStep = () => {
+    confirmatedOrder.value = true
+    transactionStore.showPreviewOrder = true
+}
 const confirmatedOrder = ref(false);
 const havePenalization = ref(true);
 const alerta = () => {

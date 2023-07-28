@@ -24,8 +24,15 @@ export const TransactionStore = defineStore('Transaction',() => {
         })
     }
 
+    const showPreviewOrder = ref(false)
+    const feeMiner = ref('')
+    const feeAdministrative = ref('3000')
+
     return {
         order,
-        getOrderByNum
+        getOrderByNum,
+        showPreviewOrder,
+        feeMiner,
+        feeAdministrative
     }
 })
