@@ -132,6 +132,11 @@
                 text="Sube tu comprobante de pago"
             ></UploadImageComponent>
         </VCol>
+        <VCol cols="12" class="text-center" >
+            <VBtnPrimary @click="uploadVoucher" :disabled="!comprobant">
+                Subir Comprobante
+            </VBtnPrimary>
+        </VCol>
     </VRow>
 
     <VRow>
@@ -143,12 +148,7 @@
             <span class="text-error text-h6">30 minutos</span>
         </div>
         <div class="text-center w-100 mt-4">
-            <VBtnDanger
-                @click="alerta"
-                style="background-color: #ef5da8 !important"
-            >
-                <span class="text-white">Cancelar Orden</span>
-            </VBtnDanger>
+            <cancel-order :order="order"></cancel-order>
         </div>
     </VRow>
 
@@ -172,12 +172,22 @@ import type { BankAccount } from "@/interfaces/CompanyAccount/BankAccount/BankAc
 import dayjs from "dayjs";
 import { storeToRefs } from "pinia";
 import type { Order } from "@/interfaces/Order/Order.model";
+import CancelOrder from "./CancelOrder.vue";
+import type { OrderUploadVoucher } from '@/interfaces/Order/Order.dto'
+import { reactive } from "vue";
+import { useRouter } from "vue-router";
 
+const router = useRouter()
 const props = defineProps<{
     order: Order;
 }>();
 
-const helper = helperStore;
+const form = reactive<OrderUploadVoucher>({
+    name: '',
+    order_id: props.order.id,
+    vouchers: []
+})
+const helper = helperStore();
 const transactionStore = TransactionStore();
 const openModal = ref(false);
 const accountDelivery = props.order.relationships
@@ -195,6 +205,19 @@ const getImageBank = (): string | false => {
 const getColorBank = computed(() => {
     return accountDelivery.relationships?.bank.attributes.color ?? 'yellow'
 })
+
+const uploadVoucher = async () => {
+    const url = 'order/charge/voucher'
+    const data = new FormData()
+    data.append('name',form.name)
+    data.append('order_id',form.order_id.toString())
+    data.append('vouchers[]',comprobant.value)
+    await helper.http(url,'post',{data})
+    helper.showNotify('Su comprobante se ha subido Satisfactoriamente')
+    setInterval(()=>{
+        router.push({name: 'user-profile'})
+    },5000)
+}
 </script>
 
 <style scoped lang="scss">

@@ -9,3 +9,9 @@ type OmitField = Omit<OrderAttributes,
     | 'processed_by'
     | 'account_delivery_type'
 >
+
+export declare interface OrderUploadVoucher {
+    order_id: number
+    vouchers: Blob[]
+    name: string
+}
