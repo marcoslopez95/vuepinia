@@ -1,7 +1,7 @@
 <template>
     <VRow>
         <VCol cols="12">
-            <h3>Pago de compra #{{ order.attributes.tranx_no }}</h3>
+            <h3>Pago de compra <span class="hashtag">#</span>{{ order.attributes.tranx_no }}</h3>
         </VCol>
         <VCol cols="12">
             <div
@@ -132,14 +132,23 @@
                 text="Sube tu comprobante de pago"
             ></UploadImageComponent>
         </VCol>
-        <VCol cols="12" class="text-center" >
-            <VBtnPrimary @click="uploadVoucher" :disabled="!comprobant">
+        <VCol cols="12" class="text-center" 
+        v-if="
+        //order.relationships?.status.id === StatusOrder.RECEIVED_ORDER || 
+        typeof comprobant != 'string'"
+        >
+            <VBtnPrimary 
+                @click="uploadVoucher" 
+                :disabled="!comprobant || typeof comprobant == 'string'">
                 Subir Comprobante
             </VBtnPrimary>
         </VCol>
     </VRow>
 
-    <VRow>
+    <VRow v-if="
+        //order.relationships?.status.id === StatusOrder.RECEIVED_ORDER || 
+        typeof comprobant != 'string'"
+        >
         <div class="text-table mt-7">
             Tienes
             <CountDown :dateFinish="timeSet" @endTime="alerta"></CountDown>
@@ -147,10 +156,10 @@
             cancelada, y no podrás crear una nueva orden hasta dentro de
             <span class="text-error text-h6">30 minutos</span>
         </div>
-        <div class="text-center w-100 mt-4">
-            <cancel-order :order="order"></cancel-order>
-        </div>
     </VRow>
+    <div class="text-center w-100 mt-10">
+        <cancel-order :order="order"></cancel-order>
+    </div>
 
     <dialog-global :dialog="openModal" @close-dialog="openModal = false">
         <template #title>
@@ -176,6 +185,7 @@ import CancelOrder from "./CancelOrder.vue";
 import type { OrderUploadVoucher } from '@/interfaces/Order/Order.dto'
 import { reactive } from "vue";
 import { useRouter } from "vue-router";
+import { StatusOrder } from "@/enums/StatusOrder.enum";
 
 const router = useRouter()
 const props = defineProps<{
@@ -193,7 +203,11 @@ const openModal = ref(false);
 const accountDelivery = props.order.relationships
     ?.account_delivery as BankAccount;
 const alerta = () => alert("se acbo");
-const comprobant = ref<Blob | "">("");
+const comprobant = ref<Blob | string>(
+    props.order.relationships!.images.length > 0 
+    && props.order.relationships?.images[0].attributes.aws_url
+    ?props.order.relationships?.images[0].attributes.aws_url
+    :"");
 const timeSet = dayjs().add(30, "minute").format();
 
 const getImageBank = (): string | false => {

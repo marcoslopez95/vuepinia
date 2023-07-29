@@ -11,3 +11,46 @@
 @import "./layout/sidebar";
 @import "./layout/topbar";
 @import "./pages/dashboards";
+
+@font-face {
+    font-family: 'ProximaNovaRegular';
+    src: $font-regular;
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'ProximaNovaBold';
+    src: $font-bold;
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'ProximaNovaMedium';
+    src: $font-medium;
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'ProximaNovaSemibold';
+    src: $font-semibold;
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'ProximaNovaLight';
+    src: $font-light;
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'ProximaNovaThin';
+    src: $font-thin;
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'ProximaNovaBlack';
+    src: $font-black;
+    font-weight: normal;
+    font-style: normal;
+}
