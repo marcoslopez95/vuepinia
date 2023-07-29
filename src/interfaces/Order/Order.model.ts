@@ -3,6 +3,8 @@ import type { BankAccount } from "../CompanyAccount/BankAccount/BankAccount.mode
 import type { EfectyAccount } from "../CompanyAccount/EfectyAccount/EfectyAccount.model";
 import type { OtherAccount } from "../CompanyAccount/OtherAccount/OtherAccount.model";
 import type { Currency } from "../Currency/Currency.model";
+import type { Image } from "../Image.model";
+import type { NetworkType } from "../NetworkType/NetworkType.model";
 import type { PaymentMethod } from "../PaymentMethod/PaymentMethod.model";
 import type { ShippingType } from "../ShippingType/ShippingType.model";
 import type { User } from "../User/User.model";
@@ -45,6 +47,8 @@ export declare interface OrderRelationships {
         shipping: ShippingType
         status: OrderStatus
         user: User
+        images: Image[]
+        red: NetworkType
 }
 
 // ----------------------------------------------------------------

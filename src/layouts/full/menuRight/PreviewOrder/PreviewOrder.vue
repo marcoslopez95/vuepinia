@@ -7,7 +7,7 @@
             <div class="my-6 d-flex " style="justify-content: space-between ;">
                 <span>Cantidad:</span>
                 <span class="">
-                    {{ transactionStore.order!.attributes.amount_currency }} {{  transactionStore.order!.relationships!.currency.attributes.abbreviation }}
+                    {{ transactionStore.order!.attributes.amount_currency }} {{  transactionStore.order!.relationships!.currency.attributes.abbreviation.toLocaleUpperCase() }}
                 </span>
             </div>
             <div class="my-6 d-flex " style="justify-content: space-between ;">
@@ -43,8 +43,15 @@
             </div>
         </VCardText>
         <VCardActions class="bg-primary text-white py-4">
-            <VIcon :icon="BtcIcon" size="60" />
-            <p class="text-h5 font-weight-bold ml-4">0.110001 BTC</p>
+            <VImg 
+                v-if="transactionStore.order.relationships?.currency.relationships?.images?.length ?? 0 > 0" 
+                    :src="transactionStore.order.relationships?.currency.relationships?.images![0].attributes.aws_url" 
+                    width="60" height="60">
+            </VImg>
+            <VIcon v-else :icon="BtcIcon" size="60" />
+            <p class="text-h5 font-weight-bold ml-4">
+                {{ transactionStore.order!.attributes.amount_currency }} {{  transactionStore.order!.relationships!.currency.attributes.abbreviation.toLocaleUpperCase() }}
+            </p>
         </VCardActions>
     </VCard>
 </template>
