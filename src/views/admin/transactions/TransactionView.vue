@@ -16,22 +16,22 @@
         <template #cel-total_exchange_local="{data}">
             <!-- {{ data }}asd -->
             {{ formatNumber(
-                parseFloat((data as Order).relationships?.currencyExchangeOrder.attributes.total_exchange_local ?? '0')
+                parseFloat(order(data).relationships?.currencyExchangeOrder.attributes.total_exchange_local ?? '0')
             ) }}
         </template>
         <template #cel-total_exchange_crypto="{data}">
             {{ formatNumber(
-                parseFloat((data as Order).attributes.amount_currency)
+                parseFloat(order(data).attributes.amount_currency)
             ) }}
         </template>
         <template #cel-total_exchange_reference="{data}">
             {{ formatNumber(
-                parseFloat((data as Order).relationships!.currencyExchangeOrder.attributes.total_exchange_reference)
+                parseFloat(order(data).relationships!.currencyExchangeOrder.attributes.total_exchange_reference)
             ) }}
         </template>
         <template #cel-address="{data}">
-            {{ setAddress(
-                (data as Order).attributes.address_send!
+            {{ getWalletFormated(
+                order(data).attributes.address_send!
                 )
             }}
         </template>
@@ -41,7 +41,7 @@
 <script setup lang="ts">
 import TableComponentVue from '@/components/global/TableComponent.vue';
 import SearchInputComponentVue from '@/components/global/SearchInputComponent.vue';
-import { formatNumber, helperStore } from '@/helper';
+import { formatNumber, helperStore,getWalletFormated } from '@/helper';
 import type { Row } from '@/interfaces/FormComponent.helper';
 import type { Order } from '@/interfaces/Order/Order.model';
 import type { Head } from '@/interfaces/TableComponent.helper';
@@ -122,11 +122,8 @@ const headers: Head[] = [
 ]
 
 
-const setAddress = (value:string) =>{
-    const start = value.slice(0,5)
-    const end   = value.slice(value.length-5,value.length)
-
-    return `${start}...${end}`
+const order = (item:unknown):Order =>{
+    return item as Order
 }
 </script>
 

@@ -25,7 +25,7 @@ const items: SidebarItem[] = [
     {
         title: "Transacciones",
         icon: TransactionIcon,
-        to: "",
+        to: "user-transactions",
         roles: [
             ROLES.USER,
         ],

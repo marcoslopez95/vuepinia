@@ -317,3 +317,10 @@ export const getUserAuth = (): UserAuth => {
 export const isRole = (role: ROLES): boolean => {
   return getUserAuth()?.roles[0].name === role
 }
+
+export const getWalletFormated = (wallet:string):string => {
+  const init = wallet.slice(0,6)
+  const length = wallet.length -1
+  const end = wallet.slice(length -5,length)
+  return `${init}...${end}`
+}

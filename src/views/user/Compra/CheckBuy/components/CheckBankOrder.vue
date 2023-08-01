@@ -1,7 +1,7 @@
 <template>
     <VRow>
         <VCol cols="12">
-            <h3>Pago de compra <span class="hashtag">#</span>{{ order.attributes.tranx_no }}</h3>
+            <h3>Pago de compra #{{ order.attributes.tranx_no }}</h3>
         </VCol>
         <VCol cols="12">
             <div

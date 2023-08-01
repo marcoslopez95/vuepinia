@@ -46,7 +46,7 @@ const generals: RouteRecordRaw[] = [
         name: "user-transactions",
         path: "/user/transactions",
         component: () =>
-            import("@/views/admin/users/UsersView.vue"),
+            import("@/views/user/transactions/TransactionsView.vue"),
         meta: {
             roles: [
                 ROLES.USER

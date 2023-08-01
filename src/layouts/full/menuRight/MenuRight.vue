@@ -1,6 +1,5 @@
 <template>
     <div>
-
         <PreviewOrder class="mb-5" v-if="isInCheck"/>
         <PreviewOrderForConfirm class="mb-5" v-if="transactionStore.showPreviewOrder"/>
         <CurrencyStadistics />

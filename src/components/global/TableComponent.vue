@@ -211,6 +211,7 @@ interface Props {
   iconVoucher?: boolean,
   fixedHeader?: boolean,
   heightTable?: string,
+  styleTable?: string,
   singularName?: string
   newButtons?: boolean,
   paginatedFront?: boolean,
@@ -304,6 +305,7 @@ const maxColumns = computed(() => {
     density="compact" 
     :fixed-header="fixedHeader" 
     :height="fixedHeader ? heightTable : ''"
+    :style="styleTable"
     hide-default-footer 
     disable-sort
     hover
@@ -311,7 +313,7 @@ const maxColumns = computed(() => {
     <thead style="background-color: #FBFBFB; font-size: 16px;">
       <tr>
         <slot v-for="head, i in headers" :name="setNameHead(head.value)" :data="head.name">
-          <th class="text-center text-primary text-capitalize" :style="head.style" :class="head.class">
+          <th style="font-weight: 600;" class="text-center text-primary text-capitalize " :style="head.style" :class="head.class">
             {{ head.name }}
           </th>
         </slot>
