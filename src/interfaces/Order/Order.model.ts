@@ -1,3 +1,4 @@
+import type { OrderTypes } from "@/enums/OrderTypes.enum";
 import type { BaseModel, BaseModelSoftDelete } from "../Base.model";
 import type { BankAccount } from "../CompanyAccount/BankAccount/BankAccount.model";
 import type { EfectyAccount } from "../CompanyAccount/EfectyAccount/EfectyAccount.model";
@@ -17,7 +18,7 @@ export declare interface OrderAttributes {
         payment_type_id: number | ''
         shipping_type_id: number | ''
         account_delivery_id: number | ''
-        type: 'Compra' | 'Venta'
+        type: OrderTypes
         red_id: number | ''
         amount_currency: string
         received_amount: string
