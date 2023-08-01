@@ -21,3 +21,21 @@ export declare interface OtherAccountRelationships{
     currency: Currency
     paymentType: PaymentMethod
 }
+
+// ----------------------------
+export declare interface OtherAccountClient extends BaseModel<OtherAccountClientAttributes,OtherAccountClientRelationships>{}
+
+export declare interface OtherAccountClientAttributes {
+    currency_id:number
+    payment_type_id:number
+    account_number:string
+    identification_document:string
+    beneficiary:string
+    phone:string
+    code_phone:string
+}
+
+export declare interface OtherAccountClientRelationships{
+    currency: Currency
+    paymentType: PaymentMethod
+}

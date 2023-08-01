@@ -72,6 +72,7 @@ const userRole = getUserAuth().roles[0].name;
         </v-main>
 
         <v-navigation-drawer
+            v-if="!innerW && userRole !== ROLES.ADMIN"
             location="right"
             rail
             rail-width="340"
@@ -81,7 +82,7 @@ const userRole = getUserAuth().roles[0].name;
             v-model="drawer"
             >
             <MenuRightVue
-                v-if="!innerW && userRole !== ROLES.ADMIN"
+                
                 class="pr-4 pt-4"
             />
         </v-navigation-drawer>

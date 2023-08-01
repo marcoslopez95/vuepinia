@@ -272,6 +272,9 @@
     },
     "sell": {
       "title": "Vender"
+    },
+    "accounts": {
+      "title": "Cuenta | Cuentas"
     }
   },
   "genereal-views": {

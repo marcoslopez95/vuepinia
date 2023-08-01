@@ -273,6 +273,9 @@
     },
     "sell": {
       "title": "Sell"
+    },
+    "accounts": {
+      "title": "Account | Accounts"
     }
   },
   "genereal-views": {

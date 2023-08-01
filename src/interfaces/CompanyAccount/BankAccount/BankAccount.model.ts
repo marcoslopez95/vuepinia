@@ -25,3 +25,23 @@ export declare interface BankAccountRelationships{
     bank: Bank
     typeAccountBank: TypeBankAccount
 }
+
+export declare interface BankAccountClient extends BaseModel<BankAccountAttributes,BankAccountRelationships>{}
+
+export declare interface BankAccountClientAttributes {
+    bank_id: number
+    currency_id: number
+    type_company_bank_account_id: number
+    payment_type_id: number
+    account_number:string
+    identification_document:string
+    beneficiary:string
+}
+
+export declare interface BankAccountClientRelationships{
+    currency: Currency
+    paymentType: PaymentMethod
+    bank: Bank
+    typeAccountBank: TypeBankAccount
+}
+
