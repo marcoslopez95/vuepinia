@@ -66,17 +66,25 @@ const userRole = getUserAuth().roles[0].name;
         <!---Page Wrapper -->
         <!-- ---------------------------------------------- -->
         <v-main class="">
-            <div class="d-flex" >
-                <v-container style="max-width: 65%;" fluid class="page-wrapper">
-                    <RouterView />
-                </v-container>
-                <MenuRightVue
-                    v-if="!innerW && userRole !== ROLES.ADMIN"
-                    class="mr-4 mt-10"
-                    style="min-width: 340px; display: block"
-                />
-            </div>
+            <v-container fluid class="page-wrapper">
+                <RouterView />
+            </v-container>
         </v-main>
+
+        <v-navigation-drawer
+            location="right"
+            rail
+            rail-width="340"
+            border="0"
+            :permanent="$vuetify.display.mdAndUp"
+            app
+            v-model="drawer"
+            >
+            <MenuRightVue
+                v-if="!innerW && userRole !== ROLES.ADMIN"
+                class="pr-4 pt-4"
+            />
+        </v-navigation-drawer>
         <FooterComponent />
     </v-app>
 </template>

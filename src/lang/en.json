@@ -270,6 +270,9 @@
     },
     "network-type": {
       "title": "Network Type | Network Types"
+    },
+    "sell": {
+      "title": "Sell"
     }
   },
   "genereal-views": {

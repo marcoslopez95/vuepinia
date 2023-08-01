@@ -269,6 +269,9 @@
     },
     "network-type": {
       "title": "Tipo de Red | Tipos de Redes"
+    },
+    "sell": {
+      "title": "Vender"
     }
   },
   "genereal-views": {
