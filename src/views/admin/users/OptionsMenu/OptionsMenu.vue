@@ -2,7 +2,7 @@
     <v-list-item-title
         v-for="(item, index) in items" :key="index"
         class="cursor-pointer"
-        @click="item.event"
+        @click="item.event()"
     >
         <VBtn
             :title="item.title"
