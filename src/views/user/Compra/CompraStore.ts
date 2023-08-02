@@ -7,6 +7,7 @@ import { useRouter } from 'vue-router'
 import type { Order } from '@/interfaces/Order/Order.model'
 import type { Wallet } from '@/interfaces/Wallet/Wallet.model'
 import type { NetworkType } from '@/interfaces/NetworkType/NetworkType.model'
+import { OrderTypes } from '@/enums/OrderTypes.enum'
 
 export const ConfirmOrderStore = defineStore('confirm-order', () => {
     const router = useRouter()
@@ -25,7 +26,7 @@ export const ConfirmOrderStore = defineStore('confirm-order', () => {
         shipping_type_id: '',
         total_exchange_local: '0',
         total_exchange_reference: '0',
-        type: 'Compra',
+        type: OrderTypes.COMPRA,
         account_delivery_id: '',
         wallet_id: '',
         address_send: '',
