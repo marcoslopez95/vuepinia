@@ -9,8 +9,10 @@
     </CryptoCurrencySelect>
     <PaymentMethods v-if="currency" v-model="paymentMethod">
     </PaymentMethods>
-    <component v-if="paymentMethod" :is="detailPaymentMethod!" :itemsDetails="itemsDetails" v-model="itemDetailSelected">
-    </component>
+    <SelectAccount v-if="paymentMethod && paymentMethod.id != PAYMENT_METHODS_AVAILABLE.EFECTY" 
+        :itemsDetails="itemsDetails" 
+        v-model="itemDetailSelected">
+    </SelectAccount>
     <div class="mt-5" v-if="itemDetailSelected">
         <h3 class="text-primary">
             {{ $t('views.buy.amount') }}
@@ -45,20 +47,20 @@ import PaymentMethods from './../components/intercambio/PaymentMethods.vue'
 import { ref } from 'vue';
 import type { PaymentMethod } from '@/interfaces/PaymentMethod/PaymentMethod.model';
 import { PAYMENT_METHODS_AVAILABLE } from '@/enums/PaymentMethod.enum';
-import BankComponent from './../components/intercambio/PaymentMethods/BankComponent.vue'
-import EfectyComponent from './../components/intercambio/PaymentMethods/EfectyComponent.vue'
-import OtherComponent from './../components/intercambio/PaymentMethods/OtherComponent.vue'
+import BankComponent from './components/intercambio/PaymentMethods/BankComponent.vue'
+import EfectyComponent from './components/intercambio/PaymentMethods/EfectyComponent.vue'
+import OtherComponent from './components/intercambio/PaymentMethods/OtherComponent.vue'
 import { computed } from 'vue';
 import { watch,reactive } from 'vue';
-import type { BankAccount } from '@/interfaces/CompanyAccount/BankAccount/BankAccount.model';
+import type { BankAccount, BankAccountClient } from '@/interfaces/CompanyAccount/BankAccount/BankAccount.model';
 import type { EfectyAccount } from '@/interfaces/CompanyAccount/EfectyAccount/EfectyAccount.model';
-import type { OtherAccount } from '@/interfaces/CompanyAccount/OtherAccount/OtherAccount.model';
+import type { OtherAccount, OtherAccountClient } from '@/interfaces/CompanyAccount/OtherAccount/OtherAccount.model';
 import { helperStore } from '@/helper';
 import CalculadoraComponent from '../components/intercambio/CalculadoraComponent.vue';
 import { ConfirmOrderStore } from './CompraStore';
 import type { Calculator } from '@/interfaces/Calculadora.interface'
 import { storeToRefs } from 'pinia';
-
+import SelectAccount from './components/intercambio/PaymentMethods/SelectAccount.vue';
 const confirmOrderStore = ConfirmOrderStore()
 const { form } = storeToRefs(confirmOrderStore)
 const emits = defineEmits<{
@@ -68,40 +70,36 @@ const emits = defineEmits<{
 const helper = helperStore()
 const currency = ref<Currency | null>(null)
 const paymentMethod = ref<PaymentMethod | null>(null)
-const itemsDetails = ref<BankAccount | EfectyAccount | OtherAccount | null>()
+const itemsDetails = ref<BankAccount[] | OtherAccount[]>([])
 const itemDetailSelected = ref<BankAccount | EfectyAccount | OtherAccount | null>()
-const detailPaymentMethod = computed(() => {
-    if (!paymentMethod.value) return null
-
-    getDetailsForPaymentMethod()
-    switch (paymentMethod.value.id) {
-        case PAYMENT_METHODS_AVAILABLE.BANK:
-            return BankComponent;
-        case PAYMENT_METHODS_AVAILABLE.EFECTY:
-            return EfectyComponent;
-        case PAYMENT_METHODS_AVAILABLE.OTHER:
-            return OtherComponent
-    }
-})
 
 watch(currency, () => paymentMethod.value = null)
 watch(paymentMethod, () => {
-    itemsDetails.value = null
+    getDetailsForPaymentMethod()
+    itemsDetails.value = []
     itemDetailSelected.value = null
 })
 
 const getDetailsForPaymentMethod = async () => {
-    if(paymentMethod.value!.id === PAYMENT_METHODS_AVAILABLE.BANK) {
-        const res = await helper.http('banks/account/actives')
-        itemsDetails.value = res.data.response
-        return
-    }
     const params = {
         payment_type_id: paymentMethod.value!.id
     }
-    const res = await helper.http('company/account', 'get', { params })
-    itemsDetails.value = res.data.response
+    const res = await helper.http('client/account', 'get', { params })
+    itemsDetails.value = res.data.response.map((item: any) => ({
+        id:item.id,
+        attributes: {name: titleSelect(item)}
+    }))
+}
 
+const titleSelect = (item:OtherAccountClient | BankAccountClient): string => {
+    let str = item.attributes.beneficiary;
+    if((item as OtherAccountClient).attributes.code_phone ){
+        str += ' ' + item.relationships?.paymentType.attributes.name
+    }else{
+        str  += ' ' + (item as BankAccountClient).relationships?.bank.attributes.name
+    }
+
+    return str
 }
 
 const amountPermitted = ref(false)

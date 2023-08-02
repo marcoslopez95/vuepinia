@@ -272,7 +272,8 @@
       "title": "Network Type | Network Types"
     },
     "sell": {
-      "title": "Sell"
+      "title": "Sell",
+      "payment-method": "Payment Method"
     },
     "accounts": {
       "title": "Account | Accounts"

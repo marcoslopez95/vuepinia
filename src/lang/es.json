@@ -271,7 +271,8 @@
       "title": "Tipo de Red | Tipos de Redes"
     },
     "sell": {
-      "title": "Vender"
+      "title": "Vender",
+      "payment-method": "Forma de Pago"
     },
     "accounts": {
       "title": "Cuenta | Cuentas"

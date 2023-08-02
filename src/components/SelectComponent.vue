@@ -33,7 +33,9 @@
                 @click="selectItem(item.value)"
                 :active="activeItem(item.value)"
                 >
-                {{ item.title }}
+                <slot name="title" :item="props">
+                    {{ item.title }}
+                </slot>
                 
             </VListItem>
         </template>

@@ -57,7 +57,7 @@ type TypeActive = 'border' | 'item';
           <div class="d-flex">
             <!---Single Item-->
             <!-- ---------------------------------------------- -->
-            <v-list-item :to="item.to ? {name:item.to} : '#'" rounded="lg" class="w-100" :active="false">
+            <v-list-item :to="item.to ? {name:item.to} : '#'" rounded="lg" class="w-100" :active="false" active-class="">
               <!-- <v-list-item-avatar start class="v-list-item-avatar--start"> -->
               <template v-slot:prepend>
                 <VAvatar>
@@ -95,6 +95,9 @@ type TypeActive = 'border' | 'item';
   color: $item-active-sidebar !important;
 }
 
+.hover-black:hover{
+  background-color: none;
+}
 
 .active-bar {
   width: 6.14px;

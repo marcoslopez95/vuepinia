@@ -150,7 +150,7 @@ export default createVuetify({
       color: "primary",
     },
     VListItemTitle: {
-      class: 'hover-black'
+      //class: 'hover-black'
     }
   },
 });

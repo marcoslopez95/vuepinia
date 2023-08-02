@@ -313,15 +313,15 @@ const maxColumns = computed(() => {
     <thead style="background-color: #FBFBFB; font-size: 16px;">
       <tr>
         <slot v-for="head, i in headers" :name="setNameHead(head.value)" :data="head.name">
-          <th style="font-weight: 600;" class="text-center text-primary text-capitalize " :style="head.style" :class="head.class">
+          <th class="text-center text-primary text-capitalize " :style="head.style" :class="head.class">
             {{ head.name }}
           </th>
         </slot>
       </tr>
     </thead>
-    <tbody style="font-size: 18px;">
+    <tbody style="font-size: 16px;">
       <tr v-for="(item, i) in itemsNew" :key="i">
-        <td v-for="(head, j) in headers" :key="j" class="text-center text-table font-weight-bold">
+        <td v-for="(head, j) in headers" :key="j" class="text-center text-table ">
           <slot :name="`cel-${head.value}`" :data="item">
             <!-- 54 6f 64 6f 20 65 73 74 6f 20 6c 6f 20 68 61 67 6f 20 70 6f 72 20 65 6c 6c 61 20 3c 33 -->
 

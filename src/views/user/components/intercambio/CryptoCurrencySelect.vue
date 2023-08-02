@@ -9,7 +9,7 @@
             md="12"
             v-for="currency, i in walletStore.currencies" 
             :key="i"
-            @click="emits('update:model-value',currency)"
+            @click="emit(currency)"
         >
             <VHover v-slot="{ isHovering, props }">
                 <VCard 
@@ -48,6 +48,10 @@ const walletStore = WalletStore()
 walletStore.getCurrencies()
 walletStore.getCurrencyTicker()
 
+const emit = (currency: Currency) => {
+    if(walletStore.currencyTicker.length == 0)return
+    emits('update:model-value',currency)
+}
 const emits = defineEmits<{
     (e:'update:model-value',value: Currency):void
 }>()
