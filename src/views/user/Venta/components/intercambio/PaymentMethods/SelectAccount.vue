@@ -5,19 +5,16 @@
             Puedes seleccionar una de tus cuentas o ir a la configuración de tu perfil y agregar una nueva cuenta, la cuenta por defecto en la orden es la cuenta activa.
         </p>
     </div>
+    dentro del componente {{ valueSelect }} <br>
+    {{ itemsDetails }}
     <div>
         <SelectComponent
             name=""
-            v-model="modelValue"
+            v-model="valueSelect"
             :items="itemsDetails"
-            item-title="attributes.name"
-            item-value="id"
-            @update:model-value="(value) => emits('update:model-value',value)"
+            itemValue="id"
+            itemTitle="attributes.name"
         >
-            <!-- <template #title="{ item }"> -->
-                <!-- {{ item }} -->
-                <!-- {{ titleSelect(item) }} -->
-            <!-- </template> -->
         </SelectComponent>
     </div>
 </template>
@@ -39,9 +36,40 @@ const emits = defineEmits<{
 const helper = helperStore()
 const props = defineProps<{
     modelValue: any,
-    itemsDetails: BankAccountClient[] | OtherAccountClient[]
+    // itemsDetails: BankAccountClient[] | OtherAccountClient[]
+    paymentMethod: PaymentMethod
 }>()
+const valueSelect = ref<any>('')
+const itemsDetails = ref<any>([])
+
+watch(() => props.paymentMethod, (nuevo)=> {
+    // getDetailsForPaymentMethod()
+    // emits('update:model-value',nuevo)
+})
 const { modelValue } = toRefs(props)
+
+const getDetailsForPaymentMethod = async () => {
+    const params = {
+        payment_type_id: props.paymentMethod.id
+    }
+    const res = await helper.http('client/account', 'get', { params })
+    itemsDetails.value = res.data.response
+    .map((item: any) => ({
+        id:item.id,
+        attributes: {name: titleSelect(item)}
+    }))
+}
+getDetailsForPaymentMethod()
+const titleSelect = (item:OtherAccountClient | BankAccountClient): string => {
+    let str = item.attributes.beneficiary;
+    if((item as OtherAccountClient).attributes.code_phone ){
+        str += ' ' + item.relationships?.paymentType.attributes.name
+    }else{
+        str  += ' ' + (item as BankAccountClient).relationships?.bank.attributes.name
+    }
+
+    return str
+}
 </script>
 
 <style scoped>

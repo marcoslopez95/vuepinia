@@ -10,9 +10,11 @@
     <PaymentMethods v-if="currency" v-model="paymentMethod">
     </PaymentMethods>
     <SelectAccount v-if="paymentMethod && paymentMethod.id != PAYMENT_METHODS_AVAILABLE.EFECTY" 
-        :itemsDetails="itemsDetails" 
+        :paymentMethod="paymentMethod" 
         v-model="itemDetailSelected">
     </SelectAccount>
+        
+    variable: {{ itemDetailSelected }}
     <div class="mt-5" v-if="itemDetailSelected">
         <h3 class="text-primary">
             {{ $t('views.buy.amount') }}
@@ -85,10 +87,11 @@ const getDetailsForPaymentMethod = async () => {
         payment_type_id: paymentMethod.value!.id
     }
     const res = await helper.http('client/account', 'get', { params })
-    itemsDetails.value = res.data.response.map((item: any) => ({
-        id:item.id,
-        attributes: {name: titleSelect(item)}
-    }))
+    itemsDetails.value = res.data.response
+    // .map((item: any) => ({
+    //     id:item.id,
+    //     attributes: {name: titleSelect(item)}
+    // }))
 }
 
 const titleSelect = (item:OtherAccountClient | BankAccountClient): string => {
