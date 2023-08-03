@@ -21,7 +21,6 @@
             v-model="modelValue" 
             :rules="rules" 
             :disabled="disabled"
-            @update:model-value="emits('update:model-value',$event)"
             :multiple="multiple??false"
             :item-title="itemTitle"
             :item-value="itemValue"
@@ -72,8 +71,13 @@ const props = defineProps<{
     height?: any
 }>()
 const { modelValue,items } = toRefs(props)
+// const modelValue = ref<any>()
 const helper = helperStore()
 
+// const updateValue = (value:any) => {
+//     console.log('valor',value)
+//     emits('update:model-value',value)
+// }
 const selectedItem  = () => {
     let item:any ={
         id: '',
@@ -112,7 +116,9 @@ const selectItem = (value:any) => {
         return 
     }
     menu.value = false
-    emits('update:model-value',{...modelValue,value})
+    // emits('update:model-value',{...modelValue.value})
+    emits('update:model-value',value)
+    // emits('update:model-value',{...modelValue.value,value})
     return 
     // if(props.multiple){
     //     modelValue.value.push(value)

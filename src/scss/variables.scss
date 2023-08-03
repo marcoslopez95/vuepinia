@@ -1,10 +1,11 @@
-$font-regular: url('./fonts/Fontspring-DEMO-proximanova-regular.otf') format('opentype');
-$font-bold: url('./fonts/Fontspring-DEMO-proximanova-bold.otf') format('opentype');
-$font-medium: url('./fonts/Fontspring-DEMO-proximanova-medium.otf') format('opentype');
-$font-semibold: url('./fonts/Fontspring-DEMO-proximanova-semibold.otf') format('opentype');
-$font-light: url('./fonts/Fontspring-DEMO-proximanova-light.otf') format('opentype');
-$font-thin: url('./fonts/Fontspring-DEMO-proximanova-thin.otf') format('opentype');
-$font-black: url('./fonts/Fontspring-DEMO-proximanova-black.otf') format('opentype');
+// $font-regular: url('./fonts/Fontspring-DEMO-proximanova-regular.otf') format('opentype');
+$font-bold: url('./fonts/ProximaNova-Bold.woff') format('woff');
+// $font-medium: url('./fonts/') format('opentype');
+$font-semibold: url('./fonts/ProximaNova-Semibold.woff') format('opentype');
+$font-light: url('./fonts/ProximaNova-Light.woff') format('woff');
+$font-thin: url('./fonts/ProximaNovaT-Thin.woff') format('woff');
+$font-black: url('./fonts/ProximaNova-Black.woff') format('woff');
+$font-regular: url('./fonts/ProximaNova-Regular.woff') format('woff');
 
 :root {
     --v-input-control-height: 48px !important;
@@ -24,7 +25,7 @@ $border-radius: 20px;
 $btn-font-weight: 400 !default;
 $btn-letter-spacing : 0 !default;
 
-$font-family: "proxima-nova, ProximaNovaRegular, DM Sans";
+$font-family: ProximaNovaRegular,DM Sans;
 
 $item-active-sidebar: #44D9E2;
 

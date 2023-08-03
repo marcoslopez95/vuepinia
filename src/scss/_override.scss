@@ -1,5 +1,8 @@
 html {
-  font-family: $font-family;
+  body{
+    font-family: $font-family !important;
+  }
+  font-family: $font-family!important;
 
   .v-application {
     [class*="text-"] {
@@ -52,6 +55,10 @@ html {
   }
 }
 
+.font-22 {
+  font-size: 22px!important;
+}
+
 .alertError {
   background-color: #ef5da84d;
 }
@@ -65,5 +72,5 @@ html {
 }
 
 .hashtag {
-font-family: "DM Sans";
+  font-family: "DM Sans";
 }

@@ -38,4 +38,5 @@ export declare interface OtherAccountClientAttributes {
 export declare interface OtherAccountClientRelationships{
     currency: Currency
     paymentType: PaymentMethod
+    typePayment: PaymentMethod
 }
