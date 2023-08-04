@@ -18,8 +18,9 @@ import { TransactionStore } from '@/stores/TransactionStore'
 const kycAccept = localStorage.getItem('kyc')
 const router = useRouter()
 const transactionStore = TransactionStore()
+
 const isInCheck = computed((): boolean =>{
-    return router.currentRoute.value.name == 'user-check-buy'
+    return router.currentRoute.value.name == 'user-check-buy' || 'user-check-sell'
 })
 </script>
 

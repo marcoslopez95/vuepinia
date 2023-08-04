@@ -1,7 +1,6 @@
 <template>
-    <InitBuy v-if="!confirmatedOrder" @click:continue="nextStep">
+    <InitBuy @click:continue="createOrder2">
     </InitBuy>
-    <confirm-order v-else @back="backStep" @confirmOrder="createOrder2"> </confirm-order>
     <div class="text-table mt-7">
         Tienes
         <CountDown :dateFinish="timeSet" @endTime="alerta"></CountDown> minutos
@@ -16,7 +15,6 @@
 import CountDown from "@/components/CountDown.vue";
 import { ref } from "vue";
 import InitBuy from "./InitSell.vue";
-import ConfirmOrder from "./ConfirmOrder.vue";
 import dayjs from "dayjs";
 
 import { helperStore } from "@/helper";
@@ -32,6 +30,7 @@ const helper = helperStore()
 const confirmOrderStore = ConfirmOrderStore();
 const  { form } = storeToRefs(confirmOrderStore)
 form.value.type = OrderTypes.VENTA
+form.value.shipping_type_id = 1
 const transactionStore = TransactionStore()
 transactionStore.showPreviewOrder = false;
 const backStep = () => {

@@ -51,7 +51,7 @@ export const ConfirmOrderStore = defineStore('confirm-order', () => {
         })
 
         router.push({
-            name: 'user-check-buy',
+            name: 'user-check-sell',
             params:{
                 numTransaction: (res.data.response as Order).attributes.tranx_no
             }

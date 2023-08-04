@@ -47,14 +47,9 @@ import PaymentMethods from './../components/intercambio/PaymentMethods.vue'
 import { ref } from 'vue';
 import type { PaymentMethod } from '@/interfaces/PaymentMethod/PaymentMethod.model';
 import { PAYMENT_METHODS_AVAILABLE } from '@/enums/PaymentMethod.enum';
-import BankComponent from './components/intercambio/PaymentMethods/BankComponent.vue'
-import EfectyComponent from './components/intercambio/PaymentMethods/EfectyComponent.vue'
-import OtherComponent from './components/intercambio/PaymentMethods/OtherComponent.vue'
-import { computed } from 'vue';
-import { watch,reactive } from 'vue';
-import type { BankAccount, BankAccountClient } from '@/interfaces/CompanyAccount/BankAccount/BankAccount.model';
-import type { EfectyAccount } from '@/interfaces/CompanyAccount/EfectyAccount/EfectyAccount.model';
-import type { OtherAccount, OtherAccountClient } from '@/interfaces/CompanyAccount/OtherAccount/OtherAccount.model';
+import { watch } from 'vue';
+import type { BankAccount } from '@/interfaces/CompanyAccount/BankAccount/BankAccount.model';
+import type { OtherAccount } from '@/interfaces/CompanyAccount/OtherAccount/OtherAccount.model';
 import { helperStore } from '@/helper';
 import CalculadoraComponent from '../components/intercambio/CalculadoraComponent.vue';
 
@@ -72,7 +67,7 @@ const helper = helperStore()
 const currency = ref<Currency | null>(null)
 const paymentMethod = ref<PaymentMethod | null>(null)
 const itemsDetails = ref<BankAccount[] | OtherAccount[]>([])
-const itemDetailSelected = ref<BankAccount | EfectyAccount | OtherAccount | null>()
+const itemDetailSelected = ref<number | null>()
 
 watch(currency, () => paymentMethod.value = null)
 watch(paymentMethod, () => {
@@ -93,17 +88,6 @@ const getDetailsForPaymentMethod = async () => {
     // }))
 }
 
-const titleSelect = (item:OtherAccountClient | BankAccountClient): string => {
-    let str = item.attributes.beneficiary;
-    if((item as OtherAccountClient).attributes.code_phone ){
-        str += ' ' + item.relationships?.paymentType.attributes.name
-    }else{
-        str  += ' ' + (item as BankAccountClient).relationships?.bank.attributes.name
-    }
-
-    return str
-}
-
 const amountPermitted = ref(false)
 const calculatorValue = ref<Calculator>({
     amountFiat: 0,
@@ -120,7 +104,7 @@ const noPrice = () => {
 }
 
 const clickInContinue = () => {
-    form.value.account_delivery_id = itemDetailSelected.value!.id
+    form.value.account_delivery_id = itemDetailSelected.value!
     form.value.currency_id = currency.value!.id
     form.value.payment_type_id = paymentMethod.value!.id
     form.value.total_exchange_local = calculatorValue.value.amountFiat.toFixed(2)

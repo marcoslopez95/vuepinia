@@ -1,6 +1,6 @@
 <template>
     <div
-        class="d-lg-flex d-flex d-md-block justify-center align-center mb-5"
+        class="d-lg-flex d-flex d-md-block justify-center align-center mb-8"
         style="gap: 30px"
     >
         <div class="d-md-flex justify-md-center">
@@ -14,7 +14,7 @@
                 </p>
             </div>
         </div>
-        <div class="d-md-flex my-auto justify-md-center mt-md-5">
+        <div class="d-md-flex my-auto justify-md-center mt-md-5 ">
             <div>
                 <div>
                     <!-- {{ $vuetify.display.width }} -->
@@ -41,7 +41,7 @@
                 <div class="mt-6">
                     <div class="text-center">
                         <span class="text-primary"
-                            >Enviar los BTC a la siguiente direccion</span
+                            >Enviar los {{ order.relationships?.currency.attributes.abbreviation.toLocaleUpperCase() }} a la siguiente direccion</span
                         >
                     </div>
                     <div
@@ -72,7 +72,7 @@
             <VIcon size="50" :icon="InformationIconLight" />
         </div>
         <div>
-            Envia UNICAMENTE Bitcoin (BTC) a esta direccion usando la red nativa
+            Envia UNICAMENTE {{ order.relationships?.currency.attributes.name }} ({{ order.relationships?.currency.attributes.abbreviation.toLocaleUpperCase() }}) a esta direccion usando la red nativa
             de bitcoin
         </div>
     </div>

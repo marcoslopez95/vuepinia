@@ -13,7 +13,13 @@
                     {{  getCurrencyById(confirmOrderStore.form.currency_id as number).attributes.abbreviation.toLocaleUpperCase() }}
                 </span>
             </div>
-            
+            <div v-if="confirmOrderStore.form.type == OrderTypes.COMPRA" class="my-6 d-flex " style="justify-content: space-between ;">
+                <span>Pesos :</span>              
+                <span class="">
+                    {{ formatNumber(parseFloat(confirmOrderStore.form.total_exchange_local)) }}
+                    COP
+                </span>
+            </div>
             <div class="my-6 d-flex align-center" style="justify-content: space-between ;">
                 <span>Doláres:</span>            
                 <div class="align-center justify-center d-flex">
@@ -24,14 +30,14 @@
                     </span>
                 </div>
             </div>
-            <!-- <div class="my-6 d-flex " style="justify-content: space-between ;">
+            <div v-if="confirmOrderStore.form.type == OrderTypes.COMPRA"  class="my-6 d-flex " style="justify-content: space-between ;">
 
                 <span>Fee Mineros:</span>        
                 <span class="">
-                    {{ transactionStore.feeMiner }} -->
-                    <!-- {{ transactionStore.order?.attributes.fee }} -->
-                <!-- </span>
-            </div> -->
+                    {{ transactionStore.feeMiner }}
+                    {{ transactionStore.order?.attributes.fee }}
+                </span>
+            </div>
            
             <div class="my-6 d-flex " style="justify-content: space-between ;">
 
@@ -45,7 +51,7 @@
                     </span>
                 </div>
             </div>
-            <div class="my-6 d-flex " style="justify-content: space-between ;">
+            <div v-if="confirmOrderStore.form.type == OrderTypes.VENTA" class="my-6 d-flex " style="justify-content: space-between ;">
                 <span>Pesos a Recibir:</span>              
                 <span class="">
                     {{ formatNumber(parseFloat(confirmOrderStore.form.total_exchange_local)) }}
@@ -76,6 +82,7 @@ import type { Currency } from "@/interfaces/Currency/Currency.model";
 import { computed } from "vue";
 import InformationIcon from "@/assets/icons/InformationIcon.vue";
 import QuestionIcon from "@/assets/icons/QuestionIcon.vue";
+import { OrderTypes } from "@/enums/OrderTypes.enum";
 
 const transactionStore = TransactionStore()
 const confirmOrderStore = ConfirmOrderStore();
