@@ -1,21 +1,38 @@
 <template>
     <div
-        class="d-lg-flex d-flex d-md-block justify-center align-center mb-8"
+        class="d-lg-flex d-flex justify-center align-center mb-8"
+        :style="[$vuetify.display.mdAndDown ? 'flex-direction: column' : '']"
         style="gap: 30px"
     >
-        <div class="d-md-flex justify-md-center">
-            <div>
-                <QrcodeVue :value="getDataForQr()" render-as="svg" :size="208"></QrcodeVue>
+        <div class="d-flex justify-center order-1 order-md-0"
+        :style="[$vuetify.display.mdAndDown ? 'flex-direction: column' : '']">
+            <div 
+                @click="showQr = !showQr" 
+                class=" my-4 border-degree rounded-lg justify-space-between cursor-pointer px-3 align-center d-flex d-md-none" 
+                style="width: 322px; height: 38px;">
+                <div>
+                    <VIcon  :icon="QrIcon"></VIcon>
+                </div>
+                <div class="text-table">
+                    {{ !showQr ? 'Mostrar' : 'Ocultar'}} QR
+                </div>
+                <div></div>
+            </div>
+            <div v-if="showQr" class="mx-auto">
+                <QrcodeVue :foreground="$vuetify.display.smAndDown ? '#5043E8' : '#000000'" :value="getDataForQr()" render-as="svg" :size="208"></QrcodeVue>
                 <p
                     style="width: 208px"
-                    class="font-weight-bold text-center text-table"
+                    class="font-weight-bold text-center"
+                    :class="[
+                        $vuetify.display.smAndDown ? 'text-primary' : 'text-table'
+                    ]"
                 >
                     Click en el qr para abrir en tu wallet
                 </p>
             </div>
             <!-- {{ getDataForQr() }} -->
         </div>
-        <div class="d-md-flex my-auto justify-md-center mt-md-5 ">
+        <div class="d-flex my-auto justify-center order-0 order-md-1">
             <div>
                 <div>
                     <!-- {{ $vuetify.display.width }} -->
@@ -79,6 +96,7 @@
         diferentes billeteras te recomendamos agruparlos y luego hacer un solo
         envio.
     </p>
+    <preview-order class="mx-auto mt-5" style="max-width: 300px;" ></preview-order>
     <div class="text-center mt-10">
         <cancel-order :order="order"></cancel-order>
     </div>
@@ -105,7 +123,8 @@ import InformationIconLight from "@/assets/icons/InformationIconLight.vue";
 import { ConfirmOrderStore } from "../Compra/CompraStore";
 import type { Order } from "@/interfaces/Order/Order.model";
 import CancelOrder from "../Compra/CheckBuy/components/CancelOrder.vue";
-
+import QrIcon from '@/assets/icons/QrIcon.vue'
+import PreviewOrder from "@/layouts/full/menuRight/PreviewOrder/PreviewOrder.vue";
 const props = defineProps<{
     order: Order;
 }>();
@@ -119,6 +138,10 @@ const confirmOrderStore = ConfirmOrderStore();
 const { shippingType, form, networkTypes } = storeToRefs(confirmOrderStore);
 const { getShippingTypes } = confirmOrderStore;
 
+const showQr = ref(true)
+if(useDisplay().smAndDown.value){
+    showQr.value = false
+}
 confirmOrderStore.getNetworkTypes();
 const emitConfirmOrder = async () => {
     const { valid } = await formRef.value.validate();

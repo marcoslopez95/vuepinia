@@ -1,5 +1,5 @@
 <template>
-    <VCard v-if="transactionStore.order" class="v-text-field__slot d-flex flex-column" style="height: 446px">
+    <VCard v-if="transactionStore.order" class="v-text-field__slot d-flex flex-column" :style="`height: ${height ?? 446}px`">
         <h3 class="text-center text-primary">
             {{ $t("views.menu-right.preview-order.title") }}
         </h3>
@@ -77,6 +77,10 @@ import { OrderTypes } from "@/enums/OrderTypes.enum";
 import InformationIcon from "@/assets/icons/InformationIcon.vue";
 import QuestionIcon from "@/assets/icons/QuestionIcon.vue";
 const transactionStore = TransactionStore()
+
+const props = defineProps<{
+    height?: string
+}>()
 </script>
 
 <style scoped></style>
