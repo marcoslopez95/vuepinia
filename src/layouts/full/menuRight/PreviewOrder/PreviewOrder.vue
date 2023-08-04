@@ -10,7 +10,7 @@
                     {{ transactionStore.order!.attributes.amount_currency }} {{  transactionStore.order!.relationships!.currency.attributes.abbreviation.toLocaleUpperCase() }}
                 </span>
             </div>
-            <div class="my-6 d-flex " style="justify-content: space-between ;">
+            <div v-if="transactionStore.order.attributes.type == OrderTypes.COMPRA" class="my-6 d-flex " style="justify-content: space-between ;">
                 <span>Pesos:</span>              
                 <span class="">
                     {{ formatNumber(parseFloat(transactionStore.order!.relationships!.currencyExchangeOrder.attributes.total_exchange_local)) }}
@@ -21,12 +21,15 @@
             <div class="my-6 d-flex " style="justify-content: space-between ;">
 
                 <span>Doláres:</span>            
-                <span class="">
-                    {{ formatNumber(parseFloat(transactionStore.order?.relationships!.currencyExchangeOrder.attributes.total_exchange_reference)) }}
-                    {{ transactionStore.order?.relationships?.currencyExchangeOrder.relationships?.referenceCurrency.attributes.abbreviation }}
-                </span>
+                <div class="align-center justify-center d-flex">
+                    <VIcon class="mt-0 pt-0 mr-1" size="20" :icon="InformationIcon" color="primary" />
+                    <span class="">
+                        {{ transactionStore.order.relationships?.currencyExchangeOrder.attributes.total_exchange_reference }}
+                        USD
+                    </span>
+                </div>
             </div>
-            <div class="my-6 d-flex " style="justify-content: space-between ;">
+            <div v-if="transactionStore.order.attributes.type == OrderTypes.COMPRA" class="my-6 d-flex " style="justify-content: space-between ;">
 
                 <span>Fee Mineros:</span>        
                 <span class="">
@@ -36,9 +39,19 @@
             <div class="my-6 d-flex " style="justify-content: space-between ;">
 
                 <span>Fee administrativo:</span> 
-                <span class="">
+                <div class="align-center justify-center d-flex">
+                    <VIcon class="mt-0 mr-1 pt-0" :icon="QuestionIcon" color="primary" size="20" />
+                    <span class="">
                     {{ transactionStore.order?.attributes.fee }}
 
+                </span>
+                </div>
+            </div>
+            <div v-if="transactionStore.order.attributes.type == OrderTypes.VENTA" class="my-6 d-flex " style="justify-content: space-between ;">
+                <span>Pesos a Recibir:</span>              
+                <span class="">
+                    {{ formatNumber(parseFloat(transactionStore.order.relationships?.currencyExchangeOrder.attributes.total_exchange_local!)) }}
+                    COP
                 </span>
             </div>
         </VCardText>
@@ -60,6 +73,9 @@
 import { TransactionStore } from "@/stores/TransactionStore";
 import BtcIcon from "@/views/Home/PricingCards/BtcIcon.vue";
 import { formatNumber } from '@/helper'
+import { OrderTypes } from "@/enums/OrderTypes.enum";
+import InformationIcon from "@/assets/icons/InformationIcon.vue";
+import QuestionIcon from "@/assets/icons/QuestionIcon.vue";
 const transactionStore = TransactionStore()
 </script>
 

@@ -20,7 +20,8 @@ const router = useRouter()
 const transactionStore = TransactionStore()
 
 const isInCheck = computed((): boolean =>{
-    return router.currentRoute.value.name == 'user-check-buy' || 'user-check-sell'
+    const urlCurrent = router.currentRoute.value.name
+    return urlCurrent == 'user-check-buy' || urlCurrent == 'user-check-sell'
 })
 </script>
 

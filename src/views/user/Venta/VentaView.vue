@@ -48,8 +48,10 @@ const alerta = () => {
 };
 const timeSet = dayjs().add(30, "minutes").format();
 
-const createOrder2 = () => {
+const createOrder2 = async () => {
     if(havePenalization.value) return
+    await confirmOrderStore.getAddressSendForSell()
+    form.value.address_send = confirmOrderStore.addressSendForSell
     confirmOrderStore.createOrder();
     console.log('pagos', confirmOrderStore.form)
 };

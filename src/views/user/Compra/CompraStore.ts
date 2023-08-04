@@ -71,6 +71,21 @@ export const ConfirmOrderStore = defineStore('confirm-order', () => {
         const res = await helper.http(url, 'get')
         networkTypes.value = res.data.response as NetworkType[]
     }
+
+    const addressSendForSell = ref<string>('')
+    const getAddressSendForSell = ():Promise<boolean> => {
+        return new Promise(async (resolve, reject) => {
+            try{
+                const url = 'client/wallet/adress/wallet'
+                const data = { currency_id: form.value.currency_id}
+                const res = await helper.http(url, 'post',{data})
+                addressSendForSell.value = (res.data.response as Wallet).attributes.address!
+            }catch(e){
+                reject(false)
+            }
+            resolve(true)
+        })
+    }
     return {
         form,
         shippingType,
@@ -79,6 +94,8 @@ export const ConfirmOrderStore = defineStore('confirm-order', () => {
         wallets,
         getWallets,
         networkTypes,
-        getNetworkTypes
+        getNetworkTypes,
+        addressSendForSell,
+        getAddressSendForSell
     }
 })

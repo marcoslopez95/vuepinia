@@ -31,10 +31,12 @@ export const helperStore = defineStore('helper', <T>() => {
     return localStorage.getItem('token') || false
   }
 
-  const http = (url: string, method: Method = 'get', options: AxiosRequestConfig = {}, notification = '') => {
+  const http = (url: string, method: Method = 'get', options: AxiosRequestConfig = {}, notification = '', disabledLoading = false) => {
     return new Promise<AxiosResponse>(async (resolve, reject) => {
       try {
-        loading.value = true
+        if(!disabledLoading){
+          loading.value = true
+        }
 
         let config: AxiosRequestConfig = {
           url,
@@ -72,7 +74,9 @@ export const helperStore = defineStore('helper', <T>() => {
         }
         reject(error)
       } finally {
-        loading.value = false
+        if(!disabledLoading){
+          loading.value = false
+        }
       }
     })
   }
@@ -323,4 +327,8 @@ export const getWalletFormated = (wallet:string):string => {
   const length = wallet.length -1
   const end = wallet.slice(length -5,length)
   return `${init}...${end}`
+}
+
+export const copyToClipboard = (value:string | number) => {
+  navigator.clipboard.writeText(value.toString())
 }

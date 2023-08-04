@@ -5,7 +5,7 @@
     >
         <div class="d-md-flex justify-md-center">
             <div>
-                <QrcodeVue value="hola" render-as="svg" :size="208"></QrcodeVue>
+                <QrcodeVue :value="getDataForQr()" render-as="svg" :size="208"></QrcodeVue>
                 <p
                     style="width: 208px"
                     class="font-weight-bold text-center text-table"
@@ -13,6 +13,7 @@
                     Click en el qr para abrir en tu wallet
                 </p>
             </div>
+            <!-- {{ getDataForQr() }} -->
         </div>
         <div class="d-md-flex my-auto justify-md-center mt-md-5 ">
             <div>
@@ -22,18 +23,14 @@
                         <span class="text-primary">Cantidad a enviar</span>
                     </div>
                     <div
-                        :style="[
-                            $vuetify.display.mdAndDown
-                                ? 'width:340px'
-                                : 'width:357px',
-                        ]"
+                        style="width:357px"
                         class="v-text-field__slot py-1 d-flex align-center justify-space-between px-3"
                     >
                         <div></div>
                         <div class="text-table">
                             {{ order.attributes.amount_currency }}
                         </div>
-                        <div class="">
+                        <div class="cursor-pointer" @click="copyToClipboard(order.attributes.amount_currency)">
                             <VIcon :icon="CopyIcon" size="20" />
                         </div>
                     </div>
@@ -45,18 +42,14 @@
                         >
                     </div>
                     <div
-                        :style="[
-                            $vuetify.display.mdAndDown
-                                ? 'width:340px'
-                                : 'width:357px',
-                        ]"
+                        style="width:357px"
                         class="v-text-field__slot py-1 d-flex align-center justify-space-between px-3"
                     >
                         <div></div>
                         <div class="text-table">
                             {{ order.attributes.address_send }}
                         </div>
-                        <div class="">
+                        <div class="cursor-pointer" @click="copyToClipboard(order.attributes.address_send!)">
                             <VIcon :icon="CopyIcon" size="20" />
                         </div>
                     </div>
@@ -99,7 +92,7 @@ import { reactive } from "vue";
 import { storeToRefs } from "pinia";
 import { addressValid } from "@/validator";
 import { WalletStore } from "@/stores/WalletStore";
-import { helperStore } from "@/helper";
+import { copyToClipboard, helperStore } from "@/helper";
 import WalletIcon from "@/assets/icons/WalletIcon.vue";
 import SelectWallet from "./ConfirmOrder/SelectWallet.vue";
 import { computed } from "vue";
@@ -209,18 +202,11 @@ const checkboxes: Checkboxes[] = [
     },
 ];
 
-const clickInOption = (label: keyof Comisiones) => {
-    for (let key in comisiones) {
-        comisiones[key as keyof Comisiones] = key === label;
-        if (key === label) {
-            form.value.fee = checkboxes.find(
-                (check) => check.label === label
-            )!.fees;
-            transactionStore.feeMiner = form.value.fee;
-        }
-    }
-};
+const getDataForQr = () => {
+    const money = props.order.relationships?.currency.attributes.name.toLocaleLowerCase()
 
+    return `${money}:${props.order.attributes.address_send}?amount=${props.order.attributes.amount_currency}`
+}
 interface Checkboxes {
     label: keyof Comisiones;
     text: string;
@@ -233,6 +219,8 @@ interface Comisiones {
     sendNormal: boolean;
     feesPriority: boolean;
 }
+
+
 </script>
 
 <style scoped lang="scss">

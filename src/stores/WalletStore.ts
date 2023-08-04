@@ -14,7 +14,7 @@ export const WalletStore = defineStore('wallet', () => {
             params: {
                 type_currency_id: CURRENCY_TYPES.CRYPTO
             }
-        })
+        },'',true)
         currencies.value = res.data.response as Currency[];
     }
 
@@ -23,13 +23,14 @@ export const WalletStore = defineStore('wallet', () => {
         return new Promise(async (resolve, reject) =>{
             const url = 'https://ticker.xeler.io/v1/ticker'
             try{
-                const res = await helper.http(url)
+                const res = await helper.http(url,'get',{},'',true)
                 currencyTicker.value = (res.data as resJsonTicker).data
                 resolve(currencyTicker.value)
             }catch(e){
                 helper.showNotify('Ha ocurrido un error por favor intente mas tarde',{type: 'error'})
                 setInterval(()=>window.location.reload(),5000)
                 // reject('Ha ocurrido un error por favor intente mas tarde')
+            }finally{
             }
         })
     }
