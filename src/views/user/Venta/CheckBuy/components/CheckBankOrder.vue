@@ -78,50 +78,7 @@
                 Realizar pago y sube el comprobante de pago
             </h3>
         </VCol>
-        <VCol cols="6" class="my-6 h-100" style="height: 200px">
-            <div
-                class="v-text-field__slot h-100"
-            >
-                <div>
-                    <VImg
-                        v-if="getImageBank()"
-                        :src="(getImageBank() as string)"
-                        width="250px"
-                        cover
-                    >
-                    </VImg>
-                    <span v-else>
-                        {{
-                            accountDelivery.relationships?.bank.attributes.name
-                        }}
-                    </span>
-                </div>
-                <div class="text-left mx-5 my-6 text-table font-weight-bold">
-                    <span
-                        >Titular:
-                        {{ accountDelivery.attributes.beneficiary }}</span
-                    ><br />
-                    <span
-                        >Número de Cuenta:
-                        {{ accountDelivery.attributes.account_number }}</span
-                    ><br />
-                    <span
-                        >Banco:
-                        {{
-                            accountDelivery.relationships?.bank?.attributes
-                                .name ?? ""
-                        }}</span
-                    ><br />
-                    <span
-                        >Tipo de Cuenta:
-                        {{
-                            accountDelivery.relationships?.typeAccountBank
-                                ?.attributes.name ?? ""
-                        }}</span
-                    ><br />
-                </div>
-            </div>
-        </VCol>
+       
         <VCol cols="6" class="">
             <UploadImageComponent
                 :class-input="[

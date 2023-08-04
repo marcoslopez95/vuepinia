@@ -6,4 +6,5 @@ export enum StatusOrder {
     CONFIRMATED_PAYMENT,
     ORDER_COMPLETED,
     ORDER_CANCELED,
+    VOUCHER_RECEIVED,
 }

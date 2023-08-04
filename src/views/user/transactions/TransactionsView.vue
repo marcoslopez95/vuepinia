@@ -236,8 +236,9 @@ const haveCurrencyImage = (item: unknown): boolean => {
 };
 
 const clickInShow = (order: Order) => {
+    let  name = order.attributes.type == OrderTypes.COMPRA ? 'user-check-buy' : 'user-check-sell'
     router.push({
-        name: "user-check-buy",
+        name,
         params: {
             numTransaction: order.attributes.tranx_no,
         },

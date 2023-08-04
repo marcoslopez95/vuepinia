@@ -1,238 +1,157 @@
 <template>
-    <VRow>
-        <VCol cols="12">
-            <SelectComponent
-                v-model="form.shipping_type_id"
-                :items="shippingType"
-                :name="$t('views.shipping-types.title')"
-                itemValue="id"
-                itemTitle="attributes.name"
-                classLabel="text-primary"
+    <div class="d-flex justify-center align-center mb-5" style="gap: 30px">
+        <div>
+            <QrcodeVue value="hola" render-as="svg" :size="208"></QrcodeVue>
+            <p
+                style="width: 208px"
+                class="font-weight-bold text-center text-table"
             >
-                <template #label>
-                    <div class="text-primary font-weight-bold">
-                        {{ $t("views.shipping-types.title") }}
-                    </div>
-                </template>
-            </SelectComponent>
-        </VCol>
-        <VCol cols="12">
-            <div
-                class="w-100 alertError py-2 px-1 rounded-lg text-soft-error d-flex"
-                style="gap: 15px"
-            >
-                <div class="text-center align-self-center">
-                    <VIcon size="50" class="">
-                        <svg
-                            width="60"
-                            height="60"
-                            viewBox="0 0 60 60"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            xmlns:xlink="http://www.w3.org/1999/xlink"
-                        >
-                            <rect
-                                width="60"
-                                height="60"
-                                fill="url(#pattern0222)"
-                            />
-                            <defs>
-                                <pattern
-                                    id="pattern0222"
-                                    patternContentUnits="objectBoundingBox"
-                                    width="1"
-                                    height="1"
-                                >
-                                    <use
-                                        xlink:href="#image0_157_59182222"
-                                        transform="scale(0.0104167)"
-                                    />
-                                </pattern>
-                                <image
-                                    id="image0_157_59182222"
-                                    width="96"
-                                    height="96"
-                                    xlink:href="data:image/png;base64,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"
-                                />
-                            </defs>
-                        </svg>
-                    </VIcon>
-                </div>
-                <div>
-                    Puedes hacer transferencia virtual
-                    <span class="font-weight-bold">UNICAMENTE</span> si tienes
-                    tu identidad validada en nuestra seccion KYC (has click aqui
-                    para validarla)
-                </div>
-            </div>
-        </VCol>
-    </VRow>
-    <VRow>
-        <VCol cols="12">
-            <SelectComponent
-                v-model="form.red_id"
-                :items="networkTypes"
-                :name="$t('views.network-type.title')"
-                itemValue="id"
-                itemTitle="attributes.name"
-                classLabel="text-primary"
-            >
-                <template #label>
-                    <div class="text-primary font-weight-bold">
-                        {{ $t("views.network-type.title") }}
-                    </div>
-                </template>
-            </SelectComponent>
-        </VCol>
-        <VCol cols="12">
-            <VForm ref="formRef">
-            <InputComponent
-                v-model="form.address_send"
-                :name="$t('views.order.address')"
-                :rules="[validateAddress]"
-                :append-icon="WalletIcon"
-                @click:append-icon="modalSelectWallet = true"
-            >
-                <template #label>
-                    <div class="text-primary font-weight-bold">
-                        Dirección de destino
-                    </div>
-                </template>
-            </InputComponent>
-            </VForm>
-            <SelectWallet
-                :dialog="modalSelectWallet"
-                @close-dialog="modalSelectWallet = false"
-                @select-wallet="(value) => form.address_send = value.attributes.address"
-            >
-
-            </SelectWallet>
-        </VCol>
-        <VCol cols="12">
-            <div class="w-100 py-2 px-1 text-primary d-flex" style="gap: 15px">
-                <VCheckbox v-model="confirmAddress" color="primary">
-                </VCheckbox>
-                <div
-                    class="ml-2 cursor-pointer"
-                    @click="confirmAddress = !confirmAddress"
-                >
-                    Declaro conocer que las transacciones en criptomonedas son
-                    irreversibles, y asumo la responsabilidad de cualquier error
-                    de mi parte al introducir la direccion destino.
-                </div>
-            </div>
-        </VCol>
-    </VRow>
-
-    <div class="text-table">
-        <h5 class="text-primary">Comisión de mineros</h5>
-        <div class="mb-5">
-            Nosotros asumimos las comisiones hasta el 0,4% por el valor total de
-            la transaccion, cuando las comisiones de la red bitcoin estan muy
-            altas, como en este momento es posible que ese porcentaje no sea
-            suficiente para que la transaccion se confirme rapidamente por eso
-            motivo ofrecemos las siguientes opciones:
+                Click en el qr para abrir en tu wallet
+            </p>
         </div>
-        <VRow class="d-flex" v-for="(check, i) in checkboxes" :key="i">
-            <VCol cols="12">
-                <div class="w-100 px-1 d-flex" style="gap: 15px">
-                    <VCheckbox
-                        v-model="comisiones[check.label]"
-                        color="primary"
-                    >
-                    </VCheckbox>
-                    <div
-                        class="ml-2 cursor-pointer"
-                        @click="clickInOption(check.label)"
-                        v-html="check.text"
-                    ></div>
+        <div class="my-auto">
+            <div>
+                <div class="text-center">
+                    <span class="text-primary">Cantidad a enviar</span>
                 </div>
-            </VCol>
-        </VRow>
+                <div
+                    :style="[
+                        $vuetify.display.mdAndDown
+                            ? 'width:300px'
+                            : 'width:357px',
+                    ]"
+                    class="v-text-field__slot py-1 d-flex align-center justify-space-between px-3"
+                >
+                    <div></div>
+                    <div class="text-table">
+                        {{ form.amount_currency }}
+                    </div>
+                    <div class="">
+                        <VIcon :icon="CopyIcon" size="20" />
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6">
+                <div class="text-center">
+                    <span class="text-primary"
+                        >Enviar los BTC a la siguiente direccion</span
+                    >
+                </div>
+                <div
+                    :style="[
+                        $vuetify.display.mdAndDown
+                            ? 'width:300px'
+                            : 'width:357px',
+                    ]"
+                    class="v-text-field__slot py-1 d-flex align-center justify-space-between px-3"
+                >
+                    <div></div>
+                    <div class="text-table">
+                        {{ form.address_send }}
+                    </div>
+                    <div class="">
+                        <VIcon :icon="CopyIcon" size="20" />
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <PreviewOrderForConfirm 
-        class="mb-5 mx-auto" v-if="transactionStore.showPreviewOrder && smAndDown"
-        style="max-width:350px"
-        />
-    <VRow>
-        <VCol cols="6" class="text-center">
-            <VBtnSecondary
-            @click="clickInBack">
-            {{ $t("general-views.back") }}
-        </VBtnSecondary>
-    </VCol>
-    <VCol cols="6" class="text-center">
-        <VBtnPrimary 
-            :disabled="disabledButton" 
-            @click="emitConfirmOrder">
-                {{ $t("general-views.accept.title") }}
-            </VBtnPrimary>
-        </VCol>
-        
-    </VRow>
+    <div
+        class="w-100 alertError py-1 px-1 rounded-lg text-soft-error d-flex align-center"
+        style="gap: 5px"
+    >
+        <div class="text-center align-self-center">
+            <VIcon size="50" :icon="InformationIconLight" />
+        </div>
+        <div>
+            Envia UNICAMENTE Bitcoin (BTC) a esta direccion usando la red nativa
+            de bitcoin
+        </div>
+    </div>
+    <p class="text-table my-5">
+        Segun la congestion de la cadena de bloques y para garantizar una
+        transaccion exitosa recomendamos enviar con una comision de mineros de
+        <span class="text-primary">102 sat/byte</span>
+    </p>
+    <p class="text-soft-error">
+        Nuestro sistema solo detecta una transaccion, si tienes fondos en
+        diferentes billeteras te recomendamos agruparlos y luego hacer un solo
+        envio.
+    </p>
 </template>
 
 <script setup lang="ts">
 import SelectComponent from "@/components/SelectComponent.vue";
 import InputComponent from "@/components/InputComponent.vue";
-import { ConfirmOrderStore } from "./CompraStore";
 import { ref } from "vue";
 import { reactive } from "vue";
 import { storeToRefs } from "pinia";
-import { addressValid } from '@/validator'
-import { WalletStore } from "@/stores/WalletStore"
+import { addressValid } from "@/validator";
+import { WalletStore } from "@/stores/WalletStore";
 import { helperStore } from "@/helper";
 import WalletIcon from "@/assets/icons/WalletIcon.vue";
 import SelectWallet from "./ConfirmOrder/SelectWallet.vue";
 import { computed } from "vue";
 import { TransactionStore } from "@/stores/TransactionStore";
-import PreviewOrderForConfirm from '@/layouts/full/menuRight/PreviewOrder/PreviewOrderForConfirm.vue';
+import PreviewOrderForConfirm from "@/layouts/full/menuRight/PreviewOrder/PreviewOrderForConfirm.vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
+import QrcodeVue from "qrcode.vue";
+import CopyIcon from "@/assets/icons/CopyIcon.vue";
+import InformationIconLight from "@/assets/icons/InformationIconLight.vue";
+import { ConfirmOrderStore } from "../Compra/CompraStore";
 
-const { smAndDown } = useDisplay()
-const transactionStore = TransactionStore()
-const modalSelectWallet = ref(false)
-const helper = helperStore()
-const { formRef } = storeToRefs(helper)
-const walletStore = WalletStore()
+const { smAndDown } = useDisplay();
+const transactionStore = TransactionStore();
+const modalSelectWallet = ref(false);
+const helper = helperStore();
+const { formRef } = storeToRefs(helper);
+const walletStore = WalletStore();
 const confirmOrderStore = ConfirmOrderStore();
 const { shippingType, form, networkTypes } = storeToRefs(confirmOrderStore);
 const { getShippingTypes } = confirmOrderStore;
 
-confirmOrderStore.getNetworkTypes()
+confirmOrderStore.getNetworkTypes();
 const emitConfirmOrder = async () => {
-    const { valid } = await formRef.value.validate()
-    console.log('valido',valid)
-    if(!valid) return
+    const { valid } = await formRef.value.validate();
+    console.log("valido", valid);
+    if (!valid) return;
     // return
-    emits('confirmOrder')
-}
+    emits("confirmOrder");
+};
 
 const validateAddress = () => {
-    const currency = walletStore.currencies
-        .find(currencyIterable => currencyIterable.id === form.value.currency_id)!
+    const currency = walletStore.currencies.find(
+        (currencyIterable) => currencyIterable.id === form.value.currency_id
+    )!;
 
-    return addressValid(form.value.address_send!,currency.attributes.abbreviation)
-}
+    return addressValid(
+        form.value.address_send!,
+        currency.attributes.abbreviation
+    );
+};
 const emits = defineEmits<{
     (e: "confirmOrder"): void;
-    (e: 'back'):void
+    (e: "back"): void;
 }>();
 getShippingTypes();
 const confirmAddress = ref(false);
 
-const disabledButton = computed(():boolean => {
-    return !confirmAddress.value || form.value.shipping_type_id == '' || form.value.red_id == '' || validateAddress() !== true
-})
+const disabledButton = computed((): boolean => {
+    return (
+        !confirmAddress.value ||
+        form.value.shipping_type_id == "" ||
+        form.value.red_id == "" ||
+        validateAddress() !== true
+    );
+});
 
 const clickInBack = () => {
-    form.value.shipping_type_id = ''
-    form.value.red_id = ''
-    form.value.address_send = ''
-    confirmAddress.value = false
-    emits('back')
-}
+    form.value.shipping_type_id = "";
+    form.value.red_id = "";
+    form.value.address_send = "";
+    confirmAddress.value = false;
+    emits("back");
+};
 const comisiones = reactive<Comisiones>({
     groupTransaction: false,
     payFee: false,
@@ -241,7 +160,7 @@ const comisiones = reactive<Comisiones>({
 });
 
 form.value.fee = "11";
-transactionStore.feeMiner = form.value.fee
+transactionStore.feeMiner = form.value.fee;
 const checkboxes: Checkboxes[] = [
     {
         label: "groupTransaction",
@@ -281,7 +200,7 @@ const clickInOption = (label: keyof Comisiones) => {
             form.value.fee = checkboxes.find(
                 (check) => check.label === label
             )!.fees;
-            transactionStore.feeMiner = form.value.fee
+            transactionStore.feeMiner = form.value.fee;
         }
     }
 };
@@ -300,8 +219,17 @@ interface Comisiones {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .alertError {
-    background-color: #ef5da84d;
+    background: rgba(197, 48, 164, 0.11);
+}
+
+.inputCopy {
+    width: 300px;
+}
+@media (width >= 1280) {
+    .inputCopy {
+        width: 357px;
+    }
 }
 </style>

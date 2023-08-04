@@ -57,10 +57,11 @@ import type { EfectyAccount } from '@/interfaces/CompanyAccount/EfectyAccount/Ef
 import type { OtherAccount, OtherAccountClient } from '@/interfaces/CompanyAccount/OtherAccount/OtherAccount.model';
 import { helperStore } from '@/helper';
 import CalculadoraComponent from '../components/intercambio/CalculadoraComponent.vue';
-import { ConfirmOrderStore } from './CompraStore';
+
 import type { Calculator } from '@/interfaces/Calculadora.interface'
 import { storeToRefs } from 'pinia';
 import SelectAccount from './components/intercambio/PaymentMethods/SelectAccount.vue';
+import { ConfirmOrderStore } from '../Compra/CompraStore';
 const confirmOrderStore = ConfirmOrderStore()
 const { form } = storeToRefs(confirmOrderStore)
 const emits = defineEmits<{

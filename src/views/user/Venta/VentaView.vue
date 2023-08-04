@@ -18,15 +18,20 @@ import { ref } from "vue";
 import InitBuy from "./InitSell.vue";
 import ConfirmOrder from "./ConfirmOrder.vue";
 import dayjs from "dayjs";
-import { ConfirmOrderStore } from "./CompraStore";
+
 import { helperStore } from "@/helper";
 import { createPenalty } from '@/stores/PenaltyStore'
 import { PENALTY_TYPES } from "@/enums/PenaltyTypes.enum";
 import PenaltyModal from "../components/Penalty/PenaltyModal.vue";
 import { TransactionStore } from "@/stores/TransactionStore";
+import { ConfirmOrderStore } from "../Compra/CompraStore";
+import { storeToRefs } from "pinia";
+import { OrderTypes } from "@/enums/OrderTypes.enum";
 
 const helper = helperStore()
 const confirmOrderStore = ConfirmOrderStore();
+const  { form } = storeToRefs(confirmOrderStore)
+form.value.type = OrderTypes.VENTA
 const transactionStore = TransactionStore()
 transactionStore.showPreviewOrder = false;
 const backStep = () => {

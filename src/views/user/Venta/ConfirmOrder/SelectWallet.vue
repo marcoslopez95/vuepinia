@@ -57,11 +57,11 @@
 
 <script setup lang="ts">
 import DialogGlobal from "@/components/global/DialogGlobal.vue";
-import { ConfirmOrderStore } from "../CompraStore";
 import { useRouter } from "vue-router";
 import type { Wallet } from "@/interfaces/Wallet/Wallet.model";
 import { ref } from "vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
+import { ConfirmOrderStore } from "../../Compra/CompraStore";
 
 const {mdAndUp} = useDisplay()
 
