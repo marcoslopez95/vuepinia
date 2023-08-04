@@ -27,6 +27,7 @@ export const WalletStore = defineStore('wallet', () => {
                 currencyTicker.value = (res.data as resJsonTicker).data
                 resolve(currencyTicker.value)
             }catch(e){
+                reject(false)
                 helper.showNotify('Ha ocurrido un error por favor intente mas tarde',{type: 'error'})
                 setInterval(()=>window.location.reload(),5000)
                 // reject('Ha ocurrido un error por favor intente mas tarde')

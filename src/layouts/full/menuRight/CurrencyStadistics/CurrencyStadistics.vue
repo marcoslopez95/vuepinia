@@ -3,7 +3,7 @@
         <div class="w-100 text-center" style="margin-top: -13px">
             <label class="mx-auto bg-white px-4 text-primary font-weight-bold">
                 Valores basados en TRM
-                <h2 class="" :class="bool ? 'bg-up' : 'bg-down'"> {{ bool }}</h2>
+                <h4 v-if="coins.length == 0" class="bg-down"> No Existe información ahora</h4>
             </label>
             <div v-for="(coin, i) in coins" :key="i">
                 <div
@@ -57,7 +57,7 @@ import { WalletStore } from "@/stores/WalletStore";
 import { storeToRefs } from "pinia";
 import type { Currency } from "@/interfaces/Currency/Currency.model";
 import dayjs from "dayjs";
-import { onMounted } from "vue";
+import { onMounted, computed } from "vue";
 
 const walletStore = WalletStore();
 walletStore.getCurrencies();
@@ -92,7 +92,7 @@ const setCoins = (): Coin[] => {
         });
 }
 
-const coins = ref<Coin[]>([])
+const coins = computed(()=> setCoins() ?? [])
 const getBandForCoin = (coin:Coin,value:number): BandCoin => {
     // console.log('coin',coin)
     if(coin?.value == value) return 'same'
@@ -106,12 +106,12 @@ const getporcentForCoin = (coin:Coin,value:number): string => {
 
 const bool = ref(false)
 onMounted(() => {
-    coins.value = setCoins()
+    // coins.value = setCoins()
 
     setInterval(async() => {
         await walletStore.getCurrencies();
         await walletStore.getCurrencyTicker();
-        coins.value = setCoins()
+        // coins.value = setCoins()
         bool.value = !bool.value
     },60000)
 })
