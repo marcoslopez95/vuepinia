@@ -105,7 +105,7 @@ import { storeToRefs } from "pinia";
 import CheckIcon from "@/assets/icons/CheckIcon.vue";
 import StageIcon from "@/assets/icons/StageIcon.vue";
 import WithoutCheckIcon from "@/assets/icons/WithoutCheckIcon.vue";
-import ComprobanteTest from "@/assets/images/comprobrante-test.png";
+// import ComprobanteTest from "@/assets/images/comprobrante-test.png";
 import DialogGlobal from "@/components/global/DialogGlobal.vue";
 import { PAYMENT_METHODS_AVAILABLE } from "@/enums/PaymentMethod.enum";
 import CountDown from "@/components/CountDown.vue";
