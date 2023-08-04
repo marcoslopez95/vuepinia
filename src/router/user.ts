@@ -6,6 +6,19 @@ const security: RouteRecordRaw[] = []
 
 const generals: RouteRecordRaw[] = [
     {
+        name: "user-timeline",
+        path: "/user/timeline/:numTransaction",
+        props: true,
+        component: () =>
+            import("@/views/user/Timeline/TimelineView.vue"),
+        meta: {
+            roles: [
+                ROLES.USER
+            ]
+        },
+        beforeEnter: checkedRole
+    },
+    {
         name: "user-check-buy",
         path: "/user/check-buy/:numTransaction",
         props: true,

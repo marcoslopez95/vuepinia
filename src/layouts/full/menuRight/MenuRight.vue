@@ -11,18 +11,23 @@
 import PreviewOrder from './PreviewOrder/PreviewOrder.vue'
 import CurrencyStadistics from './CurrencyStadistics/CurrencyStadistics.vue'
 import KycUnverified from './KycUnverified/KycUnverified.vue'
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { computed } from 'vue';
 import PreviewOrderForConfirm from './PreviewOrder/PreviewOrderForConfirm.vue';
 import { TransactionStore } from '@/stores/TransactionStore'
 const kycAccept = localStorage.getItem('kyc')
-const router = useRouter()
+const route = useRoute()
 const transactionStore = TransactionStore()
 
 const isInCheck = computed((): boolean =>{
-    const urlCurrent = router.currentRoute.value.name
-    return urlCurrent == 'user-check-buy' || urlCurrent == 'user-check-sell'
+    const urlCurrent = route.name?.toString() ?? ''
+    return viewForPreviewOrder.includes(urlCurrent)
 })
+const viewForPreviewOrder = [
+    'user-check-buy',
+    'user-timeline',
+    'user-check-sell'
+]
 </script>
 
 <style scoped lang="scss"></style>

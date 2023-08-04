@@ -25,6 +25,7 @@ const Lighttheme: ThemeDefinition = {
     'bg-ok':'#BBF3E0',
     'bg-erro':'#E9AAC4',
     'ok':'#1AD598',
+    'ok-2': '#08D110',
     'erro':'#D51A1A',
     'tab': '#809FB8',
     //....................
@@ -32,6 +33,7 @@ const Lighttheme: ThemeDefinition = {
     'green': '#15AE49',
     'red-300': '#DF4385',
     'blue-sky': '#1697DF',
+    'sky-1' : '#EDF5FC',
     'soft-error': '#ef5da84d',
     'soft-error-border': '#EF5DA8',
     'inactive': '#D9D9D9'

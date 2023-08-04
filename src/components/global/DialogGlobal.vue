@@ -17,6 +17,10 @@ const props = defineProps({
     footer:{
         type: Boolean,
         default: false,
+    },
+    classTitle:{
+        type: String,
+        default: 'mb-0 d-flex justify-space-between text-primary'
     }
 });
 
@@ -25,6 +29,18 @@ const { dialog } = toRefs(props)
 const emit = defineEmits([
     "closeDialog"
 ])
+
+const openModal = () => {
+    dialog.value = true
+}
+const closeModal = () => {
+    dialog.value = false
+}
+defineExpose({
+    dialog,
+    openModal,
+    closeModal
+})
 </script>
 
 <template>
@@ -56,7 +72,7 @@ const emit = defineEmits([
                 </VBtn>
             </div>
             <VCard elevation="15" class="rounded-xl pa-3">
-                <VCardTitle class="mb-0 d-flex justify-space-between text-primary">
+                <VCardTitle :class="classTitle" class="">
                     <h3>
                         <slot name="title"></slot>
                     </h3>
