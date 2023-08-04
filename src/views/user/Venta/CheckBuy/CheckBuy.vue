@@ -1,6 +1,6 @@
 <template>
     <div v-if="order">
-        <CheckBankOrder :order="order!"></CheckBankOrder>
+        <confirm-order :order="order!"></confirm-order> 
     </div>
     <div v-else>No existe transaction con ese numero</div>
 </template>
@@ -10,7 +10,7 @@ import { helperStore } from "@/helper";
 import { TransactionStore } from "@/stores/TransactionStore";
 import { ref } from "vue";
 import dayjs from "dayjs";
-import CheckBankOrder from "./components/CheckBankOrder.vue";
+import ConfirmOrder from "./../ConfirmOrder.vue";
 import { storeToRefs } from "pinia";
 const props = defineProps<{
     numTransaction: string;

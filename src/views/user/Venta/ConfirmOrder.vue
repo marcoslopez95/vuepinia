@@ -1,56 +1,64 @@
 <template>
-    <div class="d-flex justify-center align-center mb-5" style="gap: 30px">
-        <div>
-            <QrcodeVue value="hola" render-as="svg" :size="208"></QrcodeVue>
-            <p
-                style="width: 208px"
-                class="font-weight-bold text-center text-table"
-            >
-                Click en el qr para abrir en tu wallet
-            </p>
-        </div>
-        <div class="my-auto">
+    <div
+        class="d-lg-flex d-flex d-md-block justify-center align-center mb-5"
+        style="gap: 30px"
+    >
+        <div class="d-md-flex justify-md-center">
             <div>
-                <div class="text-center">
-                    <span class="text-primary">Cantidad a enviar</span>
-                </div>
-                <div
-                    :style="[
-                        $vuetify.display.mdAndDown
-                            ? 'width:300px'
-                            : 'width:357px',
-                    ]"
-                    class="v-text-field__slot py-1 d-flex align-center justify-space-between px-3"
+                <QrcodeVue value="hola" render-as="svg" :size="208"></QrcodeVue>
+                <p
+                    style="width: 208px"
+                    class="font-weight-bold text-center text-table"
                 >
-                    <div></div>
-                    <div class="text-table">
-                        {{ form.amount_currency }}
-                    </div>
-                    <div class="">
-                        <VIcon :icon="CopyIcon" size="20" />
-                    </div>
-                </div>
+                    Click en el qr para abrir en tu wallet
+                </p>
             </div>
-            <div class="mt-6">
-                <div class="text-center">
-                    <span class="text-primary"
-                        >Enviar los BTC a la siguiente direccion</span
-                    >
-                </div>
-                <div
-                    :style="[
-                        $vuetify.display.mdAndDown
-                            ? 'width:300px'
-                            : 'width:357px',
-                    ]"
-                    class="v-text-field__slot py-1 d-flex align-center justify-space-between px-3"
-                >
-                    <div></div>
-                    <div class="text-table">
-                        {{ form.address_send }}
+        </div>
+        <div class="d-md-flex my-auto justify-md-center mt-md-5">
+            <div>
+                <div>
+                    <!-- {{ $vuetify.display.width }} -->
+                    <div class="text-center">
+                        <span class="text-primary">Cantidad a enviar</span>
                     </div>
-                    <div class="">
-                        <VIcon :icon="CopyIcon" size="20" />
+                    <div
+                        :style="[
+                            $vuetify.display.mdAndDown
+                                ? 'width:340px'
+                                : 'width:357px',
+                        ]"
+                        class="v-text-field__slot py-1 d-flex align-center justify-space-between px-3"
+                    >
+                        <div></div>
+                        <div class="text-table">
+                            {{ order.attributes.amount_currency }}
+                        </div>
+                        <div class="">
+                            <VIcon :icon="CopyIcon" size="20" />
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <div class="text-center">
+                        <span class="text-primary"
+                            >Enviar los BTC a la siguiente direccion</span
+                        >
+                    </div>
+                    <div
+                        :style="[
+                            $vuetify.display.mdAndDown
+                                ? 'width:340px'
+                                : 'width:357px',
+                        ]"
+                        class="v-text-field__slot py-1 d-flex align-center justify-space-between px-3"
+                    >
+                        <div></div>
+                        <div class="text-table">
+                            {{ order.attributes.address_send }}
+                        </div>
+                        <div class="">
+                            <VIcon :icon="CopyIcon" size="20" />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -78,6 +86,9 @@
         diferentes billeteras te recomendamos agruparlos y luego hacer un solo
         envio.
     </p>
+    <div class="text-center mt-10">
+        <cancel-order :order="order"></cancel-order>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -99,7 +110,12 @@ import QrcodeVue from "qrcode.vue";
 import CopyIcon from "@/assets/icons/CopyIcon.vue";
 import InformationIconLight from "@/assets/icons/InformationIconLight.vue";
 import { ConfirmOrderStore } from "../Compra/CompraStore";
+import type { Order } from "@/interfaces/Order/Order.model";
+import CancelOrder from "../Compra/CheckBuy/components/CancelOrder.vue";
 
+const props = defineProps<{
+    order: Order;
+}>();
 const { smAndDown } = useDisplay();
 const transactionStore = TransactionStore();
 const modalSelectWallet = ref(false);
