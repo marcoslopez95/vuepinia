@@ -96,26 +96,21 @@
         diferentes billeteras te recomendamos agruparlos y luego hacer un solo
         envio.
     </p>
-    <preview-order class="mx-auto mt-5" style="max-width: 300px;" ></preview-order>
+    <preview-order v-if="$vuetify.display.smAndDown" class="mx-auto mt-5" style="max-width: 300px;" ></preview-order>
     <div class="text-center mt-10">
         <cancel-order :order="order"></cancel-order>
     </div>
 </template>
 
 <script setup lang="ts">
-import SelectComponent from "@/components/SelectComponent.vue";
-import InputComponent from "@/components/InputComponent.vue";
 import { ref } from "vue";
 import { reactive } from "vue";
 import { storeToRefs } from "pinia";
 import { addressValid } from "@/validator";
 import { WalletStore } from "@/stores/WalletStore";
 import { copyToClipboard, helperStore } from "@/helper";
-import WalletIcon from "@/assets/icons/WalletIcon.vue";
-import SelectWallet from "./ConfirmOrder/SelectWallet.vue";
 import { computed } from "vue";
 import { TransactionStore } from "@/stores/TransactionStore";
-import PreviewOrderForConfirm from "@/layouts/full/menuRight/PreviewOrder/PreviewOrderForConfirm.vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
 import QrcodeVue from "qrcode.vue";
 import CopyIcon from "@/assets/icons/CopyIcon.vue";

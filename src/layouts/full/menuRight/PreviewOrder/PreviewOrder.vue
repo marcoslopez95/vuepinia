@@ -1,8 +1,8 @@
 <template>
-    <VCard v-if="transactionStore.order" class="v-text-field__slot d-flex flex-column" :style="`height: ${height ?? 446}px`">
-        <h3 class="text-center text-primary">
+    <VCard v-if="transactionStore.order" class="v-text-field__slot d-flex flex-column" >
+        <div class=" mt-5 mb-0 text-center text-primary mx-0 pb-0 px-0 font-weight-bold"  style="font-size: 23px; ">
             {{ $t("views.menu-right.preview-order.title") }}
-        </h3>
+        </div>
         <VCardText class="px-3 my-auto text-left text-table text-20 font-weight-bold">
             <div class="my-6 d-flex " style="justify-content: space-between ;">
                 <span>Cantidad:</span>

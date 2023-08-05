@@ -18,7 +18,7 @@
 
         <VRow
             v-if="
-                order.attributes.payment_type_id ==
+                order.attributes.payment_type_id !=
                 PAYMENT_METHODS_AVAILABLE.EFECTY
             "
         >
@@ -35,50 +35,82 @@
             <VRow class="text-table">
                 <h4 class="text-primary">Código para reclamar el pago</h4>
                 <p>
-                    Codigo para reclamar el pago Hemos avisado al punto de pago para
-                    que preparen tu dinero, cuando llegues debes proporcionar el
-                    codigo No 1, en ese momento la persona en caja nos informara y
-                    te llegara un SMS y un EMAIL con el codigo No2.
+                    Codigo para reclamar el pago Hemos avisado al punto de pago
+                    para que preparen tu dinero, cuando llegues debes
+                    proporcionar el codigo No 1, en ese momento la persona en
+                    caja nos informara y te llegara un SMS y un EMAIL con el
+                    codigo No2.
                 </p>
                 <p class="mt-6">
-                    Este proceso nos
-                    garantiza que la persona indicada esta recibiendo el dinero.
+                    Este proceso nos garantiza que la persona indicada esta
+                    recibiendo el dinero.
                 </p>
             </VRow>
             <VRow>
-                <VCol class="d-flex justify-center align-center" style="gap:15px">
+                <VCol
+                    class="d-flex justify-center align-center"
+                    style="gap: 15px"
+                >
                     <div class="font-weight-bold text-primary">Código #1</div>
-                    <div class="border-degree d-flex align-center justify-center" style="width: 161px; height: 38px;">
+                    <div
+                        class="border-degree d-flex align-center justify-center"
+                        style="width: 161px; height: 38px"
+                    >
                         <span class="">123123</span>
                     </div>
                 </VCol>
-                <VCol class="d-flex justify-center align-center" style="gap:15px">
+                <VCol
+                    class="d-flex justify-center align-center"
+                    style="gap: 10px"
+                >
                     <div class="font-weight-bold text-primary">Código #2</div>
-                    <div @click="dialog = true" class="cursor-pointer border-degree d-flex align-center justify-center" style="width: 161px; height: 38px;">
+                    <div
+                        @click="dialog = true"
+                        class="cursor-pointer border-degree d-flex align-center justify-center"
+                        style="width: 161px; height: 38px"
+                    >
                         <span class="">_ _ _ _ _</span>
                     </div>
                 </VCol>
             </VRow>
 
-            <dialog-global :dialog="dialog" @close-dialog="dialog = false" class-title="text-center text-primary">
-                <template #title >
-                    <span class="font-weight-light">Transacción: {{ order.attributes.tranx_no }}</span>
+            <dialog-global
+                :dialog="dialog"
+                @close-dialog="dialog = false"
+                class-title="text-center text-primary"
+            >
+                <template #title>
+                    <span class="font-weight-light"
+                        >Transacción: {{ order.attributes.tranx_no }}</span
+                    >
                 </template>
                 <template #content>
                     <div class="text-center">
-                        <div >
-                        Ingresa el codigo que recibiste en el mensaje para autorizar el pago
+                        <div>
+                            Ingresa el codigo que recibiste en el mensaje para
+                            autorizar el pago
                         </div>
                         <!-- <div class="mx-auto" style="width: 161px;">
                             <input-component v-model="secondCode" name=""></input-component>
                         </div> -->
-                        <div class=" mx-auto  my-3 border-degree d-flex " style="width: 161px; height: 38px;">
-                            <input v-model="secondCode" class="border-0 text-uppercase text-center" style="width: 161px; height: 38px;" />
+                        <div
+                            class="mx-auto my-3 border-degree d-flex"
+                            style="width: 161px; height: 38px"
+                        >
+                            <input
+                                v-model="secondCode"
+                                class="border-0 text-uppercase text-center"
+                                style="width: 161px; height: 38px"
+                            />
                         </div>
 
                         <div class="">
-                            Mensaje enviado, podras solicitar otro codigo dentro de <br>
-                            <count-down class="text-erro" :date-finish="count"></count-down>
+                            Mensaje enviado, podras solicitar otro codigo dentro
+                            de <br />
+                            <count-down
+                                class="text-erro"
+                                :date-finish="count"
+                            ></count-down>
                         </div>
                         <div class="cursor-pointer text-primary mb-5">
                             No recibí el código
@@ -92,6 +124,11 @@
                 </template>
             </dialog-global>
         </div>
+        <preview-order
+            v-if="$vuetify.display.smAndDown"
+            class="mx-auto mt-5"
+            style="max-width: 300px"
+        ></preview-order>
     </div>
     <div v-else>No existe transaction con ese numero</div>
 </template>
@@ -110,25 +147,26 @@ import DialogGlobal from "@/components/global/DialogGlobal.vue";
 import { PAYMENT_METHODS_AVAILABLE } from "@/enums/PaymentMethod.enum";
 import CountDown from "@/components/CountDown.vue";
 import InputComponent from "@/components/InputComponent.vue";
+import PreviewOrder from "@/layouts/full/menuRight/PreviewOrder/PreviewOrder.vue";
 import { watch } from "vue";
+
 const props = defineProps<{
     numTransaction: string;
 }>();
 
-const secondCode = ref('')
+const secondCode = ref("");
 
-watch(secondCode,(nuevo,viejo) => {
-    if(nuevo.length > 4){
-        secondCode.value = viejo
+watch(secondCode, (nuevo, viejo) => {
+    if (nuevo.length > 4) {
+        secondCode.value = viejo;
     }
-})
-const count = dayjs().add(6,'minutes').format('YYYY-MM-DD HH:mm:ss')
+});
+const count = dayjs().add(6, "minutes").format("YYYY-MM-DD HH:mm:ss");
 const helper = helperStore;
 const transactionStore = TransactionStore();
 const { order } = storeToRefs(transactionStore);
 const dialog = ref(false);
 transactionStore.getOrderByNum(props.numTransaction);
-
 
 const alerta = () => alert("se acbo");
 const comprobant = ref<Blob | "">("");
@@ -165,9 +203,8 @@ const items = [
 </script>
 
 <style scoped>
-input.border-0:focus-visible{
-    border:none!important;
-    outline: 0px
+input.border-0:focus-visible {
+    border: none !important;
+    outline: 0px;
 }
-
 </style>
