@@ -1,87 +1,11 @@
 <template>
     <VRow>
         <VCol cols="12">
-            <h3>Order de Venta #{{ order.attributes.tranx_no }}</h3>
+            <h3>Pago de compra #{{ order.attributes.tranx_no }}</h3>
         </VCol>
-        <div class="d-flex justify-center align-center mb-5" style="gap: 30px">
-            <div>
-                <QrcodeVue value="hola" render-as="svg" :size="208"></QrcodeVue>
-                <p
-                    style="width: 208px"
-                    class="font-weight-bold text-center text-table"
-                >
-                    Click en el qr para abrir en tu wallet
-                </p>
-            </div>
-            <div class="my-auto">
-                <div>
-                    <div class="text-center">
-                        <span class="text-primary">Cantidad a enviar</span>
-                    </div>
-                    <div
-                        :style="[
-                            $vuetify.display.mdAndDown
-                                ? 'width:300px'
-                                : 'width:357px',
-                        ]"
-                        class="v-text-field__slot py-1 d-flex align-center justify-space-between px-3"
-                    >
-                        <div></div>
-                        <div class="text-table">
-                            {{ order.attributes.amount_currency }}
-                        </div>
-                        <div class="">
-                            <VIcon :icon="CopyIcon" size="20" />
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-6">
-                    <div class="text-center">
-                        <span class="text-primary"
-                            >Enviar los BTC a la siguiente direccion</span
-                        >
-                    </div>
-                    <div
-                        :style="[
-                            $vuetify.display.mdAndDown
-                                ? 'width:300px'
-                                : 'width:357px',
-                        ]"
-                        class="v-text-field__slot py-1 d-flex align-center justify-space-between px-3"
-                    >
-                        <div></div>
-                        <div class="text-table">
-                            {{ order.attributes.address_send }}
-                        </div>
-                        <div class="">
-                            <VIcon :icon="CopyIcon" size="20" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div
-            class="w-100 alertError py-1 px-1 rounded-lg text-soft-error d-flex align-center"
-            style="gap: 5px"
-        >
-            <div class="text-center align-self-center">
-                <VIcon size="50" :icon="InformationIconLight" />
-            </div>
-            <div>
-                Envia UNICAMENTE Bitcoin (BTC) a esta direccion usando la red nativa
-                de bitcoin
-            </div>
-        </div>
-        <p class="text-table my-5">
-            Segun la congestion de la cadena de bloques y para garantizar una
-            transaccion exitosa recomendamos enviar con una comision de mineros de
-            <span class="text-primary">102 sat/byte</span>
-        </p>
-        <p class="text-soft-error">
-            Nuestro sistema solo detecta una transaccion, si tienes fondos en
-            diferentes billeteras te recomendamos agruparlos y luego hacer un solo
-            envio.
-        </p>
+        <VCol cols="12">
+            <instructions-modal :order="order"></instructions-modal>
+        </VCol>
         <VCol cols="12">
             <div
                 class="w-100 alertError py-2 px-1 rounded-lg text-soft-error d-flex"
@@ -182,7 +106,8 @@
         </VCol>
         <VCol cols="12" class="text-center" 
         v-if="
-        order.relationships?.status.id === StatusOrder.RECEIVED_ORDER"
+        //order.relationships?.status.id === StatusOrder.RECEIVED_ORDER || 
+        typeof comprobant != 'string'"
         >
             <VBtnPrimary 
                 @click="uploadVoucher" 
@@ -193,7 +118,8 @@
     </VRow>
 
     <VRow v-if="
-        order.relationships?.status.id === StatusOrder.RECEIVED_ORDER"
+        //order.relationships?.status.id === StatusOrder.RECEIVED_ORDER || 
+        typeof comprobant != 'string'"
         >
         <div class="text-table mt-7">
             Tienes
@@ -207,13 +133,7 @@
         <cancel-order :order="order"></cancel-order>
     </div>
 
-    <dialog-global :dialog="openModal" @close-dialog="openModal = false">
-        <template #title>
-            <span class="text-primary">Corresponsal Bancario</span>
-        </template>
-
-        <p>Una foto con instrucciones</p>
-    </dialog-global>
+   
 </template>
 
 <script setup lang="ts">
@@ -232,9 +152,7 @@ import type { OrderUploadVoucher } from '@/interfaces/Order/Order.dto'
 import { reactive } from "vue";
 import { useRouter } from "vue-router";
 import { StatusOrder } from "@/enums/StatusOrder.enum";
-import InformationIconLight from "@/assets/icons/InformationIconLight.vue";
-import QrcodeVue from "qrcode.vue";
-import CopyIcon from "@/assets/icons/CopyIcon.vue";
+import InstructionsModal from '@/views/user/Compra/CheckBuy/components/InstructionsModal.vue'
 
 const router = useRouter()
 const props = defineProps<{
@@ -278,10 +196,14 @@ const uploadVoucher = async () => {
     await helper.http(url,'post',{data})
     helper.showNotify('Su comprobante se ha subido Satisfactoriamente')
     setInterval(()=>{
-        window.location.reload()
-    },4000)
+        router.push({name: 'user-profile'})
+    },5000)
 }
 </script>
 
 <style scoped lang="scss">
+$background-color: v-bind('getColorBank');
+.v-text-field__slot {
+    background: linear-gradient($background-color, $background-color) padding-box, linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(80,67,233,1) 0%, rgba(22,180,229,1) 100%) border-box;
+}
 </style>

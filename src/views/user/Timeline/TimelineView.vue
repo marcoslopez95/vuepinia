@@ -18,7 +18,7 @@
 
         <VRow
             v-if="
-                order.attributes.payment_type_id !=
+                order.attributes.payment_type_id ==
                 PAYMENT_METHODS_AVAILABLE.EFECTY
             "
         >
