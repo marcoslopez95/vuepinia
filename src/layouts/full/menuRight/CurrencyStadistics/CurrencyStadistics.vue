@@ -7,12 +7,12 @@
             </label>
             <div v-for="(coin, i) in coins" :key="i">
                 <div
-                    class="text-left text-table justify-space-between mx-2 py-4"
+                    class="text-left text-table justify-space-between mx-1 py-4"
                 >
                     <div class="d-inline-block" style="width: 80px;" >
                         <span class="text-18 ml-2" > {{ coin.name }}</span>
                     </div>
-                    <div class="d-inline-block align-center mx-2" style="width: 90px;">
+                    <div class="d-inline-block align-center mx-1" style="width: 90px;">
                         <VBtn
                             elevation="0" 
                             size="small"
