@@ -7,6 +7,19 @@
         :optionsHabilit="true" 
         icon-show :headers="headers" 
         :items="helper.items">
+        <template #cel-icons="{data}">
+            <div class="d-flex">
+                <VIcon v-if="orderTaken(data)"  :icon="HandIcon" title="Tomada" />
+                <VIcon v-if="isBankType(data)"  :icon="BankIcon" title="Banco" />
+                <VIcon v-if="withVoucher(data)" :icon="VoucherIcon" title="Comprobantes" />
+                <VIcon v-if="userWithKyc(data)" :icon="HuellaIcon" title="Kyc" />
+                <VIcon
+                    
+                    :class="typeOrder(data) == OrderTypes.COMPRA ? 'text-warning' : 'text-ok giro-180'" 
+                    :title="typeOrder(data)"
+                    :icon="ArrowWithSquareIcon" />
+            </div>
+        </template>
         <template #attributes.created_at="{data}">
             <th class="text-center text-primary text-capitalize" 
             style="min-width: 230px;">
@@ -59,6 +72,15 @@ import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 import { ref } from 'vue'
 import { haveCurrencyImage } from '@/stores/CurrencyStore';
+import { PAYMENT_METHODS_AVAILABLE } from '@/enums/PaymentMethod.enum';
+import { KYC_STATUS } from '@/enums/Kyc.enum';
+import { OrderTypes } from '@/enums/OrderTypes.enum';
+import HandIcon from '@/assets/icons/HandIcon.vue'
+import BankIcon from '@/assets/icons/BankIcon.vue'
+import VoucherIcon from '@/assets/icons/VoucherIcon.vue'
+import HuellaIcon from '@/assets/icons/HuellaIcon.vue'
+import ArrowWithSquareIcon from '@/assets/icons/ArrowWithSquareIcon.vue'
+
 const helper = helperStore()
 helper.url = 'order'
 const search = ref<string>('')
@@ -137,6 +159,33 @@ const headers: Head[] = [
 const order = (item:unknown):Order =>{
     return item as Order
 }
+
+const orderTaken = (item:unknown): boolean => {
+    return order(item).attributes.processed_by ? true : false
+}
+
+const isBankType = (item:unknown): boolean => {
+    return order(item).attributes.payment_type_id == PAYMENT_METHODS_AVAILABLE.BANK
+}
+
+const withVoucher = (item:unknown): boolean => {
+    const images = order(item).relationships?.images
+    if(!images || images.length == 0) return false
+    return true
+}
+
+const userWithKyc = (item:unknown): boolean => {
+    return order(item).relationships?.user.relationships?.kyc?.attributes.status == KYC_STATUS.ACCEPT
+}
+
+const typeOrder = (item:unknown): OrderTypes => {
+    return order(item).attributes.type
+}
 </script>
 
-<style scoped></style>
+<style scoped>
+
+.giro-180{
+    transform: rotate(180deg);
+}
+</style>

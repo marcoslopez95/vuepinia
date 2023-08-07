@@ -5,8 +5,7 @@
                 <KycIcon/>
             </div>
             <div class="w-100 text-center d-flex  align-center justify-center" style="gap:6px">
-                <VIcon :icon="HuellaIcon" class="text-sky"></VIcon>
-
+                <VIcon :icon="HuellaIcon" size="27" class="text-primary"></VIcon>
                 <label
                     class="text-primary font-weight-bold"
                     style="font-size: 22px"
