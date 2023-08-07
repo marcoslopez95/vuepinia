@@ -34,9 +34,8 @@ import FirstImage from '@/assets/images/home/FirstImage.png'
 import InputComponent from '@/components/InputComponent.vue';
 import { ref } from 'vue'
 import { useDisplay } from 'vuetify/lib/framework.mjs'
-//@ts-ignore
-import VueTyper from 'vue3-typer'
-import "vue3-typer/dist/vue-typer.css"
+// import {VueTyper} from 'vue3-typer'
+// import "vue3-typer/dist/vue-typer.css"
 
 const isMobile = ref(useDisplay().smAndDown)
 const email = ref('')

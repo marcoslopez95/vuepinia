@@ -13,6 +13,8 @@ import 'vue-tel-input/vue-tel-input.css';
 import { Buffer } from 'buffer';
 import Particles from "vue3-particles";
 import 'aos/dist/aos.css'
+import VueTyper from 'vue3-typer'
+import "vue3-typer/dist/vue-typer.css"
 // Asigna la variable global de Buffer para que esté disponible en tu aplicación
 //@ts-ignore
 window.Buffer = Buffer;
@@ -32,6 +34,8 @@ app.use(VueApexCharts)
     .use(pinia)
     .use(i18n)
     .use(Particles)
+    //@ts-ignore
+    .use(VueTyper)
     .use(Vue3Toastify, {
     autoClose: 3000,
     theme: 'colored',
