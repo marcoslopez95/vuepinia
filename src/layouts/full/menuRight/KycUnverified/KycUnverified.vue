@@ -1,42 +1,45 @@
 <template>
-    <div class="rounded-xl color-border-degree pb-5">
-        <div class="w-100 text-center">
-            <VIcon :icon="KycIcon" size="152" class="text-sky"></VIcon>
-            <label
-                class="font-weight-bold texto pt-6" 
-                style="
-                    font-size: 50px;
-                    margin-left: -12px;
-                    vertical-align: middle;
-                "
+    <div class="rounded-xl color-border-degree ">
+        <div class="bg-kyc pb-5 rounded-t-xl rounded-b-xl">
+            <div class="w-100 text-center py-4">
+                <KycIcon/>
+            </div>
+            <div class="w-100 text-center d-flex  align-center justify-center" style="gap:6px">
+                <VIcon :icon="HuellaIcon" class="text-sky"></VIcon>
+
+                <label
+                    class="text-primary font-weight-bold"
+                    style="font-size: 22px"
                 >
-                {{ $t('menu-right.kyc') }}
-            </label>
-        </div>
-        <div class="w-100 text-center">
-            <label class="text-sky font-weight-bold" style="font-size: 22px;">
-                {{ $t('menu-right.complete-your-kyc') }}
-            </label>
-            <VIcon :icon="ArrowIcon" class="text-sky"></VIcon>
+                    {{ $t("menu-right.complete-your-kyc") }}
+                </label>
+                <VIcon :icon="ArrowIcon" class="text-primary"></VIcon>
+            </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import ArrowIcon from '@/assets/icons/layout/MenuRight/ArrowIcon.vue'
-import KycIcon from '@/assets/icons/layout/MenuRight/KycIcon.vue'
+import ArrowIcon from "@/assets/icons/layout/MenuRight/ArrowIcon.vue";
+import KycIcon from "@/assets/icons/layout/MenuRight/KycIcon.vue";
+import HuellaIcon from "@/assets/icons/HuellaIcon.vue";
 </script>
 
 <style scoped lang="scss">
 @import "@/scss/variables.scss";
-
 .texto {
-    background: linear-gradient(180deg, #5043E9 6.77%, #16B4E6 77.6%);
+    background: linear-gradient(180deg, #5043e9 6.77%, #16b4e6 77.6%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 
-text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.13);
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.13);
 }
 
+.bg-kyc {
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    background: linear-gradient(180deg, #5043e9 0%, #ffffff 80%);
+    margin-left: 1px;
+    margin-right: 1px;
+}
 </style>
