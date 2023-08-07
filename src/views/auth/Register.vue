@@ -5,7 +5,7 @@ import InputComponent from "@/components/InputComponent.vue";
 import { helperStore } from "@/helper";
 import * as validator from '@/validator'
 import { storeToRefs } from "pinia";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { toast } from "vue3-toastify";
 import { useI18n } from "vue-i18n";
 import { RegisterStore } from '@/stores/RegisterStore'
@@ -22,6 +22,7 @@ const isPhoneValid = ref(false)
 const phoneFormat = ref('')
 const accepTerms = ref(false)
 
+const route = useRoute()
 const showPassword = ref(false)
 const showPasswordConfirmation = ref(false)
 
@@ -30,6 +31,7 @@ const SigUp = async () => {
     if (!valid) {
         return
     }
+    form.value.referred_by = route.params.ref as string
     helper
         .http('register', 'post', { data: form.value })
         .then((res) => {
