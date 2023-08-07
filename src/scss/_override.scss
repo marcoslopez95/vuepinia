@@ -78,3 +78,32 @@ html {
 .font-proxima {
   font-family: $font-family !important;
 }
+
+
+.border-primary {
+  border: 1px solid;
+  border-color: $color-primary;
+}
+.bg-down {
+  background-color: #ff707033 !important;
+}
+
+.arrow-down {
+  color: #ff7070 !important;
+}
+
+.bg-same {
+  background-color: #d3c9c933 !important;
+}
+
+.arrow-same {
+  color: #3d3d3c !important;
+}
+
+.bg-up {
+  background-color: #95ff7033 !important;
+}
+
+.arrow-up {
+  color: #2b5517 !important;
+}

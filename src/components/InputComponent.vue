@@ -18,6 +18,7 @@
             style="max-height: 40px;" 
             :type="type ?? 'text'"
             :rules="rules" 
+            :placeholder="placeholder"
             validate-on="input"
             density="compact"
             :disabled="disabled"
@@ -53,6 +54,7 @@ const emits = defineEmits<{
 }>()
 const props = defineProps<{
     modelValue: any,
+    placeholder?: string
     rules?: any | any[]
     name: string
     type?: string
@@ -81,12 +83,7 @@ interface ErrorType{
 }
 </script>
 
-<style scoped lang="css">
-/*.v-text-field__slot {
-  background: linear-gradient(white, white) padding-box, linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(80,67,233,1) 0%, rgba(22,180,229,1) 100%) border-box;
-  border: 1px solid transparent;
-  border-radius: 20px;
-  text-align: center;
-  color: #5D5FEF;
-}*/
+<style scoped lang="scss">
+
+
 </style>

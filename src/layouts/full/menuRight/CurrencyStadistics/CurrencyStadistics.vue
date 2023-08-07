@@ -4,6 +4,7 @@
             <label class="mx-auto bg-white px-4 text-primary font-weight-bold">
                 Valores basados en TRM
                 <h4 v-if="coins.length == 0" class="bg-down"> No Existe información ahora</h4>
+                <!-- <h4 class="bg-down"> {{bool}}</h4> -->
             </label>
             <div v-for="(coin, i) in coins" :key="i">
                 <div
@@ -57,58 +58,21 @@ import { WalletStore } from "@/stores/WalletStore";
 import { storeToRefs } from "pinia";
 import type { Currency } from "@/interfaces/Currency/Currency.model";
 import dayjs from "dayjs";
-import { onMounted, computed } from "vue";
+import { onMounted, onUnmounted } from "vue";
 
 const walletStore = WalletStore();
 walletStore.getCurrencies();
 walletStore.getCurrencyTicker();
 
-const { currencies } = storeToRefs(walletStore);
+const { coins} = storeToRefs(walletStore);
+const { colors,colorsText, orientationArrow } = walletStore
 const now = ref(dayjs());
-
-const setCoins = (): Coin[] => {
-    return currencies.value
-        .filter((currency: Currency) =>
-            walletStore.getCurrencyTickerByAbbreviation(
-                currency.attributes.abbreviation
-            )
-        )
-        .map((currency: Currency): Coin => {
-            const currencyT = walletStore.getCurrencyTickerByAbbreviation(
-                currency.attributes.abbreviation
-            );
-            const images = currency.relationships?.images;
-            const coin = coins.value.find((coinI:Coin) => coinI.name == currency.attributes.name)!
-            const band: BandCoin = coin ? getBandForCoin(coin,currencyT?.oficial!) : 'same'
-            const porcent: string = coin ? getporcentForCoin(coin,currencyT?.oficial!)  : '0.12'
-            return {
-                name: currency.attributes.name,
-                value: currencyT?.oficial ?? 0, 
-                up: true,
-                icon: images!.length > 0 ? images![0].attributes.aws_url : "",
-                band,
-                porcent 
-            };
-        });
-}
-
-const coins = computed(()=> setCoins() ?? [])
-const getBandForCoin = (coin:Coin,value:number): BandCoin => {
-    // console.log('coin',coin)
-    if(coin?.value == value) return 'same'
-    return coin?.value > value ? 'up' : 'down'
-}
-const getporcentForCoin = (coin:Coin,value:number): string => {
-    if(coin.value == value) return '0'
-    const percent = ((value - coin.value) / coin.value) * 100
-    return percent.toFixed(2)
-}
-
+let interval:any;
 const bool = ref(false)
 onMounted(() => {
     // coins.value = setCoins()
 
-    setInterval(async() => {
+    interval = setInterval(async() => {
         await walletStore.getCurrencies();
         await walletStore.getCurrencyTicker();
         // coins.value = setCoins()
@@ -116,33 +80,9 @@ onMounted(() => {
     },60000)
 })
 
-const colors = {
-    same: "same",
-    up: "up",
-    down: "down",
-};
-
-const colorsText = {
-    same: "table",
-    up: "success",
-    down: "error",
-};
-const orientationArrow = {
-    same: "-90",
-    up: "180",
-    down: "0",
-};
-
-interface Coin {
-    name: string;
-    value: number;
-    up: boolean;
-    icon: string;
-    porcent: string;
-    band: BandCoin;
-}
-
-type BandCoin = "same" | "up" | "down"
+onUnmounted(() => {
+    clearInterval(interval)
+})
 </script>
 
 <style scoped lang="scss">
@@ -179,9 +119,5 @@ type BandCoin = "same" | "up" | "down"
 .arrow-up {
     color: #2b5517 !important;
 }
-
-
-
-
 
 </style>

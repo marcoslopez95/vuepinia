@@ -13,15 +13,15 @@
         </VCol>
     </VRow>
     <VRow v-if="!isMobile">
-        <VCol cols="6">
-            <VRow>
+        <VCol cols="6" class="">
+            <VRow class="d-flex justify-center mx-16 ">
 
                 <VCol cols="8">
-                    <InputComponent name="email" v-model="email"></InputComponent>
+                    <InputComponent placeholder="Email" name="" v-model="email"></InputComponent>
                 </VCol>
-                <VCol cols="4" class="my-auto pt-9">
-                    <VBtnPrimary style="min-height: 40px;">
-                        Registrarse
+                <VCol cols="4" class="my-auto pt-9 ">
+                    <VBtnPrimary style="min-height: 40px; min-width: 128px;" class="">
+                        Registrate
                     </VBtnPrimary>
                 </VCol>
             </VRow>

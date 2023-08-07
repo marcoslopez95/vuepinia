@@ -5,8 +5,9 @@
             isActive ? `bg-${colorOn} on` : `bg-${colorOff}`,
             `text-${color}`
         ]"
-        @click="emits('update:model-value',!isActive);isActive= !isActive">
-        <div class="circle bg-white rounded-circle my-auto" :style="{ left: isActive ? 'calc(100% - 34px)' : '0' }">
+        @click="isActive= !isActive">
+        <div class="circle bg-white rounded-circle my-auto" 
+            :style="{ left: isActive ? `calc(100% - ${widthBall ?? 34}px)` : '0' }">
         </div>
         <span class="my-auto textOn font-weight-bold" :style="{ 
             display: isActive ? 'block' : 'none'
@@ -22,16 +23,22 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
+import { watch } from 'vue';
+import { toRefs } from 'vue';
 import { ref } from 'vue';
 
 const props = defineProps<Props>()
 const emits = defineEmits<{
     (e: 'update:model-value', value: boolean): void
 }>()
-
+const { widthBall } = toRefs(props)
 
 const isActive = ref(props.modelValue)
 
+watch(isActive,(nuevo,viejo) => {
+    emits('update:model-value',nuevo)
+})
 const colorOn = ref(props.colorOn ?? 'info')
 const colorOff = ref(props.colorOff ?? 'table')
 const color = ref(props.color ?? 'white')
@@ -44,10 +51,17 @@ interface Props {
     color?:string
     titleOff?: string
     titleOn?: string
+    widthBall?:number
 }
+
+const getWidthBall = computed(() => {
+    return (widthBall?.value ?? 34) + 'px'
+})
+
 </script>
 
 <style scoped lang="scss">
+$widthBalll: v-bind('getWidthBall');
 .switch {
     width: 100%;
     height: 39px;
@@ -55,8 +69,8 @@ interface Props {
 }
 
 .circle {
-    min-width: 34px;
-    height: 34px;
+    min-width: $widthBalll;
+    height: $widthBalll;
     transition: left 500ms;
     // transition-delay: left;
     position: relative;
