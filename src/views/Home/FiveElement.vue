@@ -23,11 +23,11 @@
             </VList>
         </VCol>
         <VCol v-if="!isMobile" :cols="6">
-            <VList>
+            <VList class="overflow-hidden">
                 <VListItem 
                     v-for="item,i in secondColumn" 
                     :key="i" 
-                    class=" text-h5 my-3 aos-init aos-animate" 
+                    class=" text-h5 my-3 aos-init aos-animate overflow-hidden" 
                     data-aos="fade-left"
                     data-aos-easing="linear"
                     data-aos-duration="500">
@@ -39,7 +39,7 @@
 
                         </div>
                     </template>
-                    <p class="ml-4">
+                    <p class="ml-4" >
                         {{ item.text }}
                     </p>
                 </VListItem>
