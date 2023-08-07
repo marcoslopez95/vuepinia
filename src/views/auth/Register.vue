@@ -50,30 +50,37 @@ const SigUp = async () => {
             <template #default>
                 <VRow>
                     <VCol cols="12">
-                        <InputComponent :name="$t('views.users.username')" v-model="form.username"
+                        <InputComponent :placeholder="$t('views.users.username')" withoutLabel :name="$t('views.users.username')" v-model="form.username"
                             :rules="[validator.required]" />
                     </VCol>
                     <VCol cols="12">
-                        <InputComponent :name="$t('views.users.first_name')" v-model="form.first_name"
+                        <InputComponent :placeholder="$t('views.users.first_name')" withoutLabel :name="$t('views.users.first_name')" v-model="form.first_name"
                             :rules="[validator.required]" />
                     </VCol>
                     <VCol cols="12">
-                        <InputComponent :name="$t('views.users.last_name')" v-model="form.last_name"
+                        <InputComponent :placeholder="$t('views.users.last_name')" withoutLabel :name="$t('views.users.last_name')" v-model="form.last_name"
                             :rules="[validator.required]" />
                     </VCol>
                     <VCol cols="12">
-                        <InputComponent :name="$t('views.users.email')" v-model="form.email"
+                        <InputComponent :placeholder="$t('views.users.email')" withoutLabel :name="$t('views.users.email')" v-model="form.email"
                             :rules="[validator.required]" />
                     </VCol>
                     <VCol cols="12">
-                        <TelInput v-model="phoneFormat" @phone="(phone) => form.phone = phone"
+                        <TelInput 
+                            v-model="phoneFormat" 
+                            @phone="(phone) => form.phone = phone"
                             @phoneCode="(code) => form.code_phone = code" :name="$t('views.profile.personal-data.phone')"
-                            required @isValid="(bool) => isPhoneValid = bool" />
+                            required @isValid="(bool) => isPhoneValid = bool"
+                            :placeholder="$t('views.profile.personal-data.phone')"
+                            without-label
+                            />
                     </VCol>
                     <VCol cols="12">
                         
                         <InputComponent 
-                            :name="$t('views.users.password')" 
+                            :name="$t('views.users.password')"
+                            withoutLabel
+                            :placeholder="$t('views.users.password')"
                             v-model="form.password"
                             :rules="[validator.required,validator.password]"
                             :type="!showPassword? 'password' : 'text'"
@@ -93,6 +100,8 @@ const SigUp = async () => {
                     </VCol>
                     <VCol cols="12">
                         <InputComponent 
+                            withoutLabel
+                            :placeholder="$t('views.users.password-confirmation')"
                             :name="$t('views.users.password-confirmation')" 
                             v-model="form.password_confirmation"
                             :rules="[

@@ -8,7 +8,7 @@
         xmlns="http://www.w3.org/2000/svg"
         xmlns:xlink="http://www.w3.org/1999/xlink"
     >
-        <rect class="monedaA_svg" x="26.4015" y="98.9131" width="280.261" height="235.87" fill="url(#pattern0)"></rect>
+        <rect class="monedaA_svg animation-moneda" x="26.4015" y="98.9131" width="280.261" height="235.87" fill="url(#pattern0)"></rect>
         <rect
             class="monedaB_svg animation-moneda"
             x="140.13"

@@ -1,6 +1,8 @@
 <template>
     <slot name="label">
-        <VLabel class="pl-3 text-capitalize font-weight-bold" style="">{{name}}</VLabel>
+        <VLabel class="pl-3 text-capitalize font-weight-bold" style="">
+            {{ withoutLabel ? '' :  name }}
+        </VLabel>
     </slot>
     <VResponsive class="v-text-field__slot"
         :style="{
@@ -57,6 +59,7 @@ const props = defineProps<{
     placeholder?: string
     rules?: any | any[]
     name: string
+    withoutLabel?: boolean
     type?: string
     active?: boolean
     appendIcon?: any

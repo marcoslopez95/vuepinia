@@ -1,11 +1,12 @@
 <template>
-    <VLabel class="pl-3 text-capitalize font-weight-bold" style="">{{ name }}</VLabel>
+    <VLabel class="pl-3 text-capitalize font-weight-bold" style="">{{ !withoutLabel ?name : '' }}</VLabel>
     <!-- <VResponsive class="v-text-field__slot"> -->
         <vue-tel-input 
             v-model="modelValue" 
             :autoDefaultCountry="false"
             styleClasses="v-text-field__slot"
             style="min-height: 40px;"
+            :inputOptions="{placeholder}"
             @onInput="updateModel"
             >
         </vue-tel-input>
@@ -33,9 +34,11 @@ const emits = defineEmits<{
 }>()
 const props = defineProps<{
     modelValue: any,
-    name: string
+    name?: string
     rules?: any | any[]
     required?: boolean
+    withoutLabel?: boolean
+    placeholder?: string
 }>()
 const { modelValue } = toRefs(props)
 
