@@ -20,9 +20,18 @@
             ) }}
         </template>
         <template #cel-total_exchange_crypto="{data}">
+            <div class="d-flex justify-start align-center gap-2">
+            <VImg 
+                width="20"
+                height="20"
+                inline
+                v-if="haveCurrencyImage(order(data).relationships?.currency)"
+                :src="(haveCurrencyImage(order(data).relationships?.currency) as string)" ></VImg>
             {{ formatNumber(
-                parseFloat(order(data).attributes.amount_currency)
-            ) }}
+                parseFloat(order(data).attributes.amount_currency),'.',',',6
+            ) }} {{ order(data).relationships?.currency.attributes.abbreviation.toLocaleUpperCase() }}
+        </div>
+
         </template>
         <template #cel-total_exchange_reference="{data}">
             {{ formatNumber(
@@ -49,6 +58,7 @@ import { UserStore } from '@/stores/UserStore';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 import { ref } from 'vue'
+import { haveCurrencyImage } from '@/stores/CurrencyStore';
 const helper = helperStore()
 helper.url = 'order'
 const search = ref<string>('')
@@ -84,6 +94,7 @@ const openModal = async () => {
 const { t } = useI18n()
 const { formCrud, openModalCrud, item: itemH, clickIn, formRef } = storeToRefs(helper)
 
+
 const headers: Head[] = [
     {
         name: t('views.transactions.txn_no'),
@@ -110,6 +121,7 @@ const headers: Head[] = [
     {
         name: t('views.transactions.crypto_currency'),
         value: 'total_exchange_crypto',
+        style: 'min-width:200px'
     },
     {
         name: t('views.transactions.reference_currency'),

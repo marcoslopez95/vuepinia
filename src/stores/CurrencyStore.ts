@@ -1,4 +1,5 @@
 import { helperStore } from "@/helper";
+import type { Currency } from "@/interfaces/Currency/Currency.model";
 import type { CurrencyType } from "@/interfaces/CurrencyType/CurrencyType.model";
 import type { PaymentMethod } from "@/interfaces/PaymentMethod/PaymentMethod.model";
 import { defineStore } from "pinia";
@@ -17,3 +18,10 @@ export const CurrencyStore = defineStore('currency', () => {
         getCurrencyTypes
     }
 })
+
+export const haveCurrencyImage = (currency?:Currency): string| false => {
+    if(!currency) return false
+    const images = currency.relationships?.images
+    if(!images || images.length == 0) return false
+    return images[0].attributes.aws_url
+}

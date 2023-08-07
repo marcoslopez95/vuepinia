@@ -306,12 +306,32 @@ export const isAutenticated = () => {
   return localStorage.getItem('token') || false
 }
 
-export const formatNumber = (number: number, decimals: string = '.', miles: string = ','): string => {
-  return Intl.NumberFormat(["ban", "id"])
-    .format(number)
-    .replace('.', '|')
-    .replace(',', decimals)
-    .replace('|', miles)
+export const formatNumber = (number: number, decimalSeparator: string = '.', thousandSeparator: string = ',',decimals = 3): string => {
+  const partInt = Math.trunc(number)
+  let roundedNumber:number;
+  
+  if((number - partInt) > 0){
+    roundedNumber = number.toFixed(decimals);
+  }else{
+    roundedNumber = partInt;
+    decimals = 0
+  }
+
+  const options: Intl.NumberFormatOptions = {
+    style: 'decimal',
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
+    minimumIntegerDigits: 1, // Mínimo de dígitos enteros
+    useGrouping: true, // Habilitar el separador de miles
+  };
+  const formattedNumber = new Intl.NumberFormat('ban', options).format(roundedNumber);
+
+  // Si el separador decimal es diferente de '.', reemplazar el separador predeterminado
+  if (decimalSeparator !== '.') {
+    return formattedNumber.replace('.', decimalSeparator);
+  }
+
+  return formattedNumber;
 }
 
 export const getUserAuth = (): UserAuth => {
