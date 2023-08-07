@@ -12,6 +12,7 @@ import messages from '@/lang';
 import 'vue-tel-input/vue-tel-input.css';
 import { Buffer } from 'buffer';
 import Particles from "vue3-particles";
+import 'aos/dist/aos.css'
 // Asigna la variable global de Buffer para que esté disponible en tu aplicación
 //@ts-ignore
 window.Buffer = Buffer;

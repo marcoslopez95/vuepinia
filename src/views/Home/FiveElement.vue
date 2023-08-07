@@ -2,7 +2,12 @@
     <VRow>
         <VCol :cols="isMobile ? 12:6">
             <VList>
-                <VListItem v-for="item,i in firstColumnComputed" :key="i" class="text-h6 my-3">
+                <VListItem 
+                    v-for="item,i in firstColumnComputed" :key="i" 
+                    class="text-h5 my-3 aos-init aos-animate"
+                    data-aos="fade-right"
+                    data-aos-easing="linear"
+                    data-aos-duration="500">
                     <template #prepend>
                         <div class="bg-primary rounded-lg"
                             :class="isMobile? 'pa-2':'pa-1'">
@@ -19,7 +24,13 @@
         </VCol>
         <VCol v-if="!isMobile" :cols="6">
             <VList>
-                <VListItem v-for="item,i in secondColumn" :key="i" class="text-h6 my-3">
+                <VListItem 
+                    v-for="item,i in secondColumn" 
+                    :key="i" 
+                    class=" text-h5 my-3 aos-init aos-animate" 
+                    data-aos="fade-left"
+                    data-aos-easing="linear"
+                    data-aos-duration="500">
                     <template #prepend>
                         <div class="bg-primary rounded-lg"
                             :class="isMobile? 'pa-2':'pa-1'">

@@ -10,6 +10,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "aos": "^2.3.4",
     "apexcharts": "^3.35.0",
     "axios": "^1.4.0",
     "buffer": "^6.0.3",
@@ -33,6 +34,7 @@
   "devDependencies": {
     "@mdi/font": "^6.5.95",
     "@rushstack/eslint-patch": "^1.1.0",
+    "@types/aos": "^3.0.4",
     "@types/node": "^16.11.25",
     "@types/vue-tel-input": "^2.1.2",
     "@vitejs/plugin-vue": "^2.2.2",

@@ -4,8 +4,12 @@
     >
         <VRow class="px-6">
             <VCol :cols="isMobile ? 12 :6" 
-                class="text-center d-flex px-5 " 
-                style="flex-direction: column;">
+                class="text-center d-flex px-5 aos-init aos-animate" 
+                style="flex-direction: column;"
+                data-aos="fade-up"
+                data-aos-easing="linear"
+                data-aos-duration="1000"
+                >
                 <div>
                     <VIcon :size="isMobile? 300 :500" :icon="img1" />
                 </div>
@@ -25,8 +29,11 @@
             </VCol>
             <VCol 
                 :cols="isMobile ? 12 :6" 
-                class="text-center d-flex px-5" 
+                class="text-center d-flex px-5 aos-init aos-animate" 
                 style="flex-direction: column;"
+                data-aos="fade-up"
+                data-aos-easing="linear"
+                data-aos-duration="1000"
                 :class="isMobile ? 'fond_monedas ' : '' "
             >
                 <div>
@@ -47,20 +54,38 @@ import img1 from './FourElement/img1.vue'
 import img2 from './FourElement/img2.vue'
 import { ref } from 'vue'
 import { useDisplay } from 'vuetify/lib/framework.mjs'
+import { onMounted } from "vue";
+//@ts-ignore
+import AOS from "aos";
 
+onMounted(() => {
+    AOS.init();
+})
 const isMobile = ref(useDisplay().smAndDown)
 
 </script>
 
 <style scoped>
 .fond_monedas{
-    
     background: linear-gradient(90deg, #5043E8 22.21%, #17B4E6 71.31%);
     background-size: 200% 100%; /*Asignamos un ancho para el background del 300% y altura 100%*/
+    animation: gradient 6s ease infinite;
 }
 
 .margin-full {
     margin-left: -40px;
     margin-right: -40px;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 </style>

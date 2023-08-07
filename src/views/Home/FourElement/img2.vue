@@ -10,7 +10,7 @@
     >
         <rect class="monedaA_svg" x="26.4015" y="98.9131" width="280.261" height="235.87" fill="url(#pattern0)"></rect>
         <rect
-            class="monedaB_svg"
+            class="monedaB_svg animation-moneda"
             x="140.13"
             y="18.4783"
             width="316.816"
@@ -18,21 +18,21 @@
             fill="url(#pattern1)"
         ></rect>
         <rect
-            class="monedaC_svg"
+            class="monedaC_svg animation-moneda"
             width="317.832"
             height="291.304"
             transform="matrix(-1 0 0 1 592 108.696)"
             fill="url(#pattern2)"
         ></rect>
         <rect
-            class="monedaD_svg"
+            class="monedaD_svg animation-moneda"
             x="370.635"
             width="206.134"
             height="180.435"
             fill="url(#pattern3)"
         ></rect>
         <rect
-            class="monedaE_svg"
+            class="monedaE_svg animation-moneda"
             y="5.43475"
             width="203.087"
             height="184.783"
@@ -127,3 +127,48 @@
         </defs>
     </svg>
 </template>
+<style lang="scss">
+.animation-moneda {
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
+}
+.monedaA_svg {
+    animation-name: anim_nube;
+    animation-delay: 0.2s;
+}
+.monedaB_svg {
+    animation-name: anim_nube;
+    animation-delay: 0.4s;
+}
+.monedaC_svg {
+    animation-name: anim_mone;
+    animation-delay: 0.6s;
+    transform: matrix(-1, 0, 0, 1, 592, 108.696);
+}
+.monedaD_svg {
+    animation-name: anim_nube;
+    animation-delay: 0.8s;
+}
+.monedaE_svg {
+    animation-name: anim_nube;
+    animation-delay: 1s;
+}
+@keyframes anim_nube {
+    0%{
+        transform: translate(0px,0px);
+    }
+    100%{
+        transform: translate(0px,10px);
+    }
+}
+@keyframes anim_mone {
+    0%{
+        transform: matrix(-1, 0, 0, 1, 592, 108.696);
+    }
+    100%{
+        transform: matrix(-1, 0, 0, 1, 592, 118.696);
+    }
+}
+</style>
