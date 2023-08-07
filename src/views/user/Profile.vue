@@ -1,7 +1,7 @@
 <template>
     <h2 class="text-table font-weight-bold">{{ $t('views.profile.title') }}</h2>
 
-    <v-card >
+    <!-- <v-card > -->
         <div class="border-b-md">
             <v-tabs v-model="menuActive" bg-color="transparent" show-arrows>
                 <v-tab
@@ -66,7 +66,7 @@
                 <Component :key="tabActive" :is="tabActive" />
             </v-window>
         </v-card-text>
-    </v-card>
+    <!-- </v-card> -->
 </template>
 
 <script setup lang="ts">
@@ -80,9 +80,11 @@ import KycView from './Kyc/KycView.vue';
 import WalletView from './wallet/WalletView.vue';
 import BankAccountView from './Accounts/Bank/BankAccountView.vue';
 import OtherAccountView from './Accounts/Other/OtherAccountView.vue';
+import ReferredView from './Refer/ReferredView.vue'
+
 const { t } = useI18n()
 const helper = helperStore()
-const tabActive = ref(KycView)
+const tabActive = ref(ReferredView)
 const tabs = shallowRef<ItemTab[]>([
     {
         name: t('views.profile.personal-data.title'),
@@ -113,6 +115,10 @@ const tabs = shallowRef<ItemTab[]>([
                 value: OtherAccountView,
             },
         ]
+    },
+    {
+        name: t('views.refer.title',2),
+        value: ReferredView
     },
 ])
 

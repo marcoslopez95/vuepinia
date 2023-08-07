@@ -4,7 +4,7 @@
         {{ submenuActive ? " - " + submenuActive : "" }}
     </h2>
 
-    <v-card>
+    <!-- <v-card> -->
         <div class="border-b-md">
             <v-tabs v-model="menuActive" bg-color="transparent" show-arrows>
                 <v-tab
@@ -72,7 +72,7 @@
                 </v-window-item>
             </v-window>
         </v-card-text>
-    </v-card>
+    <!-- </v-card> -->
 </template>
 
 <script setup lang="ts">

@@ -31,7 +31,7 @@ const SigUp = async () => {
     if (!valid) {
         return
     }
-    form.value.referred_by = route.params.ref as string
+    form.value.referred_by = route.query.ref as string
     helper
         .http('register', 'post', { data: form.value })
         .then((res) => {

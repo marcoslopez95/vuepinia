@@ -332,3 +332,9 @@ export const getWalletFormated = (wallet:string,start = 6, finish =5):string => 
 export const copyToClipboard = (value:string | number) => {
   navigator.clipboard.writeText(value.toString())
 }
+
+export const getDns = ():string => {
+  const protocol = window.location.protocol
+  const hostname = window.location.hostname
+  return `${protocol}//${hostname}`
+}
