@@ -31,6 +31,12 @@ const router = createRouter({
             import("@/views/auth/Register.vue"),
         },
         {
+          name: "recover-password",
+          path: "/recover-password",
+          component: () =>
+            import("@/views/auth/RecoverPassword.vue"),
+        },
+        {
           name: "Unauthorized",
           path: "/unauthorized",
           component: () =>
@@ -98,11 +104,17 @@ const router = createRouter({
   ],
 });
 
+const routesGuests = [
+  'Login',
+  'Register',
+  'Home',
+  'recover-password'
+]
 router.beforeEach(async (to, from, next) => {
 
   if (!isAutenticated()) {
     // if(to.name != 'Login' && to.name != 'register' && to.name != 'auth-forgot-password'){
-    if (to.name != 'Login' && to.name != 'Register' && to.name != 'Home') {
+    if (!routesGuests.includes(to.name as string)) {
       next({ name: 'Login' });
     }
   } else
@@ -111,5 +123,6 @@ router.beforeEach(async (to, from, next) => {
     }
   next();
 })
+
 
 export default router;

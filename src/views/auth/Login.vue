@@ -50,11 +50,13 @@ const setUser = (user: Object) => {
             <template #default>
                 <VRow>
                     <VCol cols="12">
-                        <InputComponent id="email" name="Email" v-model="form.email" :rules="[validator.required]" />
+                        <InputComponent id="email" without-label placeholder="Email" name="Email" v-model="form.email" :rules="[validator.required]" />
                     </VCol>
                     <VCol cols="12">
                         <InputComponent 
-                            :name="$t('views.users.password-confirmation')" 
+                            without-label
+                            :placeholder="$t('views.users.password')"
+                            :name="$t('views.users.password')" 
                             v-model="form.password"
                             :rules="[
                                 validator.required,
@@ -78,6 +80,14 @@ const setUser = (user: Object) => {
             {{ $t('views.login.you-donnot-have-an-account') }} 
             <RouterLink  :to="{ name: 'Register' }" class="text-primary font-weight-bold" style="text-decoration: none;">
                 {{ $t('views.login.register') }}
+            </RouterLink>
+        </VCol>
+    </VRow>
+    <VRow>
+        <VCol class="text-table text-center">
+            ¿Olvidaste tu contraseña?<br>
+            <RouterLink  :to="{ name: 'recover-password' }" class="text-primary font-weight-bold" style="text-decoration: none;">
+                Recuperar Contraseña
             </RouterLink>
         </VCol>
     </VRow>
