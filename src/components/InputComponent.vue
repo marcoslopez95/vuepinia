@@ -27,14 +27,16 @@
             :active="active??false"
             v-on="events ?? {}"
             @update:model-value="emits('update:model-value',$event)"
+            bg-color="transparent"
+            center-affix
             >
-            <template v-if="appendIcon" #append>
-                <VBtn 
-                    color="transparent" 
+            <template v-if="appendIcon" #append-inner>
+                <VIcon 
+                    color="primary"
                     :icon="appendIcon"
-                    style="max-height: 40px;" 
                     @click="emits('click:append-icon')"
-                    ></VBtn>
+                    
+                    ></VIcon>
             </template>
         </VTextField>
     </VResponsive>
