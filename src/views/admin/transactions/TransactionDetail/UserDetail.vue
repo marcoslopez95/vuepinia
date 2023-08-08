@@ -26,10 +26,11 @@ import SoportIcon from "@/assets/icons/SoportIcon.vue";
 import { TransactionStore } from "@/stores/TransactionStore";
 import HuellaIcon from "@/assets/icons/HuellaIcon.vue";
 import { OrderTypes } from "@/enums/OrderTypes.enum";
+import { getFullName } from "@/helper";
+
+
 const transactionStore = TransactionStore();
 const { order } = storeToRefs(transactionStore);
-import dayjs from "dayjs";
-import { getFullName } from "@/helper";
 </script>
 
 <style scoped lang="scss">

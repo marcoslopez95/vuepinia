@@ -79,9 +79,11 @@ import { storeToRefs } from "pinia";
 import { TransactionStore } from "@/stores/TransactionStore";
 import HuellaIcon from "@/assets/icons/HuellaIcon.vue";
 import { OrderTypes } from "@/enums/OrderTypes.enum";
+import dayjs from "dayjs";
+
+
 const transactionStore = TransactionStore();
 const { order } = storeToRefs(transactionStore);
-import dayjs from "dayjs";
 </script>
 
 <style scoped lang="scss">
