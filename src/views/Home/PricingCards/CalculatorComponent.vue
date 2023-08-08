@@ -79,36 +79,41 @@
             class="pa-0"
             :class="[!xs ? 'bg-primary text-white' : 'text-primary mb-3']"
         >
-            <VRow class="d-flex align-center my-1 justify-center">
-                <div>
-                    <VImg
-                        v-if="walletStore.cryptoHaveImage(cryptoSelected)"
-                        inline
-                        width="50px"
-                        :src="(walletStore.cryptoHaveImage(cryptoSelected) as string)"
-                    >
-                    </VImg>
-                </div>
-                <div class="text-center">
-                    <p
-                        :style="[`font-size: ${!xs ? 30 : 20}px;`]"
-                        class="font-weight-bold"
-                    >
-                        <span v-if="amountCrypto">
-                            {{ parseFloat(amountCrypto).toFixed(5) }}
-                            {{
-                                cryptoSelected?.attributes.abbreviation.toLocaleUpperCase()
-                            }}
-                        </span>
-                        <span v-else> 0 </span>
-                        <!-- {{ priceSelect }} -->
-                    </p>
-                    <p style="font-size: 10px">
-                        equivalente a <b>{{ calculadora.amountUsd }} USD</b>
-                    </p>
-                    <p style="font-size: 10px">Aproximadamente</p>
-                </div>
+            <VRow v-if="amountCrypto && cryptoSelected" class="d-flex align-center my-1 justify-center">
+                    <div>
+                        <VImg
+                            v-if="walletStore.cryptoHaveImage(cryptoSelected)"
+                            inline
+                            width="50px"
+                            :src="(walletStore.cryptoHaveImage(cryptoSelected) as string)"
+                        >
+                        </VImg>
+                    </div>
+                    <div class="text-center">
+                        <p
+                            :style="[`font-size: ${!xs ? 30 : 20}px;`]"
+                            class="font-weight-bold"
+                        >
+                            <span v-if="amountCrypto">
+                                {{ parseFloat(amountCrypto).toFixed(5) }}
+                                {{
+                                    cryptoSelected?.attributes.abbreviation.toLocaleUpperCase()
+                                }}
+                            </span>
+                            <span v-else> 0 </span>
+                            <!-- {{ priceSelect }} -->
+                        </p>
+                        <p style="font-size: 10px">
+                            equivalente a <b>{{ calculadora.amountUsd }} USD</b>
+                        </p>
+                        <p style="font-size: 10px">Aproximadamente</p>
+                    </div>
             </VRow>
+            <div v-else>
+                <p class="mx-5 my-5">
+                    Seleccione una moneda e Ingrese una cantidad
+                </p>
+            </div>
         </VCardActions>
     </VCard>
 </template>
@@ -184,7 +189,7 @@ const eventsCrypto: EventComponent = {
 
 const priceSelect = ref<undefined | CurrencyTicker>();
 const cryptoSelected = ref<Currency | undefined>();
-watch(cryptoSelect, (nuevo,viejo) => {
+watch(cryptoSelect, (nuevo, viejo) => {
     if (nuevo != "") {
         cryptoSelected.value = currencies.value.find(
             (currency) => currency.id == cryptoSelect.value
@@ -202,8 +207,8 @@ watch(cryptoSelect, (nuevo,viejo) => {
             parseFloat(priceSelect.value?.trm ?? "1");
         calculadora.tasaCompra = oficialValue.value;
         calculadora.localOficial = priceSelect.value?.oficial ?? 1;
-        if(amountFiat.value){
-            updateCrypto()
+        if (amountFiat.value) {
+            updateCrypto();
         }
     }
 });
