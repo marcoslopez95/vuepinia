@@ -311,7 +311,7 @@ export const formatNumber = (number: number, decimalSeparator: string = '.', tho
   let roundedNumber:number;
   
   if((number - partInt) > 0){
-    roundedNumber = number.toFixed(decimals);
+    roundedNumber = parseFloat(number.toFixed(decimals));
   }else{
     roundedNumber = partInt;
     decimals = 0
