@@ -1,10 +1,10 @@
 <template>
     <div class="border-degree px-3 py-2" style="max-width: 421px">
         <div class="d-flex justify-space-between">
-            <div style="min-width: 150px" class="text-left text-table">
+            <div class="text-left text-table">
                 Fecha:
             </div>
-            <div class="text-left" style="width: 8rem">
+            <div class="text-left" >
                 {{
                     dayjs(order?.attributes.created_at).format(
                         "dd-mm-YYYY HH:MM"
@@ -13,10 +13,10 @@
             </div>
         </div>
         <div class="d-flex justify-space-between">
-            <div style="min-width: 150px" class="text-left text-table">
+            <div class="text-left text-table">
                 Estado:
             </div>
-            <div class="text-left" style="width: 8rem">
+            <div class="text-left" >
                 {{ order?.relationships?.status.attributes.name }}
             </div>
         </div>

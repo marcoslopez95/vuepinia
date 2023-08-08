@@ -9,6 +9,7 @@ import type { CheckedOrBlockedType, StatusOperationVerified } from './db';
 import db from './db';
 import type { UserAuth } from './interfaces/User/User.auth';
 import type { ROLES } from './interfaces/Role/Role.enum';
+import type { User } from './interfaces/User/User.model';
 
 export const helperStore = defineStore('helper', <T>() => {
   const { t } = useI18n()
@@ -357,4 +358,10 @@ export const getDns = ():string => {
   const protocol = window.location.protocol
   const hostname = window.location.hostname
   return `${protocol}//${hostname}`
+}
+
+export const getFullName = (user:User):string => {
+  const name = user.attributes.first_name + ' ' + (user.attributes.second_name ?? '')
+  const lastname = user.attributes.last_name + ' ' + (user.attributes.second_last_name?? '')
+  return `${name} ${lastname}`
 }
