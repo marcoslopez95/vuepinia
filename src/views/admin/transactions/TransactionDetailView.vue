@@ -24,7 +24,11 @@
                 </div>
             </VCol>
             <VCol>
-                <PaymentDetail v-if="showDetailPayment" />
+                <div class="mx-auto" v-if="showDetailPayment" style="max-width: 400px;">
+                    <PaymentDetail  />
+                    <div class="my-5" />
+                    <CronometerComponent />
+                </div>
             </VCol>
         </VRow>
     </div>
@@ -38,6 +42,7 @@ import UserDetail from '@/views/admin/transactions/TransactionDetail/UserDetail.
 import UploadImageComponent from '@/views/user/Kyc/components/UploadImageComponent.vue';
 import SelectIcon from '@/assets/icons/SelectIcon.vue'
 import PaymentDetail from '@/views/admin/transactions/TransactionDetail/PaymentDetail.vue'
+import CronometerComponent from '@/views/admin/transactions/TransactionDetail/CronometerComponent.vue'
 import { reactive } from 'vue';
 import { computed } from 'vue';
 import { ref } from 'vue';
@@ -51,7 +56,7 @@ const { order } = storeToRefs(transactionStore)
 transactionStore.getOrderByNum(props.numTransaction)
 const voucher = ref<Blob | undefined>()
 
-const showDetailPayment = ref(false)
+const showDetailPayment = ref(true)
 </script>
 
 <style scoped>

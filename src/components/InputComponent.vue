@@ -10,6 +10,7 @@
         }"
         >
         <VTextField 
+            :id="idElement"
             :rounded="40" 
             variant="filled" 
             class="ma-0 pa-0" 
@@ -68,6 +69,7 @@ const props = defineProps<{
     disabled?: boolean,
     events?: Object
     height?: any
+    idElement?: string
 }>()
 const { modelValue:mValue } = toRefs(props)
 const helper = helperStore()
