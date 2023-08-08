@@ -5,8 +5,11 @@
     </div>
     <TableComponentVue 
         :optionsHabilit="true" 
-        icon-show :headers="headers" 
-        :items="helper.items">
+        icon-show
+        :headers="headers" 
+        :items="helper.items"
+        @show="openDetailOrder"
+        >
         <template #cel-icons="{data}">
             <div class="d-flex">
                 <VIcon v-if="orderTaken(data)"  :icon="HandIcon" title="Tomada" />
@@ -15,7 +18,7 @@
                 <VIcon v-if="userWithKyc(data)" :icon="HuellaIcon" title="Kyc" />
                 <VIcon
                     
-                    :class="typeOrder(data) == OrderTypes.COMPRA ? 'text-warning' : 'text-ok giro-180'" 
+                    :class="typeOrder(data) != OrderTypes.COMPRA ? 'text-warning' : 'text-ok giro-180'" 
                     :title="typeOrder(data)"
                     :icon="ArrowWithSquareIcon" />
             </div>
@@ -80,6 +83,7 @@ import BankIcon from '@/assets/icons/BankIcon.vue'
 import VoucherIcon from '@/assets/icons/VoucherIcon.vue'
 import HuellaIcon from '@/assets/icons/HuellaIcon.vue'
 import ArrowWithSquareIcon from '@/assets/icons/ArrowWithSquareIcon.vue'
+import { useRouter } from 'vue-router';
 
 const helper = helperStore()
 helper.url = 'order'
@@ -90,6 +94,7 @@ const getSearch = () => {
         tranx_no: search.value
     })
 }
+const router = useRouter()
 const userStore = UserStore()
 userStore.getDepartaments()
 userStore.getMunicipalities()
@@ -112,6 +117,12 @@ const openModal = async () => {
     formCrud.value = {}
     clickIn.value = 'Create'
     openModalCrud.value = true;
+}
+const openDetailOrder = (order: Order) => {
+    // console.log('order',order)
+    router.push({name:'admin-transaction-show',params:{
+        numTransaction: order.attributes.tranx_no
+    }})
 }
 const { t } = useI18n()
 const { formCrud, openModalCrud, item: itemH, clickIn, formRef } = storeToRefs(helper)

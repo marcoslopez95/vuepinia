@@ -28,6 +28,19 @@ const security: RouteRecordRaw[] = [
     beforeEnter: checkedRole
   },
   {
+    name: "admin-transaction-show",
+    path: "/admin/transactions/:numTransaction",
+    props: true,
+    component: () =>
+      import("@/views/admin/transactions/TransactionDetailView.vue"),
+    meta: {
+      roles: [
+        ROLES.ADMIN
+      ]
+    },
+    beforeEnter: checkedRole
+  },
+  {
     name: "admin-permissions",
     path: "/security/permissions",
     component: () =>

@@ -26,6 +26,7 @@ const Lighttheme: ThemeDefinition = {
     'bg-erro':'#E9AAC4',
     'ok':'#1AD598',
     'ok-2': '#08D110',
+    'ok-3': '#31D02E',
     'erro':'#D51A1A',
     'tab': '#809FB8',
     //....................

@@ -41,7 +41,7 @@ export declare interface OrderAttributes {
 
 export declare interface OrderRelationships {
         account_delivery: BankAccount | EfectyAccount | OtherAccount
-        adminProcess?: null
+        adminProcess?: User
         currency: Currency
         currencyExchangeOrder: CurrencyExchangeOrder
         payment: PaymentMethod
