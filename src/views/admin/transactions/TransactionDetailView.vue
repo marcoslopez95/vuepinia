@@ -11,15 +11,19 @@
                 }}</span>
             </div>
             <div class="text-center ml-6" v-if="!verifyOrderCompleted">
-                <BtnWithModalComponent 
+                <BtnWithModalComponent
                     :color-btn="(order!.attributes.processed_by) ? 'warning' :'primary'"
-                    :text-btn="(order!.attributes.processed_by) ? 'Ceder Orden' :'Tomar Transacción'" 
+                    :text-btn="(order!.attributes.processed_by) ? 'Ceder Orden' :'Tomar Transacción'"
                     :title-modal="(order!.attributes.processed_by) ? '¿Quieres ceder esta orden?' :'¿Quieres tomar esta orden?'"
                     :icon="QuestionIcon"
                     :color-icon="(order!.attributes.processed_by) ? 'warning' : 'primary'"
                     :btn-modal="(order!.attributes.processed_by) ? 'Sí, cederla' : 'Sí, tomarla'"
-                    @click:btn-modal="(order!.attributes.processed_by) ? releasseOrder() : takeOrder()"
-                    />
+                    @click:btn-modal="
+                        order!.attributes.processed_by
+                            ? releasseOrder()
+                            : takeOrder()
+                    "
+                />
             </div>
         </VRow>
         <VRow dense>
@@ -39,17 +43,18 @@
         </VRow>
         <VRow>
             <VCol>
-                <general-detail></general-detail>
-                <user-detail class="mt-3"></user-detail>
-                <div>
+                <div style="max-width: 421px">
+                    <general-detail></general-detail>
+                    <user-detail class="mt-3"></user-detail>
                     <UploadImageComponent
                         :sizeImage="421"
                         style="width: 421px"
                         text="Subir comprobante de pago"
                         v-model="voucher"
                     />
+                    <div class="my-5" />
+                    <detail-account-sell v-if="order.attributes.type == OrderTypes.COMPRA"  />
                 </div>
-                
             </VCol>
             <VCol>
                 <div
@@ -59,11 +64,11 @@
                 >
                     <PaymentDetail />
                     <div class="my-5" />
-                    <CronometerComponent 
+                    <CronometerComponent
                         :cronP="order.attributes.estimated_time"
-                        />
+                    />
                     <div class="my-5" />
-                    <detail-account-sell />
+                    <detail-account-sell v-if="order.attributes.type == OrderTypes.VENTA" />
                     <div class="my-5" />
                     <amount-detail></amount-detail>
                 </div>
@@ -71,26 +76,30 @@
         </VRow>
         <VRow v-if="!verifyOrderCompleted">
             <VCol>
-                <div class="text-center">
-                    <VBtnSecondary 
-                        :disabled="voucher == ''" 
-                        @click="uploadVoucher">
+                <div
+                    class="text-center"
+                    v-if="order.attributes.type == OrderTypes.VENTA"
+                >
+                    <VBtnSecondary
+                        :disabled="voucher == ''"
+                        @click="uploadVoucher"
+                    >
                         Subir Comprobante
                     </VBtnSecondary>
                 </div>
             </VCol>
             <VCol>
                 <div class="text-center" v-if="verifyOrderTakeForUserAuth">
-                    <BtnWithModalComponent 
-                    color-btn="primary"
-                    text-btn="Autorizar Pago" 
-                    title-modal="¿Desear Autorizar este pago?"
-                    :icon="QuestionIcon"
-                    color-icon="warning"
-                    btn-modal="Sí, Aturizo"
-                    @click:btn-modal="accept"
+                    <BtnWithModalComponent
+                        color-btn="primary"
+                        text-btn="Autorizar Pago"
+                        title-modal="¿Desear Autorizar este pago?"
+                        :icon="QuestionIcon"
+                        color-icon="warning"
+                        btn-modal="Sí, Aturizo"
+                        @click:btn-modal="accept"
                     />
-                    <BtnWithModalComponent 
+                    <BtnWithModalComponent
                         only-modal
                         v-model="openSuccess"
                         title-modal="¡Bien Hecho!"
@@ -122,27 +131,28 @@ import { getUserAuth, helperStore, itemHaveImages } from "@/helper";
 import { onMounted } from "vue";
 import { watch } from "vue";
 import BtnWithModalComponent from "@/components/BtnWithModalComponent.vue";
-import QuestionIcon from '@/assets/icons/QuestionIcon.vue'
+import QuestionIcon from "@/assets/icons/QuestionIcon.vue";
 import CheckIcon from "@/assets/icons/CheckFilledIcon.vue";
 import { StatusOrder } from "@/enums/StatusOrder.enum";
+import { OrderTypes } from "@/enums/OrderTypes.enum";
 
 const props = defineProps<{
     numTransaction: string;
 }>();
 const takeOrRelease = reactive({
-    'color-btn': 'primary',
-    'text-btn': 'Tomar Transacción',
-    'title-modal': '¿Quieres tomar esta orden?',
-    'icon': QuestionIcon,
-    'color-icon': 'primary',
-    'btn-modal': 'Sí, tomarla',
-})
-const helper = helperStore()
+    "color-btn": "primary",
+    "text-btn": "Tomar Transacción",
+    "title-modal": "¿Quieres tomar esta orden?",
+    icon: QuestionIcon,
+    "color-icon": "primary",
+    "btn-modal": "Sí, tomarla",
+});
+const helper = helperStore();
 const transactionStore = TransactionStore();
 const { order } = storeToRefs(transactionStore);
 
 transactionStore.getOrderByNum(props.numTransaction);
-const voucher = ref<Blob | string>('');
+const voucher = ref<Blob | string>("");
 const showDetailPayment = ref(true);
 
 const takeOrder = async () => {
@@ -156,36 +166,35 @@ const releasseOrder = async () => {
 };
 
 watch(order, (nuevo) => {
-    if(nuevo){
-        const image = itemHaveImages(order.value?.relationships?.images)
-        voucher.value =  image === false ? '' : image
+    if (nuevo) {
+        const image = itemHaveImages(order.value?.relationships?.images);
+        voucher.value = image === false ? "" : image;
     }
-})
+});
 
 const uploadVoucher = async () => {
-    const url = 'order/charge/voucher'
-    const data = new FormData
-    data.append('order_id', order.value!.id.toString())
-    data.append('vouchers[]',voucher.value as Blob)
-    await helper.http(url,'post',{data})
-}
+    const url = "order/charge/voucher";
+    const data = new FormData();
+    data.append("order_id", order.value!.id.toString());
+    data.append("vouchers[]", voucher.value as Blob);
+    await helper.http(url, "post", { data });
+};
 
-const verifyOrderTakeForUserAuth = computed(()=> {
-    const proccess_by = order.value?.attributes.processed_by
-    return proccess_by == getUserAuth().id
-})
+const verifyOrderTakeForUserAuth = computed(() => {
+    const proccess_by = order.value?.attributes.processed_by;
+    return proccess_by == getUserAuth().id;
+});
 
 const verifyOrderCompleted = computed(() => {
-    return order.value?.relationships?.status.id == StatusOrder.ORDER_COMPLETED
-})
+    return order.value?.relationships?.status.id == StatusOrder.ORDER_COMPLETED;
+});
 
-const openSuccess = ref(false)
+const openSuccess = ref(false);
 const accept = async () => {
-    const url = 'order/accept/'+order.value?.id
-    await helper.http(url,'get').then(()=> openSuccess.value = true)
+    const url = "order/accept/" + order.value?.id;
+    await helper.http(url, "get").then(() => (openSuccess.value = true));
     transactionStore.getOrderByNum(props.numTransaction);
-    
-}
+};
 </script>
 
 <style scoped></style>
