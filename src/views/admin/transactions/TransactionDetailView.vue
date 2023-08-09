@@ -28,6 +28,8 @@
                     <PaymentDetail  />
                     <div class="my-5" />
                     <CronometerComponent />
+                    <div class="my-5" />
+                    <detail-account-sell />
                 </div>
             </VCol>
         </VRow>
@@ -43,6 +45,7 @@ import UploadImageComponent from '@/views/user/Kyc/components/UploadImageCompone
 import SelectIcon from '@/assets/icons/SelectIcon.vue'
 import PaymentDetail from '@/views/admin/transactions/TransactionDetail/PaymentDetail.vue'
 import CronometerComponent from '@/views/admin/transactions/TransactionDetail/CronometerComponent.vue'
+import DetailAccountSell from './TransactionDetail/DetailAccountSell.vue';
 import { reactive } from 'vue';
 import { computed } from 'vue';
 import { ref } from 'vue';

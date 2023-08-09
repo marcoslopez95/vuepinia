@@ -10,6 +10,7 @@ import db from './db';
 import type { UserAuth } from './interfaces/User/User.auth';
 import type { ROLES } from './interfaces/Role/Role.enum';
 import type { User } from './interfaces/User/User.model';
+import type { Image } from './interfaces/Image.model';
 
 export const helperStore = defineStore('helper', <T>() => {
   const { t } = useI18n()
@@ -364,4 +365,9 @@ export const getFullName = (user:User):string => {
   const name = user.attributes.first_name + ' ' + (user.attributes.second_name ?? '')
   const lastname = user.attributes.last_name + ' ' + (user.attributes.second_last_name?? '')
   return `${name} ${lastname}`
+}
+
+export const itemHaveImages = (images?: Image[]): false | string => {
+  if(!images || images?.length == 0) return false
+  return images[0].attributes.aws_url
 }
