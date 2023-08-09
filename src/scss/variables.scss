@@ -6,6 +6,7 @@ $font-light: url('./fonts/ProximaNova-Light.woff') format('woff');
 $font-thin: url('./fonts/ProximaNovaT-Thin.woff') format('woff');
 $font-black: url('./fonts/ProximaNova-Black.woff') format('woff');
 $font-regular: url('./fonts/ProximaNova-Regular.woff') format('woff');
+$color-primary: #5043E8;
 
 :root {
     --v-input-control-height: 48px !important;
@@ -27,9 +28,8 @@ $btn-letter-spacing : 0 !default;
 
 $font-family: ProximaNovaRegular,DM Sans;
 
-$item-active-sidebar: #44D9E2;
+$item-active-sidebar: #46dae2;
 
-$color-primary: #5043E8;
 $color-gray-light: #D9D9D9;
 $color-gray-medium: #808080;
 $color-gray-dark: #5C6776;

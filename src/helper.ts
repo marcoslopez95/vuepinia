@@ -371,3 +371,8 @@ export const itemHaveImages = (images?: Image[]): false | string => {
   if(!images || images?.length == 0) return false
   return images[0].attributes.aws_url
 }
+
+export const formatCrypoAmount = (value:string) => {
+  const fixed = parseFloat(value).toFixed(6)
+  return formatNumber(parseFloat(fixed),'.',',',6)
+}

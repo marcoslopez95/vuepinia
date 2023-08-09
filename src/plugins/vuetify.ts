@@ -8,6 +8,7 @@ import * as directives from "vuetify/directives";
 const Lighttheme: ThemeDefinition = {
   variables: {
     'v-input-control-height': '48px', /* Ejemplo: altura deseada */
+    'v-theme-surface-variant': '#46dae2'
   },
   colors: {
     // primary: "#ee8a6a",
@@ -55,6 +56,7 @@ export default createVuetify({
     VBtnSecondary: components.VBtn,
     VBtnSuccess: components.VBtn,
     VBtnDanger: components.VBtn,
+    VBtnDangerT: components.VBtn,
     //--------
     VChipSuccess: components.VChip,
     VChipError: components.VChip,
@@ -117,6 +119,17 @@ export default createVuetify({
       style: 'color: #D51A1A !important; background-color: #E9AAC4 !important;',
       type: 'button',
       variant: 'flat'
+    },
+    VBtnDangerT: {
+      rounded: 'pill',
+      color:'warning',
+      type: 'button',
+      variant: 'flat',
+      style:`
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 17px;`
     },
     // 
     VBtnPrimary: {

@@ -1,5 +1,5 @@
 <template>
-    <div v-if="!numTransaction && !order">No existe transaction con ese numero</div>
+    <div v-if="!numTransaction || !order">No existe transaction con ese numero</div>
     <div v-else>
         <VRow>
             <div class="text-18 font-weight-bold text-table">
@@ -22,6 +22,14 @@
                 <div>
                     <UploadImageComponent :sizeImage="421" style="width: 421px" text="Subir comprobante de pago" v-model="voucher" />
                 </div>
+                <div class="text-center">
+                    <VBtnPrimary v-if="!(order!.attributes.processed_by)" @click="takeOrder">
+                        Tomar Transacción
+                    </VBtnPrimary>
+                    <VBtnDangerT v-else @click="releasseOrder">
+                        <span class="">Ceder Orden</span>
+                    </VBtnDangerT>
+                </div>
             </VCol>
             <VCol>
                 <div class="mx-auto" v-if="showDetailPayment" style="max-width: 400px;">
@@ -30,6 +38,8 @@
                     <CronometerComponent />
                     <div class="my-5" />
                     <detail-account-sell />
+                    <div class="my-5" />
+                    <amount-detail></amount-detail>
                 </div>
             </VCol>
         </VRow>
@@ -49,6 +59,7 @@ import DetailAccountSell from './TransactionDetail/DetailAccountSell.vue';
 import { reactive } from 'vue';
 import { computed } from 'vue';
 import { ref } from 'vue';
+import AmountDetail from './TransactionDetail/AmountDetail.vue';
 
 const props = defineProps<{
     numTransaction: string;
@@ -60,6 +71,16 @@ transactionStore.getOrderByNum(props.numTransaction)
 const voucher = ref<Blob | undefined>()
 
 const showDetailPayment = ref(true)
+
+const takeOrder = async () => {
+    await transactionStore.takeOrder(order.value!.id)
+    transactionStore.getOrderByNum(props.numTransaction)
+}
+
+const releasseOrder = async () => {
+    await transactionStore.releaseOrder(order.value!.id)
+    transactionStore.getOrderByNum(props.numTransaction)
+}
 </script>
 
 <style scoped>

@@ -1,13 +1,19 @@
 <template>
     <div class="border-degree">
         <div class="mx-4 my-2">
-            <div>
-                <VImg v-if="itemHaveImages(bankAccount?.relationships?.bank?.relationships?.images)" :src="(itemHaveImages(bankAccount?.relationships?.bank?.relationships?.images) as string)"></VImg>
+            <div class="">
+                <VImg 
+                    v-if="itemHaveImages(bankAccount?.relationships?.bank?.relationships?.images)" 
+                    :src="(itemHaveImages(bankAccount?.relationships?.bank?.relationships?.images) as string)"
+                    width="200"
+                    class="mx-auto"
+                >
+                </VImg>
                 <div v-else>
                     {{ bankAccount?.relationships?.bank?.attributes.name ?? '' }}
                 </div>
             </div>
-            <div class="text-18 text-table text-left">
+            <div class="text-18 text-table text-left mt-2">
                 Titular: {{ bankAccount?.attributes.beneficiary }}<br>
                 Documento: {{ bankAccount?.attributes.identification_document }} <br>
                 Número de Cuenta: {{ bankAccount?.attributes.account_number }} <br>

@@ -1,5 +1,5 @@
 <template>
-    <div class="border-degree px-3 py-2" style="max-width: 421px">
+    <div class="border-degree" style="max-width: 421px; font-size: 20px;">
         <div class="d-flex justify-space-between">
             <div class="text-left text-table">
                 Fecha:
@@ -87,13 +87,25 @@ const { order } = storeToRefs(transactionStore);
 </script>
 
 <style scoped lang="scss">
+@import "@/scss/variables.scss";
 .d-flex.justify-space-between{
-    font-size: 18px;
+    font-size: 20px;
+    align-items: center;
     >div:nth-child(even){
-        width: 166px!important;
+        width: 180px!important;
     }
     >div:nth-child(odd){
-        width: 166px!important;
+        
+        width: 180px!important;
+    }
+}
+
+.border-degree{
+    >div.d-flex.justify-space-between{
+        padding: 8px 12px;
+        &:nth-child(odd){
+            background-color: $backgound-table-odd;
+        }
     }
 }
 </style>

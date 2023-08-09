@@ -28,11 +28,39 @@ export const TransactionStore = defineStore('Transaction',() => {
     const feeMiner = ref('')
     const feeAdministrative = ref('3000')
 
+    const takeOrder = (order_id:number):Promise<boolean> => {
+        return new Promise<boolean>( async (resolve, reject) => {
+            try{
+                const url = 'order/take/accept'
+                const data = {order_id}
+                const res = await helper.http(url,'post',{data})
+                resolve(true)
+            }catch(e){
+                reject(false)
+            }
+
+        })
+    }
+
+    const releaseOrder = (order_id:number):Promise<boolean> => {
+        return new Promise<boolean>( async (resolve, reject) => {
+            try{
+                const url = 'order/release/'+order_id
+                const res = await helper.http(url,'get')
+                resolve(true)
+            }catch(e){
+                reject(false)
+            }
+
+        })
+    }
     return {
         order,
         getOrderByNum,
         showPreviewOrder,
         feeMiner,
-        feeAdministrative
+        feeAdministrative,
+        takeOrder,
+        releaseOrder
     }
 })

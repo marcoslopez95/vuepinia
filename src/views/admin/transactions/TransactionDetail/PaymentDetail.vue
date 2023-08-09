@@ -21,9 +21,24 @@
         <div>
             Dirección de envío:
         </div>
-        <div class="cursor-pointer d-flex align-center justify-space-between" @click="copyToClipboard(order?.attributes.address_send!)">
-            <span>{{ order?.attributes.address_send }}</span>
-            <VIcon color="primary" :icon="CopyIcon" size="20" />
+        <div  class="cursor-pointer d-flex align-center justify-space-between" @click="openTool">
+            <VTooltip 
+                v-model="tooltip" 
+                location="top" 
+                attach="#algo"
+                :open-on-focus="false"
+                :open-on-hover="false"
+                close-on-content-click
+                
+                >
+                <template #activator="{ props }">
+
+                    <span>{{ order?.attributes.address_send }}</span>
+                    <VIcon v-bind="props" color="primary" :icon="CopyIcon" size="20" />
+                </template>
+                <span>Copiado</span>
+
+            </VTooltip>
         </div>
     </div>
 </template>
@@ -33,14 +48,29 @@ import CopyIcon from '@/assets/icons/CopyIcon.vue';
 import { copyToClipboard } from '@/helper';
 import { TransactionStore } from '@/stores/TransactionStore';
 import { storeToRefs } from 'pinia';
+import { watch } from 'vue';
+import { ref } from 'vue';
 
 const  transacionStore = TransactionStore()
 const { order } = storeToRefs(transacionStore)
+const tooltip = ref(false)
+const openTool = () => {
+    tooltip.value = true
+    copyToClipboard(order.value!.attributes.address_send!)
+}
+
+watch(tooltip, (nuevo,viejo) =>{
+    if(nuevo === true) {
+        const intervalToolTip = setInterval(()=>{
+            tooltip.value = false
+            clearInterval(intervalToolTip)
+        },3000)
+    }
+})
 </script>
 
 <style scoped lang="scss">
 @import "@/scss/variables.scss";
-
 .border-degree{
     div{
         padding-left: 14px;
