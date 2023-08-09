@@ -19,7 +19,7 @@
                     ></copy-component>
                 </div>
             </div>
-            <div class="d-flex justify-center align-center" style="gap: 20px;">
+            <div class="d-flex justify-center align-center" style="gap: 20px">
                 <div>
                     <VImg
                         v-if="
@@ -32,7 +32,7 @@
                         height="30"
                     ></VImg>
                 </div>
-                <div class="font-weight-bold" style="font-size: 30px;">
+                <div class="font-weight-bold" style="font-size: 30px">
                     {{
                         formatCrypoAmount(
                             order?.attributes.amount_currency as string
@@ -40,8 +40,7 @@
                     }}
                 </div>
             </div>
-            <div>
-            </div>
+            <div></div>
         </div>
     </div>
 </template>

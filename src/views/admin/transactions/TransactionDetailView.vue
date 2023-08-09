@@ -65,12 +65,13 @@
                     <PaymentDetail />
                     <div class="my-5" />
                     <CronometerComponent
+                        v-if="order.attributes.type == OrderTypes.VENTA"
                         :cronP="order.attributes.estimated_time"
                     />
                     <div class="my-5" />
                     <detail-account-sell v-if="order.attributes.type == OrderTypes.VENTA" />
                     <div class="my-5" />
-                    <amount-detail></amount-detail>
+                    <amount-detail v-if="order.attributes.type == OrderTypes.VENTA"></amount-detail>
                 </div>
             </VCol>
         </VRow>
