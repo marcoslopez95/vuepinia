@@ -47,6 +47,7 @@
                     <general-detail></general-detail>
                     <user-detail class="mt-3"></user-detail>
                     <UploadImageComponent
+                        v-if="order.attributes.type == OrderTypes.VENTA"
                         :sizeImage="421"
                         style="width: 421px"
                         text="Subir comprobante de pago"
@@ -72,6 +73,8 @@
                     <detail-account-sell v-if="order.attributes.type == OrderTypes.VENTA" />
                     <div class="my-5" />
                     <amount-detail v-if="order.attributes.type == OrderTypes.VENTA"></amount-detail>
+                    <div class="my-5" />
+                    <qr-buy v-if="verifyOrderTakeForUserAuth && !verifyOrderCompleted" @external-pay="giveExternal"></qr-buy>
                 </div>
             </VCol>
         </VRow>
@@ -92,6 +95,7 @@
             <VCol>
                 <div class="text-center" v-if="verifyOrderTakeForUserAuth">
                     <BtnWithModalComponent
+                        v-if="order.attributes.type == OrderTypes.VENTA"
                         color-btn="primary"
                         text-btn="Autorizar Pago"
                         title-modal="¿Desear Autorizar este pago?"
@@ -136,7 +140,7 @@ import QuestionIcon from "@/assets/icons/QuestionIcon.vue";
 import CheckIcon from "@/assets/icons/CheckFilledIcon.vue";
 import { StatusOrder } from "@/enums/StatusOrder.enum";
 import { OrderTypes } from "@/enums/OrderTypes.enum";
-
+import QrBuy from "./TransactionDetail/QrBuy.vue";
 const props = defineProps<{
     numTransaction: string;
 }>();
@@ -152,18 +156,22 @@ const helper = helperStore();
 const transactionStore = TransactionStore();
 const { order } = storeToRefs(transactionStore);
 
-transactionStore.getOrderByNum(props.numTransaction);
+const getOrder = () => transactionStore.getOrderByNum(props.numTransaction)
+
+getOrder();
 const voucher = ref<Blob | string>("");
 const showDetailPayment = ref(true);
 
 const takeOrder = async () => {
     await transactionStore.takeOrder(order.value!.id);
-    transactionStore.getOrderByNum(props.numTransaction);
+    getOrder();
+
 };
 
 const releasseOrder = async () => {
     await transactionStore.releaseOrder(order.value!.id);
-    transactionStore.getOrderByNum(props.numTransaction);
+    getOrder();
+
 };
 
 watch(order, (nuevo) => {
@@ -194,8 +202,14 @@ const openSuccess = ref(false);
 const accept = async () => {
     const url = "order/accept/" + order.value?.id;
     await helper.http(url, "get").then(() => (openSuccess.value = true));
-    transactionStore.getOrderByNum(props.numTransaction);
+    getOrder();
+
 };
+
+const giveExternal = () => {
+    openSuccess.value = true
+    getOrder();
+}
 </script>
 
 <style scoped></style>

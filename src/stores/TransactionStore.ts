@@ -54,6 +54,13 @@ export const TransactionStore = defineStore('Transaction',() => {
 
         })
     }
+
+    
+const getDataForQr = (money_name:string,address_send:string,amount:number|string) => {
+    const money = money_name.toLocaleLowerCase()
+
+    return `${money}:${address_send}?amount=${amount}`
+}
     return {
         order,
         getOrderByNum,
@@ -61,6 +68,7 @@ export const TransactionStore = defineStore('Transaction',() => {
         feeMiner,
         feeAdministrative,
         takeOrder,
-        releaseOrder
+        releaseOrder,
+        getDataForQr
     }
 })
