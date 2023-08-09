@@ -135,7 +135,7 @@ export default createVuetify({
     VBtnPrimary: {
       color: 'primary',
       rounded: 'pill',
-      class: 'w-25',
+      class: 'w-25 px-3',
       style:`
       min-width:140px;
       font-size: 16px;
@@ -145,7 +145,6 @@ export default createVuetify({
       `,
       type: 'button',
       variant: 'flat',
-      class: 'px-3'
       
     },
     VBtnSecondary: {
