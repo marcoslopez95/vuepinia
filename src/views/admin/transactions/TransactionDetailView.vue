@@ -3,23 +3,23 @@
         No existe transaction con ese numero
     </div>
     <div v-else>
-        <VRow>
+        <VRow class="d-flex align-center">
             <div class="text-18 font-weight-bold text-table">
                 Detalles transacción:
                 <span class="text-primary">{{
                     order?.attributes.tranx_no
                 }}</span>
             </div>
-            <div class="text-center ml-6">
-                <VBtnPrimary
-                    v-if="!(order!.attributes.processed_by)"
-                    @click="takeOrder"
-                >
-                    Tomar Transacción
-                </VBtnPrimary>
-                <VBtnDangerT v-else @click="releasseOrder">
-                    <span class="">Ceder Orden</span>
-                </VBtnDangerT>
+            <div class="text-center ml-6" v-if="!verifyOrderCompleted">
+                <BtnWithModalComponent 
+                    :color-btn="(order!.attributes.processed_by) ? 'warning' :'primary'"
+                    :text-btn="(order!.attributes.processed_by) ? 'Ceder Orden' :'Tomar Transacción'" 
+                    :title-modal="(order!.attributes.processed_by) ? '¿Quieres ceder esta orden?' :'¿Quieres tomar esta orden?'"
+                    :icon="QuestionIcon"
+                    :color-icon="(order!.attributes.processed_by) ? 'warning' : 'primary'"
+                    :btn-modal="(order!.attributes.processed_by) ? 'Sí, cederla' : 'Sí, tomarla'"
+                    @click:btn-modal="(order!.attributes.processed_by) ? releasseOrder() : takeOrder()"
+                    />
             </div>
         </VRow>
         <VRow dense>
@@ -49,13 +49,7 @@
                         v-model="voucher"
                     />
                 </div>
-                <div class="text-center">
-                    <VBtnPrimary 
-                        :disabled="voucher == ''" 
-                        @click="uploadVoucher">
-                        Subir Comprobante
-                    </VBtnPrimary>
-                </div>
+                
             </VCol>
             <VCol>
                 <div
@@ -72,6 +66,38 @@
                     <detail-account-sell />
                     <div class="my-5" />
                     <amount-detail></amount-detail>
+                </div>
+            </VCol>
+        </VRow>
+        <VRow v-if="!verifyOrderCompleted">
+            <VCol>
+                <div class="text-center">
+                    <VBtnSecondary 
+                        :disabled="voucher == ''" 
+                        @click="uploadVoucher">
+                        Subir Comprobante
+                    </VBtnSecondary>
+                </div>
+            </VCol>
+            <VCol>
+                <div class="text-center" v-if="verifyOrderTakeForUserAuth">
+                    <BtnWithModalComponent 
+                    color-btn="primary"
+                    text-btn="Autorizar Pago" 
+                    title-modal="¿Desear Autorizar este pago?"
+                    :icon="QuestionIcon"
+                    color-icon="warning"
+                    btn-modal="Sí, Aturizo"
+                    @click:btn-modal="accept"
+                    />
+                    <BtnWithModalComponent 
+                        only-modal
+                        v-model="openSuccess"
+                        title-modal="¡Bien Hecho!"
+                        text-modal="orden aceptada con éxito"
+                        :icon="CheckIcon"
+                        color-icon="ok-3"
+                    />
                 </div>
             </VCol>
         </VRow>
@@ -92,13 +118,25 @@ import { reactive } from "vue";
 import { computed } from "vue";
 import { ref } from "vue";
 import AmountDetail from "./TransactionDetail/AmountDetail.vue";
-import { helperStore, itemHaveImages } from "@/helper";
+import { getUserAuth, helperStore, itemHaveImages } from "@/helper";
 import { onMounted } from "vue";
 import { watch } from "vue";
+import BtnWithModalComponent from "@/components/BtnWithModalComponent.vue";
+import QuestionIcon from '@/assets/icons/QuestionIcon.vue'
+import CheckIcon from "@/assets/icons/CheckFilledIcon.vue";
+import { StatusOrder } from "@/enums/StatusOrder.enum";
 
 const props = defineProps<{
     numTransaction: string;
 }>();
+const takeOrRelease = reactive({
+    'color-btn': 'primary',
+    'text-btn': 'Tomar Transacción',
+    'title-modal': '¿Quieres tomar esta orden?',
+    'icon': QuestionIcon,
+    'color-icon': 'primary',
+    'btn-modal': 'Sí, tomarla',
+})
 const helper = helperStore()
 const transactionStore = TransactionStore();
 const { order } = storeToRefs(transactionStore);
@@ -130,6 +168,23 @@ const uploadVoucher = async () => {
     data.append('order_id', order.value!.id.toString())
     data.append('vouchers[]',voucher.value as Blob)
     await helper.http(url,'post',{data})
+}
+
+const verifyOrderTakeForUserAuth = computed(()=> {
+    const proccess_by = order.value?.attributes.processed_by
+    return proccess_by == getUserAuth().id
+})
+
+const verifyOrderCompleted = computed(() => {
+    return order.value?.relationships?.status.id == StatusOrder.ORDER_COMPLETED
+})
+
+const openSuccess = ref(false)
+const accept = async () => {
+    const url = 'order/accept/'+order.value?.id
+    await helper.http(url,'get').then(()=> openSuccess.value = true)
+    transactionStore.getOrderByNum(props.numTransaction);
+    
 }
 </script>
 

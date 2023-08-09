@@ -128,7 +128,7 @@ export default createVuetify({
       style:`
         font-size: 16px;
         font-style: normal;
-        font-weight: 700;
+        font-weight: 600;
         line-height: 17px;`
     },
     // 
@@ -136,8 +136,17 @@ export default createVuetify({
       color: 'primary',
       rounded: 'pill',
       class: 'w-25',
-      style:"min-width:140px",
-      type: 'button'
+      style:`
+      min-width:140px;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 17px;
+      `,
+      type: 'button',
+      variant: 'flat',
+      class: 'px-3'
+      
     },
     VBtnSecondary: {
       color:  'primary',
