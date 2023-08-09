@@ -1,16 +1,38 @@
 <template>
-    <div v-if="!numTransaction || !order">No existe transaction con ese numero</div>
+    <div v-if="!numTransaction || !order">
+        No existe transaction con ese numero
+    </div>
     <div v-else>
         <VRow>
             <div class="text-18 font-weight-bold text-table">
-                Detalles transacción: <span class="text-primary">{{ order?.attributes.tranx_no }}</span>
+                Detalles transacción:
+                <span class="text-primary">{{
+                    order?.attributes.tranx_no
+                }}</span>
+            </div>
+            <div class="text-center ml-6">
+                <VBtnPrimary
+                    v-if="!(order!.attributes.processed_by)"
+                    @click="takeOrder"
+                >
+                    Tomar Transacción
+                </VBtnPrimary>
+                <VBtnDangerT v-else @click="releasseOrder">
+                    <span class="">Ceder Orden</span>
+                </VBtnDangerT>
             </div>
         </VRow>
         <VRow dense>
-            <VCol/>
+            <VCol />
             <VCol class="d-flex justify-center text-table font-weight-bold">
-                <div class="cursor-pointer d-flex align-center" @click="showDetailPayment = !showDetailPayment">
-                    <VIcon  :class="showDetailPayment? '' : 'rotate-270'" :icon="SelectIcon" />
+                <div
+                    class="cursor-pointer d-flex align-center"
+                    @click="showDetailPayment = !showDetailPayment"
+                >
+                    <VIcon
+                        :class="showDetailPayment ? '' : 'rotate-270'"
+                        :icon="SelectIcon"
+                    />
                     <span>Mostrar Detalle</span>
                 </div>
             </VCol>
@@ -20,22 +42,32 @@
                 <general-detail></general-detail>
                 <user-detail class="mt-3"></user-detail>
                 <div>
-                    <UploadImageComponent :sizeImage="421" style="width: 421px" text="Subir comprobante de pago" v-model="voucher" />
+                    <UploadImageComponent
+                        :sizeImage="421"
+                        style="width: 421px"
+                        text="Subir comprobante de pago"
+                        v-model="voucher"
+                    />
                 </div>
                 <div class="text-center">
-                    <VBtnPrimary v-if="!(order!.attributes.processed_by)" @click="takeOrder">
-                        Tomar Transacción
+                    <VBtnPrimary 
+                        :disabled="voucher == ''" 
+                        @click="uploadVoucher">
+                        Subir Comprobante
                     </VBtnPrimary>
-                    <VBtnDangerT v-else @click="releasseOrder">
-                        <span class="">Ceder Orden</span>
-                    </VBtnDangerT>
                 </div>
             </VCol>
             <VCol>
-                <div class="mx-auto" v-if="showDetailPayment" style="max-width: 400px;">
-                    <PaymentDetail  />
+                <div
+                    class="mx-auto"
+                    v-if="showDetailPayment"
+                    style="max-width: 400px"
+                >
+                    <PaymentDetail />
                     <div class="my-5" />
-                    <CronometerComponent />
+                    <CronometerComponent 
+                        :cronP="order.attributes.estimated_time"
+                        />
                     <div class="my-5" />
                     <detail-account-sell />
                     <div class="my-5" />
@@ -47,42 +79,58 @@
 </template>
 
 <script setup lang="ts">
-import { TransactionStore } from '@/stores/TransactionStore';
-import { storeToRefs } from 'pinia';
-import GeneralDetail from './TransactionDetail/GeneralDetail.vue';
-import UserDetail from '@/views/admin/transactions/TransactionDetail/UserDetail.vue'
-import UploadImageComponent from '@/views/user/Kyc/components/UploadImageComponent.vue';
-import SelectIcon from '@/assets/icons/SelectIcon.vue'
-import PaymentDetail from '@/views/admin/transactions/TransactionDetail/PaymentDetail.vue'
-import CronometerComponent from '@/views/admin/transactions/TransactionDetail/CronometerComponent.vue'
-import DetailAccountSell from './TransactionDetail/DetailAccountSell.vue';
-import { reactive } from 'vue';
-import { computed } from 'vue';
-import { ref } from 'vue';
-import AmountDetail from './TransactionDetail/AmountDetail.vue';
+import { TransactionStore } from "@/stores/TransactionStore";
+import { storeToRefs } from "pinia";
+import GeneralDetail from "./TransactionDetail/GeneralDetail.vue";
+import UserDetail from "@/views/admin/transactions/TransactionDetail/UserDetail.vue";
+import UploadImageComponent from "@/views/user/Kyc/components/UploadImageComponent.vue";
+import SelectIcon from "@/assets/icons/SelectIcon.vue";
+import PaymentDetail from "@/views/admin/transactions/TransactionDetail/PaymentDetail.vue";
+import CronometerComponent from "@/views/admin/transactions/TransactionDetail/CronometerComponent.vue";
+import DetailAccountSell from "./TransactionDetail/DetailAccountSell.vue";
+import { reactive } from "vue";
+import { computed } from "vue";
+import { ref } from "vue";
+import AmountDetail from "./TransactionDetail/AmountDetail.vue";
+import { helperStore, itemHaveImages } from "@/helper";
+import { onMounted } from "vue";
+import { watch } from "vue";
 
 const props = defineProps<{
     numTransaction: string;
 }>();
-const transactionStore = TransactionStore()
-const { order } = storeToRefs(transactionStore)
+const helper = helperStore()
+const transactionStore = TransactionStore();
+const { order } = storeToRefs(transactionStore);
 
-transactionStore.getOrderByNum(props.numTransaction)
-const voucher = ref<Blob | undefined>()
-
-const showDetailPayment = ref(true)
+transactionStore.getOrderByNum(props.numTransaction);
+const voucher = ref<Blob | string>('');
+const showDetailPayment = ref(true);
 
 const takeOrder = async () => {
-    await transactionStore.takeOrder(order.value!.id)
-    transactionStore.getOrderByNum(props.numTransaction)
-}
+    await transactionStore.takeOrder(order.value!.id);
+    transactionStore.getOrderByNum(props.numTransaction);
+};
 
 const releasseOrder = async () => {
-    await transactionStore.releaseOrder(order.value!.id)
-    transactionStore.getOrderByNum(props.numTransaction)
+    await transactionStore.releaseOrder(order.value!.id);
+    transactionStore.getOrderByNum(props.numTransaction);
+};
+
+watch(order, (nuevo) => {
+    if(nuevo){
+        const image = itemHaveImages(order.value?.relationships?.images)
+        voucher.value =  image === false ? '' : image
+    }
+})
+
+const uploadVoucher = async () => {
+    const url = 'order/charge/voucher'
+    const data = new FormData
+    data.append('order_id', order.value!.id.toString())
+    data.append('vouchers[]',voucher.value as Blob)
+    await helper.http(url,'post',{data})
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

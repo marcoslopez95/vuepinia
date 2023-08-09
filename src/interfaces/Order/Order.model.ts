@@ -30,7 +30,7 @@ export declare interface OrderAttributes {
         total_exchange_local: string
         grades?: string
         address_send?: string
-
+        estimated_time?: string,
         user_id: number;
         tranx_no: string;
         status_id: number;

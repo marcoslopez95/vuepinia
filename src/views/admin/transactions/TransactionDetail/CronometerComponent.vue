@@ -11,14 +11,11 @@
                         @click="modalOpen"
                         class="mx-auto text-table"
                         id="inputCronometer"
-                        style="font-size: 20px;"
+                        style="font-size: 20px"
                     >
                         <span v-if="!cron || !getCron">00:00</span>
                         <span v-else>
-                            <count-down 
-                                :dateFinish="getCron"
-                            >
-                            </count-down>
+                            <count-down :dateFinish="getCron"> </count-down>
                         </span>
                     </div>
                 </div>
@@ -65,10 +62,11 @@
                 </div>
             </div>
             <div class="mt-3 text-center">
-                <VBtnPrimary 
-                    class="" :disabled="!cronIsCorrect"
+                <VBtnPrimary
+                    class=""
+                    :disabled="!cronIsCorrect"
                     @click="saveCron"
-                    >
+                >
                     Guardar
                 </VBtnPrimary>
             </div>
@@ -85,9 +83,18 @@ import InputComponent from "@/components/InputComponent.vue";
 import { computed } from "vue";
 import dayjs from "dayjs";
 import CountDown from "@/components/CountDown.vue";
+import { helperStore } from "@/helper";
+import { toRefs } from "vue";
+import { TransactionStore } from "@/stores/TransactionStore";
+import { storeToRefs } from "pinia";
 
+const transactionStore = TransactionStore()
+const { order } = storeToRefs(transactionStore)
+const props = defineProps<{cronP?: string}>()
+const { cronP }  = toRefs(props)
+const cron = ref(cronP?.value ? dayjs(cronP?.value).format("HH:mm") : '')
+const helper = helperStore();
 const cronometer = ref("23h:05m:03s");
-const cron = ref("");
 const openModal = ref(false);
 const times = [15, 30, 60, 90, 120]; // in minutes
 
@@ -114,7 +121,7 @@ const cronIsCorrect = computed(() => {
     return nowMoreCron >= now;
 });
 
-const getCron = ref('')
+const getCron = ref(cronP?.value ? dayjs(cronP?.value).format("DD/MM/YYYY HH:mm") : '');
 
 const closeDialog = () => {
     if (!cronIsCorrect.value) {
@@ -123,19 +130,26 @@ const closeDialog = () => {
     openModal.value = false;
 };
 
-const modalOpen = () =>{
-    openModal.value = true
+const modalOpen = () => {
+    openModal.value = true;
     // cron.value = ''
-}
-const saveCron = () => {
-    if(cronIsCorrect.value){
+};
+const saveCron = async () => {
+    if (cronIsCorrect.value) {
         const cronArray = cron.value.split(":").map((c) => parseInt(c));
         getCron.value = dayjs()
             .set("hour", cronArray[0])
-            .set("minute", cronArray[1]).format('DD/MM/YYYY HH:mm');
+            .set("minute", cronArray[1])
+            .format("DD/MM/YYYY HH:mm");
+        const url = "order/add/estimate/time";
+        const data = {
+            order_id: order.value?.id,
+            estimated_time: dayjs(getCron.value).format("YYYY-MM-DD HH:mm"),
+        };
+        await helper.http(url,'post',{data})
     }
-    openModal.value = false
-}
+    openModal.value = false;
+};
 </script>
 
 <style scoped lang="scss">
