@@ -8,11 +8,18 @@
                 </div>
                 <div class="mx-5">
                     <div
-                        @click="openModal = true"
+                        @click="modalOpen"
                         class="mx-auto text-table"
                         id="inputCronometer"
+                        style="font-size: 20px;"
                     >
-                        {{ cronometer }}
+                        <span v-if="!cron || !getCron">00:00</span>
+                        <span v-else>
+                            <count-down 
+                                :dateFinish="getCron"
+                            >
+                            </count-down>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -20,7 +27,7 @@
     </div>
     <DialogGlobal
         :dialog="openModal"
-        @close-dialog="openModal = false"
+        @close-dialog="closeDialog"
         width-dialog="300"
     >
         <template #content>
@@ -33,21 +40,23 @@
             >
                 Agregar tiempo estimado
             </div>
-            <div class="d-flex justify-center" >
-                <div class="inputCronometer border-degree d-flex justify-center">
+            <div class="d-flex justify-center">
+                <div
+                    class="inputCronometer border-degree d-flex justify-center"
+                >
                     <input
                         class="mx-auto"
                         type="time"
                         name="limitetiempo"
                         list="listalimitestiempo"
-                        style="outline: none;"
+                        style="outline: none"
                         v-model="cron"
                         :min="now"
                     />
-    
+
                     <datalist id="listalimitestiempo">
-                        <option 
-                            v-for="(time, i) in getTimes" 
+                        <option
+                            v-for="(time, i) in getTimes"
                             :key="i"
                             :value="time"
                             :style="getOptionStyle()"
@@ -56,7 +65,10 @@
                 </div>
             </div>
             <div class="mt-3 text-center">
-                <VBtnPrimary class="" :disabled="!cronIsCorrect">
+                <VBtnPrimary 
+                    class="" :disabled="!cronIsCorrect"
+                    @click="saveCron"
+                    >
                     Guardar
                 </VBtnPrimary>
             </div>
@@ -72,35 +84,58 @@ import ClockIcon from "@/assets/icons/ClockIcon.vue";
 import InputComponent from "@/components/InputComponent.vue";
 import { computed } from "vue";
 import dayjs from "dayjs";
+import CountDown from "@/components/CountDown.vue";
 
 const cronometer = ref("23h:05m:03s");
 const cron = ref("");
 const openModal = ref(false);
-const times = [15,30,60,90,120] // in minutes
+const times = [15, 30, 60, 90, 120]; // in minutes
 
-const getTimes = computed(()=> {
-    
-    return times.map((time) => dayjs().add(time,'minutes').format('HH:mm'))
-})
-const now = ref(dayjs().format('HH:mm'))
+const getTimes = computed(() => {
+    return times.map((time) => dayjs().add(time, "minutes").format("HH:mm"));
+});
+const now = ref(dayjs().format("HH:mm"));
 const getOptionStyle = () => {
-      return {
-        background: '#f0f0f0', // Cambia este color según tu preferencia
-        color: '#333', // Cambia este color según tu preferencia
-        transition: 'background-color 0.3s ease', // Transición suave de color
-        cursor: 'pointer', // Cambia el cursor al pasar por encima
-      };
+    return {
+        background: "#f0f0f0", // Cambia este color según tu preferencia
+        color: "#333", // Cambia este color según tu preferencia
+        transition: "background-color 0.3s ease", // Transición suave de color
+        cursor: "pointer", // Cambia el cursor al pasar por encima
     };
+};
 
-    const cronIsCorrect = computed(() => {
-        if(!cron.value) return false
-        const cronArray = cron.value.split(':').map(c=>parseInt(c))
-        const now = dayjs();
-        const nowMoreCron = dayjs()
-                                .set('hour',cronArray[0])
-                                .set('minute',cronArray[1])
-        return nowMoreCron >= now
-    })
+const cronIsCorrect = computed(() => {
+    if (!cron.value) return false;
+    const cronArray = cron.value.split(":").map((c) => parseInt(c));
+    const now = dayjs();
+    const nowMoreCron = dayjs()
+        .set("hour", cronArray[0])
+        .set("minute", cronArray[1]);
+    return nowMoreCron >= now;
+});
+
+const getCron = ref('')
+
+const closeDialog = () => {
+    if (!cronIsCorrect.value) {
+        cron.value = "";
+    }
+    openModal.value = false;
+};
+
+const modalOpen = () =>{
+    openModal.value = true
+    // cron.value = ''
+}
+const saveCron = () => {
+    if(cronIsCorrect.value){
+        const cronArray = cron.value.split(":").map((c) => parseInt(c));
+        getCron.value = dayjs()
+            .set("hour", cronArray[0])
+            .set("minute", cronArray[1]).format('DD/MM/YYYY HH:mm');
+    }
+    openModal.value = false
+}
 </script>
 
 <style scoped lang="scss">
@@ -109,14 +144,14 @@ const getOptionStyle = () => {
         gap: 15px;
     }
 }
-.inputCronometer{
+.inputCronometer {
     font-size: 15px;
     width: 170px;
     height: 30px;
     flex-shrink: 0;
 }
 
-option:hover{
+option:hover {
     background-color: red;
 }
 </style>
