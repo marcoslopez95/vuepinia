@@ -45,6 +45,9 @@ const helper = helperStore();
 helper.url = "client/wallet";
 // helper.url = 'client/wallet/adress/wallet'
 
+helper.defaultParams = {
+    company_payment_address : '0'
+}
 helper.index();
 const walletStore = WalletStore();
 walletStore.getCurrencies();

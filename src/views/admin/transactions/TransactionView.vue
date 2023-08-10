@@ -11,12 +11,18 @@
     >
         <template #cel-estado="{ data }">
             <VIcon
-                v-if="order(data).relationships?.status.id == StatusOrder.ORDER_CANCELED"
+                v-if="
+                    order(data).relationships?.status.id ==
+                    StatusOrder.ORDER_CANCELED
+                "
                 :icon="ErrorFilledIcon"
                 color="warning"
             />
             <VIcon
-                v-else-if="order(data).relationships?.status.id == StatusOrder.ORDER_COMPLETED"
+                v-else-if="
+                    order(data).relationships?.status.id ==
+                    StatusOrder.ORDER_COMPLETED
+                "
                 :icon="CheckFilledIcon"
                 color="ok-2"
             />
@@ -110,22 +116,32 @@
             {{ getWalletFormated(order(data).attributes.address_send!) }}
         </template>
         <template #newButtons="{ data }">
-            <v-list-item-title 
+            <v-list-item-title
                 class="cursor-pointer"
-                @click="modalReject=true;orderSelect = data"
+                @click="
+                    modalReject = true;
+                    orderSelect = data;
+                "
                 v-if="!orderIsCancelOrAproved(data)"
-                >
+            >
                 <VBtn color="transparent" size="x-small" elevation="0" icon>
                     <VIcon color="primary" size="24" :icon="BlockedIcon" />
                 </VBtn>
                 Rechazar
             </v-list-item-title>
             <!-- ------------------------------------- -->
-            <v-list-item-title 
+            <v-list-item-title
                 class="cursor-pointer"
-                @click="modalTxid=true;orderSelect = data;txid=''"
-                v-if="!orderIsCancelOrAproved(data) && order(data).attributes.type == OrderTypes.COMPRA "
-                >
+                @click="
+                    modalTxid = true;
+                    orderSelect = data;
+                    txid = '';
+                "
+                v-if="
+                    !orderIsCancelOrAproved(data) &&
+                    order(data).attributes.type == OrderTypes.COMPRA
+                "
+            >
                 <VBtn color="transparent" size="x-small" elevation="0" icon>
                     <VIcon color="primary" size="24" :icon="ArrozTwoIcon" />
                 </VBtn>
@@ -142,75 +158,82 @@
                 Ver Detalles
             </v-list-item-title>
             <!-- ------------------------------------- -->
-            <v-list-item-title class="cursor-pointer">
+            <v-list-item-title class="cursor-pointer" @click="orderSelect = data; resumenModal = true">
                 <VBtn color="transparent" size="x-small" elevation="0" icon>
                     <VIcon color="primary" size="24" :icon="ResumenIcon" />
                 </VBtn>
                 Resumen
             </v-list-item-title>
+        
         </template>
     </TableComponentVue>
 
-    <DialogGlobalVue 
+    <DialogGlobalVue
         v-if="modalReject"
         :dialog="modalReject"
-        @close-dialog="modalReject=false"
+        @close-dialog="modalReject = false"
         width-dialog="500"
         class-title="text-center text-primary"
     >
         <template #title>
             Transacción: {{ orderSelect?.attributes.tranx_no }}
         </template>
-        <div class="text-center text-table font-weight-bold" >
-                <QuestionIcon class="text-warning" style="width: 144px; height: 144px;" />
-            <div class="text-24">
-                ¿Realmente deseas rechazar la operación?
-            </div>
+        <div class="text-center text-table font-weight-bold">
+            <QuestionIcon
+                class="text-warning"
+                style="width: 144px; height: 144px"
+            />
+            <div class="text-24">¿Realmente deseas rechazar la operación?</div>
         </div>
         <div class="text-center mt-4">
-            <VBtnDangerT @click="rejectOrder">
-                Sí, Rechazar
-            </VBtnDangerT>
+            <VBtnDangerT @click="rejectOrder"> Sí, Rechazar </VBtnDangerT>
         </div>
     </DialogGlobalVue>
 
-    <DialogGlobalVue 
-    v-if="modalTxid"
-    :dialog="modalTxid"
-    @close-dialog="modalTxid=false"
-    width-dialog="500"
-    class-title="text-center text-primary"
->
-    <template #title>
-        Transacción: {{ orderSelect?.attributes.tranx_no }}
-    </template>
-    <div class="align-center justify-center text-table font-weight-bold d-flex gap-2" >
-        <div class="text-24 ">
-            Ingresa el tx id:
+    <DialogGlobalVue
+        v-if="modalTxid"
+        :dialog="modalTxid"
+        @close-dialog="modalTxid = false"
+        width-dialog="500"
+        class-title="text-center text-primary"
+    >
+        <template #title>
+            Transacción: {{ orderSelect?.attributes.tranx_no }}
+        </template>
+        <div
+            class="align-center justify-center text-table font-weight-bold d-flex gap-2"
+        >
+            <div class="text-24">Ingresa el tx id:</div>
+            <div style="width: 250px">
+                <input-component
+                    without-label
+                    class="my-auto"
+                    v-model="txid"
+                    name=""
+                ></input-component>
+            </div>
         </div>
-        <div  style="width: 250px;">
-            <input-component without-label class="my-auto" v-model="txid" name="" ></input-component>
+        <div class="text-center mt-4">
+            <VBtnPrimary @click="externalGiveOrder" :disabled="!txid">
+                Enviar
+            </VBtnPrimary>
         </div>
-    </div>
-    <div class="text-center mt-4">
-        <VBtnPrimary @click="externalGiveOrder" :disabled="!txid">
-            Enviar
-        </VBtnPrimary>
-    </div>
-</DialogGlobalVue>
+    </DialogGlobalVue>
+    <ResumenModal v-if="resumenModal" v-model="resumenModal" :order="orderSelect!" />
 </template>
 
 <script setup lang="ts">
-import InputComponent from '@/components/InputComponent.vue'
+import InputComponent from "@/components/InputComponent.vue";
 import CheckFilledIcon from "@/assets/icons/CheckFilledIcon.vue";
-import ErrorFilledIcon from '@/assets/icons/ErrorFilledIcon.vue'
+import ErrorFilledIcon from "@/assets/icons/ErrorFilledIcon.vue";
 import BlockedIcon from "@/assets/icons/BlockedIcon.vue";
 import ArrozTwoIcon from "@/assets/icons/ArrozTwoIcon.vue";
 import EyeFilledIcon from "@/assets/icons/EyeFilledIcon.vue";
-import ResumenIcon from "@/assets/icons/ResumenIcon.vue";
 import QuestionIcon from "@/assets/icons/QuestionIcon.vue";
 import TableComponentVue from "@/components/global/TableComponent.vue";
 import SearchInputComponentVue from "@/components/global/SearchInputComponent.vue";
+import ResumenIcon from "@/assets/icons/ResumenIcon.vue";
+import ResumenModal from '@/views/admin/transactions/TransactionView/ResumenModal.vue'
 import { formatNumber, helperStore, getWalletFormated } from "@/helper";
 import type { Row } from "@/interfaces/FormComponent.helper";
 import type { Order } from "@/interfaces/Order/Order.model";
@@ -231,7 +254,6 @@ import ArrowWithSquareIcon from "@/assets/icons/ArrowWithSquareIcon.vue";
 import { useRouter } from "vue-router";
 import DialogGlobalVue from "@/components/global/DialogGlobal.vue";
 import { StatusOrder } from "@/enums/StatusOrder.enum";
-
 
 const helper = helperStore();
 helper.url = "order";
@@ -280,8 +302,8 @@ const {
 
 const headers: Head[] = [
     {
-      name: 'Estado',
-      value: 'estado'
+        name: "Estado",
+        value: "estado",
     },
     {
         name: t("views.transactions.txn_no"),
@@ -320,16 +342,18 @@ const headers: Head[] = [
     },
 ];
 
-const orderSelect = ref<Order>()
+const orderSelect = ref<Order>();
 const order = (item: unknown): Order => {
     return item as Order;
 };
 
-const orderIsCancelOrAproved = (item:unknown): boolean => {
-    const orderIsCancel  = order(item).relationships?.status.id == StatusOrder.ORDER_CANCELED
-    const orderIsAproved = order(item).relationships?.status.id == StatusOrder.ORDER_COMPLETED
-    return orderIsAproved  || orderIsCancel
-}
+const orderIsCancelOrAproved = (item: unknown): boolean => {
+    const orderIsCancel =
+        order(item).relationships?.status.id == StatusOrder.ORDER_CANCELED;
+    const orderIsAproved =
+        order(item).relationships?.status.id == StatusOrder.ORDER_COMPLETED;
+    return orderIsAproved || orderIsCancel;
+};
 
 const orderTaken = (item: unknown): boolean => {
     return order(item).attributes.processed_by ? true : false;
@@ -358,36 +382,33 @@ const typeOrder = (item: unknown): OrderTypes => {
     return order(item).attributes.type;
 };
 
-const modalReject = ref(false)
-
+const modalReject = ref(false);
 
 const rejectOrder = async () => {
-    try{
-        const url = 'order/cancel/' + orderSelect.value?.id
-        await helper.http(url)
-        modalReject.value = false
+    try {
+        const url = "order/cancel/" + orderSelect.value?.id;
+        await helper.http(url);
+        modalReject.value = false;
         helper.index();
-    }catch(e) {
+    } catch (e) {}
+};
 
-    }
-}
-
-const modalTxid = ref(false)
-const txid = ref('')
+const modalTxid = ref(false);
+const txid = ref("");
 const externalGiveOrder = async () => {
-    try{
-        const url = 'order/external/accept/deposit/'
+    try {
+        const url = "order/external/accept/deposit/";
         const data = {
             order_id: orderSelect.value?.id,
-            txid: txid.value
-        }
-        await helper.http(url,'post',{data})
-        modalTxid.value = false
+            txid: txid.value,
+        };
+        await helper.http(url, "post", { data });
+        modalTxid.value = false;
         helper.index();
-    }catch(e) {
+    } catch (e) {}
+};
 
-    }
-}
+const resumenModal = ref(false)
 </script>
 
 <style scoped>

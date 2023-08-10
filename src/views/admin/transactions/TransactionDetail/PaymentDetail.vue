@@ -39,7 +39,7 @@
                 <span>Copiado</span>
             </VTooltip>
         </div>
-        <div>
+        <div v-if="order?.attributes.type == OrderTypes.COMPRA">
             Cantidad:
             <div class="d-inline-block float-end">
                 {{
@@ -53,7 +53,7 @@
                 COP
             </div>
         </div>
-        <div>
+        <div v-if="order?.attributes.type == OrderTypes.COMPRA">
             Comisión:
             <div class="d-inline-block float-end">
                 {{ formatNumber(parseFloat(order?.attributes.fee!)) }} USD
@@ -89,6 +89,7 @@
 
 <script setup lang="ts">
 import CopyIcon from "@/assets/icons/CopyIcon.vue";
+import { OrderTypes } from "@/enums/OrderTypes.enum";
 import { copyToClipboard, formatCrypoAmount, formatNumber, itemHaveImages } from "@/helper";
 import { TransactionStore } from "@/stores/TransactionStore";
 import { storeToRefs } from "pinia";

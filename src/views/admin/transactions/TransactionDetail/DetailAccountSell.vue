@@ -37,7 +37,7 @@
                 }}
             </div>
         </div>
-        <div class="py-4 px-2 text-table" style="font-size: 20px;">
+        <div v-if="order?.attributes.type == OrderTypes.COMPRA" class="py-4 px-2 text-table" style="font-size: 20px;">
             <VRow dense class="text-left ">
                 <VCol class="py-0 " >Nombre Titular:</VCol>
                 <VCol class="py-0 tet-primary w-25">
