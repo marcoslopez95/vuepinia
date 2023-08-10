@@ -139,6 +139,7 @@
                     <VCheckbox
                         v-model="comisiones[check.label]"
                         color="primary"
+                        @click="clickInOption(check.label)"
                     >
                     </VCheckbox>
                     <div
@@ -177,7 +178,7 @@
 import SelectComponent from "@/components/SelectComponent.vue";
 import InputComponent from "@/components/InputComponent.vue";
 import { ConfirmOrderStore } from "./CompraStore";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { reactive } from "vue";
 import { storeToRefs } from "pinia";
 import { addressValid } from '@/validator'
@@ -199,6 +200,12 @@ const walletStore = WalletStore()
 const confirmOrderStore = ConfirmOrderStore();
 const { shippingType, form, networkTypes } = storeToRefs(confirmOrderStore);
 const { getShippingTypes } = confirmOrderStore;
+
+onMounted(() => {
+    form.value.shipping_type_id = ''
+    form.value.red_id = ''
+    form.value.address_send = ''
+}),
 
 confirmOrderStore.getNetworkTypes()
 const emitConfirmOrder = async () => {

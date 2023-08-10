@@ -1,5 +1,5 @@
 <template>
-    <VCard class="v-text-field__slot d-flex flex-column" style="height: 380px">
+    <VCard class="v-text-field__slot d-flex flex-column" >
         <!-- <VCardTitle class="" style="font-size: 25px; height: 58px;"> -->
             <!-- </VCardTitle> -->
             <div class=" mt-5 mb-0 text-center text-primary mx-0 pb-0 px-0"  style="font-size: 23px; ">

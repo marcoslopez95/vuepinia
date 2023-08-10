@@ -24,6 +24,7 @@ import { createPenalty } from '@/stores/PenaltyStore'
 import { PENALTY_TYPES } from "@/enums/PenaltyTypes.enum";
 import PenaltyModal from "../components/Penalty/PenaltyModal.vue";
 import { TransactionStore } from "@/stores/TransactionStore";
+import { OrderTypes } from "@/enums/OrderTypes.enum";
 
 const helper = helperStore()
 const confirmOrderStore = ConfirmOrderStore();
@@ -46,7 +47,7 @@ const timeSet = dayjs().add(30, "minutes").format();
 
 const createOrder2 = () => {
     if(havePenalization.value) return
-    confirmOrderStore.createOrder();
+    confirmOrderStore.createOrder(OrderTypes.COMPRA);
     console.log('pagos', confirmOrderStore.form)
 };
 </script>

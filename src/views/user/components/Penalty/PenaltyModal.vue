@@ -24,6 +24,7 @@ const dialog = ref(false)
 const props = defineProps<Props>()
 const emits = defineEmits<Emits>()
 const penalty = ref<Penalty|undefined>()
+
 getPenaltyOfUserSession().then((res) => {
     if(res.length == 0) return
 

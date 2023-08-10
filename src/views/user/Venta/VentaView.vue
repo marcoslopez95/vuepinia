@@ -8,7 +8,7 @@
         una nueva orden hasta dentro de
         <span class="text-error text-h6">30 minutos</span>
     </div>
-    <PenaltyModal @have-penalization="(value)=> havePenalization = value" :TypePenalty="PENALTY_TYPES.COMPRA"></PenaltyModal>
+    <PenaltyModal @have-penalization="(value)=> havePenalization = value" :TypePenalty="PENALTY_TYPES.VENTA"></PenaltyModal>
 </template>
 
 <script setup lang="ts">
@@ -43,6 +43,7 @@ const nextStep = () => {
 }
 const confirmatedOrder = ref(false);
 const havePenalization = ref(false);
+
 const alerta = () => {
     createPenalty(PENALTY_TYPES.COMPRA)
 };
@@ -52,7 +53,7 @@ const createOrder2 = async () => {
     if(havePenalization.value) return
     await confirmOrderStore.getAddressSendForSell()
     form.value.address_send = confirmOrderStore.addressSendForSell
-    confirmOrderStore.createOrder();
+    confirmOrderStore.createOrder(OrderTypes.VENTA);
     console.log('pagos', confirmOrderStore.form)
 };
 </script>

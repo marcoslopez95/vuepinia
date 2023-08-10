@@ -476,3 +476,15 @@ const maxColumns = computed(() => {
   <DialogConfirm :title="title" :content="content" :dialog="dialogAction" @closeDialog="dialogAction = false"
     @ok="actionModal[modalOpen]" :btnCancelText="$t('buttons.cancel')" :btnAcceptText="$t('buttons.accept')" />
 </template>
+
+<style scoped lang="scss">
+@import '@/scss/variables.scss';
+.v-menu > .v-overlay__content{
+  border: 1px solid $color-primary!important;
+  border-radius: 20px!important;
+  -webkit-border-radius: 20px!important;
+  -moz-border-radius: 20px!important;
+  -ms-border-radius: 20px!important;
+  -o-border-radius: 20px!important;
+}
+</style>

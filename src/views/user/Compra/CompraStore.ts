@@ -42,16 +42,16 @@ export const ConfirmOrderStore = defineStore('confirm-order', () => {
         shippingType.value = res.data.response
     }
 
-    const createOrder = async () => {
+    const createOrder = async (type: OrderTypes) => {
         const url = 'order'
         form.value.currency_price = parseFloat(form.value.currency_price).toFixed(2)
         form.value.received_amount = parseFloat(form.value.received_amount).toFixed(8)
         const res = await helper.http(url, 'post',{
             data: form.value
         })
-
+        const name = type == OrderTypes.COMPRA ? 'user-check-buy' : 'user-check-sell'
         router.push({
-            name: 'user-check-sell',
+            name,
             params:{
                 numTransaction: (res.data.response as Order).attributes.tranx_no
             }
