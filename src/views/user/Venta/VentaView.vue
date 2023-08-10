@@ -30,7 +30,7 @@ const helper = helperStore()
 const confirmOrderStore = ConfirmOrderStore();
 const  { form } = storeToRefs(confirmOrderStore)
 form.value.type = OrderTypes.VENTA
-form.value.shipping_type_id = 1
+// form.value.shipping_type_id = 1
 const transactionStore = TransactionStore()
 transactionStore.showPreviewOrder = false;
 const backStep = () => {

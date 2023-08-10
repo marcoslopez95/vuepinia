@@ -52,3 +52,15 @@ interface UserDetailAttributes {
   address: string;
   birth: string;
 }
+
+// --------------------
+export interface SendNotification {
+    type: TypeNotification
+    message: string
+}
+
+export enum TypeNotification {
+  SMS= 'sms',
+  EMAIL= 'email',
+  ALL= 'all'
+}

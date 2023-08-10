@@ -25,10 +25,13 @@ import { PENALTY_TYPES } from "@/enums/PenaltyTypes.enum";
 import PenaltyModal from "../components/Penalty/PenaltyModal.vue";
 import { TransactionStore } from "@/stores/TransactionStore";
 import { OrderTypes } from "@/enums/OrderTypes.enum";
+import { storeToRefs } from "pinia";
 
 const helper = helperStore()
 const confirmOrderStore = ConfirmOrderStore();
 const transactionStore = TransactionStore()
+const  { form } = storeToRefs(confirmOrderStore)
+form.value.type = OrderTypes.COMPRA
 transactionStore.showPreviewOrder = false;
 const backStep = () => {
     confirmatedOrder.value = false
@@ -47,6 +50,7 @@ const timeSet = dayjs().add(30, "minutes").format();
 
 const createOrder2 = () => {
     if(havePenalization.value) return
+    transactionStore.showPreviewOrder = false
     confirmOrderStore.createOrder(OrderTypes.COMPRA);
     console.log('pagos', confirmOrderStore.form)
 };
