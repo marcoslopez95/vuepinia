@@ -1,5 +1,5 @@
 <template>
-    <div class="border-degree px-3 py-2" style="font-size:22px;max-width: 421px">
+    <div class="border-degree px-3 py-2 mt-3" style="font-size:22px;max-width: 421px">
             <div class="text-center text-table">
                 <span class="text-primary mr-5">Usuario: </span>
                 <span> {{ fullName }}</span>

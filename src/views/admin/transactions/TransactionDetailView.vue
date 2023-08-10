@@ -3,14 +3,14 @@
         No existe transaction con ese numero
     </div>
     <div v-else>
-        <VRow class="d-flex align-center">
-            <div class="text-18 font-weight-bold text-table">
+        <VRow class="d-flex align-center" :class="$vuetify.display.mdAndDown ? 'justify-center':''">
+            <div class="text-18 font-weight-bold text-table" >
                 Detalles transacción:
                 <span class="text-primary">{{
                     order?.attributes.tranx_no
                 }}</span>
             </div>
-            <div class="text-center ml-6" v-if="!verifyOrderCompleted">
+            <div class="text-center ml-6" v-if="!verifyOrderCompleted && $vuetify.display.lgAndUp">
                 <BtnWithModalComponent
                     :color-btn="(order!.attributes.processed_by) ? 'warning' :'primary'"
                     :text-btn="(order!.attributes.processed_by) ? 'Ceder Orden' :'Tomar Transacción'"
@@ -26,7 +26,7 @@
                 />
             </div>
         </VRow>
-        <VRow dense>
+        <VRow dense v-if="!$vuetify.display.mdAndDown">
             <VCol />
             <VCol class="d-flex justify-center text-table font-weight-bold">
                 <div
@@ -42,9 +42,24 @@
             </VCol>
         </VRow>
         <VRow>
-            <VCol>
-                <div style="max-width: 421px">
+            <VCol :cols="$vuetify.display.mdAndDown ? 12: 6">
+                <div class="mx-auto" style="max-width: 421px">
                     <general-detail></general-detail>
+                    <div class="text-center ml-6 mt-3" v-if="$vuetify.display.mdAndDown">
+                        <BtnWithModalComponent
+                            :color-btn="(order!.attributes.processed_by) ? 'warning' :'primary'"
+                            :text-btn="(order!.attributes.processed_by) ? 'Ceder Orden' :'Tomar Transacción'"
+                            :title-modal="(order!.attributes.processed_by) ? '¿Quieres ceder esta orden?' :'¿Quieres tomar esta orden?'"
+                            :icon="QuestionIcon"
+                            :color-icon="(order!.attributes.processed_by) ? 'warning' : 'primary'"
+                            :btn-modal="(order!.attributes.processed_by) ? 'Sí, cederla' : 'Sí, tomarla'"
+                            @click:btn-modal="
+                                order!.attributes.processed_by
+                                    ? releasseOrder()
+                                    : takeOrder()
+                            "
+                        />
+                    </div>
                     <user-detail class="mt-3"></user-detail>
                     <UploadImageComponent
                         v-if="order.attributes.type == OrderTypes.VENTA"
@@ -57,7 +72,20 @@
                     <detail-account-sell v-if="order.attributes.type == OrderTypes.COMPRA"  />
                 </div>
             </VCol>
-            <VCol>
+            <VCol v-if="$vuetify.display.mdAndDown" cols="12" class="d-flex justify-center text-table font-weight-bold">
+                <div
+                    class="cursor-pointer d-flex align-center"
+                    @click="showDetailPayment = !showDetailPayment"
+                >
+                    <VIcon
+                        :class="showDetailPayment ? '' : 'rotate-270'"
+                        :icon="SelectIcon"
+                    />
+                    <span>Mostrar Detalle</span>
+                </div>
+            </VCol>
+            <VCol :cols="$vuetify.display.mdAndDown ? 12: 6">
+                
                 <div
                     class="mx-auto"
                     v-if="showDetailPayment"
@@ -78,6 +106,7 @@
                 </div>
             </VCol>
         </VRow>
+       
         <VRow v-if="!verifyOrderCompleted">
             <VCol>
                 <div

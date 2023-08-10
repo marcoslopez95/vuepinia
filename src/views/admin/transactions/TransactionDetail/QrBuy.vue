@@ -1,14 +1,15 @@
 <template>
-    <div class="border-degree">
-        <div class="my-4 d-flex justify-center align-center gap-2">
+    <div :class="$vuetify.display.mdAndDown ? '' :'border-degree'">
+        <div class="my-4 d-flex justify-center align-center gap-2 flex-column flex-lg-row">
             <QrcodeVue
+                class="order-1 order-lg-0"
                 foreground="#5043E8"
                 :value="getDataForQr()"
                 render-as="svg"
-                :size="130"
+                :size="$vuetify.display.mdAndDown ? 217 : 130"
             >
             </QrcodeVue>
-            <div>
+            <div class="order-0 order-lg-1" :class="$vuetify.display.mdAndDown ? 'my-4':''">
                 <btn-with-modal-component
                     :icon="QuestionIcon"
                     text-btn="Desembolso"

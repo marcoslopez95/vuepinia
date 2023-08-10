@@ -50,10 +50,8 @@
                 Realizar pago y sube el comprobante de pago
             </h3>
         </VCol>
-        <VCol cols="6" class="my-6 h-100" style="height: 200px">
-            <div
-                class="v-text-field__slot h-100"
-            >
+        <VCol cols="12" lg="6" class="my-6 h-100" style="height: 200px">
+            <div class="v-text-field__slot h-100">
                 <div>
                     <VImg
                         v-if="getImageBank()"
@@ -94,7 +92,7 @@
                 </div>
             </div>
         </VCol>
-        <VCol cols="6" class="">
+        <VCol cols="12" lg="6" class="">
             <UploadImageComponent
                 :class-input="[
                     'd-flex h-100 flex-column justify-center align-center',
@@ -104,23 +102,29 @@
                 text="Sube tu comprobante de pago"
             ></UploadImageComponent>
         </VCol>
-        <VCol cols="12" class="text-center" 
-        v-if="
-        //order.relationships?.status.id === StatusOrder.RECEIVED_ORDER || 
-        typeof comprobant != 'string'"
+        <VCol
+            cols="12"
+            class="text-center"
+            v-if="
+                //order.relationships?.status.id === StatusOrder.RECEIVED_ORDER ||
+                typeof comprobant != 'string'
+            "
         >
-            <VBtnPrimary 
-                @click="uploadVoucher" 
-                :disabled="!comprobant || typeof comprobant == 'string'">
+            <VBtnPrimary
+                @click="uploadVoucher"
+                :disabled="!comprobant || typeof comprobant == 'string'"
+            >
                 Subir Comprobante
             </VBtnPrimary>
         </VCol>
     </VRow>
 
-    <VRow v-if="
-        //order.relationships?.status.id === StatusOrder.RECEIVED_ORDER || 
-        typeof comprobant != 'string'"
-        >
+    <VRow
+        v-if="
+            //order.relationships?.status.id === StatusOrder.RECEIVED_ORDER ||
+            typeof comprobant != 'string'
+        "
+    >
         <div class="text-table mt-7">
             Tienes
             <CountDown :dateFinish="timeSet" @endTime="alerta"></CountDown>
@@ -132,8 +136,6 @@
     <div class="text-center w-100 mt-10">
         <cancel-order :order="order"></cancel-order>
     </div>
-
-   
 </template>
 
 <script setup lang="ts">
@@ -142,28 +144,28 @@ import DialogGlobal from "@/components/global/DialogGlobal.vue";
 import { helperStore } from "@/helper";
 import { TransactionStore } from "@/stores/TransactionStore";
 import UploadImageComponent from "@/views/user/Kyc/components/UploadImageComponent.vue";
-import { ref,computed } from "vue";
+import { ref, computed } from "vue";
 import type { BankAccount } from "@/interfaces/CompanyAccount/BankAccount/BankAccount.model";
 import dayjs from "dayjs";
 import { storeToRefs } from "pinia";
 import type { Order } from "@/interfaces/Order/Order.model";
 import CancelOrder from "./CancelOrder.vue";
-import type { OrderUploadVoucher } from '@/interfaces/Order/Order.dto'
+import type { OrderUploadVoucher } from "@/interfaces/Order/Order.dto";
 import { reactive } from "vue";
 import { useRouter } from "vue-router";
 import { StatusOrder } from "@/enums/StatusOrder.enum";
-import InstructionsModal from '@/views/user/Compra/CheckBuy/components/InstructionsModal.vue'
+import InstructionsModal from "@/views/user/Compra/CheckBuy/components/InstructionsModal.vue";
 
-const router = useRouter()
+const router = useRouter();
 const props = defineProps<{
     order: Order;
 }>();
 
 const form = reactive<OrderUploadVoucher>({
-    name: '',
+    name: "",
     order_id: props.order.id,
-    vouchers: []
-})
+    vouchers: [],
+});
 const helper = helperStore();
 const transactionStore = TransactionStore();
 const openModal = ref(false);
@@ -171,10 +173,11 @@ const accountDelivery = props.order.relationships
     ?.account_delivery as BankAccount;
 const alerta = () => alert("se acbo");
 const comprobant = ref<Blob | string>(
-    props.order.relationships!.images.length > 0 
-    && props.order.relationships?.images[0].attributes.aws_url
-    ?props.order.relationships?.images[0].attributes.aws_url
-    :"");
+    props.order.relationships!.images.length > 0 &&
+        props.order.relationships?.images[0].attributes.aws_url
+        ? props.order.relationships?.images[0].attributes.aws_url
+        : ""
+);
 const timeSet = dayjs().add(30, "minute").format();
 
 const getImageBank = (): string | false => {
@@ -184,26 +187,34 @@ const getImageBank = (): string | false => {
 };
 
 const getColorBank = computed(() => {
-    return accountDelivery.relationships?.bank.attributes.color ?? 'yellow'
-})
+    return accountDelivery.relationships?.bank.attributes.color ?? "yellow";
+});
 
 const uploadVoucher = async () => {
-    const url = 'order/charge/voucher'
-    const data = new FormData()
-    data.append('name',form.name)
-    data.append('order_id',form.order_id.toString())
-    data.append('vouchers[]',comprobant.value)
-    await helper.http(url,'post',{data})
-    helper.showNotify('Su comprobante se ha subido Satisfactoriamente')
-    setInterval(()=>{
-        router.push({name: 'user-profile'})
-    },5000)
-}
+    const url = "order/charge/voucher";
+    const data = new FormData();
+    data.append("name", form.name);
+    data.append("order_id", form.order_id.toString());
+    data.append("vouchers[]", comprobant.value);
+    await helper.http(url, "post", { data });
+    helper.showNotify("Su comprobante se ha subido Satisfactoriamente");
+    setInterval(() => {
+        router.push({ name: "user-profile" });
+    }, 5000);
+};
 </script>
 
 <style scoped lang="scss">
-$background-color: v-bind('getColorBank');
+$background-color: v-bind("getColorBank");
 .v-text-field__slot {
-    background: linear-gradient($background-color, $background-color) padding-box, linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(80,67,233,1) 0%, rgba(22,180,229,1) 100%) border-box;
+    background: linear-gradient($background-color, $background-color)
+            padding-box,
+        linear-gradient(
+                180deg,
+                rgba(2, 0, 36, 1) 0%,
+                rgba(80, 67, 233, 1) 0%,
+                rgba(22, 180, 229, 1) 100%
+            )
+            border-box;
 }
 </style>
