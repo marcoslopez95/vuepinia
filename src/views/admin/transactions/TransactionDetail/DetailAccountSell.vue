@@ -29,12 +29,16 @@
                 {{ bankAccount?.attributes.identification_document }} <br />
                 Número de Cuenta: {{ bankAccount?.attributes.account_number }}
                 <br />
-                Banco: {{ bankAccount?.relationships?.bank?.attributes.name }}
+                <span v-if="bankAccount?.relationships?.bank">
+                    Banco: {{ bankAccount?.relationships?.bank?.attributes.name }}
+                </span>
                 <br />
-                Tipo de Cuenta:
-                {{
-                    bankAccount?.relationships?.typeAccountBank.attributes.name
-                }}
+                <span v-if="bankAccount?.relationships?.typeAccountBank">
+                    Tipo de Cuenta:
+                    {{
+                        bankAccount?.relationships?.typeAccountBank.attributes.name
+                    }}
+                </span>
             </div>
         </div>
         <div v-if="order?.attributes.type == OrderTypes.COMPRA" class="py-4 px-2 text-table" style="font-size: 20px;">
@@ -62,13 +66,13 @@
                     {{ bankAccount?.attributes.account_number }}
                 </VCol>
             </VRow>
-            <VRow dense class="text-left ">
+            <VRow dense class="text-left " v-if="bankAccount?.relationships?.bank">
                 <VCol class="py-0 " >Banco:</VCol>
                 <VCol class="py-0 " >
                     {{ bankAccount?.relationships?.bank.attributes.name }}
                 </VCol>
             </VRow>
-            <VRow dense class="text-left ">
+            <VRow dense class="text-left " >
                 <VCol class="py-0 " >Cantidad Comprada:</VCol>
                 <VCol class="py-0 text-primary">
                     {{ formatNumber(
