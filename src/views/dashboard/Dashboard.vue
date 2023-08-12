@@ -6,9 +6,9 @@ import CardComponent from '@/views/dashboard/Dashboard/CardComponent.vue'
 <template>
   <VRow class="">
     <VCol cols="4">
-      <CardComponent>
+      <!-- <CardComponent> -->
   
-      </CardComponent>
+      <!-- </CardComponent> -->
     </VCol>
   </VRow>
 </template>
