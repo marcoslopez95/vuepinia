@@ -1,5 +1,5 @@
 <template>
-    <VRow class="d-flex align-center justify-space-between" style="max-height: 400px;">
+    <VRow dense class="d-flex align-center justify-space-between" style="max-height: 400px;">
         <VCol cols="1" v-if="!isMobile">
 
             <VIcon size="50" @click="back">

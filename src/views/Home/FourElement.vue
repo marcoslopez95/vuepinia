@@ -4,7 +4,7 @@
     >
         <VRow class="px-6">
             <VCol :cols="isMobile ? 12 :6" 
-                class="text-center d-flex px-5 aos-init aos-animate" 
+                class="text-center d-flex align-center justify-center px-5 aos-init aos-animate" 
                 style="flex-direction: column;"
                 data-aos="fade-up"
                 data-aos-easing="linear"
@@ -29,7 +29,7 @@
             </VCol>
             <VCol 
                 :cols="isMobile ? 12 :6" 
-                class="text-center d-flex px-5 aos-init aos-animate" 
+                class="text-center d-flex justify-center align-center px-5 aos-init aos-animate" 
                 style="flex-direction: column;"
                 data-aos="fade-up"
                 data-aos-easing="linear"
@@ -73,8 +73,7 @@ const isMobile = ref(useDisplay().smAndDown)
 }
 
 .margin-full {
-    margin-left: -40px;
-    margin-right: -40px;
+    
 }
 
 @keyframes gradient {

@@ -7,7 +7,7 @@
         >
             {{ $t("views.home.calculator.title") }}
         </VCardTitle>
-        <VCardText class="px-3 border-primary">
+        <VCardText class="px-3 " :class="!xs ? 'border-primary' : ''">
             <VRow dense class="d-flex justify-space-between px-4">
                 <div
                     :style="[xs ? 'font-size:11px!important' : '']"

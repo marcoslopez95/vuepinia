@@ -17,6 +17,7 @@ export const WalletStore = defineStore('wallet', () => {
             }
         }, '', true)
         currencies.value = res.data.response as Currency[];
+        currencies.value.push(...res.data.response as Currency[]);
     }
     const coinsInit = ref<Coin[]>([])
 
@@ -52,13 +53,13 @@ export const WalletStore = defineStore('wallet', () => {
     const colors = {
         same: "same",
         up: "up",
-        down: "down",
+        down: "down-2",
     };
 
     const colorsText = {
         same: "table",
-        up: "success",
-        down: "error",
+        up: "ok-2",
+        down: "down",
     };
     const orientationArrow = {
         same: "-90",
@@ -69,10 +70,12 @@ export const WalletStore = defineStore('wallet', () => {
     const coins = computed(()=> setCoins() ?? [])
     const getBandForCoin = (coin:Coin,value:number): BandCoin => {
         // console.log('coin',coin)
+        // return 'same'
         if(coin?.value == value) return 'same'
         return coin?.value > value ? 'up' : 'down'
     }
     const getporcentForCoin = (coin:Coin,value:number): string => {
+        // return '0'
         if(coin.value == value) return '0'
         const percent = ((value - coin.value) / coin.value) * 100
         return percent.toFixed(2)

@@ -22,19 +22,17 @@
             <FourElement />
             <FiveElement />
 
-            <VRow class="text-table aos-init aos-animate" 
+            <div dense class="text-table aos-init aos-animate text-center"  
 				data-aos="flip-left" 
 				data-aos-easing="linear"
 				data-aos-duration="500"
 				data-aos-delay="1500"
 				>
-                <VCol class="text-center">
                     <span class="text-h5">
                         Dudas? Preguntas? visita nuestro
                         <span class="text-primary">help desk</span>
                     </span>
-                </VCol>
-            </VRow>
+            </div>
         </v-main>
         <FooterComponent />
     </v-app>

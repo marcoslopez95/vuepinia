@@ -1,6 +1,6 @@
 <template>
     <VAppBar
-        class="py-1"
+        class=""
         :class="widthWindow < 550 ? 'px-1' : 'px-10'"
         elevation="0"
         :color="currentColor"
@@ -17,8 +17,8 @@
         </template>
         <!-- Contenido de la barra de navegación -->
         <template #append>
-            <LangComponent :class="isScrolled ? 'text-white' : 'text-table'" />
-            <div v-if="!userLogged" class="">
+            <!-- <LangComponent :class="isScrolled ? 'text-white' : 'text-table'" /> -->
+            <div v-if="!userLogged && widthWindow > 550" class="">
                 <VBtnPrimary
                     class="font-weight-bold mr-4"
                     :class="[isScrolled ? 'text-white' : 'text-table']"

@@ -1,7 +1,7 @@
 <template>
-    <VRow class="d-flex align-center">
-        <VCol sm="8" cols="9" v-if="!isMobile">
-            <VRow>
+    <VRow dense class="d-flex align-center">
+        <VCol sm="8" cols="9" v-if="!isMobile" class="mx-0 px-0">
+            <VRow dense>
                 <VCol
                     sm="4"
                     lg="3"
@@ -9,72 +9,78 @@
                     v-for="(coin, i) in coins"
                     :key="i"
                 >
-                    <VCard elevation="5" class="" style="max-width: 232px; height: 206px;">
+                    <VCard
+                        elevation="5"
+                        class=""
+                        style="max-width: 232px; height: 206px"
+                    >
                         <VCardText class="px-1 py-4">
-                            <div class="px-4">
-                            <VRow >
-                                <VImg
-                                    inline
-                                    width="50px"
-                                    :src="coin.icon"
-                                ></VImg>
-                                <VCol class="d-flex">
-                                    <div class="mr-4">
-                                        <span
-                                            class="font-weight-bold text-dark"
-                                            >{{ coin.name }}</span
-                                        >
-                                        <br />
-                                        <span class="text-table">{{
-                                            coin.abbreviation
-                                        }}</span>
-                                    </div>
-                                    <VBtn
-                                        elevation="0"
-                                        size="small"
-                                        :flat="false"
-                                        style="
-                                            width: 24px !important;
-                                            height: 24px;
-                                        "
-                                        class="rounded"
-                                        :class="`bg-${colors[coin.band]}`"
-                                        icon
+                            <div class="px-2">
+                                <div dense class="d-flex justify-space-between">
+                                    <VImg
+                                        inline
+                                        width="50"
+                                        :src="coin.icon"
+                                    ></VImg>
+                                    <div
+                                        class="mx-0 pl-1 d-flex justify-space-between"
                                     >
-                                        <VIcon
-                                            icon="mdi-arrow-down"
-                                            :class="`arrow-${
-                                                colors[coin.band]
-                                            }`"
-                                            :style="`
+                                        <div class="mr-4 text-20">
+                                            <span
+                                                class="font-weight-bold text-dark text-capitalize"
+                                                >{{ coin.name }}</span
+                                            >
+                                            <br />
+                                            <span
+                                                class="text-table font-weight-light"
+                                                >{{
+                                                    coin.abbreviation.toLocaleUpperCase()
+                                                }}</span
+                                            >
+                                        </div>
+                                        <div
+                                            elevation="0"
+                                            style="
+                                                width: 24px !important;
+                                                height: 24px;
+                                            "
+                                            class="rounded d-flex justify-center align-center"
+                                            color="light"
+                                            :class="`bg-${colors[coin.band]}`"
+                                            icon
+                                        >
+                                            <VIcon
+                                                icon="mdi-arrow-down"
+                                                :color="`${colors[coin.band]}`"
+                                                :style="`
                                                 transform: rotate(${
                                                     orientationArrow[coin.band]
                                                 }deg);
                                             `"
-                                        >
-                                        </VIcon>
-                                    </VBtn>
-                                </VCol>
-                            </VRow>
+                                            >
+                                            </VIcon>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="px-2">
-                            <VRow>
-                                <VCol
-                                    cols="12"
-                                    class="text-h6 font-weight-bold mb-0 pb-0"
-                                >
-                                    COP {{ formatNumber(coin.value) }}
-                                </VCol>
-                                <VCol
-                                    cols="12"
-                                    class="font-weight-bold mt-0 pt-0"
-                                    :class="`text-${colorsText[coin.band]}`"
-                                >
-                                    {{ coin.porcent }} %
-                                </VCol>
-                            </VRow>
+                                <!-- <div dense> -->
+                                    <div
+                                        class="font-25 text-table-2 font-weight-bold mb-0 pb-0"
+                                    >
+                                        COP {{ formatNumber(coin.value) }}
+                                    </div>
+                                    <div
+                                        class="font-weight-light mt-0 pt-0 text-20"
+                                        :class="`text-${colorsText[coin.band]}`"
+                                    >
+                                        {{ coin.porcent }} %
+                                    </div>
+                                <!-- </div> -->
                             </div>
-                            <VRow class="mx-0 px-0 mt-2">
+                        </VCardText>
+                        <VCardActions class="my-0 py-0">
+                            <div dense class=" h-100">
                                 <VCol class="text-center text-caption px-0">
                                     <p
                                         style="
@@ -83,12 +89,16 @@
                                             line-height: 0.8rem;
                                         "
                                     >
-                                        Ultima actualizacion: <br>{{ dateQueryTicker }} <br />
+                                        Ultima actualizacion: <br />{{
+                                            dateQueryTicker
+                                        }}
+                                        <br />
                                         Valor Aproximado basado en TRM
                                     </p>
                                 </VCol>
-                            </VRow>
-                        </VCardText>
+                            </div>
+
+                        </VCardActions>
                     </VCard>
                 </VCol>
             </VRow>
@@ -148,11 +158,11 @@ onUnmounted(() => {
     border: 2px solid;
     border-color: $color-primary;
 }
-.bg-down {
+.bg-down-2 {
     background-color: #ff707033 !important;
 }
 
-.arrow-down {
+.arrow-down-2 {
     color: #ff7070 !important;
 }
 

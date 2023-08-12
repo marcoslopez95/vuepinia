@@ -14,6 +14,7 @@ const Lighttheme: ThemeDefinition = {
     // primary: "#ee8a6a",
     primary: "#5043E8",
     table: "#5C6776",
+    'table-2': '#4F4F5B',
     info: "#0cb9c5",
     success: "#8AE250",
     accent: "#fc4b6c",
@@ -38,7 +39,10 @@ const Lighttheme: ThemeDefinition = {
     'sky-1' : '#EDF5FC',
     'soft-error': '#ef5da84d',
     'soft-error-border': '#EF5DA8',
-    'inactive': '#D9D9D9'
+    'inactive': '#D9D9D9',
+    'down': '#F00',
+    'down-2': '#FF7070',
+    'up': '#2B5517'
   },
 };
 

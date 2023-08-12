@@ -1,5 +1,5 @@
 <template>
-    <VRow>
+    <VRow dense>
         <VCol :cols="isMobile ? 12:6">
             <VList>
                 <VListItem 

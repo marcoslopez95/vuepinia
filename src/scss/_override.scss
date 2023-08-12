@@ -55,8 +55,16 @@ html {
   }
 }
 
+.font-25 {
+  font-size: 25px!important;
+}
+
 .font-22 {
   font-size: 22px!important;
+}
+
+.font-50{
+  font-size: 50px!important;
 }
 
 .alertError {
@@ -135,6 +143,9 @@ html {
   -moz-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   -o-transform: rotate(45deg);
+}
+.font-weight-semibold{
+  font-weight: 600;
 }
 // .v-menu > .v-overlay__content{
 //   border: 1px solid $color-primary!important;

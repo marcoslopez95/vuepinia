@@ -13,15 +13,33 @@
 @import "./pages/dashboards";
 
 @font-face {
-    font-family: 'ProximaNovaRegular';
-    src: $font-regular;
-    font-weight: normal;
+    font-family: 'ProximaNova';
+    src: $font-thin;
+    font-weight: 100;
     font-style: normal;
 }
 @font-face {
-    font-family: 'ProximaNovaBold';
+    font-family: 'ProximaNova';
+    src: $font-light;
+    font-weight: 300;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'ProximaNova';
+    src: $font-regular;
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'ProximaNova';
+    src: $font-semibold;
+    font-weight: 600;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'ProximaNova';
     src: $font-bold;
-    font-weight: normal;
+    font-weight: 700;
     font-style: normal;
 }
 // @font-face {
@@ -31,26 +49,8 @@
 //     font-style: normal;
 // }
 @font-face {
-    font-family: 'ProximaNovaSemibold';
-    src: $font-semibold;
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'ProximaNovaLight';
-    src: $font-light;
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'ProximaNovaThin';
-    src: $font-thin;
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'ProximaNovaBlack';
+    font-family: 'ProximaNova';
     src: $font-black;
-    font-weight: normal;
+    font-weight: 900;
     font-style: normal;
 }
