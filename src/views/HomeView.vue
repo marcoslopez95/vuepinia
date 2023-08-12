@@ -3,7 +3,7 @@
     <v-app>
         <NavBar />
 
-        <v-main :class="isMobile ? 'px-2' : 'px-10'">
+        <v-main :class="isMobile ? '' : 'px-10'">
             <vue-particles
             id="tsparticles"
                 :particlesInit="particlesInit"
@@ -13,12 +13,13 @@
             <div style="max-width: 1200px;" class="mx-auto">
                 <FirstElement />
                 <!-- Contenido principal de tu aplicación -->
+                <VSpacer class="my-6" />
                 <SecondElement />
-                <VSpacer class="my-3"> </VSpacer>
+                <VSpacer class="my-16" />
                 <ThreeElement />
             </div>
 
-            <VSpacer class="my-3"> </VSpacer>
+            <VSpacer class="my-3" /> 
             <FourElement />
             <FiveElement />
 

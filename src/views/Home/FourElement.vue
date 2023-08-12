@@ -1,8 +1,8 @@
 <template>
-    <div class="px-3 text-white mb-4 mt-10 margin-full" 
+    <div class=" text-white mb-4 mt-10 margin-full" 
     :class="!isMobile ? 'fond_monedas' : '' "
     >
-        <VRow class="px-6">
+        <VRow dense class="">
             <VCol :cols="isMobile ? 12 :6" 
                 class="text-center d-flex align-center justify-center px-5 aos-init aos-animate" 
                 style="flex-direction: column;"
@@ -40,7 +40,6 @@
                     <VIcon :size="isMobile? 300 :500" :icon="img2" />
                 </div>
                 <div class="text-justify">
-
                     <p class="text-h4 font-weight-bold text-center">Las mejores Criptomonedas </p>
                     <p class="my-4">Estamos en constante actualización incluyendo en nuestro sistema las criptomonedas de mayor capitalización, las cuales puedes intercambiar por pesos y viceversa, listamos las monedas que consideramos tienen un volumen importante de operaciones y por supuesto los proyectos solidos.</p>
                 </div>

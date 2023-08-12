@@ -107,7 +107,7 @@
             class="h-100"
             :sm="isMobile ? 12 : 4"
             :cols="isMobile ? 12 : 3"
-            :class="isMobile ? 'mx-1' : ''"
+            :class="isMobile ? '' : ''"
         >
             <CalculatorComponent
                 class="mx-auto"

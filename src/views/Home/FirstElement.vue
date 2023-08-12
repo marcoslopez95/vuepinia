@@ -1,5 +1,5 @@
 <template>
-    <VRow dense class="d-flex align-center">
+    <VRow class="d-flex align-center">
         <VCol class="">
             <VImg class="mx-auto" :src="FirstImage" width="573px" height="369px" />
         </VCol>

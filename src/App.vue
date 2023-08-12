@@ -1,8 +1,10 @@
 <template>
+  <VApp>
   <RouterView></RouterView>
   <v-overlay v-model="helper.loading" class="overl">
       <v-progress-circular indeterminate size="64"></v-progress-circular>
     </v-overlay>
+  </VApp>
 </template>
 
 <script setup lang="ts">
