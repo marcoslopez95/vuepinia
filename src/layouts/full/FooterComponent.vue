@@ -2,10 +2,10 @@
     <VFooter>
         <div class="w-100 text-center">
             <div class="d-flex justify-center">
-                <VIcon title="Telegram" color="table" :icon="TelegramIcon" />
-                <VIcon title="Instagram" color="table" icon="mdi-instagram" />
-                <VIcon title="Twitter" color="table" icon="mdi-twitter" />
-                <VIcon title="Facebook" color="table" icon="mdi-facebook" />
+                <VIcon title="Telegram" color="table-icon" :icon="TelegramIcon" />
+                <VIcon title="Instagram" color="table-icon" icon="mdi-instagram" />
+                <VIcon title="Twitter" color="table-icon" icon="mdi-twitter" />
+                <VIcon title="Facebook" color="table-icon" icon="mdi-facebook" />
             </div>
             <span class="text-table">
                 2022 Xeler Go Todos los derechos reservados
