@@ -3,7 +3,7 @@
     <v-app>
         <NavBar />
 
-        <v-main :class="isMobile ? '' : 'px-10'">
+        <v-main :class="isMobile ? '' : ''">
             <vue-particles
             id="tsparticles"
                 :particlesInit="particlesInit"
@@ -21,7 +21,7 @@
 
             <VSpacer class="my-3" /> 
             <FourElement />
-            <FiveElement />
+            <FiveElement :class="isMobile ? '' : 'px-16'" />
 
             <div dense class="text-table aos-init aos-animate text-center"  
 				data-aos="flip-left" 

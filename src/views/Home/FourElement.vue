@@ -3,17 +3,17 @@
         class="text-white mb-4 mt-10 margin-full"
         :class="!isMobile ? 'fond_monedas' : ''"
     >
-        <VRow dense class="">
+        <VRow dense :class="isMobile ? '' : 'px-16'">
             <VCol
                 :cols="isMobile ? 12 : 6"
-                class="text-center d-flex align-center justify-center px-5 aos-init aos-animate"
+                class="text-center d-flex align-center justify-center px-5 aos-init aos-animate h-50"
                 style="flex-direction: column"
                 data-aos="fade-up"
                 data-aos-easing="linear"
                 data-aos-duration="1000"
             >
                 <div>
-                    <VIcon :size="isMobile ? 300 : 500" :icon="img1" />
+                    <VIcon :size="isMobile ? 360 : 500" :icon="img1" />
                 </div>
                 <div
                     class="text-justify"
@@ -65,7 +65,7 @@
             </VCol>
             <VCol
                 :cols="isMobile ? 12 : 6"
-                class="text-center d-flex justify-center align-center px-5 aos-init aos-animate"
+                class="text-center d-flex justify-center align-center px-5 aos-init aos-animate h-50"
                 style="flex-direction: column"
                 data-aos="fade-up"
                 data-aos-easing="linear"
@@ -73,7 +73,7 @@
                 :class="isMobile ? 'fond_monedas ' : ''"
             >
                 <div>
-                    <VIcon :size="isMobile ? 300 : 500" :icon="img2" />
+                    <VIcon :size="isMobile ? 360 : 500" :icon="img2" />
                 </div>
                 <div class="text-justify">
                     <p  
@@ -124,8 +124,6 @@ const isMobile = ref(useDisplay().smAndDown);
     animation: gradient 6s ease infinite;
 }
 
-.margin-full {
-}
 
 @keyframes gradient {
     0% {

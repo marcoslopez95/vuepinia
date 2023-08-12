@@ -1,6 +1,6 @@
 <template>
     <VFooter>
-        <div class=" text-center">
+        <div class="w-100 text-center">
             <div class="d-flex justify-center">
                 <VIcon title="Telegram" color="table" :icon="TelegramIcon" />
                 <VIcon title="Instagram" color="table" icon="mdi-instagram" />

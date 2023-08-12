@@ -2,8 +2,8 @@
     <svg
         class="svg_mone"
         width="592"
-        height="400"
-        viewBox="0 0 592 400"
+        height="300"
+        viewBox="0 0 592 300"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -21,6 +21,7 @@
             class="monedaC_svg animation-moneda"
             width="317.832"
             height="291.304"
+            y="-30"
             transform="matrix(-1 0 0 1 592 108.696)"
             fill="url(#pattern2)"
         ></rect>

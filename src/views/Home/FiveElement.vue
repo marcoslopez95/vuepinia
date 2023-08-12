@@ -27,7 +27,7 @@
                 <VListItem 
                     v-for="item,i in secondColumn" 
                     :key="i" 
-                    class=" text-h5 my-3 aos-init aos-animate overflow-hidden" 
+                    class="font-20 my-3 aos-init aos-animate overflow-hidden" 
                     data-aos="fade-left"
                     data-aos-easing="linear"
                     data-aos-duration="500">
@@ -39,8 +39,7 @@
 
                         </div>
                     </template>
-                    <p class="ml-4" >
-                        {{ item.text }}
+                    <p class="ml-4" v-html="item.text" >
                     </p>
                 </VListItem>
             </VList>
