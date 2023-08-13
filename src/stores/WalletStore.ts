@@ -17,7 +17,7 @@ export const WalletStore = defineStore('wallet', () => {
             }
         }, '', true)
         currencies.value = res.data.response as Currency[];
-        currencies.value.push(...res.data.response as Currency[]);
+        // currencies.value.push(...res.data.response as Currency[]);
         // currencies.value.push(...res.data.response as Currency[]);
     }
     const coinsInit = ref<Coin[]>([])

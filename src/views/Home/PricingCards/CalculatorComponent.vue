@@ -139,24 +139,36 @@
                                 </template>
 
                                 <template #item="{ item, props, index }">
-                                    <v-divider class="mb-2"></v-divider>
-
                                     <v-list-item
                                         @click="
                                             cryptoSelect = item.raw.id;
                                             vModelMenu = false;
                                         "
+                                        class="text-table-2"
                                     >
-                                        <template v-slot:prepend>
-                                            <VImg
+                                        <template #prepend>
+                                            <img
+                                                inline
                                                 v-if="itemHaveImages((item.raw as Currency).relationships?.images)"
                                                 :src="itemHaveImages((item.raw as Currency).relationships?.images) as string"
-                                                sizes="25px"
-                                            ></VImg>
+                                                width="25"
+                                                height="25"
+                                            >
                                         </template>
-                                        <span class="ml-2">
-                                            {{ item.title }}
-                                        </span>
+                                        <div class="d-flex justify-space-between align-center">
+                                            <div>
+                                                <span class="ml-2 font-weight-semibold font-22">
+                                                    {{ (item.raw as Currency).attributes.abbreviation.toUpperCase() }}
+                                                </span>
+                                                <span class="ml-2 text-capitalize">
+                                                    {{ (item.raw as Currency).attributes.name }}
+                                                </span>
+                                            </div>
+                                            <div class="ml-3" v-if="(item.raw as Currency).id == cryptoSelect">
+                                                <VIcon color="primary" size="16" :icon="CheckedIconVue" />
+                                            </div>
+                                        </div>
+
                                     </v-list-item>
                                 </template>
                             </VSelect>
@@ -205,6 +217,7 @@ import { storeToRefs } from "pinia";
 import type { Currency } from "@/interfaces/Currency/Currency.model";
 import { watch } from "vue";
 import { formatNumber, itemHaveImages } from "@/helper";
+import CheckedIconVue from "@/assets/icons/CheckedIcon.vue";
 
 const { smAndDown: isMobile,xs } = useDisplay();
 const isSell = ref(false);
