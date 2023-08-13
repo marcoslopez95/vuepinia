@@ -10,7 +10,7 @@
                 :particlesLoaded="particlesLoaded"
                 :options="optionsParticles"
     />
-            <div style="max-width: 1200px;" class="mx-auto px-4">
+            <div style="max-width: 1200px;" class="mx-auto">
                 <FirstElement />
                 <!-- Contenido principal de tu aplicación -->
                 <VSpacer class="my-6" />

@@ -15,9 +15,9 @@ html {
     background-color: #fcf1ed !important;
   }
 
-  .elevation-10 {
-    box-shadow: $box-shadow !important;
-  }
+  // .elevation-10 {
+  //   box-shadow: $box-shadow !important;
+  // }
   .v-card-text {
     padding: 30px;
   }
@@ -99,6 +99,14 @@ html {
   border: 1px solid;
   border-color: $color-primary;
 }
+.rounded-10{
+  border-radius: 10px!important;
+  -webkit-border-radius: 10px!important;
+  -moz-border-radius: 10px!important;
+  -ms-border-radius: 10px!important;
+  -o-border-radius: 10px!important;
+}
+
 .bg-down {
   background-color: #ff707033 !important;
 }

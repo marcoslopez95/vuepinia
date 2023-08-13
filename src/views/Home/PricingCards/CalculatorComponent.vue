@@ -1,120 +1,183 @@
 <template>
-    <VCard class="h-100 v-text-field__slot">
-        <VCardTitle
-            class="text-center"
-            :class="[!xs ? 'bg-primary' : 'text-primary']"
-            :style="[xs ? 'font-size:18px' : '']"
-        >
-            {{ $t("views.home.calculator.title") }}
-        </VCardTitle>
-        <VCardText class="px-3 " :class="!xs ? 'border-primary' : ''">
-            <VRow dense class="d-flex justify-space-between px-4">
+    <VCard elevation="15">
+        <div :class="showBuy ? 'degradado-buy' : 'degradado-sell'">
+            <div class="d-flex justify-lg-space-between" style="height: 70px">
                 <div
-                    :style="[xs ? 'font-size:11px!important' : '']"
-                    style="width: 90px"
+                    class="my-auto mx-auto font-weight-bold cursor-pointer"
+                    :class="showBuy ? 'text-white bg-primary' : 'text-primary'"
+                    @click="showBuy = true"
                 >
-                    <SwitchComponent
-                        v-model="isSell"
-                        title-on="Vender"
-                        title-off="Comprar"
-                        color-off="purple"
-                        color-on="red-300"
-                        :width-ball="24"
-                    >
-                    </SwitchComponent>
+                    <span class="">Comprar</span>
+                </div>
+                <div class="d-flex">
+                    <div
+                        class="barra"
+                        :class="!showBuy ? 'bg-white' : 'bg-primary'"
+                    ></div>
+                    <div
+                        class="barra"
+                        :class="showBuy ? 'bg-white' : 'bg-primary'"
+                    ></div>
                 </div>
                 <div
-                    :style="[xs ? 'font-size:11px!important' : '']"
-                    style="width: 90px"
+                    class="my-auto mx-auto font-weight-bold cursor-pointer"
+                    :class="!showBuy ? 'text-white bg-primary' : 'text-primary'"
+                    @click="showBuy = false"
                 >
-                    <SwitchComponent
-                        v-model="isBank"
-                        title-on="Banco"
-                        title-off="Efectivo"
-                        color-off="green"
-                        color-on="blue-sky"
-                        :width-ball="24"
-                    >
-                    </SwitchComponent>
+                    Vender
                 </div>
-            </VRow>
-            <VRow dense>
-                <VCol style="max-width: 170px" class="mx-auto">
-                    <SelectComponent
-                        v-model="cryptoSelect"
-                        height="33px"
-                        :items="currencies"
-                        item-title="attributes.name"
-                        item-value="id"
-                        name=""
-                    ></SelectComponent>
-                </VCol>
-            </VRow>
-            <div class="mx-4">
-                <VRow dense>
-                    <VCol>
-                        <InputComponent
-                            v-model="amountFiat"
-                            :events="eventsFiat"
-                            :rules="[onlyNumbers]"
-                            :disabled="!cryptoSelect"
-                            name="Pesos"
-                        ></InputComponent>
-                    </VCol>
-                </VRow>
-                <VRow dense>
-                    <VCol>
-                        <InputComponent
-                            v-model="amountCrypto"
-                            :events="eventsCrypto"
-                            :rules="[onlyNumbers]"
-                            :disabled="!cryptoSelect"
-                            name=""
-                        ></InputComponent>
-                    </VCol>
-                </VRow>
             </div>
-        </VCardText>
-        <VCardActions
-            class="pa-0"
-            :class="[!xs ? 'bg-primary text-white' : 'text-primary mb-3']"
+        </div>
+        <div
+            class="bg-primary"
+            :class="showBuy ? 'rounded-te-lg' : 'rounded-ts-lg'"
         >
-            <VRow v-if="amountCrypto && cryptoSelected" class="d-flex align-center my-1 justify-center">
-                    <div>
-                        <VImg
-                            v-if="walletStore.cryptoHaveImage(cryptoSelected)"
-                            inline
-                            width="50px"
-                            :src="(walletStore.cryptoHaveImage(cryptoSelected) as string)"
-                        >
-                        </VImg>
-                    </div>
-                    <div class="text-center">
-                        <p
-                            :style="[`font-size: ${!xs ? 30 : 20}px;`]"
-                            class="font-weight-bold"
-                        >
-                            <span v-if="amountCrypto">
-                                {{ parseFloat(amountCrypto).toFixed(5) }}
-                                {{
-                                    cryptoSelected?.attributes.abbreviation.toLocaleUpperCase()
-                                }}
-                            </span>
-                            <span v-else> 0 </span>
-                            <!-- {{ priceSelect }} -->
-                        </p>
-                        <p style="font-size: 10px">
-                            equivalente a <b>{{ calculadora.amountUsd }} USD</b>
-                        </p>
-                        <p style="font-size: 10px">Aproximadamente</p>
-                    </div>
-            </VRow>
-            <div v-else>
-                <p class="mx-5 my-5">
-                    Seleccione una moneda e Ingrese una cantidad
-                </p>
+            <div class="d-flex flex-column"  :class="showBuy ? 'flex-column' : 'flex-column-reverse'">
+
+            <div class="px-2 py-3">
+                <div
+                    class="d-flex justify-space-between align-center rounded-10 elevation-4 bg-white"
+                >
+                    <VRow dense class="d-flex align-center">
+                        <VCol>
+                            <VTextField
+                                bg-color="white"
+                                hide-details
+                                id="algo"
+                                class="font-22 probando"
+                                :disabled="!cryptoSelect"
+                                style="padding-left: 0px"
+                                :label="showBuy ? 'Pagas' : 'Recibes'"
+                                variant="solo"
+                                placeholder="0.00"
+                                active
+                                rounded="10"
+                                flat
+                                v-model="amountFiat"
+                                v-on="eventsFiat"
+                            >
+                            </VTextField>
+                        </VCol>
+                        <VCol cols="5" class="mr-3">
+                            <div
+                                class="bg-inactive-select rounded-lg d-flex align-center gap-2 justify-center py-1"
+                                style="height: 44px"
+                            >
+                                <VIcon :icon="ColombiaIcon" />
+                                <span
+                                    class="font-weight-semibold text-20 text-table-2"
+                                    >COP</span
+                                >
+                            </div>
+                        </VCol>
+                    </VRow>
+                </div>
             </div>
-        </VCardActions>
+            <div class="px-2 py-3">
+                <div
+                    class="d-flex justify-space-between align-center rounded-10 elevation-4 bg-white"
+                >
+                    <VRow dense class="d-flex align-center">
+                        <VCol >
+                            <VTextField
+                                bg-color="white"
+                                hide-details
+                                class="font-22"
+                                :label="showBuy ?'Recibes' : 'Vendes'"
+                                variant="solo"
+                                placeholder="0.00"
+                                active
+                                rounded="10"
+                                flat
+                                :disabled="!cryptoSelect"
+                                color="table-2"
+                                v-model="amountCrypto"
+                                v-on="eventsCrypto"
+                            >
+                            </VTextField>
+                        </VCol>
+                        <VCol cols="5" class="mr-3">
+                            <VSelect
+                                v-model="cryptoSelect"
+                                density="compact"
+                                hide-details
+                                :items="currencies"
+                                variant="solo"
+                                item-value="id"
+                                item-title="attributes.name"
+                                flat
+                                id="selectCrypto"
+                                single-line
+                                rounded="lg"
+                                bg-color="#f7f7f7"
+                                menu-icon=""
+                                :menu="vModelMenu"
+                                @update:menu="(v) => (vModelMenu = v)"
+                            >
+                                <template #selection="{ index, item }">
+                                    <!-- <div
+                                        class="d-flex h-100 w-100 align-center font-weight-semibold gap-2"
+                                    > -->
+                                    <VImg
+                                        inline
+                                        v-if="itemHaveImages((item.raw as Currency).relationships?.images)"
+                                        :src="itemHaveImages((item.raw as Currency).relationships?.images) as string"
+                                        sizes="20px"
+                                    ></VImg>
+                                    <span
+                                        class="font-weight-semibold text-20 text-table-2"
+                                        
+                                    >
+                                        {{
+                                            (
+                                                item.raw as Currency
+                                            ).attributes?.abbreviation?.toUpperCase() ??
+                                            "Seleccione"
+                                        }}
+                                    </span>
+                                    <!-- </div> -->
+                                </template>
+
+                                <template #item="{ item, props, index }">
+                                    <v-divider class="mb-2"></v-divider>
+
+                                    <v-list-item
+                                        @click="
+                                            cryptoSelect = item.raw.id;
+                                            vModelMenu = false;
+                                        "
+                                    >
+                                        <template v-slot:prepend>
+                                            <VImg
+                                                v-if="itemHaveImages((item.raw as Currency).relationships?.images)"
+                                                :src="itemHaveImages((item.raw as Currency).relationships?.images) as string"
+                                                sizes="25px"
+                                            ></VImg>
+                                        </template>
+                                        <span class="ml-2">
+                                            {{ item.title }}
+                                        </span>
+                                    </v-list-item>
+                                </template>
+                            </VSelect>
+                        </VCol>
+                    </VRow>
+                </div>
+            </div>
+            </div>
+
+            <VCardActions class="px-1 mx-1 d-flex justify-center">
+                <div class="text-center">
+                    <span v-if="amountCrypto">
+                        Equivalente a
+                        <b> {{ formatNumber(parseFloat(calculadora.amountUsd as string)) }} USD</b> apróximadamente
+                    </span>
+                    <span v-else>
+                        Seleccione una moneda e Ingrese una cantidad
+                    </span>
+                </div>
+            </VCardActions>
+        </div>
     </VCard>
 </template>
 
@@ -126,6 +189,7 @@ import { computed } from "vue";
 import { ref, reactive } from "vue";
 import { onMounted } from "vue";
 import BtcIcon from "./BtcIcon.vue";
+import ColombiaIcon from "@/assets/icons/ColombiaIcon.vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
 import { WalletStore } from "@/stores/WalletStore";
 import type { EventComponent } from "@/interfaces/Components.helper";
@@ -140,9 +204,9 @@ import type { CurrencyTicker } from "@/interfaces/Ticker/Ticker.model";
 import { storeToRefs } from "pinia";
 import type { Currency } from "@/interfaces/Currency/Currency.model";
 import { watch } from "vue";
-import { formatNumber } from "@/helper";
+import { formatNumber, itemHaveImages } from "@/helper";
 
-const { xs } = useDisplay();
+const { smAndDown: isMobile,xs } = useDisplay();
 const isSell = ref(false);
 const walletStore = WalletStore();
 const { currencies, currencyTicker: prices } = storeToRefs(walletStore);
@@ -246,9 +310,45 @@ const updateFiat = () => {
     amountFiat.value = calculadora.amountFiat.toFixed(2);
     emits("update:model-value", calculadora);
 };
+
+const showBuy = ref(true);
+const changeOrientation = computed(() => (showBuy.value ? 1.5 : -1.5));
+
+const vModelMenu = ref(false);
+
+watch(showBuy, (nuevo, viejo) => {});
+
+const fontSizeForInputs = computed(() => isMobile.value ? '21px' : '22px')
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
+@import "@/scss/variables.scss";
+
+.v-field__input {
+    font-size: v-bind("fontSizeForInputs");
+    color: #4F4F5B;
+    &#algo{
+        --v-field-padding-end: 0px!important;
+    }
+    #selectCrypto{
+        --v-field-padding-start: 0px!important;
+    }
+}
+$side: v-bind("changeOrientation");
+.degradado-buy {
+    background: linear-gradient(50deg, $color-primary 51%, #ffffff 49%);
+}
+.degradado-sell {
+    background: linear-gradient(-50deg, $color-primary 49%, #ffffff 51%);
+}
+
+.barra {
+    border-radius: 16px;
+    background-color: red;
+    transform: skewX(calc($side * 15deg));
+    width: 30px;
+}
+
 .image-container {
     // display: inline-block;
     border: 5px solid #ffffff;
@@ -260,5 +360,9 @@ const updateFiat = () => {
     display: block;
     width: 100%;
     height: auto;
+}
+
+.bg-inactive-select {
+    background-color: #f7f7f7;
 }
 </style>

@@ -1,8 +1,8 @@
 <template>
-    <VRow dense class="d-flex align-center">
-        <VCol sm="9" cols="8" v-if="!isMobile" class="mx-0 px-0">
-            <VRow dense>
-                <VCol
+    <VRow dense class="d-flex align-center gap-2 justify-center">
+        <div v-if="!isMobile" class="mx-0 px-0 d-flex gap-2 flex-wrap" style="width: 830px;">
+            <!-- <VRow dense> -->
+                <div
                     cols="4"
                     sm="4"
                     lg="3"
@@ -12,7 +12,7 @@
                     <VCard
                         elevation="5"
                         class=""
-                        style="max-width: 232px; height: 206px"
+                        style="width: 201px; height: 220px"
                     >
                         <VCardText class="px-1 py-4">
                             <div class="px-2">
@@ -62,7 +62,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="px-2 mt-6">
+                            <div class="px-1 mt-6">
                                 <!-- <div dense> -->
                                     <div
                                         class="font-22 text-table-2 font-weight-bold mb-0 pb-0"
@@ -96,22 +96,19 @@
                             </div>
                         </div>
                     </VCard>
-                </VCol>
-            </VRow>
-        </VCol>
-        <VCol
+                </div>
+            <!-- </VRow> -->
+        </div>
+        <div
             class="h-100"
-            :sm="isMobile ? 12 : 3"
-            :cols="isMobile ? 12 : 3"
-            :class="isMobile ? '' : ''"
+            :style="`width: ${isMobile ? 340 : 360}px`"
+
         >
             <CalculatorComponent
                 class="mx-auto"
-                style="max-height: 401"
-                :style="[`max-width:${xs ? 240 : 275}px`]"
             >
             </CalculatorComponent>
-        </VCol>
+        </div>
     </VRow>
 </template>
 
