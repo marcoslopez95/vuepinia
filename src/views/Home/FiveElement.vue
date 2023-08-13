@@ -4,7 +4,7 @@
             <VList>
                 <VListItem 
                     v-for="item,i in firstColumnComputed" :key="i" 
-                    class="text-h5 my-3 aos-init aos-animate"
+                    class="font-30 my-3 aos-init aos-animate"
                     data-aos="fade-right"
                     data-aos-easing="linear"
                     data-aos-duration="500">
@@ -27,7 +27,7 @@
                 <VListItem 
                     v-for="item,i in secondColumn" 
                     :key="i" 
-                    class="font-20 my-3 aos-init aos-animate overflow-hidden" 
+                    class="font-30 my-3 aos-init aos-animate overflow-hidden" 
                     data-aos="fade-left"
                     data-aos-easing="linear"
                     data-aos-duration="500">

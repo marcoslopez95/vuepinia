@@ -1,11 +1,11 @@
 <template>
     <VRow dense class="d-flex align-center">
-        <VCol sm="8" cols="9" v-if="!isMobile" class="mx-0 px-0">
+        <VCol sm="9" cols="8" v-if="!isMobile" class="mx-0 px-0">
             <VRow dense>
                 <VCol
+                    cols="4"
                     sm="4"
                     lg="3"
-                    cols="3"
                     v-for="(coin, i) in coins"
                     :key="i"
                 >
@@ -16,7 +16,7 @@
                     >
                         <VCardText class="px-1 py-4">
                             <div class="px-2">
-                                <div dense class="d-flex justify-space-between">
+                                <div dense class="d-flex justify-space-around">
                                     <VImg
                                         inline
                                         width="50"
@@ -25,17 +25,16 @@
                                     <div
                                         class="mx-0 pl-1 d-flex justify-space-between"
                                     >
-                                        <div class="mr-4 text-20">
-                                            <span
+                                        <div class="mr-4 text-20" style="line-height: 20px;">
+                                            <p
                                                 class="font-weight-bold text-dark text-capitalize"
-                                                >{{ coin.name }}</span
+                                                >{{ coin.name }}</p
                                             >
-                                            <br />
-                                            <span
+                                            <p
                                                 class="text-table font-weight-light"
                                                 >{{
                                                     coin.abbreviation.toLocaleUpperCase()
-                                                }}</span
+                                                }}</p
                                             >
                                         </div>
                                         <div
@@ -63,15 +62,15 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="px-2">
+                            <div class="px-2 mt-6">
                                 <!-- <div dense> -->
                                     <div
-                                        class="font-25 text-table-2 font-weight-bold mb-0 pb-0"
+                                        class="font-22 text-table-2 font-weight-bold mb-0 pb-0"
                                     >
                                         COP {{ formatNumber(coin.value) }}
                                     </div>
                                     <div
-                                        class="font-weight-light mt-0 pt-0 text-20"
+                                        class="font-weight-light mt-0 pt-1 text-20"
                                         :class="`text-${colorsText[coin.band]}`"
                                     >
                                         {{ coin.porcent }} %
@@ -79,9 +78,8 @@
                                 <!-- </div> -->
                             </div>
                         </VCardText>
-                        <VCardActions class="my-0 py-0">
-                            <div dense class=" h-100">
-                                <VCol class="text-center text-caption px-0">
+                        <div class="d-flex justify-center align-center ma-0 pa-0">
+                                <div class="text-table-2 text-center text-caption font-weight-light px-0 mx-0">
                                     <p
                                         style="
                                             font-size: 10px;
@@ -89,23 +87,21 @@
                                             line-height: 0.8rem;
                                         "
                                     >
-                                        Ultima actualizacion: <br />{{
+                                        Ultima actualizacion: <br>{{
                                             dateQueryTicker
                                         }}
                                         <br />
                                         Valor Aproximado basado en TRM
                                     </p>
-                                </VCol>
                             </div>
-
-                        </VCardActions>
+                        </div>
                     </VCard>
                 </VCol>
             </VRow>
         </VCol>
         <VCol
             class="h-100"
-            :sm="isMobile ? 12 : 4"
+            :sm="isMobile ? 12 : 3"
             :cols="isMobile ? 12 : 3"
             :class="isMobile ? '' : ''"
         >
@@ -127,6 +123,7 @@ import { useDisplay } from "vuetify/lib/framework.mjs";
 import { WalletStore } from "@/stores/WalletStore";
 import { ref, onMounted, onUnmounted } from "vue";
 import { storeToRefs } from "pinia";
+
 
 const walletStore = WalletStore();
 const { dateQueryTicker, coins } = storeToRefs(walletStore);

@@ -72,13 +72,14 @@ export const WalletStore = defineStore('wallet', () => {
         // console.log('coin',coin)
         // return 'same'
         if(coin?.value == value) return 'same'
-        return coin?.value > value ? 'up' : 'down'
+        return value > coin?.value ? 'up' : 'down'
     }
     const getporcentForCoin = (coin:Coin,value:number): string => {
         // return '0'
         if(coin.value == value) return '0'
         const percent = ((value - coin.value) / coin.value) * 100
-        return percent.toFixed(2)
+        if(percent.toFixed(2) == '0.00') return '0.00'
+        return percent > 0 ? `+`+percent.toFixed(2) : percent.toFixed(2)
     }
     
 const setCoins = (): Coin[] => {
