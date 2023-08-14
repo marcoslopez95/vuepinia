@@ -16,7 +16,7 @@ const db = {
     Awaiting: 'info',
     Accept: 'success',
     Inactive: 'error',
-    Active: 'success',
+    Active: 'ok',
     Reject: 'error',
   },
   verificateStatusField: {

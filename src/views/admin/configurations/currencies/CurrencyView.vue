@@ -20,10 +20,15 @@
     @update="openUpdate"
     :items="helper.items"
     >
-    <template #cel-attributes.username="{data}">
-        <span class="text-primary"> 
-            {{ data.attributes.username }}
-        </span>
+    <template #cel-attributes.name="{data}">
+        <div class="d-flex gap-2">
+            <div class="text-table text-left" style="width: 25px;">  
+                <VImg inline class="mx-auto my-auto" v-if="itemHaveImages(currency(data).relationships?.images)" :src="(itemHaveImages(currency(data).relationships?.images) as string)" width="25" />
+            </div>
+            <div>
+                {{ currency(data).attributes.name }}
+            </div>
+        </div>
     </template>
     </TableComponentVue>
 </template>
@@ -32,7 +37,7 @@
 import { ref } from 'vue';
 import CrudComponent from '@/components/global/CrudComponent.vue';
 import TableComponentVue from '@/components/global/TableComponent.vue';
-import { helperStore } from '@/helper';
+import { helperStore, itemHaveImages } from '@/helper';
 import type { Row } from '@/interfaces/FormComponent.helper';
 import type { Head } from '@/interfaces/TableComponent.helper';
 import { storeToRefs} from 'pinia';
@@ -49,6 +54,8 @@ helper.url = 'currency'
 helper.index()
 const currencyStore = CurrencyStore()
 currencyStore.getCurrencyTypes()
+
+const currency  = (item:any): Currency => item as Currency
 
 const { currencyTypes } = storeToRefs(currencyStore)
 const search = ref<string>('')
@@ -180,6 +187,7 @@ const rows: Row[] = [
 ]
 
 const headers: Head[] = [
+
     {
         name: t('general-views.name'),
         value: 'attributes.name',

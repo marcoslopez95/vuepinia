@@ -238,7 +238,7 @@ const maxColumns = computed(() => {
 </script>
 
 <template>
-  <VRow v-if="simple" class="pa-4 border mx-1">
+  <VRow v-if="simple" class="pa-4 mx-1">
     <VCol v-for="(item, i) in itemsNew" :key="i" class="text-table font-weight-bold" :cols="maxColumns">
       <VRow style="max-width: 300px">
         <div class="d-flex align-center w-100">
