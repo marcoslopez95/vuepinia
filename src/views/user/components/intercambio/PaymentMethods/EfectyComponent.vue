@@ -16,19 +16,22 @@
         </VRow>
 
         <VRow v-if="itemSelect" class="px-5">
-            <VCol cols="12" sm="6" class="font-weight-bold text-table">
-                <p>Dirección: {{ itemSelect?.attributes.description }}</p>
+            <VCol cols="12" sm="12" class=" text-table border-degree text-left font-22 font-weight-light" >
+                <p class="">
+                    <span class="text-primary font-weight-semibold">Dirección:</span> <br>{{ itemSelect?.attributes.description }}
+                </p>
                 <p>Nombre: {{ itemSelect?.attributes.beneficiary }}</p>
                 <VSpacer></VSpacer>
-                <p>Indicaciones:
-                <ul class="ml-10">
+                <p class="mt-5">
+                    <span class="text-primary font-weight-semibold">Indicaciones:</span>
+                <ul class="ml-10" style="list-style-type: decimal;">
                     <li>Informar un pago para Xeler Go!.</li>
                     <li>Entregar el dinero.</li>
                     <li>Conservar el recibo.</li>
                 </ul>
                 </p>
             </VCol>
-            <VCol cols="12" sm="6">
+            <VCol cols="12" sm="12">
                 <GoogleMap :api-key="apiGoogleKey" style="width: 100%; height: 500px;">
                     <Marker :options="markerOptions" />
                 </GoogleMap>
