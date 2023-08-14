@@ -32,157 +32,182 @@
             class="bg-primary"
             :class="showBuy ? 'rounded-te-lg' : 'rounded-ts-lg'"
         >
-            <div class="d-flex flex-column"  :class="showBuy ? 'flex-column' : 'flex-column-reverse'">
-
-            <div class="px-2 py-3">
-                <div
-                    class="d-flex justify-space-between align-center rounded-10 elevation-4 bg-white"
-                >
-                    <VRow dense class="d-flex align-center">
-                        <VCol>
-                            <VTextField
-                                bg-color="white"
-                                hide-details
-                                id="algo"
-                                class="font-22 probando"
-                                :disabled="!cryptoSelect"
-                                style="padding-left: 0px"
-                                :label="showBuy ? 'Pagas' : 'Recibes'"
-                                variant="solo"
-                                placeholder="0.00"
-                                active
-                                rounded="10"
-                                flat
-                                v-model="amountFiat"
-                                v-on="eventsFiat"
-                            >
-                            </VTextField>
-                        </VCol>
-                        <VCol cols="5" class="mr-3">
-                            <div
-                                class="bg-inactive-select rounded-lg d-flex align-center gap-2 justify-center py-1"
-                                style="height: 44px"
-                            >
-                                <VIcon :icon="ColombiaIcon" />
-                                <span
-                                    class="font-weight-semibold text-20 text-table-2"
-                                    >COP</span
+            <div
+                class="d-flex flex-column pt-8"
+                :class="showBuy ? 'flex-column' : 'flex-column-reverse'"
+            >
+                <div class="px-2 py-3">
+                    <div
+                        class="d-flex justify-space-between align-center rounded-10 elevation-4 bg-white"
+                    >
+                        <VRow dense class="d-flex align-center">
+                            <VCol>
+                                <VTextField
+                                    bg-color="white"
+                                    hide-details
+                                    id="algo"
+                                    class="font-22 probando"
+                                    :disabled="!cryptoSelect"
+                                    style="padding-left: 0px"
+                                    :label="showBuy ? 'Pagas' : 'Recibes'"
+                                    variant="solo"
+                                    placeholder="0.00"
+                                    active
+                                    rounded="10"
+                                    flat
+                                    v-model="amountFiat"
+                                    v-on="eventsFiat"
                                 >
-                            </div>
-                        </VCol>
-                    </VRow>
-                </div>
-            </div>
-            <div class="px-2 py-3">
-                <div
-                    class="d-flex justify-space-between align-center rounded-10 elevation-4 bg-white"
-                >
-                    <VRow dense class="d-flex align-center">
-                        <VCol >
-                            <VTextField
-                                bg-color="white"
-                                hide-details
-                                class="font-22"
-                                :label="showBuy ?'Recibes' : 'Vendes'"
-                                variant="solo"
-                                placeholder="0.00"
-                                active
-                                rounded="10"
-                                flat
-                                :disabled="!cryptoSelect"
-                                color="table-2"
-                                v-model="amountCrypto"
-                                v-on="eventsCrypto"
-                            >
-                            </VTextField>
-                        </VCol>
-                        <VCol cols="5" class="mr-3">
-                            <VSelect
-                                v-model="cryptoSelect"
-                                density="compact"
-                                hide-details
-                                :items="currencies"
-                                variant="solo"
-                                item-value="id"
-                                item-title="attributes.name"
-                                flat
-                                id="selectCrypto"
-                                single-line
-                                rounded="lg"
-                                bg-color="#f7f7f7"
-                                menu-icon=""
-                                :menu="vModelMenu"
-                                @update:menu="(v) => (vModelMenu = v)"
-                            >
-                                <template #selection="{ index, item }">
-                                    <!-- <div
-                                        class="d-flex h-100 w-100 align-center font-weight-semibold gap-2"
-                                    > -->
-                                    <VImg
-                                        inline
-                                        v-if="itemHaveImages((item.raw as Currency).relationships?.images)"
-                                        :src="itemHaveImages((item.raw as Currency).relationships?.images) as string"
-                                        sizes="20px"
-                                    ></VImg>
+                                </VTextField>
+                            </VCol>
+                            <VCol cols="5" class="mr-3">
+                                <div
+                                    class="bg-inactive-select rounded-lg d-flex align-center gap-2 justify-center py-1"
+                                    style="height: 44px"
+                                >
+                                    <VIcon :icon="ColombiaIcon" />
                                     <span
                                         class="font-weight-semibold text-20 text-table-2"
-                                        
+                                        >COP</span
                                     >
-                                        {{
-                                            (
-                                                item.raw as Currency
-                                            ).attributes?.abbreviation?.toUpperCase() ??
-                                            "Seleccione"
-                                        }}
-                                    </span>
-                                    <!-- </div> -->
-                                </template>
-
-                                <template #item="{ item, props, index }">
-                                    <v-list-item
-                                        @click="
-                                            cryptoSelect = item.raw.id;
-                                            vModelMenu = false;
-                                        "
-                                        class="text-table-2"
-                                    >
-                                        <template #prepend>
-                                            <img
-                                                inline
-                                                v-if="itemHaveImages((item.raw as Currency).relationships?.images)"
-                                                :src="itemHaveImages((item.raw as Currency).relationships?.images) as string"
-                                                width="25"
-                                                height="25"
-                                            >
-                                        </template>
-                                        <div class="d-flex justify-space-between align-center">
-                                            <div>
-                                                <span class="ml-2 font-weight-semibold font-22">
-                                                    {{ (item.raw as Currency).attributes.abbreviation.toUpperCase() }}
-                                                </span>
-                                                <span class="ml-2 text-capitalize">
-                                                    {{ (item.raw as Currency).attributes.name }}
-                                                </span>
-                                            </div>
-                                            <div class="ml-3" v-if="(item.raw as Currency).id == cryptoSelect">
-                                                <VIcon color="primary" size="16" :icon="CheckedIconVue" />
-                                            </div>
-                                        </div>
-
-                                    </v-list-item>
-                                </template>
-                            </VSelect>
-                        </VCol>
-                    </VRow>
+                                </div>
+                            </VCol>
+                        </VRow>
+                    </div>
                 </div>
-            </div>
+                <div class="px-2 py-3">
+                    <div
+                        class="d-flex justify-space-between align-center rounded-10 elevation-4 bg-white"
+                    >
+                        <VRow dense class="d-flex align-center">
+                            <VCol>
+                                <VTextField
+                                    bg-color="white"
+                                    hide-details
+                                    class="font-22"
+                                    :label="showBuy ? 'Recibes' : 'Vendes'"
+                                    variant="solo"
+                                    placeholder="0.00"
+                                    active
+                                    rounded="10"
+                                    flat
+                                    :disabled="!cryptoSelect"
+                                    color="table-2"
+                                    v-model="amountCrypto"
+                                    v-on="eventsCrypto"
+                                >
+                                </VTextField>
+                            </VCol>
+                            <VCol cols="5" class="mr-3">
+                                <VSelect
+                                    v-model="cryptoSelect"
+                                    density="compact"
+                                    hide-details
+                                    :items="currencies"
+                                    variant="solo"
+                                    item-value="id"
+                                    item-title="attributes.name"
+                                    flat
+                                    id="selectCrypto"
+                                    single-line
+                                    rounded="lg"
+                                    bg-color="#f7f7f7"
+                                    menu-icon=""
+                                    :menu="vModelMenu"
+                                    @update:menu="(v) => (vModelMenu = v)"
+                                >
+                                    <template #selection="{ index, item }">
+                                        <!-- <div
+                                        class="d-flex h-100 w-100 align-center font-weight-semibold gap-2"
+                                    > -->
+                                        <VImg
+                                            v-if="itemHaveImages((item.raw as Currency).relationships?.images)"
+                                            inline
+                                            :src="(itemHaveImages((item.raw as Currency).relationships?.images) as string)"
+                                            sizes="20px"
+                                        ></VImg>
+                                        <span
+                                            class="font-weight-semibold text-20 text-table-2"
+                                        >
+                                            {{
+                                                (
+                                                    item.raw as Currency
+                                                ).attributes?.abbreviation?.toUpperCase() ??
+                                                "Seleccione"
+                                            }}
+                                        </span>
+                                        <!-- </div> -->
+                                    </template>
+
+                                    <template #item="{ item, props, index }">
+                                        <v-list-item
+                                            @click="
+                                                cryptoSelect = item.raw.id;
+                                                vModelMenu = false;
+                                            "
+                                            class="text-table-2"
+                                        >
+                                            <template #prepend>
+                                                <img
+                                                    inline
+                                                    v-if="itemHaveImages((item.raw as Currency).relationships?.images)"
+                                                    :src="(itemHaveImages((item.raw as Currency).relationships?.images) as string)"
+                                                    width="25"
+                                                    height="25"
+                                                />
+                                            </template>
+                                            <div
+                                                class="d-flex justify-space-between align-center"
+                                            >
+                                                <div>
+                                                    <span
+                                                        class="ml-2 font-weight-semibold font-22"
+                                                    >
+                                                        {{
+                                                            (
+                                                                item.raw as Currency
+                                                            ).attributes.abbreviation.toUpperCase()
+                                                        }}
+                                                    </span>
+                                                    <span
+                                                        class="ml-2 text-capitalize"
+                                                    >
+                                                        {{
+                                                            (
+                                                                item.raw as Currency
+                                                            ).attributes.name
+                                                        }}
+                                                    </span>
+                                                </div>
+                                                <div
+                                                    class="ml-3"
+                                                    v-if="(item.raw as Currency).id == cryptoSelect"
+                                                >
+                                                    <VIcon
+                                                        color="primary"
+                                                        size="16"
+                                                        :icon="CheckedIconVue"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </v-list-item>
+                                    </template>
+                                </VSelect>
+                            </VCol>
+                        </VRow>
+                    </div>
+                </div>
             </div>
 
             <VCardActions class="px-1 mx-1 d-flex justify-center">
                 <div class="text-center">
                     <span v-if="amountCrypto">
                         Equivalente a
-                        <b> {{ formatNumber(parseFloat(calculadora.amountUsd as string)) }} USD</b> apróximadamente
+                        <b>
+                            {{ formatNumber(parseFloat(calculadora.amountUsd as string)) }}
+                            USD</b
+                        >
+                        apróximadamente
                     </span>
                     <span v-else>
                         Seleccione una moneda e Ingrese una cantidad
@@ -194,13 +219,8 @@
 </template>
 
 <script setup lang="ts">
-import InputComponent from "@/components/InputComponent.vue";
-import SelectComponent from "@/components/SelectComponent.vue";
-import SwitchComponent from "@/components/SwitchComponent.vue";
 import { computed } from "vue";
 import { ref, reactive } from "vue";
-import { onMounted } from "vue";
-import BtcIcon from "./BtcIcon.vue";
 import ColombiaIcon from "@/assets/icons/ColombiaIcon.vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
 import { WalletStore } from "@/stores/WalletStore";
@@ -219,7 +239,7 @@ import { watch } from "vue";
 import { formatNumber, itemHaveImages } from "@/helper";
 import CheckedIconVue from "@/assets/icons/CheckedIcon.vue";
 
-const { smAndDown: isMobile,xs } = useDisplay();
+const { smAndDown: isMobile, xs } = useDisplay();
 const isSell = ref(false);
 const walletStore = WalletStore();
 const { currencies, currencyTicker: prices } = storeToRefs(walletStore);
@@ -331,7 +351,7 @@ const vModelMenu = ref(false);
 
 watch(showBuy, (nuevo, viejo) => {});
 
-const fontSizeForInputs = computed(() => isMobile.value ? '21px' : '22px')
+const fontSizeForInputs = computed(() => (isMobile.value ? "21px" : "22px"));
 </script>
 
 <style lang="scss">
@@ -339,12 +359,12 @@ const fontSizeForInputs = computed(() => isMobile.value ? '21px' : '22px')
 
 .v-field__input {
     font-size: v-bind("fontSizeForInputs");
-    color: #4F4F5B;
-    &#algo{
-        --v-field-padding-end: 0px!important;
+    color: #4f4f5b;
+    &#algo {
+        --v-field-padding-end: 0px !important;
     }
-    #selectCrypto{
-        --v-field-padding-start: 0px!important;
+    #selectCrypto {
+        --v-field-padding-start: 0px !important;
     }
 }
 $side: v-bind("changeOrientation");
