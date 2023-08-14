@@ -14,7 +14,7 @@
                         <VImg :src="coin.icon" width="18px" inline />
                     <!-- </div> -->
                     <div class="" style="width: 80px;" >
-                        <span class="text-18 ml-2" > {{ coin.name }}</span>
+                        <span class="text-18 ml-2 text-capitalize" > {{ coin.name }}</span>
                     </div>
                     <div class="d-inline-block align-center" style="width: 100px;">
                         <VBtn
