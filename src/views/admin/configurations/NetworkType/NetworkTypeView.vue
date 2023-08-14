@@ -9,6 +9,7 @@
     <CrudComponent 
         :singular="$t('views.network-type.title')" 
         :rows="rows"
+        widthDialog="500px"
     >
     </CrudComponent>
     <TableComponentVue

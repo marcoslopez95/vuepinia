@@ -432,25 +432,33 @@ const maxColumns = computed(() => {
       </VRow>
     </VCol>
     <VCol>
-      <VPagination :total-visible="6" v-model="helper.pagination.currentPage" :length="helper.pagination.total"
+      <VPagination size="32" :total-visible="6" v-model="helper.pagination.currentPage" :length="helper.pagination.total"
         active-color="#B46BFE" color="#75757578" variant="outlined" @update:model-value="helper.index">
         <template #prev="{ onClick, disabled, icon }">
-          <button :disabled="disabled" @click="onClick"
-            class="v-btn v-btn--icon v-theme--light v-btn--density-default v-btn--size-default v-btn--variant-outlined"
-            aria-label="Next page" aria-disabled="false"
-            style="color: rgba(117, 117, 117, 0.47); caret-color: rgba(117, 117, 117, 0.47);"
-            :style="disabled ? 'background-color:#809fb880' : ''">
-            <VIcon :icon="icon" :color="disabled ? '#f1f5f9' : '#809FB8'"></VIcon>
-          </button>
+          <VBtn :disabled="disabled" @click="onClick"
+            size="32"
+            variant="outlined"
+            aria-label="Next page" 
+            aria-disabled="false"
+            color="#75757578"
+            :style="disabled ? 'background-color:#809FB8' : ''"
+            >
+            
+            <VIcon size="24" :icon="icon" :color="disabled ? '#ffffff' : '#809FB8'"></VIcon>
+          </VBtn>
         </template>
         <template #next="{ onClick, disabled, icon }">
-          <button :disabled="disabled" @click="onClick"
-            class="v-btn v-btn--icon v-theme--light v-btn--density-default v-btn--size-default v-btn--variant-outlined"
-            aria-label="Next page" aria-disabled="false"
-            style="color: rgba(117, 117, 117, 0.47); caret-color: rgba(117, 117, 117, 0.47);"
-            :style="disabled ? 'background-color:#809fb880' : ''">
-            <VIcon :icon="icon" :color="disabled ? '#f1f5f9' : '#809FB8'"></VIcon>
-          </button>
+          <VBtn :disabled="disabled" @click="onClick"
+            size="32"
+            variant="outlined"
+            aria-label="Next page" 
+            aria-disabled="false"
+            color="#75757578"
+            :style="disabled ? 'background-color:#809FB8' : ''"
+            >
+            
+            <VIcon size="24" :icon="icon" :color="disabled ? '#ffffff' : '#809FB8'"></VIcon>
+          </VBtn>
         </template>
       </VPagination>
     </VCol>
@@ -486,5 +494,10 @@ const maxColumns = computed(() => {
   -moz-border-radius: 20px!important;
   -ms-border-radius: 20px!important;
   -o-border-radius: 20px!important;
+}
+
+.btn-paginated {
+  width: 32px;
+  height: 32px;
 }
 </style>

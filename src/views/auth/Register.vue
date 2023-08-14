@@ -1,6 +1,6 @@
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import InputComponent from "@/components/InputComponent.vue";
 import { helperStore } from "@/helper";
 import * as validator from '@/validator'
@@ -22,6 +22,13 @@ const isPhoneValid = ref(false)
 const phoneFormat = ref('')
 const accepTerms = ref(false)
 
+const removeSpace = (event:any) => {
+    if(event.key == ' '){
+        event.preventDefault()
+        return
+    }
+}
+
 const route = useRoute()
 const showPassword = ref(false)
 const showPasswordConfirmation = ref(false)
@@ -39,21 +46,24 @@ const SigUp = async () => {
             router.push({ name: 'Login' })
         })
 }
+
 </script>
 
 <template>
     <v-toolbar color="transparent" class="text-center">
-        <v-toolbar-title class="font-weight-medium text-primary">
+        <v-toolbar-title class="font-weight-semibold text-primary">
             {{ $t('views.register.title') }}
         </v-toolbar-title>
     </v-toolbar>
     <div class="">
         <VForm ref="formRef" class="mx-3" style="min-height: 212px;">
-            <template #default>
+            <template #default="{ isValid }">
                 <VRow>
                     <VCol cols="12">
-                        <InputComponent :placeholder="$t('views.users.username')" withoutLabel :name="$t('views.users.username')" v-model="form.username"
-                            :rules="[validator.required]" />
+                        <InputComponent 
+                            :placeholder="$t('views.users.username')" withoutLabel :name="$t('views.users.username')" v-model="form.username"
+                            :rules="[validator.required]" 
+                            :events="{keypress: removeSpace}"/>
                     </VCol>
                     <VCol cols="12">
                         <InputComponent :placeholder="$t('views.users.first_name')" withoutLabel :name="$t('views.users.first_name')" v-model="form.first_name"
@@ -65,7 +75,7 @@ const SigUp = async () => {
                     </VCol>
                     <VCol cols="12">
                         <InputComponent :placeholder="$t('views.users.email')" withoutLabel :name="$t('views.users.email')" v-model="form.email"
-                            :rules="[validator.required]" />
+                            :rules="[validator.required, validator.email]" />
                     </VCol>
                     <VCol cols="12">
                         <TelInput 
@@ -117,19 +127,19 @@ const SigUp = async () => {
                             />
                     </VCol>
                 </VRow>
+                <VCheckbox v-model="accepTerms">
+                    <template #label>
+                        <div v-html="$t('views.register.accept-terms-and-conditions')">
+                        </div>
+                    </template>
+                </VCheckbox>
+                <div class="text-center mt-1">
+                    <VBtnPrimary @click="SigUp" :disabled="!accepTerms || (!isValid.value)">
+                        {{ $t('views.register.button') }} 
+                    </VBtnPrimary>
+                </div>
             </template>
         </VForm>
-    </div>
-    <VCheckbox v-model="accepTerms">
-        <template #label>
-            <div v-html="$t('views.register.accept-terms-and-conditions')">
-            </div>
-        </template>
-    </VCheckbox>
-    <div class="text-center mt-1">
-        <VBtnPrimary @click="SigUp" :disabled="!accepTerms">
-            {{ $t('views.register.button') }}
-        </VBtnPrimary>
     </div>
     <VRow>
         <VCol class="text-center text-table mt-3">

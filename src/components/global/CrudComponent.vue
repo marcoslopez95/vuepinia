@@ -79,7 +79,8 @@ const closeModal = () => {
 
 interface Props {
   singular: string,
-  rows: Row[]
+  rows: Row[],
+  widthDialog?: string,
 }
 
 const getTitle = computed((): string => {
@@ -109,7 +110,7 @@ const getButton = computed((): string => {
 </script>
 
 <template>
-  <DialogBase :dialog="openModalCrud" :widthDialog="'1000px'" @closeDialog="openModalCrud = false" footer>
+  <DialogBase :dialog="openModalCrud" :widthDialog="widthDialog ?? '1000px'" @closeDialog="openModalCrud = false" footer>
     <template #title>{{ getTitle }}</template>
 
     <template #content>
@@ -118,13 +119,16 @@ const getButton = computed((): string => {
     </template>
 
     <template #actions>
-      <v-row class="paddingBtn">
-        <VBtnPrimary variant="outlined" @click="closeModal()"> {{ $t('buttons.cancel') }} </VBtnPrimary>
-        <v-spacer></v-spacer>
-        <VBtnPrimary v-if="clickIn != 'Show'" variant="elevated" @click="CreateOrUpdate">
-          {{ getButton }}
-        </VBtnPrimary>
-      </v-row>
+      <div  class="paddingBtn d-flex w-100 justify-center  justify-sm-space-between flex-wrap gap-2">
+        <div>
+          <VBtnPrimary variant="outlined" @click="closeModal()"> {{ $t('buttons.cancel') }} </VBtnPrimary>
+        </div>
+        <div>
+          <VBtnPrimary v-if="clickIn != 'Show'" variant="elevated" @click="CreateOrUpdate">
+            {{ getButton }}
+          </VBtnPrimary>
+        </div>
+      </div>
     </template>
   </DialogBase>
 </template>
