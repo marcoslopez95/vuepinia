@@ -69,7 +69,7 @@
                 <VBtnPrimary
                     v-else
                     :color="isScrolled ? 'white' : 'primary'"
-                    @click="router.push({ name: 'Dashboard' })"
+                    @click="redirectTo"
                     >{{ $t("views.home.dashboard") }}</VBtnPrimary
                 >
             </div>
@@ -81,12 +81,12 @@
 import { ref } from "vue";
 import { onMounted, onUnmounted } from "vue";
 import LogoLight from "./NavBar/LightLogo.vue";
-import LangComponent from "@/components/LangComponent.vue";
 import { computed } from "vue";
 import { useRouter } from "vue-router";
-import { isAutenticated } from "@/helper";
+import { getUserAuth, isAutenticated } from "@/helper";
 import { useDisplay } from "vuetify/lib/framework.mjs";
 import { useI18n } from "vue-i18n";
+import { ROLES } from "@/interfaces/Role/Role.enum";
 
 const  { t } = useI18n()
 const router = useRouter();
@@ -130,6 +130,14 @@ const itemsInMenu = computed(() :itemMenu[] => {
         },
     ];
 });
+
+const redirectTo = ():void => {
+    let name = 'Dashboard'
+    if(getUserAuth().roles[0].name == ROLES.USER){
+        name = 'user-buy'
+    }
+    router.push({ name })
+}
 
 onMounted(() => {
     window.addEventListener("scroll", () => handleScroll());
