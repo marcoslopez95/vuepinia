@@ -24,14 +24,14 @@
                     "
                     >
                     
-                    <VRow class="font-weight-bold text-table">
-                        <VCol class="my-auto">
-                            <VImg v-if="getImageCurrency(currency)" :src="(getImageCurrency(currency) as string)" width="40"></VImg>
-                            <VIcon v-else icon="mdi-bitcoin" size="40"></VIcon>
-                        </VCol>
-                        <VCol class="my-auto"> {{ currency.attributes.name }} </VCol>
-                        <VCol class="my-auto"> {{ getFormatPrice(currency)}} </VCol>
-                    </VRow>
+                    <div class="text-20 text-table w-100 d-flex justify-space-around align-center">
+                        <div class="">
+                            <VImg v-if="getImageCurrency(currency)" :src="(getImageCurrency(currency) as string)" width="50"></VImg>
+                            <VIcon v-else icon="mdi-bitcoin" size="50"></VIcon>
+                        </div>
+                        <div class=""> {{ currency.attributes.name }} </div>
+                        <div class=""> {{ getFormatPrice(currency)}} </div>
+                    </div>
                     
                 </VCard>
 
@@ -77,7 +77,7 @@ const getFormatPrice = (currency:Currency) => {
     const priceCurrencyTicker = walletStore.getCurrencyTickerByAbbreviation(currency.attributes.abbreviation)?.oficial ?? null
     if(!priceCurrencyTicker) return str
 
-    return str + formatNumber(priceCurrencyTicker,',','.')
+    return formatNumber(priceCurrencyTicker,',','.') + ' '+str
 
 }
 </script>
