@@ -26,7 +26,7 @@ const clickInLogo = () => {
             <VCol :cols="innerW ? 12 :4" class="ma-0 pa-0">
                 <v-main class="px-10">
                     <v-container fluid class="h-100 w-100 ">
-                        <VImg @click="clickInLogo" class="mb-10 mt-6 cursor-pointer" height="74px" :src="LogoLight"></VImg>
+                        <VImg @click="clickInLogo" class="mb-10 mt-6 cursor-pointer" height="74px" src="/assets/images/XELER_DESKTOP_HOME.png"></VImg>
                         <RouterView />
                     </v-container>
                 </v-main>
