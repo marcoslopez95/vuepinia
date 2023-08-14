@@ -20,13 +20,13 @@ const clickInLogo = () => {
         <VRow>
             <VCol v-if="!innerW" cols="8" class="bg-sidebar h-100 ma-0 pa-0 d-flex align-center">
                 <div class="mx-auto">
-                    <VImg :src="monitor" height="603"/>
+                    <VImg src="/assets/images/XELER_DESKTOP_HOME.png" height="603"/>
                 </div>
             </VCol>
             <VCol :cols="innerW ? 12 :4" class="ma-0 pa-0">
                 <v-main class="px-10">
                     <v-container fluid class="h-100 w-100 ">
-                        <VImg @click="clickInLogo" class="mb-10 mt-6 cursor-pointer" height="74px" src="/assets/images/XELER_DESKTOP_HOME.png"></VImg>
+                        <VImg @click="clickInLogo" class="mb-10 mt-6 cursor-pointer" height="74px" :src="LogoLight"></VImg>
                         <RouterView />
                     </v-container>
                 </v-main>
