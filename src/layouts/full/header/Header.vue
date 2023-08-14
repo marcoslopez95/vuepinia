@@ -36,7 +36,7 @@ const fullname = computed(()=>{
 })
 
 const xelerCop = computed(()=> {
-  return formatNumber(500000) + ' XLRP'
+  return formatNumber(500000) + ' XCOP'
 })
 
 const clickInProfile =  (to: ToItems ) : undefined => {

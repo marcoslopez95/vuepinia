@@ -1,7 +1,7 @@
 <template>
     <div class="rounded-xl color-border-degree">
-        <div class="w-100 text-center" style="margin-top: -13px">
-            <label class="mx-auto bg-white px-4 text-primary font-weight-bold">
+        <div class="w-100 text-center" >
+            <label class="mx-auto bg-white px-4 text-primary font-weight-semibold font-22">
                 Valores basados en TRM
                 <h4 v-if="coins.length == 0" class="bg-down"> No Existe información ahora</h4>
                 <!-- <h4 class="bg-down"> {{bool}}</h4> -->
@@ -11,7 +11,7 @@
                     class="d-flex text-left text-table justify-space-around px-3 py-4 align-center"
                 >
                     <!-- <div> -->
-                        <VImg :src="coin.icon" width="25px" inline />
+                        <VImg :src="coin.icon" width="18px" inline />
                     <!-- </div> -->
                     <div class="" style="width: 80px;" >
                         <span class="text-18 ml-2" > {{ coin.name }}</span>
@@ -38,18 +38,36 @@
                             </VIcon>
                         </VBtn>
                         <span
-                            class="font-weight-bold mt-0 pt-0 ml-3"
+                            class="font-weight-light mt-0 pt-0 ml-3 font-15"
                             :class="`text-${colorsText[coin.band]}`"
                         >
                             {{ coin.porcent }} %
                         </span>
                     </div>
-                    <div class="text-left d-inline-block text-primary" style="width: 120px;">
+                    <div class="text-left d-inline-block text-primary ml-1 font-15" style="width: 130px;">
                         <span>COP {{ formatNumber(coin.value) }}</span>
                     </div>
                 </div>
                 <VDivider v-if="(coins.length - 1) > i" />
             </div>
+            <VDivider />
+            <div class="d-flex justify-center align-center py-2">
+                <div class="text-table-2 text-center text-caption font-weight-light px-0 mx-0">
+                    <p
+                        style="
+                            font-size: 11px;
+                            white-space: break-spaces;
+                            line-height: 0.8rem;
+                        "
+                    >
+                        Ultima actualizacion: {{
+                            dateQueryTicker
+                        }}
+                        <br />
+                        Valor Aproximado basado en TRM
+                    </p>
+            </div>
+        </div>
         </div>
     </div>
 </template>
@@ -67,7 +85,7 @@ const walletStore = WalletStore();
 walletStore.getCurrencies();
 walletStore.getCurrencyTicker();
 
-const { coins} = storeToRefs(walletStore);
+const { coins,dateQueryTicker } = storeToRefs(walletStore);
 const { colors,colorsText, orientationArrow } = walletStore
 const now = ref(dayjs());
 let interval:any;
