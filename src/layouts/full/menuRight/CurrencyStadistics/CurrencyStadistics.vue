@@ -117,11 +117,11 @@ onUnmounted(() => {
     border: 2px solid;
     border-color: $color-primary;
 }
-.bg-down {
+.bg-down-2 {
     background-color: #ff707033 !important;
 }
 
-.arrow-down {
+.arrow-down-2 {
     color: #ff7070 !important;
 }
 
