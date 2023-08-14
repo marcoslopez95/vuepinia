@@ -2,10 +2,11 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import InputComponent from "@/components/InputComponent.vue";
-import { helperStore } from "@/helper";
+import { getUserAuth, helperStore } from "@/helper";
 import * as validator from '@/validator'
 import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
+import { ROLES } from "@/interfaces/Role/Role.enum";
 const helper = helperStore()
 const router = useRouter()
 const { formRef,errorsInput } = storeToRefs(helper)
@@ -26,7 +27,12 @@ const SigIn = async () => {
             const { user, token } = res.data
             setLocalStorage(token)
             setUser(user)
-            router.push({ name: 'Dashboard' })
+
+            let name = 'Dashboard'
+            if(getUserAuth().roles[0].name === ROLES.USER){
+                name = 'user-buy'
+            }
+            router.push({ name })
         })
 }
 

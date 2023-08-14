@@ -52,12 +52,7 @@ const router = createRouter({
         ...admin,
         ...user,
         
-        {
-          name: "Dashboard",
-          path: "/dashboard",
-          component: () =>
-            import("@/views/dashboard/Dashboard.vue"),
-        },
+        
         {
           name: "Alerts",
           path: "ui-components/alert",

@@ -4,6 +4,12 @@ import { checkedRole } from "./middleware"
 
 const security: RouteRecordRaw[] = [
   {
+    name: "Dashboard",
+    path: "/dashboard",
+    component: () =>
+      import("@/views/dashboard/Dashboard.vue"),
+  },
+  {
     name: "admin-roles",
     path: "/security/roles",
     component: () =>
