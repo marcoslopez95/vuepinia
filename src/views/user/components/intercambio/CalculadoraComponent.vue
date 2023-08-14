@@ -1,8 +1,11 @@
 <template>
     <VRow class="d-flex justify-center">
         <VCol>
-            <div class="d-flex justify-center">
-                <div style="width: 170px" class="text-table">
+            <div :class="$vuetify.display.xs ? '' : 'd-flex justify-center'" class="">
+                <div 
+                    style="width: 170px" class="text-table"
+                        :class="$vuetify.display.xs ? 'mx-auto' : ''"
+                    >
                     <InputComponent
                         v-model="amountFiat"
                         :events="eventsFiat"
@@ -18,24 +21,27 @@
                     style="font-size: 1.5rem"
                 >
                     <div
+                        :class="$vuetify.display.xs ? 'mx-auto' : ''"
                         class="border-degree "
                         style="border-radius: 100% !important; width: 35px; height: 35px"
                     >
                         =
                     </div>
                 </div>
-                <div style="width: 170px">
+                <div style="width: 170px"
+                    :class="$vuetify.display.xs ? 'mx-auto' : ''"
+                >
                     <InputComponent
                         v-model="amountCrypto"
                         :events="eventsCrypto"
                         :rules="[onlyNumbers]"
-                        name="Crypto"
+                        name=""
                         :appendText="priceSelect?.symbol"
                     >
                     </InputComponent>
                 </div>
             </div>
-            <div class="w-100 text-center font-weight-bold text-table">
+            <div class="w-100 mt-10 text-center font-weight-bold text-table">
                 {{ amountCrypto }} {{ priceSelect?.symbol }} equivalente
                 apróximado a {{ calculadora.amountUsd }} USD
             </div>
