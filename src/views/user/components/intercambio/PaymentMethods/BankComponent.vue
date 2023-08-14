@@ -9,12 +9,11 @@
                 v-for="bankAccount, i in (itemsDetails as Bank[])"
                 :key="i"
                 @click="selectItem(bankAccount)"
-                
             >
-                <VBtnDegree
-                    rounded="lg"
+                <div
+                    class=" cursor-pointer"
                     :class="{
-                        'payment-selected':
+                        'border-primary border-t-0 border-e-0 border-s-0':
                             bankAccount.id ==
                             modelValue?.relationships?.bank.id,
                     }"
@@ -32,7 +31,7 @@
                     <span v-else>
                         {{ bankAccount.attributes.name }}
                     </span>
-                </VBtnDegree>
+                </div>
             </VCol>
         </VRow>
     </div>

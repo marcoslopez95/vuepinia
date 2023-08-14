@@ -18,8 +18,8 @@
                     style="font-size: 1.5rem"
                 >
                     <div
-                        class="border-degree rounded-xl"
-                        style="border-radius: 100% !important"
+                        class="border-degree "
+                        style="border-radius: 100% !important; width: 35px; height: 35px"
                     >
                         =
                     </div>
