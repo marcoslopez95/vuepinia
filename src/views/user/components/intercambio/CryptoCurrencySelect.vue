@@ -4,8 +4,7 @@
         <VCol 
             class="cursor-pointer" 
             cols="12"
-            sm="6"
-            lg="6"
+            :lg="$vuetify.display.width <1400 ? 12 : 6"
             md="12"
             v-for="currency, i in walletStore.currencies" 
             :key="i"
@@ -24,7 +23,7 @@
                     "
                     >
                     
-                    <div class="text-20 text-table w-100 d-flex justify-space-around align-center">
+                    <div :class="$vuetify.display.xs ? 'text-18' : 'text-20'"  class=" text-table w-100 d-flex justify-space-around align-center">
                         <div class="">
                             <VImg v-if="getImageCurrency(currency)" :src="(getImageCurrency(currency) as string)" width="50"></VImg>
                             <VIcon v-else icon="mdi-bitcoin" size="50"></VIcon>

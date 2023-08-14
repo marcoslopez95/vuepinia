@@ -31,13 +31,15 @@
             bg-color="transparent"
             center-affix
             >
-            <template v-if="appendIcon" #append-inner>
+            <template v-if="appendIcon || appendText" #append-inner>
                 <VIcon 
+                    v-if="appendIcon"
                     color="primary"
                     :icon="appendIcon"
                     @click="emits('click:append-icon')"
                     
                     ></VIcon>
+                <span v-if="appendText">{{ appendText }}</span>
             </template>
         </VTextField>
     </VResponsive>
@@ -70,6 +72,7 @@ const props = defineProps<{
     events?: Object
     height?: any
     idElement?: string
+    appendText?: string
 }>()
 const { modelValue:mValue } = toRefs(props)
 const helper = helperStore()

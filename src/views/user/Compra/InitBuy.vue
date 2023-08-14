@@ -1,5 +1,5 @@
 <template>
-    <div class="border-degree px-5 pt-5 pb-16">
+    <div :class="!$vuetify.display.mdAndDown ? 'border-degree px-5 pt-5 pb-16' : ''" class="">
         <div class="text-primary font-22 text-left">
             {{ $t("views.buy.title") }}
         </div>
