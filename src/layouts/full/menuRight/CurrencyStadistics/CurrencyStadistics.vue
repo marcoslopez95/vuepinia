@@ -8,12 +8,15 @@
             </label>
             <div v-for="(coin, i) in coins" :key="i">
                 <div
-                    class="text-left text-table justify-space-between mx-1 py-4"
+                    class="d-flex text-left text-table justify-space-around px-3 py-4 align-center"
                 >
-                    <div class="d-inline-block" style="width: 80px;" >
+                    <!-- <div> -->
+                        <VImg :src="coin.icon" width="25px" inline />
+                    <!-- </div> -->
+                    <div class="" style="width: 80px;" >
                         <span class="text-18 ml-2" > {{ coin.name }}</span>
                     </div>
-                    <div class="d-inline-block align-center mx-1" style="width: 90px;">
+                    <div class="d-inline-block align-center" style="width: 100px;">
                         <VBtn
                             elevation="0" 
                             size="small"
@@ -41,7 +44,7 @@
                             {{ coin.porcent }} %
                         </span>
                     </div>
-                    <div class="text-left d-inline-block">
+                    <div class="text-left d-inline-block text-primary" style="width: 120px;">
                         <span>COP {{ formatNumber(coin.value) }}</span>
                     </div>
                 </div>

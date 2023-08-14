@@ -51,6 +51,7 @@ interface UserDetailAttributes {
   document: string;
   address: string;
   birth: string;
+  xcop?: string;
 }
 
 // --------------------

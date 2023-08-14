@@ -75,14 +75,13 @@ const userRole = getUserAuth().roles[0].name;
             v-if="!innerW && userRole !== ROLES.ADMIN"
             location="right"
             rail
-            rail-width="340"
+            rail-width="360"
             border="0"
             :permanent="$vuetify.display.mdAndUp"
             app
             v-model="drawer"
             >
             <MenuRightVue
-                
                 class="pr-4 pt-4"
             />
         </v-navigation-drawer>
