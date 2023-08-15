@@ -51,9 +51,9 @@ const emit = defineEmits([
             {{ content }}
         </template>
         <template #actions>
-            <VRow class="mx-auto text-center justify-center">
-                <VBtn @click="emit('closeDialog')" class="mr-2" min-width="100px" variant="tonal">{{ btnCancelText }}</VBtn>
-                <VBtn @click="emit('ok')" min-width="100px"  variant="flat">{{ btnAcceptText }}</VBtn>
+            <VRow class="mx-auto text-center justify-space-between d-flex">
+                <VBtnSecondary @click="emit('closeDialog')" class="mr-2" style="min-width:100px" >{{ btnCancelText }}</VBtnSecondary>
+                <VBtnDangerT @click="emit('ok')" min-width="100px"  variant="flat">{{ btnAcceptText }}</VBtnDangerT>
             </VRow>
         </template>
     </DialogBase>

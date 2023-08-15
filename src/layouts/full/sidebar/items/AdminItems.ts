@@ -29,6 +29,7 @@ const items: SidebarItem[] = [
                 roles: [
                     ROLES.ADMIN,
                 ],
+                reference: 'pendings'
             },
             {
                 title: 'Tomadas',
@@ -36,6 +37,7 @@ const items: SidebarItem[] = [
                 roles: [
                     ROLES.ADMIN,
                 ],
+                reference: 'takes'
             },
             {
                 title: 'Aprobadas',
@@ -43,6 +45,7 @@ const items: SidebarItem[] = [
                 roles: [
                     ROLES.ADMIN,
                 ],
+                reference: 'done'
             },
             {
                 title: 'Todas',
@@ -50,6 +53,7 @@ const items: SidebarItem[] = [
                 roles: [
                     ROLES.ADMIN,
                 ],
+                reference: 'total'
             },
         ]
     },

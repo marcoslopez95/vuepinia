@@ -36,7 +36,7 @@ export declare interface OrderAttributes {
         status_id: number;
         processed_by?: any;
         account_delivery_type: string;
-        
+
 }
 
 export declare interface OrderRelationships {
@@ -53,26 +53,35 @@ export declare interface OrderRelationships {
 }
 
 // ----------------------------------------------------------------
-export declare interface OrderStatus extends BaseModel<OrderStatusAttributes,null>{}
+export declare interface OrderStatus extends BaseModel<OrderStatusAttributes, null> { }
 interface OrderStatusAttributes {
         name: string;
         description: string;
 }
 
-export declare interface CurrencyExchangeOrder extends BaseModel<CurrencyExchangeOrderAttributes,CurrencyExchangeOrderRelationships>{}
+export declare interface CurrencyExchangeOrder extends BaseModel<CurrencyExchangeOrderAttributes, CurrencyExchangeOrderRelationships> { }
 
 interface CurrencyExchangeOrderAttributes {
-        order_id:3
-        local_currency_id:number
-        reference_currency_id:number
+        order_id: 3
+        local_currency_id: number
+        reference_currency_id: number
         exchange_local: string
         exchange_reference: string
         total_exchange_local: string
         total_exchange_reference: string
-       
+
 }
 
 interface CurrencyExchangeOrderRelationships {
         localCurrency: Currency
         referenceCurrency: Currency
+}
+
+//---------------
+export declare interface CountOrders {
+        pendings: number
+        cancels: number
+        takes: number
+        done: number
+        total: number
 }

@@ -42,7 +42,7 @@
                             </v-btn>
                         </template>
 
-                        <v-list class="bg-grey-lighten-3">
+                        <v-list elevation="10" class="bg-grey-lighten-3 border-primary rounded-xl text-primary">
                             <v-list-item
                                 v-for="(child, j) in item.children"
                                 :key="j"

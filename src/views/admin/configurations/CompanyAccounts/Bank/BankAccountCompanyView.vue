@@ -172,6 +172,7 @@ const rows: Row[] = [
                     validator.required
                 ],
                 type: 'number',
+                
             },
             {
                 label: t('views.company-accounts.bank.recommendation'),

@@ -4,7 +4,8 @@ export declare interface SidebarItem {
     icon: any
     to: string
     children?: SidebarChildren[]
-    roles: ROLES[]
+    roles: ROLES[],
+    reference?: any
 }
 
 

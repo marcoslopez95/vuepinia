@@ -257,7 +257,7 @@ const maxColumns = computed(() => {
                   </v-btn>
                 </template>
 
-                <v-list>
+                <v-list class="border-primary rounded-xl">
                   <v-list-item>
                     <v-list-item-title v-if="iconShow && !isDeleted(item.id)" class="cursor-pointer" @click="() => { clickIn = 'Show'; emit('show', item) }">
                       <VBtn  :title="'Show'" color="transparent" size="x-small"
@@ -339,7 +339,7 @@ const maxColumns = computed(() => {
                   </v-btn>
                 </template>
 
-                <v-list > 
+                <v-list class="border-primary rounded-xl"> 
                   <v-list-item >
                     <v-list-item-title class="cursor-pointer" v-if="iconShow && !isDeleted(item.id)" @click="() => { clickIn = 'Show'; emit('show', item) }">
                       <VBtn  :title="'Show'" color="transparent" size="x-small"

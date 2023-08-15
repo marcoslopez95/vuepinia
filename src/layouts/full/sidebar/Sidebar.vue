@@ -6,104 +6,162 @@ import { useRoute, useRouter } from "vue-router";
 import type { StyleValue } from "vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
 import type { SidebarItem } from "@/interfaces/SidebarItems.interface";
-import ConfigurationIcon from "@/assets/icons/sidebar/ConfigurationIcon.vue"
+import ConfigurationIcon from "@/assets/icons/sidebar/ConfigurationIcon.vue";
 import { computed } from "vue";
-import { getUserAuth } from "@/helper";
-import type { ROLES } from '@/interfaces/Role/Role.enum'
+import { getUserAuth, helperStore } from "@/helper";
+import type { ROLES } from "@/interfaces/Role/Role.enum";
+import type { CountOrders } from "@/interfaces/Order/Order.model";
 
-const sidebarMenu = computed(()=>{
-  return sidebarItems.map((item) =>{
-      item.children = item.children?.filter(child => child.roles.length > 0 ? child.roles.includes(getUserAuth().roles[0].name as ROLES): true)
-      return item
-  })
-  .filter(item => item.roles.length> 0 ? item.roles.includes(getUserAuth().roles[0].name as ROLES) : true)
-})
+const helper = helperStore()
+
+const sidebarMenu = computed(() => {
+    return sidebarItems
+        .map((item) => {
+            item.children = item.children?.filter((child) =>
+                child.roles.length > 0
+                    ? child.roles.includes(getUserAuth().roles[0].name as ROLES)
+                    : true
+            );
+            return item;
+        })
+        .filter((item) =>
+            item.roles.length > 0
+                ? item.roles.includes(getUserAuth().roles[0].name as ROLES)
+                : true
+        );
+});
 // const sidebarMenu = ref<SidebarItem[]>(sidebarItems);
-const verifyWidthWindow = ref(useDisplay().mdAndUp)
-const router = useRouter()
+const verifyWidthWindow = ref(useDisplay().mdAndUp);
+const router = useRouter();
 
 const isActiveForBorder = (to: string): StyleValue => {
-  return {
-    // Add a CSS Custom Property
-    ['display' as any]: to == router.currentRoute.value.path ? 'block' : 'none'
-  };
-}
+    return {
+        // Add a CSS Custom Property
+        ["display" as any]:
+            to == router.currentRoute.value.name ? "block" : "none",
+    };
+};
 
 const isActiveForItem = (to: string): string => {
-  return to == router.currentRoute.value.path ? 'active-item' : 'text-white'
+    return to == router.currentRoute.value.path ? "active-item" : "text-white";
+};
+
+type TypeActive = "border" | "item";
+
+const countOrders = ref<CountOrders>({
+  cancels: 0,
+  done: 0,
+  pendings: 0,
+  takes: 0,
+  total: 0,
+})
+const getCountOrders = async () => {
+  const url = 'order/list/contador'
+  const res = await helper.http(url)
+  countOrders.value = res.data.response as CountOrders
 }
 
-type TypeActive = 'border' | 'item';
+getCountOrders()
 </script>
 
 <template>
-  <div>
-    <!-- ---------------------------------------------- -->
-    <!---Logo part -->
-    <!-- ---------------------------------------------- -->
-    <div class="px-10 pt-9 pb-5" v-if="verifyWidthWindow">
-      <LogoDark />
-    </div>
-    <!-- ---------------------------------------------- -->
-    <!---Navigation -->
-    <!-- ---------------------------------------------- -->
-    <div class="scrollnavbar">
-      <v-list class="pl-2 pr-0" color="transparent">
+    <div>
         <!-- ---------------------------------------------- -->
-        <!---Menu Loop -->
+        <!---Logo part -->
         <!-- ---------------------------------------------- -->
-        <template v-for="(item, i) in sidebarMenu" :key="i">
-          <!-- ---------------------------------------------- -->
-          <div class="d-flex">
-            <!---Single Item-->
-            <!-- ---------------------------------------------- -->
-            <v-list-item :to="item.to ? {name:item.to} : '#'" rounded="lg" class="w-100" :active="false" active-class="">
-              <!-- <v-list-item-avatar start class="v-list-item-avatar--start"> -->
-              <template v-slot:prepend>
-                <VAvatar>
-                  <v-icon :icon="item.icon" :class="false ? isActiveForItem(item.to) : 'text-white'">
-                  </v-icon>
-                </VAvatar>
-              </template>
+        <div class="px-10 pt-9 pb-5" v-if="verifyWidthWindow">
+            <LogoDark />
+        </div>
+        <!-- ---------------------------------------------- -->
+        <!---Navigation -->
+        <!-- ---------------------------------------------- -->
+        <div class="scrollnavbar">
+            <v-list class="pl-2 pr-0" color="transparent">
+                <!-- ---------------------------------------------- -->
+                <!---Menu Loop -->
+                <!-- ---------------------------------------------- -->
+                <template v-for="(item, i) in sidebarMenu" :key="i">
+                    <!-- ---------------------------------------------- -->
+                    <div class="d-flex">
+                        <!---Single Item-->
+                        <!-- ---------------------------------------------- -->
+                        <v-list-item
+                            :to="item.to ? { name: item.to } : '#'"
+                            rounded="lg"
+                            class="w-100"
+                            active-class=""
+                        >
+                            <!-- <v-list-item-avatar start class="v-list-item-avatar--start"> -->
+                            <template v-slot:prepend>
+                                <VAvatar>
+                                    <v-icon
+                                        :icon="item.icon"
+                                        :class="
+                                            false
+                                                ? isActiveForItem(item.to)
+                                                : 'text-white'
+                                        "
+                                    >
+                                    </v-icon>
+                                </VAvatar>
+                            </template>
 
-              <!-- </v-list-item-avatar> -->
-              <v-list-item-title>
-                {{ item.title }}
-              </v-list-item-title>
-
-            </v-list-item>
-            <div class="active-bar" :style="isActiveForBorder(item.to)"></div>
-          </div>
-          <v-list v-if="item.children" :lines="false" density="compact" class="ml-7">
-            <v-list-item v-for="(children, i) in item.children" :key="i" :to="children.to ? {name:children.to} : '#'" :active="false">
-              <v-list-item-title v-text="children.title"></v-list-item-title>
-              <template #append>
-                <span class="rounded-circle px-2 bg-white text-active font-weight-bold">2</span>
-              </template>
-            </v-list-item>
-          </v-list>
-        </template>
-      </v-list>
+                            <!-- </v-list-item-avatar> -->
+                            <v-list-item-title>
+                                {{ item.title }}
+                            </v-list-item-title>
+                        </v-list-item>
+                        <div
+                            class="active-bar"
+                            :style="isActiveForBorder(item.to)"
+                        ></div>
+                    </div>
+                    <v-list
+                        v-if="item.children"
+                        :lines="false"
+                        density="compact"
+                        class="ml-7"
+                    >
+                        <v-list-item
+                            v-for="(children, i) in item.children"
+                            :key="i"
+                            :to="children.to ? { name: children.to } : '#'"
+                            :active="false"
+                        >
+                            <v-list-item-title
+                                v-text="children.title"
+                            ></v-list-item-title>
+                            <template #append>
+                                <span
+                                    v-if="countOrders[children.reference as keyof CountOrders] > 0"
+                                    class="rounded-circle px-2 bg-white text-active font-weight-bold"
+                                    >
+                                    {{ countOrders[children.reference as keyof CountOrders] }}
+                                    </span>
+                            </template>
+                        </v-list-item>
+                    </v-list>
+                </template>
+            </v-list>
+        </div>
     </div>
-
-  </div>
 </template>
 <style lang="scss">
 @import "@/scss/variables.scss";
 
 .active-item {
-  color: $item-active-sidebar !important;
+    color: $item-active-sidebar !important;
 }
 
-.hover-black:hover{
-  background-color: none;
+.hover-black:hover {
+    background-color: none;
 }
 
 .active-bar {
-  width: 6.14px;
-  height: auto;
-  background-color: $item-active-sidebar;
-  margin-left: -6.14px;
-  border-radius: 4px 0 0 4px;
+    width: 6.14px;
+    height: auto;
+    background-color: $item-active-sidebar;
+    margin-left: -6.14px;
+    border-radius: 4px 0 0 4px;
 }
 </style>
