@@ -101,11 +101,27 @@ import ShippingTypeView from "./ShippingTypes/ShippingTypeView.vue";
 import OtherPaymentsView from "./OtherPayments/OtherPaymentsView.vue";
 import PenaltyTypeView from "./PenaltyTypes/PenaltyTypeView.vue";
 import NetworkTypeView from "./NetworkType/NetworkTypeView.vue";
+import RolesView from "../security/roles/RolesView.vue";
+import PermissionsView from "../security/permissions/PermissionsView.vue";
 
 const { t } = useI18n();
 const helper = helperStore();
 const tabActive = ref("");
 const tabs = shallowRef<ItemTab[]>([
+    {
+        name: 'Seguridad',
+        value: "Seguridad",
+        children: [
+            {
+                name: t("views.roles.title", 2),
+                value: RolesView,
+            },
+            {
+                name: t("views.permissions.title", 2),
+                value: PermissionsView,
+            }
+        ],
+    },
     {
         name: t("views.configurations.tabs.ubication"),
         value: "ubicaciones",

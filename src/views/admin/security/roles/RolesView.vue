@@ -1,8 +1,12 @@
 <template>
-    <VBtn @click="openModal">{{$t('buttons.create')}}</VBtn>
+    <div class="d-flex justify-space-between">
+        <SearchInputComponentVue v-model="search" @onSearch="getSearch" />
+        <VBtn @click="openModal" prepend-icon="mdi-plus" class="rounded-xl">
+            {{ $t('buttons.add') }}
+        </VBtn>
+    </div>
 
-    <CrudComponent singular="Users" :rows="rows"></CrudComponent>
-    <h3>Roles</h3>
+    <CrudComponent singular="Role" :rows="rows"></CrudComponent>
     <TableComponentVue
     optionsHabilit
     icon-update
@@ -10,15 +14,11 @@
     :headers="headers"
     :items="helper.items"
     >
-    <template #cel-attributes.username="{data}">
-        <span class="text-primary"> 
-            {{ data.attributes.username }}
-        </span>
-    </template>
     </TableComponentVue>
 </template>
 
 <script setup lang="ts">
+import SearchInputComponentVue from '@/components/global/SearchInputComponent.vue';
 import CrudComponent from '@/components/global/CrudComponent.vue';
 import TableComponentVue from '@/components/global/TableComponent.vue';
 import { helperStore } from '@/helper';
@@ -27,9 +27,17 @@ import type { Head } from '@/interfaces/TableComponent.helper';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 import { RoleStore } from '@/stores/RoleStore'
+import { ref } from 'vue'
 const helper = helperStore()
 helper.url = 'roles'
 helper.index()
+
+const search = ref<string>('')
+const getSearch = () => {
+    helper.index({
+        name: search.value
+    })
+}
 
 const roleStore = RoleStore();
 roleStore.getPermissions()

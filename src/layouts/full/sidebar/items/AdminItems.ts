@@ -90,30 +90,6 @@ const items: SidebarItem[] = [
     //     ],
     // },
     {
-        title: "Seguridad",
-        icon: 'mdi-security',
-        to: "",
-        roles: [
-            ROLES.ADMIN,
-        ],
-        children: [
-            {
-                title: 'Roles',
-                to: 'admin-roles',
-                roles: [
-                    ROLES.ADMIN,
-                ],
-            },
-            {
-                title: 'Permisos',
-                to: 'admin-permissions',
-                roles: [
-                    ROLES.ADMIN,
-                ],
-            },
-        ]
-    },
-    {
         title: "Configuración",
         icon: ConfigurationIcon,
         to: "admin-configurations",
