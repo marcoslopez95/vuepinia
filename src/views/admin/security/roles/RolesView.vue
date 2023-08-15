@@ -2,7 +2,7 @@
     <div v-if="helper.clickIn == ''">
         <div class="d-flex justify-space-between">
             <SearchInputComponentVue v-model="search" @onSearch="getSearch" />
-            <VBtn @click="openComponent" prepend-icon="mdi-plus" class="rounded-xl">
+            <VBtn @click="openComponent(undefined)" prepend-icon="mdi-plus" class="rounded-xl">
                 {{ $t("buttons.add") }}
             </VBtn>
         </div>
@@ -19,7 +19,7 @@
         </TableComponentVue>
     </div>
     <create-or-edit-role
-        v-if="helper.clickIn == 'Edit'"
+        v-if="helper.clickIn == 'Edit' || helper.clickIn == 'Create'"
         :role="role"
         >
     </create-or-edit-role>
@@ -62,11 +62,13 @@ const openModal = async () => {
 };
 
 const openComponent = (roleItem?: Role) => {
+    console.log(roleItem)
     if(roleItem){
         role.value = roleItem
         helper.clickIn = 'Edit'
         return
     }
+    role.value = undefined
     helper.clickIn = 'Create';
 }
 

@@ -82,7 +82,7 @@ const form = reactive<RoleCreate>({
 })
 
 if(props.role){
-    form.name = props.role.attributes.name
+    form.name = props.role.attributes?.name
 }
 
 const permissionCategory = (item:unknown): PermissionCategory => item as PermissionCategory
