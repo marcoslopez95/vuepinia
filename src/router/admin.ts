@@ -22,6 +22,18 @@ const security: RouteRecordRaw[] = [
     beforeEnter: checkedRole
   },
   {
+    name: "admin-profile",
+    path: "/admin/profile",
+    component: () =>
+      import("@/views/admin/profile/ProfileView.vue"),
+    meta: {
+      roles: [
+        ROLES.ADMIN
+      ]
+    },
+    beforeEnter: checkedRole
+  },
+  {
     name: "admin-transactions",
     path: "/admin/transactions",
     component: () =>
