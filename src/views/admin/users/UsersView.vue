@@ -1,81 +1,98 @@
 <template>
-    <div class="d-flex justify-space-between">
-        <h3 class="text-primary">{{ $t("views.users.title", 2) }}</h3>
-        <SearchInputComponentVue v-model="search" @onSearch="getSearch" />
-        <VBtn @click="openModal" prepend-icon="mdi-plus" class="rounded-xl">
-            {{ $t("buttons.add") }}
-        </VBtn>
-    </div>
-    <!-- <VBtn @click="openModal">{{ $t('buttons.create') }}</VBtn> -->
-    <v-tabs class="mb-5" v-model="role_id" color="primary">
-        <v-tab v-for="(role, i) in userStore.roles" :value="role.id">
-            {{ role.attributes.name }}
-        </v-tab>
-    </v-tabs>
-    <CrudComponent
-        :singular="$t('views.users.title', 2)"
-        :rows="rows"
-    ></CrudComponent>
-    <TableComponentVue
-        :optionsHabilit="true"
-        icon-show
-        icon-update
-        :headers="headers"
-        :items="helper.items"
-        new-buttons
-    >
-        <template #cel-attributes.username="{ data }">
-            <span class="text-primary">
-                {{ data.attributes.username }}
-            </span>
-        </template>
+    <div v-if="helper.clickIn != 'Show'">
+        <div class="d-flex justify-space-between">
+            <h3 class="text-primary">{{ $t("views.users.title", 2) }}</h3>
+            <SearchInputComponentVue v-model="search" @onSearch="getSearch" />
+            <VBtn @click="openModal" prepend-icon="mdi-plus" class="rounded-xl">
+                {{ $t("buttons.add") }}
+            </VBtn>
+        </div>
+        <!-- <VBtn @click="openModal">{{ $t('buttons.create') }}</VBtn> -->
+        <v-tabs class="mb-5" v-model="role_id" color="primary">
+            <v-tab v-for="(role, i) in userStore.roles" :value="role.id">
+                {{ role.attributes.name }}
+            </v-tab>
+        </v-tabs>
+        <CrudComponent
+            :singular="$t('views.users.title', 2)"
+            :rows="rows"
+        ></CrudComponent>
+        <TableComponentVue
+            :optionsHabilit="true"
+            icon-show
+            icon-update
+            :headers="headers"
+            :items="helper.items"
+            new-buttons
+            @show="showDetailUser"
+            @update="openUpdate"
+        >
+            <template #cel-attributes.username="{ data }">
+                <span class="text-primary">
+                    {{ data.attributes.username }}
+                </span>
+            </template>
 
-        <template #cel-verificate-state="{ data }">
-            <span class="text-table">
-                <VIcon
-                    :icon="CheckedIcon"
-                    :color="emailVerificated(data) ? 'success' : 'inactive'"
+            <template #cel-verificate-state="{ data }">
+                <span class="text-table">
+                    <VIcon
+                        :icon="CheckedIcon"
+                        :color="emailVerificated(data) ? 'success' : 'inactive'"
+                    >
+                    </VIcon>
+                    Email
+                </span>
+                <span class="text-table">
+                    <VIcon
+                        :icon="CheckedIcon"
+                        :color="phoneVerificated(data) ? 'success' : 'inactive'"
+                    >
+                    </VIcon>
+                    Teléfono
+                </span>
+                <span class="text-table">
+                    <VIcon
+                        :icon="CheckedIcon"
+                        :color="kycVerificated(data) ? 'success' : 'inactive'"
+                    >
+                    </VIcon>
+                    Kyc
+                </span>
+            </template>
+            <!-- Botones -->
+            <template #newButtons="{ data }">
+                <OptionsMenu
+                    :user="data"
+                    @click:send-email="
+                        openModalSendNotification(data, TypeNotification.EMAIL)
+                    "
+                    @click:send-sms="
+                        openModalSendNotification(data, TypeNotification.SMS)
+                    "
                 >
-                </VIcon>
-                Email
-            </span>
-            <span class="text-table">
-                <VIcon
-                    :icon="CheckedIcon"
-                    :color="phoneVerificated(data) ? 'success' : 'inactive'"
-                >
-                </VIcon>
-                Teléfono
-            </span>
-            <span class="text-table">
-                <VIcon
-                    :icon="CheckedIcon"
-                    :color="kycVerificated(data) ? 'success' : 'inactive'"
-                >
-                </VIcon>
-                Kyc
-            </span>
-        </template>
-        <!-- Botones -->
-        <template #newButtons="{ data }">
-            <OptionsMenu 
-                :user="data"
-                @click:send-email="openModalSendNotification(data, TypeNotification.EMAIL)"
-                @click:send-sms="openModalSendNotification(data, TypeNotification.SMS)"
-            >
-            </OptionsMenu>
-        </template>
-    </TableComponentVue>
-    <send-message 
+                </OptionsMenu>
+            </template>
+        </TableComponentVue>
+    </div>
+    <send-message
         ref="sendMessageRef"
         :user="userSelect!"
         @close-modal="userSelect = undefined"
         :type="typeNotification!"
     >
     </send-message>
+    <DetailUserView
+        v-if="userSelect && helper.clickIn == 'Show'"
+        :user="userSelect!"
+        @back="
+            userSelect = undefined;
+            helper.clickIn = '';
+        "
+    />
 </template>
 
 <script setup lang="ts">
+import DetailUserView from "@/views/admin/users/DetailUser/DetailUserView.vue";
 import SendMessage from "./OptionsMenu/SendMessage.vue";
 import CrudComponent from "@/components/global/CrudComponent.vue";
 import TableComponentVue from "@/components/global/TableComponent.vue";
@@ -91,21 +108,26 @@ import { KYC_STATUS } from "@/enums/Kyc.enum";
 import { ref, watch } from "vue";
 import SearchInputComponentVue from "@/components/global/SearchInputComponent.vue";
 import OptionsMenu from "./OptionsMenu/OptionsMenu.vue";
-
-const role_id = ref<number | "">("");
-
-const typeNotification = ref<TypeNotification>()
-const sendMessageRef = ref<InstanceType<typeof SendMessage> | null>()
-const userSelect = ref<User>()
-
-const openModalSendNotification = (user:User, typeNotificationI:TypeNotification) => {
-    userSelect.value = user
-    typeNotification.value = typeNotificationI
-    sendMessageRef.value!.modal = true
-}
+import type { Profile } from "@/interfaces/User/User.dto";
 
 const helper = helperStore();
 helper.url = "users";
+
+const role_id = ref<number | "">("");
+
+const typeNotification = ref<TypeNotification>();
+const sendMessageRef = ref<InstanceType<typeof SendMessage> | null>();
+const userSelect = ref<User>();
+
+const openModalSendNotification = (
+    user: User,
+    typeNotificationI: TypeNotification
+) => {
+    userSelect.value = user;
+    typeNotification.value = typeNotificationI;
+    sendMessageRef.value!.modal = true;
+};
+
 // helper.index();
 const search = ref<string>("");
 const getSearch = () => {
@@ -338,6 +360,34 @@ const kycVerificated = (user: User): boolean => {
         ? true
         : false;
 };
+
+const showDetailUser = (user: User) => {
+    userSelect.value = user;
+};
+
+const openUpdate = (user: User) => {
+    const itemUpdate: Profile & {role_id:number| ''} = {
+        address: user.relationships?.userDetail.attributes.address ?? '',
+        birth: user.relationships?.userDetail.attributes.birth ?? '',
+        code_phone: user.attributes.code_phone,
+        country_id: user.relationships?.userDetail.attributes.country_id ?? '',
+        department_id: user.relationships?.userDetail.attributes.department_id ?? '',
+        document: user.relationships?.userDetail.attributes.document ?? '',
+        email: user.attributes.email,
+        first_name: user.attributes.first_name,
+        last_name: user.attributes.last_name,
+        municipalitie_id: user.relationships?.userDetail.attributes.municipalitie_id ?? '',
+        nationality_id: user.relationships?.userDetail.attributes.nationality_id ?? '',
+        phone: user.attributes.phone,
+        second_last_name: user.attributes.second_last_name,
+        second_name: user.attributes.second_name,
+        type_documents_id: user.relationships?.userDetail.attributes.type_documents_id ?? '',
+        username: user.attributes.username,
+        role_id: user.relationships?.roles[0].id ?? ''
+    }
+    formCrud.value = itemUpdate
+    openModalCrud.value = true;
+}
 </script>
 
 <style scoped></style>
