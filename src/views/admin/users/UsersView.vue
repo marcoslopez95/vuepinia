@@ -58,12 +58,25 @@
         </template>
         <!-- Botones -->
         <template #newButtons="{ data }">
-            <OptionsMenu :user="data"></OptionsMenu>
+            <OptionsMenu 
+                :user="data"
+                @click:send-email="openModalSendNotification(data, TypeNotification.EMAIL)"
+                @click:send-sms="openModalSendNotification(data, TypeNotification.SMS)"
+            >
+            </OptionsMenu>
         </template>
     </TableComponentVue>
+    <send-message 
+        ref="sendMessageRef"
+        :user="userSelect!"
+        @close-modal="userSelect = undefined"
+        :type="typeNotification!"
+    >
+    </send-message>
 </template>
 
 <script setup lang="ts">
+import SendMessage from "./OptionsMenu/SendMessage.vue";
 import CrudComponent from "@/components/global/CrudComponent.vue";
 import TableComponentVue from "@/components/global/TableComponent.vue";
 import { helperStore } from "@/helper";
@@ -73,13 +86,23 @@ import { UserStore } from "@/stores/UserStore";
 import { storeToRefs } from "pinia";
 import { useI18n } from "vue-i18n";
 import CheckedIcon from "@/assets/icons/CheckedIcon.vue";
-import type { User } from "@/interfaces/User/User.model";
+import { TypeNotification, type User } from "@/interfaces/User/User.model";
 import { KYC_STATUS } from "@/enums/Kyc.enum";
 import { ref, watch } from "vue";
 import SearchInputComponentVue from "@/components/global/SearchInputComponent.vue";
 import OptionsMenu from "./OptionsMenu/OptionsMenu.vue";
 
 const role_id = ref<number | "">("");
+
+const typeNotification = ref<TypeNotification>()
+const sendMessageRef = ref<InstanceType<typeof SendMessage> | null>()
+const userSelect = ref<User>()
+
+const openModalSendNotification = (user:User, typeNotificationI:TypeNotification) => {
+    userSelect.value = user
+    typeNotification.value = typeNotificationI
+    sendMessageRef.value!.modal = true
+}
 
 const helper = helperStore();
 helper.url = "users";
