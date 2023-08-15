@@ -1,6 +1,6 @@
 <template>
     <slot name="label">
-        <VLabel v-if="!withoutLabel" class="pl-3 text-capitalize font-weight-bold" style="">
+        <VLabel v-if="!withoutLabel" class="pl-3 text-capitalize font-weight-semibold" style="">
             {{ withoutLabel ? '' :  name }}
         </VLabel>
     </slot>

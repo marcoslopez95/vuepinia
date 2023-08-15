@@ -1,0 +1,102 @@
+<template>
+    <div class="text-table">
+        <div class="font-22">
+            <VIcon color="primary" :icon="SecurityIcon" size="63" inline />
+            Autenticación de 2 Factores
+        </div>
+        <div class="text-justify">
+            La autenticación de dos factores es un método para proteger tu
+            cuenta web. Cuando está activado, debes ingresar no solo tu
+            contraseña, sino también un código especial. Puedes recibir este
+            código en la aplicación móvil. Incluso si otra persona encuentra tu
+            contraseña, no podra acceder con ese código, esto evita que te
+            suplanten o hagan operaciones a nombre tuyo.
+        </div>
+        <div class="d-flex justify-space-between mt-5 align-center">
+            <div>
+                <VBtnPrimary style="width: 110px !important" @click="openModal">
+                    Habilitar 2FA
+                </VBtnPrimary>
+            </div>
+            <div>Estado Actual: <VChip color="ok">asd</VChip></div>
+        </div>
+    </div>
+    <dialog-global :dialog="modal" @close-dialog="modal = false">
+        <template #title>
+            <span class="font-weight-semibold"
+                >Habilitar Autenticación 2FA</span
+            >
+        </template>
+        <div class="">
+            <div>
+                <p>
+                    Paso 1: Instala esta app des Google Play Store o App Store
+                </p>
+                <br />
+                <p>
+                    Paso 2: Escanea el código QR con Google Auhenticator, o
+                    puedes agregar tu cuenta manualmente
+                </p>
+                <br />
+                <p>
+                    Agregar Manualmente: <br />
+                    Nombre de la cuenta:
+                    <span class="text-primary">XelerGo</span> <br />
+                    Llave: <span class="text-primary">asd123</span>
+                </p>
+            </div>
+            <div class="d-flex justify-space-between align-center">
+                <div class="text-primary">
+                    <span class="" v-html="qr"></span>
+                </div>
+                <div class="text-center">
+                    <div>
+                        Ingresa el código de authenticator
+                        <div
+                            class="mx-auto"
+                            style="max-width: 150px !important"
+                        >
+                            <InputComponent
+                                v-model="code"
+                                name=""
+                                without-label
+                            >
+                            </InputComponent>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <VBtnPrimary> Confirmar 2FA </VBtnPrimary>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </dialog-global>
+</template>
+
+<script setup lang="ts">
+import SecurityIcon from "@/assets/icons/SecurityIcon.vue";
+import DialogGlobal from "@/components/global/DialogGlobal.vue";
+import InputComponent from "@/components/InputComponent.vue";
+import { helperStore } from "@/helper";
+import { ref } from "vue";
+
+const helper = helperStore();
+const modal = ref(false);
+const code = ref("");
+const qr = ref("");
+const openModal = () => {
+    modal.value = true;
+    getQr();
+};
+
+const getQr = async () => {
+    const url = "users/qr/auth";
+    const res = await helper.http(url);
+    qr.value = (res.data as string).replace(
+        'fill="#000000"',
+        'fill="currentColor"'
+    );
+};
+</script>
+
+<style scoped></style>
