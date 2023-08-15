@@ -15,11 +15,6 @@
     @update="openUpdate"
     :items="helper.items"
     >
-    <template #cel-attributes.username="{data}">
-        <span class="text-primary"> 
-            {{ data.attributes.username }}
-        </span>
-    </template>
     </TableComponentVue>
 </template>
 

@@ -11,15 +11,12 @@
     optionsHabilit
     icon-update
     icon-delete
+    simple
     :headers="headers"
     @update="openUpdate"
     :items="helper.items"
+    :options-simple="{value: 'attributes.name', max_columns:1}"
     >
-    <template #cel-attributes.username="{data}">
-        <span class="text-primary"> 
-            {{ data.attributes.username }}
-        </span>
-    </template>
     </TableComponentVue>
 </template>
 
@@ -128,6 +125,11 @@ const headers: Head[] = [
     {
         name: t('general-views.description'),
         value: 'attributes.description',
+    },
+    {
+        name: t('general-views.status'),
+        value: 'deleted',
+        status: true
     },
 ]
 

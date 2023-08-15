@@ -37,20 +37,25 @@
 
                         <template #cel-permissions="{ data }">
                             <div class="d-flex">
-                                <VCheckbox density="compact" hideDetails label="Crear"></VCheckbox>
-                                <VCheckbox density="compact" hideDetails label="Editar"></VCheckbox>
-                                <VCheckbox density="compact" hideDetails label="Eliminar"></VCheckbox>
-                                <VCheckbox density="compact" hideDetails label="Ver"></VCheckbox>
+                                <VCheckbox 
+                                    v-for="(permission, index) in orderPermissions(permissionCategory(data))"
+                                    :key="index"
+                                    v-model="permissions"
+                                    :value="permission.id"
+                                    density="compact"
+                                    hideDetails
+                                    :label="getNamePermission(permission)">
+                                </VCheckbox>
                             </div>
                         </template>
                     </TableComponent>
                 </div>
             </div>
             <div class="d-flex justify-space-between">
-                <VBtnSecondary @click="helper.clickIn = ''">
+                <VBtnSecondary @click="clearForm">
                     Atrás
                 </VBtnSecondary>
-                <VBtnPrimary @click="helper.clickIn = ''">
+                <VBtnPrimary @click="storeRole">
                     Guardar
                 </VBtnPrimary>
             </div>
@@ -67,8 +72,10 @@ import * as validator from '@/validator'
 import TableComponent from "@/components/global/TableComponent.vue";
 import type { Head } from "@/interfaces/TableComponent.helper";
 import { RoleStore } from '@/stores/RoleStore'
-import type { PermissionCategory } from '@/interfaces/Permission/Permission.model'
+import type { Permission, PermissionCategory } from '@/interfaces/Permission/Permission.model'
 import type { Role } from "@/interfaces/Role/Role.model";
+import { ref } from "vue";
+import type { Method } from "axios";
 
 const props = defineProps<{
     role?: Role
@@ -81,11 +88,27 @@ const form = reactive<RoleCreate>({
     permissions: []
 })
 
+const permissions = ref<number[]>(props.role?.relationships?.permissions.map(permiss => permiss.id) ?? [])
+
 if(props.role){
     form.name = props.role.attributes?.name
 }
 
+const orderPermissions = (item: PermissionCategory) => item.relationships?.permissions.sort((a, b) => {
+    const nameA = a.attributes.name.toLowerCase();
+    const nameB = b.attributes.name.toLowerCase();
+    return nameA.localeCompare(nameB);
+});
+
+
 const permissionCategory = (item:unknown): PermissionCategory => item as PermissionCategory
+
+const verifyPermissionName = (sufix: PermissionSufix, item:Permission): boolean => item.attributes.name.includes(sufix)
+
+const getNamePermission = (item: Permission):string => {
+    const nameSplit = item.attributes.name.split('.')[1] as PermissionSufix
+    return NAME_PERMISSIONS[nameSplit]
+}
 
 const headers: Head[] = [
     {
@@ -98,7 +121,37 @@ const headers: Head[] = [
         value: "permissions",
     },
 ];
+type PermissionSufix = 'index' | 'store' | 'delete' | 'updated' | 'show' | 'restore'
 
+const NAME_PERMISSIONS = {
+    index: 'Listar',
+    store: 'Crear',
+    delete: 'Eliminar',
+    show: 'Ver',
+    restore: 'Restaurar',
+    updated: 'Editar'
+}
+
+const storeRole = async () => {
+    let url = 'roles'
+    let method: Method = 'post'
+    let message = 'Creado correctamente'
+    if(helper.clickIn == 'Edit') {
+        url += `/${props.role?.id}`
+        method = 'put' 
+        message = 'Actualizado correctamente'
+    }
+    form.permissions = permissions.value
+    const data = { form }
+    const res = await helper.http(url, method, { data }, message)
+    clearForm()
+}
+
+const clearForm = () => {
+    form.permissions = []
+    form.name = ''
+    helper.clickIn = ''
+}
 </script>
 
 <style scoped></style>
