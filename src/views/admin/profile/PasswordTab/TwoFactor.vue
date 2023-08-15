@@ -65,7 +65,7 @@
                         </div>
                     </div>
                     <div class="mt-3">
-                        <VBtnPrimary> Confirmar 2FA </VBtnPrimary>
+                        <VBtnPrimary @click="confirm" :disabled="!code"> Confirmar 2FA </VBtnPrimary>
                     </div>
                 </div>
             </div>
@@ -97,6 +97,16 @@ const getQr = async () => {
         'fill="currentColor"'
     );
 };
+
+const confirm = async () => {
+    const url = 'users/validate/code/auth'
+    const data = {
+        google2fa_secret: code.value
+    }
+    const res = await helper.http(url,'post', { data });
+    code.value = ''
+    modal.value = false
+}
 </script>
 
 <style scoped></style>

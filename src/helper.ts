@@ -36,7 +36,7 @@ export const helperStore = defineStore('helper', <T>() => {
   const http = (url: string, method: Method = 'get', options: AxiosRequestConfig = {}, notification = '', disabledLoading = false) => {
     return new Promise<AxiosResponse>(async (resolve, reject) => {
       try {
-        if(!disabledLoading){
+        if (!disabledLoading) {
           loading.value = true
         }
 
@@ -61,7 +61,8 @@ export const helperStore = defineStore('helper', <T>() => {
         if (error.response && error.response.status >= 500) {
           messages = t('commons.system-error')
         } {
-          messages = error.response.data.message ?? error.response.data.data.errors
+          const data = error.response.data 
+          messages = data.message ?? data.data?.errors ?? data.errors.message
         }
 
         if (typeof messages === 'string') {
@@ -76,7 +77,7 @@ export const helperStore = defineStore('helper', <T>() => {
         }
         reject(error)
       } finally {
-        if(!disabledLoading){
+        if (!disabledLoading) {
           loading.value = false
         }
       }
@@ -308,13 +309,13 @@ export const isAutenticated = () => {
   return localStorage.getItem('token') || false
 }
 
-export const formatNumber = (number: number, decimalSeparator: string = '.', thousandSeparator: string = ',',decimals = 3): string => {
+export const formatNumber = (number: number, decimalSeparator: string = '.', thousandSeparator: string = ',', decimals = 3): string => {
   const partInt = Math.trunc(number)
-  let roundedNumber:number;
-  
-  if((number - partInt) > 0){
+  let roundedNumber: number;
+
+  if ((number - partInt) > 0) {
     roundedNumber = parseFloat(number.toFixed(decimals));
-  }else{
+  } else {
     roundedNumber = partInt;
     decimals = 0
   }
@@ -344,35 +345,35 @@ export const isRole = (role: ROLES): boolean => {
   return getUserAuth()?.roles[0].name === role
 }
 
-export const getWalletFormated = (wallet:string,start = 6, finish =5):string => {
-  const init = wallet.slice(0,start)
-  const length = wallet.length -1
-  const end = wallet.slice(length -finish,length)
+export const getWalletFormated = (wallet: string, start = 6, finish = 5): string => {
+  const init = wallet.slice(0, start)
+  const length = wallet.length - 1
+  const end = wallet.slice(length - finish, length)
   return `${init}...${end}`
 }
 
-export const copyToClipboard = (value:string | number) => {
+export const copyToClipboard = (value: string | number) => {
   navigator.clipboard.writeText(value.toString())
 }
 
-export const getDns = ():string => {
+export const getDns = (): string => {
   const protocol = window.location.protocol
   const hostname = window.location.hostname
   return `${protocol}//${hostname}`
 }
 
-export const getFullName = (user:User):string => {
+export const getFullName = (user: User): string => {
   const name = user.attributes.first_name + ' ' + (user.attributes.second_name ?? '')
-  const lastname = user.attributes.last_name + ' ' + (user.attributes.second_last_name?? '')
+  const lastname = user.attributes.last_name + ' ' + (user.attributes.second_last_name ?? '')
   return `${name} ${lastname}`
 }
 
 export const itemHaveImages = (images?: Image[]): false | string => {
-  if(!images || images?.length == 0) return false
+  if (!images || images?.length == 0) return false
   return images[0].attributes.aws_url
 }
 
-export const formatCrypoAmount = (value:string) => {
+export const formatCrypoAmount = (value: string) => {
   const fixed = parseFloat(value).toFixed(6)
-  return formatNumber(parseFloat(fixed),'.',',',6)
+  return formatNumber(parseFloat(fixed), '.', ',', 6)
 }
