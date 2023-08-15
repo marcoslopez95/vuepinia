@@ -1,12 +1,8 @@
 <template>
     <div class="d-flex justify-space-between">
         <SearchInputComponentVue v-model="search" @onSearch="getSearch" />
-        <VBtn @click="openModal" prepend-icon="mdi-plus" class="rounded-xl">
-            {{ $t('buttons.add') }}
-        </VBtn>
     </div>
 
-    <CrudComponent :singular="$t('views.permissions.title')" :rows="rows"></CrudComponent>
     <TableComponentVue
     optionsHabilit
     icon-update
@@ -15,11 +11,6 @@
     @update="openUpdate"
     :items="helper.items"
     >
-    <template #cel-attributes.username="{data}">
-        <span class="text-primary"> 
-            {{ data.attributes.username }}
-        </span>
-    </template>
     </TableComponentVue>
 </template>
 

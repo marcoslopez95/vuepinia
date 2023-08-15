@@ -81,7 +81,7 @@ const profileRoutes = {
         </template>
 
         <v-card min-width="250" elevation="50" class="rounded-xl">
-          <v-list class="bg-sidebar text-white font-weight-bold">
+          <v-list class="bg-menu-user text-white font-weight-bold">
             <v-list-item>
               <template #title>
                 {{$t('header.hi')}}

@@ -1,5 +1,5 @@
 import { helperStore } from "@/helper";
-import type { Permission } from "@/interfaces/Permission/Permission.model";
+import type { Permission, PermissionCategory } from "@/interfaces/Permission/Permission.model";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
@@ -17,8 +17,23 @@ export const RoleStore = defineStore('role', () =>{
             }
         })
     }
+
+    const permissionCategories = ref<PermissionCategory[]>([])
+    const getPermissionCategories = (): Promise<Boolean> => {
+        return new Promise( async (resolve, reject) =>{
+            try{
+                const res = await helper.http('permission/category','get')
+                permissionCategories.value = res.data.response
+                resolve(true)
+            }catch(err){
+                reject(false)
+            }
+        })
+    }
     return{
         permissions,
-        getPermissions
+        getPermissions,
+        getPermissionCategories,
+        permissionCategories
     }
 })

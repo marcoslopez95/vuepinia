@@ -116,10 +116,10 @@ const tabs = shallowRef<ItemTab[]>([
                 name: t("views.roles.title", 2),
                 value: RolesView,
             },
-            {
-                name: t("views.permissions.title", 2),
-                value: PermissionsView,
-            }
+            // {
+            //     name: t("views.permissions.title", 2),
+            //     value: PermissionsView,
+            // }
         ],
     },
     {
