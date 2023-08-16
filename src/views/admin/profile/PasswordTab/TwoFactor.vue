@@ -42,7 +42,7 @@
                     Agregar Manualmente: <br />
                     Nombre de la cuenta:
                     <span class="text-primary">XelerGo</span> <br />
-                    Llave: <span class="text-primary">asd123</span>
+                    Llave: <span class="text-primary">{{codeString}}</span>
                 </p>
             </div>
             <div class="d-flex justify-space-between align-center">
@@ -88,14 +88,17 @@ const openModal = () => {
     modal.value = true;
     getQr();
 };
+const codeString = ref('')
 
 const getQr = async () => {
     const url = "users/qr/auth";
     const res = await helper.http(url);
-    qr.value = (res.data as string).replace(
+    const { data } = res
+    qr.value = (data.svg as string).replace(
         'fill="#000000"',
         'fill="currentColor"'
     );
+    codeString.value = data.code
 };
 
 const confirm = async () => {
