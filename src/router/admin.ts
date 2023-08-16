@@ -36,6 +36,7 @@ const security: RouteRecordRaw[] = [
   {
     name: "admin-transactions",
     path: "/admin/transactions",
+    props: true,
     component: () =>
       import("@/views/admin/transactions/TransactionView.vue"),
     meta: {

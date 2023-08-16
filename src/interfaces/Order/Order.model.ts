@@ -85,3 +85,5 @@ export declare interface CountOrders {
         done: number
         total: number
 }
+
+export type TypeOrderFilter = 'pendings'|'takes' | 'dones' | 'cancels'

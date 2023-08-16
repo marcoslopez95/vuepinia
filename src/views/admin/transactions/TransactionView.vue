@@ -236,7 +236,7 @@ import ResumenIcon from "@/assets/icons/ResumenIcon.vue";
 import ResumenModal from '@/views/admin/transactions/TransactionView/ResumenModal.vue'
 import { formatNumber, helperStore, getWalletFormated } from "@/helper";
 import type { Row } from "@/interfaces/FormComponent.helper";
-import type { Order } from "@/interfaces/Order/Order.model";
+import type { Order, TypeOrderFilter } from "@/interfaces/Order/Order.model";
 import type { Head } from "@/interfaces/TableComponent.helper";
 import { UserStore } from "@/stores/UserStore";
 import { storeToRefs } from "pinia";
@@ -254,11 +254,28 @@ import ArrowWithSquareIcon from "@/assets/icons/ArrowWithSquareIcon.vue";
 import { useRouter } from "vue-router";
 import DialogGlobalVue from "@/components/global/DialogGlobal.vue";
 import { StatusOrder } from "@/enums/StatusOrder.enum";
+import { useRoute } from 'vue-router'
+import { watch } from "vue";
 
 const helper = helperStore();
 helper.url = "order";
-const search = ref<string>("");
+const route = useRoute()
+const { type: type1 } = route.query
+helper.defaultParams = {
+        types: type1
+    }
+watch(()=> route.query, (nuevo,viejo)=> {
+    const { type } = route.query
+    
+    helper.defaultParams = {
+        types: type
+    }
+    helper.index()
+})
 helper.index();
+
+
+const search = ref<string>("");
 const getSearch = () => {
     helper.index({
         tranx_no: search.value,

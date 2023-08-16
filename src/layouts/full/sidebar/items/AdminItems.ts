@@ -25,31 +25,40 @@ const items: SidebarItem[] = [
         children: [
             {
                 title: 'Pendientes',
-                to: '',
+                to: 'admin-transactions',
                 roles: [
                     ROLES.ADMIN,
                 ],
-                reference: 'pendings'
+                reference: 'pendings',
+                params: {
+                    type: 'pendings'
+                }
             },
             {
                 title: 'Tomadas',
-                to: '',
+                to: 'admin-transactions',
                 roles: [
                     ROLES.ADMIN,
                 ],
-                reference: 'takes'
+                reference: 'takes',
+                params: {
+                    type: 'takes'
+                }
             },
             {
                 title: 'Aprobadas',
-                to: '',
+                to: 'admin-transactions',
                 roles: [
                     ROLES.ADMIN,
                 ],
-                reference: 'done'
+                reference: 'done',
+                params: {
+                    type: 'dones'
+                }
             },
             {
                 title: 'Todas',
-                to: '',
+                to: 'admin-transactions',
                 roles: [
                     ROLES.ADMIN,
                 ],
