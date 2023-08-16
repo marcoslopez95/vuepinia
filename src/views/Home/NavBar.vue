@@ -1,6 +1,6 @@
 <template>
     <VAppBar
-        class=""
+        class="position-fixed"
         :class="widthWindow < 550 ? 'px-1' : 'px-10'"
         elevation="0"
         :color="currentColor"
@@ -97,7 +97,7 @@ const { width: widthWindow } = useDisplay();
 const userLogged = isAutenticated();
 const handleScroll = () => {
     const scrollTop = window.scrollY;
-    const scrollThreshold = 200; // Umbral de desplazamiento para cambiar el estado
+    const scrollThreshold = 10; // Umbral de desplazamiento para cambiar el estado
 
     if (scrollTop > scrollThreshold) {
         currentColor.value = "primary";

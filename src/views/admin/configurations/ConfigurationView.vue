@@ -103,6 +103,7 @@ import PenaltyTypeView from "./PenaltyTypes/PenaltyTypeView.vue";
 import NetworkTypeView from "./NetworkType/NetworkTypeView.vue";
 import RolesView from "../security/roles/RolesView.vue";
 import PermissionsView from "../security/permissions/PermissionsView.vue";
+import ConfigurationGeneralView from './Generals/ConfigurationGeneralView.vue'
 
 const { t } = useI18n();
 const helper = helperStore();
@@ -141,9 +142,13 @@ const tabs = shallowRef<ItemTab[]>([
         ],
     },
     {
-        name: t("views.configurations.tabs.general-configs"),
+        name: 'Configuraciones',
         value: "general",
         children: [
+            {
+                name: 'General',
+                value: ConfigurationGeneralView,
+            },
             {
                 name: t("views.type_documents.title", 2),
                 value: TypeDocumentsView,
