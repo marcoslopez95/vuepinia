@@ -21,6 +21,8 @@
             :optionsHabilit="true"
             icon-show
             icon-update
+            icon-delete
+            text-delete="Desactivar"
             :headers="headers"
             :items="helper.items"
             new-buttons

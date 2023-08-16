@@ -96,8 +96,8 @@ const modalOpen = ref<'deleted' | 'acceptReject'>('deleted')
 const openConfirmModal = (id: number) => {
   modalOpen.value = 'deleted'
   const deleted = isDeleted(id)
-  title.value = deleted ? t('general-views.restore.title') : t('general-views.delete.title')
-  content.value = deleted ? t('general-views.restore.content') : t('general-views.delete.content')
+  title.value = deleted ? t('general-views.restore.title') : ( props.textDelete ? 'Desactivar' : t('general-views.delete.title'))
+  content.value = deleted ? t('general-views.restore.content') : (props.textDelete ? "¿Estás seguro de desactivar?":t('general-views.delete.content'))
   title.value += ` ${props.singularName ?? ''}`
   content.value += ` ${props.singularName ?? ''}?`
   idAccount.value = id
@@ -222,7 +222,8 @@ interface Props {
     max_columns: number
     value: string
     withStatus?: boolean
-  }
+  },
+  textDelete?: string
 }
 
 const total_columns = 12;
@@ -281,7 +282,7 @@ const maxColumns = computed(() => {
                         size="x-small" elevation="0" icon>
                         <VIcon color="primary" size="24"
                           :icon="!isDeleted(item.id) ? 'mdi-delete' : 'mdi-delete-restore'" />
-                      </VBtn> {{ !isDeleted(item.id) ? t('general-views.delete.title') : t('general-views.restore.title') }}
+                      </VBtn> {{ !isDeleted(item.id) ? ( textDelete ?? t('general-views.delete.title')) : t('general-views.restore.title') }}
                     </v-list-item-title>
                   </v-list-item>
                 </v-list>
@@ -362,8 +363,8 @@ const maxColumns = computed(() => {
                       <VBtn :title="!isDeleted(item.id) ? 'Delete' : 'Restore'" color="transparent"
                         size="x-small" elevation="0" icon>
                         <VIcon color="primary"  size="24"
-                          :icon="!isDeleted(item.id) ? 'mdi-delete' : 'mdi-delete-restore'" />
-                      </VBtn> {{$t('general-views.delete-icon')}}
+                          :icon="!isDeleted(item.id) ? (textDelete ? 'mdi-block-helper':'mdi-delete') : (textDelete ? 'mdi-check-bold':'mdi-delete-restore')" />
+                      </VBtn> {{ !isDeleted(item.id) ? ( textDelete ?? t('general-views.delete.title')) : t('general-views.restore.title') }}
                     </v-list-item-title>
                     <div v-if="acceptReject && elementIsVerificated(item)" class="d-flex">
                       <v-list-item-title class="cursor-pointer" @click="confirmAction(item, 'accept')">

@@ -2,6 +2,7 @@ import type { BaseModelSoftDelete } from "../Base.model";
 import type { Country } from "../Country/Country.model";
 import type { Departament } from "../Departament/Departament.model";
 import type { Municipality } from "../Municipality/Municipality.model";
+import type { Penalty } from "../Penalty/Penalty.model";
 import type { Role } from "../Role/Role.model";
 import type { TypeDocument } from "../TypeDocument/TypeDocument.model";
 import type { ActivityUser } from "./Activities/Activity.model";
@@ -31,6 +32,7 @@ interface Relationships {
   userDetail: UserDetail
   kyc: Kyc
   last_connection: ActivityUser
+  penaltyNow: Penalty[]
 }
 
 interface UserDetail extends BaseModelSoftDelete<UserDetailAttributes,UserDetailRelationships>{}
