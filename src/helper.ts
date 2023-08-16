@@ -197,7 +197,7 @@ export const helperStore = defineStore('helper', <T>() => {
         }
         let response;
         if (isDeleted(id)) {
-          response = await http(url.value + '/restore/' + id, 'put', {}, message)
+          response = await http(url.value + '/restore/' + id, 'get', {}, message)
         } else {
           response = await http(url.value + '/' + id, 'delete', {}, message)
         }
@@ -214,7 +214,7 @@ export const helperStore = defineStore('helper', <T>() => {
     console.log('items', items.value)
     let element = items.value.find((item: any) => item.id === id)
 
-    if (element.deletedAt || element.deleted_at) {
+    if (element.attributes.deletedAt || element.attributes.deleted_at) {
       bool = true
     }
     return bool

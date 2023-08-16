@@ -6,6 +6,7 @@ export declare interface SidebarItem {
     children?: SidebarChildren[]
     roles: ROLES[],
     reference?: any
+    params?: any
 }
 
 

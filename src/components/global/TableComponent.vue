@@ -19,7 +19,7 @@ onUnmounted(() => {
 const props = defineProps<Props>()
 
 const { headers } = toRefs(props)
-const emit = defineEmits(['show', 'update', 'delete'])
+const emit = defineEmits(['show', 'update', 'delete','restore'])
 if (!headers.value.find(item => item.value === 'actions') && props.optionsHabilit) {
   headers.value.push({
     name: t('general-views.actions'),
@@ -108,14 +108,19 @@ const isDeleted = (id: any) => {
   let bool = false;
   let element = props.items.find((item: any) => item.id === id)
 
-  if (element.deletedAt || element.deleted_at) {
+  if (element.attributes.deletedAt || element.attributes.deleted_at) {
     bool = true
   }
   return bool
 }
 
 const okDeletedRestore = () => {
-  emit('delete', idAccount.value)
+  if(!isDeleted(idAccount.value)){
+    emit('delete', idAccount.value)
+  }else{
+    emit('restore', idAccount.value)
+
+  }
   helper
     .deleted(idAccount.value)
     .then(() => {
@@ -364,7 +369,7 @@ const maxColumns = computed(() => {
                         size="x-small" elevation="0" icon>
                         <VIcon color="primary"  size="24"
                           :icon="!isDeleted(item.id) ? (textDelete ? 'mdi-block-helper':'mdi-delete') : (textDelete ? 'mdi-check-bold':'mdi-delete-restore')" />
-                      </VBtn> {{ !isDeleted(item.id) ? ( textDelete ?? t('general-views.delete.title')) : t('general-views.restore.title') }}
+                      </VBtn>  {{ !isDeleted(item.id) ? ( textDelete ?? t('general-views.delete.title')) : t('general-views.restore.title') }}
                     </v-list-item-title>
                     <div v-if="acceptReject && elementIsVerificated(item)" class="d-flex">
                       <v-list-item-title class="cursor-pointer" @click="confirmAction(item, 'accept')">

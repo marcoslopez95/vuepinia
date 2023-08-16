@@ -125,7 +125,7 @@ getCountOrders()
                         <v-list-item
                             v-for="(children, i) in item.children"
                             :key="i"
-                            :to="children.to ? { name: children.to } : '#'"
+                            :to="children.to ? { name: children.to, params: children.params } : '#'"
                             :active="false"
                         >
                             <v-list-item-title
