@@ -49,7 +49,7 @@ const clickInProfile =  (to: ToItems ) : undefined => {
 const profileRoutes = {
   Admin: {
     profile: 'admin-profile',
-    activity: '#'
+    activity: 'activities'
   },
   User: {
     profile: 'user-profile',

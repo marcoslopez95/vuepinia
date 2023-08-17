@@ -3,74 +3,8 @@ import type { RouteRecordRaw } from "vue-router"
 import { checkedRole } from "./middleware"
 
 const security: RouteRecordRaw[] = [
-  {
-    name: "Dashboard",
-    path: "/dashboard",
-    component: () =>
-      import("@/views/dashboard/Dashboard.vue"),
-  },
-  {
-    name: "admin-roles",
-    path: "/security/roles",
-    component: () =>
-      import("@/views/admin/security/roles/RolesView.vue"),
-    meta: {
-      roles: [
-        ROLES.ADMIN
-      ]
-    },
-    beforeEnter: checkedRole
-  },
-  {
-    name: "admin-profile",
-    path: "/admin/profile",
-    component: () =>
-      import("@/views/admin/profile/ProfileView.vue"),
-    meta: {
-      roles: [
-        ROLES.ADMIN
-      ]
-    },
-    beforeEnter: checkedRole
-  },
-  {
-    name: "admin-transactions",
-    path: "/admin/transactions",
-    props: true,
-    component: () =>
-      import("@/views/admin/transactions/TransactionView.vue"),
-    meta: {
-      roles: [
-        ROLES.ADMIN
-      ]
-    },
-    beforeEnter: checkedRole
-  },
-  {
-    name: "admin-transaction-show",
-    path: "/admin/transactions/:numTransaction",
-    props: true,
-    component: () =>
-      import("@/views/admin/transactions/TransactionDetailView.vue"),
-    meta: {
-      roles: [
-        ROLES.ADMIN
-      ]
-    },
-    beforeEnter: checkedRole
-  },
-  {
-    name: "admin-permissions",
-    path: "/security/permissions",
-    component: () =>
-      import("@/views/admin/security/permissions/PermissionsView.vue"),
-    meta: {
-      roles: [
-        ROLES.ADMIN
-      ]
-    },
-    beforeEnter: checkedRole
-  },
+ 
+  
 ]
 
 const generals: RouteRecordRaw[] = [
@@ -98,6 +32,39 @@ const generals: RouteRecordRaw[] = [
     },
     beforeEnter: checkedRole
   },
+  {
+    name: "Dashboard",
+    path: "/dashboard",
+    component: () =>
+      import("@/views/dashboard/Dashboard.vue"),
+  },
+
+  {
+    name: "admin-transactions",
+    path: "/admin/transactions",
+    props: true,
+    component: () =>
+      import("@/views/admin/transactions/TransactionView.vue"),
+    meta: {
+      roles: [
+        ROLES.ADMIN
+      ]
+    },
+    beforeEnter: checkedRole
+  },
+  {
+    name: "admin-transaction-show",
+    path: "/admin/transactions/:numTransaction",
+    props: true,
+    component: () =>
+      import("@/views/admin/transactions/TransactionDetailView.vue"),
+    meta: {
+      roles: [
+        ROLES.ADMIN
+      ]
+    },
+    beforeEnter: checkedRole
+  },
 ]
 
 const configurations: RouteRecordRaw[] = [
@@ -114,10 +81,10 @@ const configurations: RouteRecordRaw[] = [
     beforeEnter: checkedRole
   },
   {
-    name: "admin-type-documents",
-    path: "/configurations/type-documents",
+    name: "admin-profile",
+    path: "/admin/profile",
     component: () =>
-      import("@/views/admin/configurations/type-documents/TypeDocumentsView.vue"),
+      import("@/views/admin/profile/ProfileView.vue"),
     meta: {
       roles: [
         ROLES.ADMIN
@@ -126,34 +93,10 @@ const configurations: RouteRecordRaw[] = [
     beforeEnter: checkedRole
   },
   {
-    name: "admin-countries",
-    path: "/configurations/countries",
+    name: "activities",
+    path: "/activities",
     component: () =>
-      import("@/views/admin/configurations/countries/CountryView.vue"),
-    meta: {
-      roles: [
-        ROLES.ADMIN
-      ]
-    },
-    beforeEnter: checkedRole
-  },
-  {
-    name: "admin-departaments",
-    path: "/configurations/departaments",
-    component: () =>
-      import("@/views/admin/configurations/departaments/DepartamentsView.vue"),
-    meta: {
-      roles: [
-        ROLES.ADMIN
-      ]
-    },
-    beforeEnter: checkedRole
-  },
-  {
-    name: "admin-municipalities",
-    path: "/configurations/municipalities",
-    component: () =>
-      import("@/views/admin/configurations/municipalities/MunicipalitiesView.vue"),
+      import("@/views/admin/activities/ActivitiesView.vue"),
     meta: {
       roles: [
         ROLES.ADMIN
