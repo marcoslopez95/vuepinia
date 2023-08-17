@@ -63,7 +63,7 @@ const openUpdate = (item: OtherPayment) => {
         name: item.attributes.name,
         description: item.attributes.description,
         payment_type_id: item.relationships?.payment?.id ?? '',
-        file: ''
+        file: item.relationships?.images && item.relationships?.images.length > 0 ? item.relationships?.images[0].attributes.aws_url : ''
     }
     formCrud.value = itemUpdate
     formCrud.value['payment_type_id'] = PAYMENT_METHODS_AVAILABLE.OTHER
@@ -131,10 +131,10 @@ const headers: Head[] = [
         name: t('general-views.name'),
         value: 'attributes.name',
     },
-    {
-        name: t('general-views.description'),
-        value: 'attributes.description',
-    },
+    // {
+    //     name: t('general-views.description'),
+    //     value: 'attributes.description',
+    // },
     {
         name: t('general-views.status'),
         value: 'deleted',
