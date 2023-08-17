@@ -61,11 +61,11 @@
             </v-tabs>
         </div>
 
-        <v-card-text>
+        <!-- <v-card-text> -->
             <v-window v-model="tabActive">
                 <Component :key="tabActive" :is="tabActive" />
             </v-window>
-        </v-card-text>
+        <!-- </v-card-text> -->
     <!-- </v-card> -->
 </template>
 

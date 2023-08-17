@@ -1,15 +1,15 @@
 //@ts-ignore
 import WAValidator from 'multicoin-address-validator'
 
-export const addressValid = (value:string, crypto:string): boolean|string => {
+export const addressValid = (value: string, crypto: string): boolean | string => {
     const env = import.meta.env.VITE_ENV_NETWORK
-    console.log('env',env)
-    if(env == 'testnet'){
+    console.log('env', env)
+    if (env == 'testnet') {
         crypto = crypto.slice(1)
     }
-    console.log('cripto',crypto.toLocaleUpperCase())
-    const valid = WAValidator.validate(value,crypto.toLocaleUpperCase(),env)
-    if(valid) return true
+    console.log('cripto', crypto.toLocaleUpperCase())
+    const valid = WAValidator.validate(value, crypto.toLocaleUpperCase(), env)
+    if (valid) return true
     return 'Dirección inválida, por favor verificar'
 }
 
@@ -45,11 +45,11 @@ export const amountFormat = (event: any, length = 3): string => {
         .toString()
         .toString()
         .replace(/[^0-9]/g, '') // quitando todo lo que no sea números
-    if (reem.length < length && event.key == 'Backspace') { 
+    if (reem.length < length && event.key == 'Backspace') {
         // Si la cantidad restante de dígitos es menor a el valor y además se está borrando
         // if (reem.length == length-1) {
-            // Si la cantidad de dígitos es igual a un numero inferior que el total de digitos
-            reem = '0' + reem // agrego un cero al principio
+        // Si la cantidad de dígitos es igual a un numero inferior que el total de digitos
+        reem = '0' + reem // agrego un cero al principio
         // }
     } else {
         if (reem.substring(0, 1) == '0') {
@@ -64,18 +64,18 @@ export const amountFormat = (event: any, length = 3): string => {
             }
         }
     }
-    console.log('numero',reem)
-                                            // 9        - (8 -1)
+    console.log('numero', reem)
+    // 9        - (8 -1)
     let partInteger = reem.substring(0, reem.length - (length - 1)) // parte entera 
-    if(partInteger.length == 2 && partInteger == '00') {
+    if (partInteger.length == 2 && partInteger == '00') {
         partInteger = '0'
     }
     const partDecimal = reem.substring(reem.length - (length - 1), reem.length) // parte decimal
     var coma = partInteger + ',' + partDecimal
-    
+
     // agrupar de a grupos de a 3 antes de la coma y añadie un . 
     event.target.value = coma.toString().replace(/\d(?=(\d{3})+\,)/g, '$&.')
-    console.log('numero2',event.target.value)
+    console.log('numero2', event.target.value)
     if (event.target.value != null) {
         for (let i = 0; i < event.target.value.length; i++) {
             if (event.target.value.indexOf(',,') != -1) {
@@ -83,28 +83,35 @@ export const amountFormat = (event: any, length = 3): string => {
             }
         }
     }
-    console.log('ifpenu',event.target.value)
-    if (event.target.value.length < length+1) {
+    console.log('ifpenu', event.target.value)
+    if (event.target.value.length < length + 1) {
         const lengthCurrent = event.target.value.length
-        const lengthTotal = length +1
-        event.target.value = '0,' 
-                + '0'.repeat(lengthTotal - lengthCurrent)
-                + event.target.value.replace(',','')
+        const lengthTotal = length + 1
+        event.target.value = '0,'
+            + '0'.repeat(lengthTotal - lengthCurrent)
+            + event.target.value.replace(',', '')
     }
-    console.log('return',event.target.value)
+    console.log('return', event.target.value)
     return event.target.value
 }
 
 export const transformAmount = (amount: string): number => {
-        let  newstring = amount
-                        .split('.')
-                        .join('')
-        console.log('este es el monto '+ newstring)
-        newstring =newstring.replace(',', '.')
-        console.log('este es el monto '+ newstring)
+    let newstring = amount
+        .split('.')
+        .join('')
+    console.log('este es el monto ' + newstring)
+    newstring = newstring.replace(',', '.')
+    console.log('este es el monto ' + newstring)
     return parseFloat(newstring)
 }
 
 export const keyPressIsNumber = (event: any) => {
-return (event.charCode >= 48 && event.charCode <= 57)
+    return (event.charCode >= 48 && event.charCode <= 57)
+}
+
+export const keyPressOnlyNumberAndBackscape = (event: any) => {
+    if (!keyPressIsNumber(event) && event.key != "Backscape") {
+        event.preventDefault();
+        return;
+    }
 }

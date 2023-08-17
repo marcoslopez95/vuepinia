@@ -1,8 +1,8 @@
 <template>
     <div class="text-table">
-        <div class="font-22">
-            <VIcon color="primary" :icon="SecurityIcon" size="63" inline />
-            Autenticación de 2 Factores
+        <div class="font-22 d-flex flex-sm-row flex-column align-center">
+            <VIcon class="order-1 order-sm-0" color="primary" :icon="SecurityIcon" size="63" inline />
+            <div class="order-0 order-sm-1">Autenticación de 2 Factores</div>
         </div>
         <div class="text-justify">
             La autenticación de dos factores es un método para proteger tu
@@ -12,7 +12,7 @@
             contraseña, no podra acceder con ese código, esto evita que te
             suplanten o hagan operaciones a nombre tuyo.
         </div>
-        <div class="d-flex justify-space-between mt-5 align-center">
+        <div class="d-flex justify-space-between mt-5 align-center flex-column flex-sm-row" style="gap:40px">
             <div>
                 <VBtnPrimary style="width: 110px !important" @click="openModal">
                     Habilitar 2FA
@@ -45,7 +45,7 @@
                     Llave: <span class="text-primary">{{codeString}}</span>
                 </p>
             </div>
-            <div class="d-flex justify-space-between align-center">
+            <div class="d-flex justify-space-between align-center flex-column flex-sm-row">
                 <div class="text-primary">
                     <span class="" v-html="qr"></span>
                 </div>
