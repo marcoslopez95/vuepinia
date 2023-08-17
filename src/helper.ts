@@ -61,7 +61,7 @@ export const helperStore = defineStore('helper', <T>() => {
         if (error.response && error.response.status >= 500) {
           messages = t('commons.system-error')
         } {
-          const data = error.response.data 
+          const data = error.response.data
           messages = data.message ?? data.data?.errors ?? data.errors.message
         }
 
@@ -309,32 +309,44 @@ export const isAutenticated = () => {
   return localStorage.getItem('token') || false
 }
 
-export const formatNumber = (number: number, decimalSeparator: string = '.', thousandSeparator: string = ',', decimals = 3): string => {
-  const partInt = Math.trunc(number)
+export const formatNumber = (
+  number: number,
+  decimalSeparator: string = ',',
+  thousandSeparator: string = '.',
+  decimals = 3
+): string => {
+
+  const partInt = Math.trunc(number);
   let roundedNumber: number;
 
-  if ((number - partInt) > 0) {
+  if (number - partInt > 0) {
     roundedNumber = parseFloat(number.toFixed(decimals));
   } else {
     roundedNumber = partInt;
-    decimals = 0
+    decimals = 0;
   }
 
-  const options: Intl.NumberFormatOptions = {
-    style: 'decimal',
-    minimumFractionDigits: decimals,
-    maximumFractionDigits: decimals,
-    minimumIntegerDigits: 1, // Mínimo de dígitos enteros
-    useGrouping: true, // Habilitar el separador de miles
-  };
-  const formattedNumber = new Intl.NumberFormat('ban', options).format(roundedNumber);
+  const [integerPart, decimalPart] = roundedNumber.toFixed(decimals).split('.');
+  const formattedIntegerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, thousandSeparator);
 
-  // Si el separador decimal es diferente de '.', reemplazar el separador predeterminado
-  if (decimalSeparator !== '.') {
-    return formattedNumber.replace('.', decimalSeparator);
-  }
+  const formattedDecimalPart = decimalPart ? `${decimalSeparator}${decimalPart}` : `${decimalSeparator}00`;
+  // console.log('number,integerPart, decimalPart',number,formattedIntegerPart, formattedDecimalPart)
 
-  return formattedNumber;
+  return `${formattedIntegerPart}${formattedDecimalPart}`;
+};
+
+export const formatNumberStringToNumber = (number: string, decimalSeparator: string = ',', thousandSeparator: string = '.'): number => {
+  
+  const value1 = number.replace(thousandSeparator, '')
+  const value2 = value1.replace(decimalSeparator, '.')
+  // console.log('values',number,value1,value2)
+  return parseFloat(value2)
+}
+
+export const getFloatPartOfNumber = (value: number): number => {
+  const partInt = Math.trunc(value)
+  const partFloat = value - partInt
+  return partFloat
 }
 
 export const getUserAuth = (): UserAuth => {

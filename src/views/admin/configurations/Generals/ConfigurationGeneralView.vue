@@ -80,7 +80,7 @@
 
 <script setup lang="ts">
 import { ref, computed, reactive } from "vue";
-import { formatNumber, helperStore } from "@/helper";
+import { formatNumber, helperStore,formatNumberStringToNumber } from "@/helper";
 import { storeToRefs } from "pinia";
 import type { ConfigurationGeneralsAttributes } from "@/interfaces/ConfigurationGenerals/ConfigurationGenerals.model";
 import InputComponent from "@/components/InputComponent.vue";
@@ -97,18 +97,28 @@ const form = reactive<ConfigurationGeneralsAttributes>({
     order_fee_limit: '0',
 });
 const { generalData } = storeToRefs(generalConfiguration);
+
 generalConfiguration.getGeneralData().then(()=>{
-    form.initial_time = generalConfiguration.generalData!.attributes.initial_time
-    form.confirmation_time = generalConfiguration.generalData!.attributes.confirmation_time
-    form.administrative_fee = formatNumber(parseFloat(generalConfiguration.generalData!.attributes.administrative_fee))
-    form.order_fee_limit    = formatNumber(parseFloat(generalConfiguration.generalData!.attributes.order_fee_limit))
+    form.initial_time       = generalData.value!.attributes.initial_time
+    form.confirmation_time  = generalData.value!.attributes.confirmation_time
+    form.administrative_fee = formatNumber(generalData.value!.attributes.administrative_fee as number)
+    form.order_fee_limit    = formatNumber(generalData.value!.attributes.order_fee_limit as number)
 });
 
 const updateGeneralConfiguration = async () => {
     const url = "general/configuration/1";
+    form.administrative_fee = formatNumberStringToNumber(form.administrative_fee as string)
+    form.order_fee_limit = formatNumberStringToNumber(form.order_fee_limit as string)
     const data = form;
     const res = await helper.http(url, "put", { data });
-    generalConfiguration.getGeneralData();
+    generalConfiguration.getGeneralData().then(()=>{
+    form.initial_time       = generalData.value!.attributes.initial_time
+    form.confirmation_time  = generalData.value!.attributes.confirmation_time
+    form.administrative_fee = formatNumber(generalData.value!.attributes.administrative_fee as number)
+    form.order_fee_limit    = formatNumber(generalData.value!.attributes.order_fee_limit as number)
+    console.log('administrative_fee',generalData.value!.attributes.administrative_fee as number,formatNumber(generalData.value!.attributes.administrative_fee as number))
+    console.log('order_fee_limit',generalData.value!.attributes.order_fee_limit as number,formatNumber(generalData.value!.attributes.order_fee_limit as number))
+});
     
 };
 
