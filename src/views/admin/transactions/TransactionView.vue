@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex justify-space-between">
+    <div class="d-flex justify-space-between text-primary">
         <h3>{{ $t("views.transactions.title", 2) }}</h3>
         <SearchInputComponentVue v-model="search" @onSearch="getSearch" />
     </div>
@@ -256,14 +256,19 @@ import DialogGlobalVue from "@/components/global/DialogGlobal.vue";
 import { StatusOrder } from "@/enums/StatusOrder.enum";
 import { useRoute } from 'vue-router'
 import { watch } from "vue";
+import type { User } from "@/interfaces/User/User.model";
 
+const props = defineProps<{
+    user?: User
+}>()
 const helper = helperStore();
 helper.url = "order";
 const route = useRoute()
 const { type: type1 } = route.query
 helper.defaultParams = {
-        types: type1
-    }
+    types: type1,
+    user_id: props.user?.id
+}
 watch(()=> route.query, (nuevo,viejo)=> {
     const { type } = route.query
     

@@ -33,7 +33,7 @@
         >
             <template #cel-attributes.username="{ data }">
                 <span class="text-primary">
-                    {{ data.attributes.username }}
+                    {{ user(data).attributes.username }}
                 </span>
             </template>
 
@@ -41,7 +41,7 @@
                 <span class="text-table">
                     <VIcon
                         :icon="CheckedIcon"
-                        :color="emailVerificated(data) ? 'success' : 'inactive'"
+                        :color="emailVerificated(user(data)) ? 'success' : 'inactive'"
                     >
                     </VIcon>
                     Email
@@ -49,7 +49,7 @@
                 <span class="text-table">
                     <VIcon
                         :icon="CheckedIcon"
-                        :color="phoneVerificated(data) ? 'success' : 'inactive'"
+                        :color="phoneVerificated(user(data)) ? 'success' : 'inactive'"
                     >
                     </VIcon>
                     Teléfono
@@ -57,7 +57,7 @@
                 <span class="text-table">
                     <VIcon
                         :icon="CheckedIcon"
-                        :color="kycVerificated(data) ? 'success' : 'inactive'"
+                        :color="kycVerificated(user(data)) ? 'success' : 'inactive'"
                     >
                     </VIcon>
                     Kyc
@@ -91,6 +91,8 @@
         @back="
             userSelect = undefined;
             helper.clickIn = '';
+            helper.url = 'users';
+            getSearch()
         "
     />
 </template>
@@ -113,7 +115,7 @@ import { ref, watch } from "vue";
 import SearchInputComponentVue from "@/components/global/SearchInputComponent.vue";
 import OptionsMenu from "./OptionsMenu/OptionsMenu.vue";
 import type { Profile } from "@/interfaces/User/User.dto";
-import { computed } from "vue";
+import { onUnmounted } from "vue";
 
 const helper = helperStore();
 helper.url = "users";
@@ -176,6 +178,9 @@ const {
     clickIn,
     formRef,
 } = storeToRefs(helper);
+
+const user = (item:unknown):User =>  item as User
+
 
 const rows: Row[] = [
     {
@@ -408,6 +413,11 @@ const openUpdate = (user: User) => {
     formCrud.value = itemUpdate
     openModalCrud.value = true;
 }
+
+onUnmounted(() => {
+    userSelect.value = undefined
+    helper.clickIn = ''
+})
 </script>
 
 <style scoped></style>
