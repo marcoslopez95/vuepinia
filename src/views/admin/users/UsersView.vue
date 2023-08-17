@@ -1,11 +1,13 @@
 <template>
     <div v-if="helper.clickIn != 'Show'">
-        <div class="d-flex justify-space-between">
-            <h3 class="text-primary">{{ $t("views.users.title", 2) }}</h3>
+        <div class="d-flex justify-space-between flex-column flex-sm-row mb-8">
+            <h3 class="text-primary">Lista de {{ $t("views.users.title", 2) }}</h3>
             <SearchInputComponentVue v-model="search" @onSearch="getSearch" />
-            <VBtn @click="openModal" prepend-icon="mdi-plus" class="rounded-xl">
-                {{ $t("buttons.add") }}
-            </VBtn>
+            <div>
+                <VBtn @click="openModal" prepend-icon="mdi-plus" class="rounded-xl">
+                    {{ $t("buttons.add") }}
+                </VBtn>
+            </div>
         </div>
         <!-- <VBtn @click="openModal">{{ $t('buttons.create') }}</VBtn> -->
         <v-tabs class="mb-5" v-model="role_id" color="primary">
@@ -178,21 +180,25 @@ const rows: Row[] = [
             {
                 label: t("views.users.first_name"),
                 type: "text",
+                colClass: ['v-col-12 v-col-md-3 v-col-sm-6'],
                 valueForm: "first_name",
             },
             {
                 label: t("views.users.second_name"),
                 type: "text",
+                colClass: ['v-col-12 v-col-md-3 v-col-sm-6'],
                 valueForm: "second_name",
             },
             {
                 label: t("views.users.last_name"),
                 type: "text",
+                colClass: ['v-col-12 v-col-md-3 v-col-sm-6'],
                 valueForm: "last_name",
             },
             {
                 label: t("views.users.second_last_name"),
                 type: "text",
+                colClass: ['v-col-12 v-col-md-3 v-col-sm-6'],
                 valueForm: "second_last_name",
             },
         ],
@@ -214,14 +220,17 @@ const rows: Row[] = [
     {
         fields: [
             {
-                label: t("views.users.code_phone"),
-                type: "text",
-                valueForm: "code_phone",
-            },
-            {
-                label: t("views.users.phone"),
-                type: "text",
-                valueForm: "phone",
+                label: t('views.users.phone'),
+                valueForm: 'phoneFormat',
+                rules: [
+                ],
+                colClass: ['v-col-12 v-col-sm-6'],
+                type: 'phone',
+                phone: {
+                    fieldCode: 'code_phone',
+                    fieldPhone: 'phone',
+                    fieldValid: 'phoneIsValid'
+                }
             },
             {
                 label: t("views.users.username"),
@@ -235,6 +244,7 @@ const rows: Row[] = [
             {
                 label: t("views.users.referred_by"),
                 type: "select",
+                colClass: ['v-col-12 v-col-sm-4'],
                 valueForm: "referred_by",
                 select: {
                     items: users,
@@ -245,6 +255,7 @@ const rows: Row[] = [
             {
                 label: t("views.roles.title"),
                 type: "select",
+                colClass: ['v-col-12 v-col-sm-4'],
                 valueForm: "role_id",
                 select: {
                     items: roles,
@@ -255,6 +266,7 @@ const rows: Row[] = [
             {
                 label: t("views.countries.title"),
                 type: "select",
+                colClass: ['v-col-12 v-col-sm-4'],
                 valueForm: "country_id",
                 select: {
                     items: countries,
@@ -269,6 +281,7 @@ const rows: Row[] = [
             {
                 label: t("views.departments.title"),
                 type: "select",
+                colClass: ['v-col-12 v-col-sm-6'],
                 valueForm: "department_id",
                 select: {
                     items: departaments,
@@ -279,6 +292,7 @@ const rows: Row[] = [
             {
                 label: t("views.municipalities.title"),
                 type: "select",
+                colClass: ['v-col-12 v-col-sm-6'],
                 valueForm: "municipalitie_id",
                 select: {
                     items: municipalities,
@@ -306,14 +320,15 @@ const rows: Row[] = [
                 valueForm: "document",
             },
             {
-                label: t("views.users.address"),
-                type: "text",
-                valueForm: "address",
-            },
-            {
                 label: t("views.users.birth"),
                 type: "date",
                 valueForm: "birth",
+            },
+            {
+                label: t("views.users.address"),
+                colClass: ['v-col-12 v-col-sm-12'],
+                type: "text",
+                valueForm: "address",
             },
         ],
     },
