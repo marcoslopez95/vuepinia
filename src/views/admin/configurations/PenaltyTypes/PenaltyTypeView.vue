@@ -1,9 +1,6 @@
 <template>
     <div class="d-flex justify-space-between">
         <SearchInputComponentVue v-model="search" @onSearch="getSearch" />
-        <!-- <VBtn @click="openModal" prepend-icon="mdi-plus" class="rounded-xl">
-            {{ $t('buttons.add') }}
-        </VBtn> -->
     </div>
 
     <CrudComponent :singular="$t('views.penalties-types.title')" :rows="rows">
@@ -17,11 +14,6 @@
     @update="openUpdate"
     :items="helper.items"
     >
-    <template #cel-attributes.username="{data}">
-        <span class="text-primary"> 
-            {{ data.attributes.username }}
-        </span>
-    </template>
     </TableComponentVue>
 </template>
 
@@ -80,6 +72,7 @@ const rows: Row[] = [
                 label: t('general-views.name'),
                 type: 'text',
                 valueForm: 'name',
+                colClass: ['v-col-12 v-col-sm-6'],
                 rules: [
                     validator.required
                 ],
@@ -90,6 +83,7 @@ const rows: Row[] = [
             {
                 label: t('general-views.time'),
                 type: 'number',
+                colClass: ['v-col-12 v-col-sm-6'],
                 valueForm: 'time',
                 rules: []
             },

@@ -1,9 +1,11 @@
 <template>
-    <div class="d-flex justify-space-between">
+    <div class="d-flex justify-space-between flex-column flex-sm-row mb-8">
         <SearchInputComponentVue v-model="search" @onSearch="getSearch" />
-        <VBtn @click="openModal" prepend-icon="mdi-plus" class="rounded-xl">
-            {{ $t('buttons.add') }}
-        </VBtn>
+        <div>
+            <VBtn @click="openModal" prepend-icon="mdi-plus" class="rounded-xl">
+                {{ $t('buttons.add') }}
+            </VBtn>
+        </div>
     </div>
 
     <CrudComponent :singular="$t('views.other-payments.title')" :rows="rows"></CrudComponent>
@@ -35,11 +37,16 @@ import SearchInputComponentVue from '@/components/global/SearchInputComponent.vu
 import * as validator from '@/validator'
 import { OtherPaymentStore } from '@/stores/OtherPaymentStore';
 import { PAYMENT_METHODS_AVAILABLE } from '@/enums/PaymentMethod.enum';
+import { onUnmounted } from 'vue';
 const helper = helperStore()
 helper.url = 'sub/payment/type'
-
 helper.index()
-
+helper.defaultParamsByCrud = {
+    payment_method_id: PAYMENT_METHODS_AVAILABLE.OTHER
+}
+onUnmounted(() => {
+    helper.defaultParamsByCrud = {}
+})
 const otherPaymentStore = OtherPaymentStore()
 otherPaymentStore.getPaymentMethods()
 const { paymentMethods } = storeToRefs(otherPaymentStore)
@@ -55,7 +62,7 @@ const openUpdate = (item: OtherPayment) => {
     const itemUpdate: OtherPaymentUpdate = {
         name: item.attributes.name,
         description: item.attributes.description,
-        payment_type_id: item.relationships?.payment.id ?? '',
+        payment_type_id: item.relationships?.payment?.id ?? '',
         file: ''
     }
     formCrud.value = itemUpdate
@@ -85,6 +92,7 @@ const rows: Row[] = [
                 label: t('general-views.name'),
                 type: 'text',
                 valueForm: 'name',
+                colClass: ['v-col-12 v-col-sm-6'],
                 rules: [
                     validator.required
                 ]
@@ -92,6 +100,7 @@ const rows: Row[] = [
             {
                 label: t('general-views.description'),
                 type: 'text',
+                colClass: ['v-col-12 v-col-sm-6'],
                 valueForm: 'description',
                 rules: []
             },

@@ -1,9 +1,11 @@
 <template>
-    <div class="d-flex justify-space-between">
+    <div class="d-flex justify-space-between flex-column flex-sm-row mb-8">
         <SearchInputComponentVue v-model="search" @onSearch="getSearch" />
-        <VBtn @click="openModal" prepend-icon="mdi-plus" class="rounded-xl">
-            {{ $t('buttons.add') }}
-        </VBtn>
+        <div>
+            <VBtn @click="openModal" prepend-icon="mdi-plus" class="rounded-xl">
+                {{ $t('buttons.add') }}
+            </VBtn>
+        </div>
     </div>
 
     <CrudComponent :singular="$t('views.company-accounts.other.title')" :rows="rows"></CrudComponent>
@@ -156,6 +158,7 @@ const rows: Row[] = [
             {
                 label: t('views.company-accounts.bank.limit'),
                 valueForm: 'limit',
+                colClass: ['v-col-12 v-col-sm-6'],
                 rules: [
                     validator.required
                 ],
@@ -163,6 +166,7 @@ const rows: Row[] = [
             },
             {
                 label: t('views.company-accounts.bank.recommendation'),
+                colClass: ['v-col-12 v-col-sm-6'],
                 valueForm: 'recommendation',
                 rules: [
                     validator.required

@@ -1,9 +1,11 @@
 <template>
-    <div class="d-flex justify-space-between">
+    <div class="d-flex justify-space-between flex-column flex-sm-row mb-8">
         <SearchInputComponentVue v-model="search" @onSearch="getSearch" />
-        <VBtn @click="openModal" prepend-icon="mdi-plus" class="rounded-xl">
-            {{ $t('buttons.add') }}
-        </VBtn>
+        <div>
+            <VBtn @click="openModal" prepend-icon="mdi-plus" class="rounded-xl">
+                {{ $t('buttons.add') }}
+            </VBtn>
+        </div>
     </div>
 
     <CrudComponent :singular="$t('views.company-accounts.bank.title')" :rows="rows"></CrudComponent>
@@ -15,11 +17,6 @@
     @update="openUpdate"
     :items="helper.items"
     >
-    <template #cel-attributes.username="{data}">
-        <span class="text-primary"> 
-            {{ data.attributes.username }}
-        </span>
-    </template>
     </TableComponentVue>
 </template>
 
@@ -101,6 +98,7 @@ const rows: Row[] = [
                     validator.required
                 ],
                 type: 'select',
+                colClass: ['v-col-12 v-col-sm-6'],
                 select: {
                     items: currencies,
                     itemTitle: 'attributes.name',
@@ -110,6 +108,7 @@ const rows: Row[] = [
             {
                 label: t('views.banks.title'),
                 valueForm: 'bank_id',
+                colClass: ['v-col-12 v-col-sm-6'],
                 rules: [
                     validator.required
                 ],
@@ -168,6 +167,7 @@ const rows: Row[] = [
             {
                 label: t('views.company-accounts.bank.limit'),
                 valueForm: 'limit',
+                colClass: ['v-col-12 v-col-sm-6'],
                 rules: [
                     validator.required
                 ],

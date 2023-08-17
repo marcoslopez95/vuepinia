@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex justify-space-between">
+    <div class="d-flex justify-space-between flex-column flex-sm-row mb-8">
         <SearchInputComponentVue v-model="search" @onSearch="getSearch" />
         <!-- <VBtn @click="openModal" prepend-icon="mdi-plus" class="rounded-xl">
             {{ $t('buttons.add') }}
@@ -72,6 +72,7 @@ const rows: Row[] = [
                 label: t('general-views.name'),
                 type: 'text',
                 valueForm: 'name',
+                colClass: ['v-col-12 v-col-sm-6'],
                 rules: [
                     validator.required
                 ]
@@ -80,6 +81,7 @@ const rows: Row[] = [
                 label: t('general-views.description'),
                 type: 'text',
                 valueForm: 'description',
+                colClass: ['v-col-12 v-col-sm-6'],
                 rules: [
                     validator.required
                 ]

@@ -107,7 +107,7 @@ const rows: Row[] = [
                 label: t('general-views.description'),
                 type: 'text',
                 valueForm: 'description',
-                colClass: ['v-col-12 v-col-sm-6']
+                colClass: ['v-col-12 v-col-sm-6'],
             },
             {
                 label: t('views.countries.title'),
