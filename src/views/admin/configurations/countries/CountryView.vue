@@ -1,9 +1,11 @@
 <template>
-    <div class="d-flex justify-space-between">
+    <div class="d-flex flex-column flex-sm-row mb-8 justify-space-between">
         <SearchInputComponentVue v-model="search" @onSearch="getSearch" />
-        <VBtn @click="openModal" prepend-icon="mdi-plus" class="rounded-xl">
-            {{ $t('buttons.add') }}
-        </VBtn>
+        <div>
+            <VBtn @click="openModal" prepend-icon="mdi-plus" class="rounded-xl">
+                {{ $t('buttons.add') }}
+            </VBtn>
+        </div>
     </div>
 
     <CrudComponent :singular="$t('views.countries.title')" :rows="rows"></CrudComponent>
@@ -16,11 +18,6 @@
     @update="openUpdate"
     :items="helper.items"
     >
-    <template #cel-attributes.username="{data}">
-        <span class="text-primary"> 
-            {{ data.attributes.username }}
-        </span>
-    </template>
     </TableComponentVue>
 </template>
 

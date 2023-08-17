@@ -7,9 +7,9 @@
             >
                 <div class="w-100">
                     <div
-                        class="d-sm-flex gap-2 align-center justify-space-between"
+                        class="d-flex flex-column flex-sm-row gap-2 align-center justify-space-between"
                     >
-                        <div>Tiempo inicial Venta/Compra (minutos) </div>
+                        <div class="text-center text-sm-left">Tiempo inicial Venta/Compra (minutos) </div>
                         <div style="width: 150px">
                             <input-component
                                 v-model="form.initial_time"
@@ -21,9 +21,9 @@
                         </div>
                     </div>
                     <div
-                        class="d-sm-flex gap-2 align-center mt-4 justify-space-between"
+                        class="d-flex flex-column flex-sm-row gap-2 align-center mt-4 justify-space-between"
                     >
-                        <div>
+                        <div class="text-center text-sm-left">
                             Tiempo para subir comprobante Venta/Compra (minutos)
                         </div>
                         <div style="width: 150px">
@@ -38,9 +38,9 @@
                 </div>
                 <div class="w-100">
                     <div
-                        class="d-sm-flex gap-2 align-center mt-4 justify-space-between"
+                        class="d-flex flex-column flex-sm-row gap-2 align-center mt-4 justify-space-between"
                     >
-                        <div>Fees administrativo (COP)</div>
+                        <div class="text-center text-sm-left">Fees administrativo (COP)</div>
                         <div style="width: 150px">
                             <input-component
                                 v-model="form.administrative_fee"
@@ -52,9 +52,9 @@
                         </div>
                     </div>
                     <div
-                        class="d-sm-flex gap-2 align-center mt-4 justify-space-between"
+                        class="d-flex flex-column flex-sm-row gap-2 align-center mt-4 justify-space-between"
                     >
-                        <div>
+                        <div class="text-center text-sm-left">
                             Aplicar Fee Administrivo a montos inferiores de (COP):
                         </div>
                         <div style="width: 150px">

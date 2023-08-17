@@ -244,11 +244,11 @@ const maxColumns = computed(() => {
 </script>
 
 <template>
-  <VRow v-if="simple" class="pa-4 mx-1">
-    <VCol v-for="(item, i) in itemsNew" :key="i" class="text-table font-weight-bold" :cols="maxColumns">
-      <VRow style="max-width: 300px">
+  <VRow dense v-if="simple" class="mx-1">
+    <VCol v-for="(item, i) in itemsNew" :key="i" class="text-table " :cols="maxColumns">
+      <div style="max-width: 300px">
         <div class="d-flex align-center w-100">
-          <VCol v-for="head, k in headers" :key="k">
+          <div v-for="head, k in headers" :key="k">
             <slot :name="`cel-${head.value}`" :data="item">
             <VChip v-if="head.status === true || head.status === 'deleted'" small :color="getStatusColor(item, head)"
               class=" font-weight-medium">
@@ -300,10 +300,10 @@ const maxColumns = computed(() => {
           </slot>
 
             <!-- </VCol> -->
-          </VCol>
+          </div>
 
         </div>
-      </VRow>
+      </div>
     </VCol>
   </VRow>
 

@@ -1,13 +1,16 @@
 <template>
-    <div class="d-flex justify-space-between" >
+    <div class="d-flex justify-space-between flex-column flex-sm-row mb-8" >
         <SearchInputComponentVue v-model="search" @onSearch="getSearch" />
-        <VBtn 
-            @click="openModal"
-            prepend-icon="mdi-plus"
-            class="rounded-xl"
-            >
-            {{$t('buttons.add')}}
-        </VBtn>
+        <div>
+
+            <VBtn 
+                @click="openModal"
+                prepend-icon="mdi-plus"
+                class="rounded-xl"
+                >
+                {{$t('buttons.add')}}
+            </VBtn>
+        </div>
     </div>
     
     <CrudComponent :singular="$t('views.banks.title')" :rows="rows"></CrudComponent>
@@ -23,7 +26,7 @@
     :items="helper.items"
     >
     <template #cel-name="{data}">
-        <div class="text-table" style="min-width: 150px!important;"> 
+        <div class="text-table" :style="[`min-width: ${$vuetify.display.xs ? 110 : 150}px!important;`]"> 
             {{  //@ts-ignore
                 data.attributes.name
             }}
@@ -97,12 +100,14 @@ const rows: Row[] = [
                 valueForm: 'name',
                 rules: [
                     validator.required
-                ]
+                ],
+                colClass: ['v-col-12 v-col-sm-6']
             },
             {
                 label: t('general-views.description'),
                 type: 'text',
                 valueForm: 'description',
+                colClass: ['v-col-12 v-col-sm-6']
             },
             {
                 label: t('views.countries.title'),

@@ -65,11 +65,11 @@
         </div>
 
         <v-card-text>
-            <v-window v-model="tabActive">
+            <v-window v-model="tabActive" :touch="false" >
                 <Component :key="tabActive" :is="tabActive" />
-                <v-window-item value="">
+                <!-- <v-window-item value="">
                     <span class="text-table">Por favor escoja una opción</span>
-                </v-window-item>
+                </v-window-item> -->
             </v-window>
         </v-card-text>
     <!-- </v-card> -->
@@ -107,7 +107,7 @@ import ConfigurationGeneralView from './Generals/ConfigurationGeneralView.vue'
 
 const { t } = useI18n();
 const helper = helperStore();
-const tabActive = ref("");
+const tabActive = ref(RolesView);
 const tabs = shallowRef<ItemTab[]>([
     {
         name: 'Seguridad',

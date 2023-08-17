@@ -4,7 +4,7 @@
             <div class="font-22 font-weight-semibold text-primary">
                 {{ helper.clickIn == "Edit" ? "Editar" : "Crear" }} Rol
             </div>
-            <div class="w-25 my-5">
+            <div class="my-5" :class="$vuetify.display.xs ? 'w-75' : 'w-25'">
                 <div>
                     <InputComponent
                         v-model="form.name"
@@ -15,10 +15,7 @@
                 </div>
             </div>
             <div>
-                <div>
-                    Permisos
-                </div>
-                <div>
+                <div >
                     <TableComponent
                         :optionsHabilit="false"
                         :headers="headers"
@@ -36,7 +33,7 @@
                         </template>
 
                         <template #cel-permissions="{ data }">
-                            <div class="d-flex">
+                            <div class="d-flex" style="min-width: 800px;">
                                 <VCheckbox 
                                     v-for="(permission, index) in orderPermissions(permissionCategory(data))"
                                     :key="index"
@@ -51,13 +48,17 @@
                     </TableComponent>
                 </div>
             </div>
-            <div class="d-flex justify-space-between">
-                <VBtnSecondary @click="clearForm">
-                    Atrás
-                </VBtnSecondary>
-                <VBtnPrimary @click="storeRole">
-                    Guardar
-                </VBtnPrimary>
+            <div class="d-flex justify-space-between align-center flex-column flex-sm-row gap-2">
+                <div>
+                    <VBtnSecondary @click="clearForm">
+                        Atrás
+                    </VBtnSecondary>
+                </div>
+                <div>
+                    <VBtnPrimary @click="storeRole">
+                        Guardar
+                    </VBtnPrimary>
+                </div>
             </div>
         </VForm>
     </div>

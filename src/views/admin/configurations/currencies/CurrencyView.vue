@@ -1,9 +1,11 @@
 <template>
-    <div class="d-flex justify-space-between">
+    <div class="d-flex justify-space-between flex-column flex-sm-row mb-8">
         <SearchInputComponentVue v-model="search" @onSearch="getSearch" />
-        <VBtn @click="openModal" prepend-icon="mdi-plus" class="rounded-xl">
-            {{ $t('buttons.add') }}
-        </VBtn>
+        <div>
+            <VBtn @click="openModal" prepend-icon="mdi-plus" class="rounded-xl">
+                {{ $t('buttons.add') }}
+            </VBtn>
+        </div>
     </div>
 
     <CrudComponent 
@@ -105,12 +107,14 @@ const rows: Row[] = [
                 valueForm: 'name',
                 rules: [
                     validator.required
-                ]
+                ],
+                colClass: ['v-col-12 v-col-sm-6']
             },
             {
                 label: t('views.currencies.abbreviation'),
                 type: 'text',
                 valueForm: 'abbreviation',
+                colClass: ['v-col-12 v-col-sm-6'],
                 rules: [
                     validator.required
                 ]
@@ -119,6 +123,7 @@ const rows: Row[] = [
                 label: t('views.currencies.symbol'),
                 type: 'text',
                 valueForm: 'symbol',
+                colClass: ['v-col-12 v-col-sm-6'],
                 rules: [
                     validator.required
                 ]
@@ -127,6 +132,7 @@ const rows: Row[] = [
                 label: t('views.currency-types.title'),
                 type: 'select',
                 valueForm: 'type_currency_id',
+                colClass: ['v-col-12 v-col-sm-6'],
                 rules: [
                     validator.required
                 ],
@@ -144,12 +150,14 @@ const rows: Row[] = [
                 label: t('views.currencies.buy'),
                 type: 'switch',
                 valueForm: 'buy',
+                colClass: ['v-col-12 v-col-sm-6'],
                 rules: [ ]
             },
             {
                 label: t('views.currencies.sale'),
                 type: 'switch',
                 valueForm: 'sale',
+                colClass: ['v-col-12 v-col-sm-6'],
                 rules: []
             },
             {
