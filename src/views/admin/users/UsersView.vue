@@ -11,7 +11,7 @@
         </div>
         <!-- <VBtn @click="openModal">{{ $t('buttons.create') }}</VBtn> -->
         <v-tabs class="mb-5" v-model="role_id" color="primary">
-            <v-tab v-for="(role, i) in userStore.roles" :value="role.id">
+            <v-tab v-for="(role, i) in userStore.roles.filter(role => role.id)" :value="role.id">
                 {{ role.attributes.name }}
             </v-tab>
         </v-tabs>
@@ -113,6 +113,7 @@ import { ref, watch } from "vue";
 import SearchInputComponentVue from "@/components/global/SearchInputComponent.vue";
 import OptionsMenu from "./OptionsMenu/OptionsMenu.vue";
 import type { Profile } from "@/interfaces/User/User.dto";
+import { computed } from "vue";
 
 const helper = helperStore();
 helper.url = "users";
@@ -144,6 +145,7 @@ const userStore = UserStore();
 userStore.getDepartaments();
 userStore.getMunicipalities();
 userStore.getUsers();
+
 userStore.getRoles().then(() => {
     if (userStore.roles.length > 0) {
         role_id.value = userStore.roles[1].id;
@@ -174,6 +176,7 @@ const {
     clickIn,
     formRef,
 } = storeToRefs(helper);
+
 const rows: Row[] = [
     {
         fields: [
