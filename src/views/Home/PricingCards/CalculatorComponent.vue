@@ -1,7 +1,7 @@
 <template>
-    <VCard elevation="15">
+    <VCard elevation="15" rounded="10">
         <div :class="showBuy ? 'degradado-buy' : 'degradado-sell'">
-            <div class="d-flex justify-lg-space-between" style="height: 70px">
+            <div class="d-flex justify-lg-space-between font-22" style="height: 60px">
                 <div
                     class="my-auto mx-auto font-weight-bold cursor-pointer"
                     :class="showBuy ? 'text-white bg-primary' : 'text-primary'"
@@ -33,10 +33,10 @@
             :class="showBuy ? 'rounded-te-lg' : 'rounded-ts-lg'"
         >
             <div
-                class="d-flex flex-column pt-8"
+                class="d-flex flex-column pt-8 px-4"
                 :class="showBuy ? 'flex-column' : 'flex-column-reverse'"
             >
-                <div class="px-2 py-3">
+                <div class="py-3">
                     <div
                         class="d-flex justify-space-between align-center rounded-10 elevation-4 bg-white"
                     >
@@ -75,7 +75,7 @@
                         </VRow>
                     </div>
                 </div>
-                <div class="px-2 py-3">
+                <div class="py-3">
                     <div
                         class="d-flex justify-space-between align-center rounded-10 elevation-4 bg-white"
                     >
@@ -199,7 +199,7 @@
                 </div>
             </div>
 
-            <VCardActions class="px-1 mx-1 d-flex justify-center">
+            <VCardActions class="px-2 mx-1 d-flex justify-center" style="height: 140px;">
                 <div class="text-center">
                     <span v-if="amountCrypto">
                         Equivalente a
@@ -376,7 +376,7 @@ $side: v-bind("changeOrientation");
 }
 
 .barra {
-    border-radius: 16px;
+    border-radius: 10px;
     background-color: red;
     transform: skewX(calc($side * 15deg));
     width: 30px;

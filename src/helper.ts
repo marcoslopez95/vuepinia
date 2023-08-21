@@ -332,7 +332,11 @@ export const formatNumber = (
   const formattedDecimalPart = decimalPart ? `${decimalSeparator}${decimalPart}` : `${decimalSeparator}00`;
   // console.log('number,integerPart, decimalPart',number,formattedIntegerPart, formattedDecimalPart)
 
+  if(decimals === 0){
+    return `${formattedIntegerPart}`;
+  }
   return `${formattedIntegerPart}${formattedDecimalPart}`;
+
 };
 
 export const formatNumberStringToNumber = (number: string, decimalSeparator: string = ',', thousandSeparator: string = '.'): number => {

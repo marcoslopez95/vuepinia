@@ -62,12 +62,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="px-1 mt-6">
+                            <div class="pl-4 mt-6">
                                 <!-- <div dense> -->
                                     <div
                                         class="font-22 text-table-2 font-weight-bold mb-0 pb-0"
                                     >
-                                        COP {{ formatNumber(coin.value) }}
+                                        COP {{ formatNumber(coin.value,',','.',0) }}
                                     </div>
                                     <div
                                         class="font-weight-light mt-0 pt-1 text-20"
