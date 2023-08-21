@@ -11,7 +11,7 @@
                 @click="selectItem(bankAccount)"
             >
                 <div
-                    class=" cursor-pointer"
+                    class=" cursor-pointer text-center"
                     :class="{
                         'border-primary border-t-0 border-e-0 border-s-0':
                             bankAccount.id ==
@@ -28,7 +28,7 @@
                         :max-height="34"
                     >
                     </VImg>
-                    <span v-else>
+                    <span class="text-capitalize font-weight-semibold text-table" v-else>
                         {{ bankAccount.attributes.name }}
                     </span>
                 </div>

@@ -153,7 +153,7 @@
     </div>
 
     <PreviewOrderForConfirm 
-        class="mb-5 mx-auto" v-if="transactionStore.showPreviewOrder && smAndDown"
+        class="mb-5 mt-10 mx-auto" v-if="transactionStore.showPreviewOrder && smAndDown"
         style="max-width:350px"
         />
     <VRow>

@@ -35,7 +35,7 @@
                 <span>Fee Mineros:</span>        
                 <span class="">
                     {{ transactionStore.feeMiner }}
-                    {{ transactionStore.order?.attributes.fee }}
+                    {{ transactionStore.order?.attributes.fee }} USD
                 </span>
             </div>
            
