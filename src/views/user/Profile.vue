@@ -84,7 +84,7 @@ import ReferredView from './Refer/ReferredView.vue'
 
 const { t } = useI18n()
 const helper = helperStore()
-const tabActive = ref(ReferredView)
+const tabActive = ref(PersonalData)
 const tabs = shallowRef<ItemTab[]>([
     {
         name: t('views.profile.personal-data.title'),
@@ -124,7 +124,7 @@ const tabs = shallowRef<ItemTab[]>([
 
 
 const submenuActive = ref("");
-const menuActive = ref(t('views.profile.kyc.title'));
+const menuActive = ref(t('views.profile.personal-data.title'));
 
 const clickInSubMenu = (component: any, name: string, parent: string) => {
     submenuActive.value = name;

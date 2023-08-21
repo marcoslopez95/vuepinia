@@ -84,7 +84,7 @@ export const UserStore = defineStore('user', () => {
     const updateUserAuth = (): Promise<void> =>{
         return new Promise<void>(async (resolve,reject) =>{
             const url = 'users/activite/user'
-            let res = await helper.http(url,'get')
+            let res = await helper.http(url,'get',{},'',true)
             userAuth.value = res.data.response as User
             resolve()
         })

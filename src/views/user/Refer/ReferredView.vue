@@ -21,7 +21,9 @@
                 </svg>
             </VIcon>
             <div class="text-primary text-h5 font-weight-bold">
-                {{ formatNumber(xcop) }} XCOP
+                {{ formatNumber(
+                    userStore.userAuth?.attributes.xcop!
+                ) }} XCOP
             </div>
         </VCol>
 
@@ -33,12 +35,13 @@
                 <div class="text-table">
                     {{ getRouteReffer() }}
                 </div>
-                <div
+                <CopyComponent :value="getRouteReffer()"/>
+                <!-- <div
                     class="cursor-pointer"
                     @click="copyToClipboard(getRouteReffer())"
                 >
                     <VIcon :icon="CopyIcon" size="20" />
-                </div>
+                </div> -->
             </div>
         </VCol>
     </VRow>
@@ -90,11 +93,12 @@
 <script setup lang="ts">
 import CopyIcon from "@/assets/icons/CopyIcon.vue";
 import BlueStarkIconVue from "@/assets/icons/header/Profile/BlueStarkIcon.vue";
+import CopyComponent from "@/components/CopyComponent.vue";
 import { copyToClipboard, formatNumber, getUserAuth, getDns } from "@/helper";
+import { UserStore } from "@/stores/UserStore";
 import { useRouter } from "vue-router";
 
-const xcop = 500000;
-
+const userStore = UserStore()
 const user = getUserAuth();
 
 const router = useRouter();

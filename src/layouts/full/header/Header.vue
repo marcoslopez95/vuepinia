@@ -13,8 +13,20 @@ import { ROLES } from "@/interfaces/Role/Role.enum";
 import { formatNumber } from "@/helper";
 import BlueStarkIcon from '@/assets/icons/header/Profile/BlueStarkIcon.vue'
 import { UserStore } from "@/stores/UserStore";
+import { onMounted } from "vue";
+import { onUnmounted } from "vue";
 
 const userStore = UserStore()
+const interval = ref()
+onMounted(()=>{
+  interval.value = setInterval(()=>{
+    userStore.updateUserAuth()
+  },300000)
+})
+onUnmounted(()=>{
+  clearInterval(interval.value)
+})
+
 const router = useRouter()
 const isMobile = ref(useDisplay().smAndDown);
 const userprofile = ref(profile);
