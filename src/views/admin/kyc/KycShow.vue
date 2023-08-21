@@ -267,9 +267,9 @@ const rejectOrAccept = async (type:imageType, action: keyof Actions) => {
     if(type == 'selfie'){
         data.selfie_identity_document_status = act
     }
-    if(action === 'reject'){
-        data.status_all = act
-    }
+    // if(action === 'reject'){
+    //     data.status_all = act
+    // }
     const url = `kyc/verificate/`+ helper.item.id
     const res = (await helper.http(url,'put',{data})).data.response as Kyc
 
