@@ -3,7 +3,7 @@
         <PreviewOrder class="mb-5" v-if="isInCheck"/>
         <PreviewOrderForConfirm class="mb-5" v-if="transactionStore.showPreviewOrder"/>
         <CurrencyStadistics />
-        <KycUnverified v-if="kycAccept !== '1'" class="mt-6"/>
+        <KycUnverified class="mt-6"/>
     </div>
 </template>
 

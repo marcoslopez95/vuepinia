@@ -1,5 +1,5 @@
 <template>
-    <div class="rounded-xl color-border-degree ">
+    <div v-if="kycAccept" class="rounded-xl color-border-degree ">
         <div class="bg-kyc pb-5 rounded-t-xl rounded-b-xl">
             <div class="w-100 text-center py-4">
                 <KycIcon/>
@@ -22,6 +22,25 @@
 import ArrowIcon from "@/assets/icons/layout/MenuRight/ArrowIcon.vue";
 import KycIcon from "@/assets/icons/layout/MenuRight/KycIcon.vue";
 import HuellaIcon from "@/assets/icons/HuellaIcon.vue";
+import { ref } from "vue";
+import { helperStore } from "@/helper";
+import type { User } from "@/interfaces/User/User.model";
+import { computed } from "vue";
+import { KYC_STATUS } from "@/enums/Kyc.enum";
+
+const helper = helperStore()
+const kycAccept = computed(():boolean => {
+    return !!localStorage.getItem('kyc')
+})
+const getKyc = async () => {
+    const url = 'users/activite/user'
+    const res = await helper.http(url)
+    const user = res.data.response as User
+    const kyc = user.relationships?.kyc.attributes.status == KYC_STATUS.ACCEPT ? '1' : '0'
+    localStorage.setItem('kyc',kyc)
+}
+
+getKyc()
 </script>
 
 <style scoped lang="scss">
