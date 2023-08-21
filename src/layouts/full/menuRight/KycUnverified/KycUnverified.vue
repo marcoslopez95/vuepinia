@@ -1,5 +1,5 @@
 <template>
-    <div v-if="kycAccept" class="rounded-xl color-border-degree ">
+    <div v-if="!kycAccept" class="rounded-xl color-border-degree ">
         <div class="bg-kyc pb-5 rounded-t-xl rounded-b-xl">
             <div class="w-100 text-center py-4">
                 <KycIcon/>
