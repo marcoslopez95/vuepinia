@@ -358,7 +358,7 @@ const headers: Head[] = [
     },
     {
         name: t("views.users.referred-by"),
-        value: "",
+        value: "relationships.referred.attributes.username",
     },
     {
         name: t("genereal-views.state"),
