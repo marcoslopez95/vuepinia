@@ -22,25 +22,25 @@
 import ArrowIcon from "@/assets/icons/layout/MenuRight/ArrowIcon.vue";
 import KycIcon from "@/assets/icons/layout/MenuRight/KycIcon.vue";
 import HuellaIcon from "@/assets/icons/HuellaIcon.vue";
-import { ref } from "vue";
 import { helperStore } from "@/helper";
-import type { User } from "@/interfaces/User/User.model";
 import { computed } from "vue";
 import { KYC_STATUS } from "@/enums/Kyc.enum";
+import { UserStore } from "@/stores/UserStore";
 
-const helper = helperStore()
+const userStore = UserStore()
+
 const kycAccept = computed(():boolean => {
+    const kyc = userStore.userAuth?.relationships?.kyc.attributes.status == KYC_STATUS.ACCEPT ? '1' : '0'
+    if(!localStorage.getItem('kyc')){
+        localStorage.setItem('kyc',kyc)
+    }else{
+        localStorage.removeItem('kyc')
+        localStorage.setItem('kyc',kyc)
+    }
     return !!localStorage.getItem('kyc')
 })
-const getKyc = async () => {
-    const url = 'users/activite/user'
-    const res = await helper.http(url)
-    const user = res.data.response as User
-    const kyc = user.relationships?.kyc.attributes.status == KYC_STATUS.ACCEPT ? '1' : '0'
-    localStorage.setItem('kyc',kyc)
-}
 
-getKyc()
+userStore.updateUserAuth()
 </script>
 
 <style scoped lang="scss">

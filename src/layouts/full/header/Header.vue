@@ -12,7 +12,9 @@ import { getUserAuth, isRole } from "@/helper";
 import { ROLES } from "@/interfaces/Role/Role.enum";
 import { formatNumber } from "@/helper";
 import BlueStarkIcon from '@/assets/icons/header/Profile/BlueStarkIcon.vue'
+import { UserStore } from "@/stores/UserStore";
 
+const userStore = UserStore()
 const router = useRouter()
 const isMobile = ref(useDisplay().smAndDown);
 const userprofile = ref(profile);
@@ -37,7 +39,7 @@ const fullname = computed(()=>{
 })
 
 const xelerCop = computed(()=> {
-  return formatNumber(500000) + ' XCOP'
+  return formatNumber(userStore.userAuth?.attributes.xcop!) + ' XCOP'
 })
 
 const clickInProfile =  (to: ToItems ) : undefined => {

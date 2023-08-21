@@ -25,6 +25,8 @@ export interface UserAttributes {
   username: string;
   referred_by?: any;
   affiliate_id?: any;
+  xcop:  number
+  google_authentication: boolean
 }
 
 interface Relationships {
