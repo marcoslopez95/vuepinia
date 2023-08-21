@@ -1,7 +1,7 @@
 <template>
     <VForm ref="formRef" @submit="valid" >
         <VRow>
-            <VCol lg="6" sm="12">
+            <VCol sm="6" cols="12">
                 <NewInputComponentVue 
                     v-model="form.first_name" 
                     :name="$t('views.profile.personal-data.name')" 
@@ -9,14 +9,14 @@
                     :disabled="statusKyc == KYC_STATUS.IN_VERIFICATION || statusKyc == KYC_STATUS.ACCEPT"
                     />
             </VCol>
-            <VCol lg="6" sm="12">
+            <VCol sm="6" cols="12">
                 <NewInputComponentVue 
                     v-model="form.second_name" 
                     :name="$t('views.profile.personal-data.second-name')" 
                     :disabled="statusKyc == KYC_STATUS.IN_VERIFICATION || statusKyc == KYC_STATUS.ACCEPT"
                     />
             </VCol>
-            <VCol lg="6" sm="12">
+            <VCol sm="6" cols="12">
                 <NewInputComponentVue 
                     v-model="form.last_name" 
                     :name="$t('views.profile.personal-data.lastname')" 
@@ -24,14 +24,14 @@
                     :disabled="statusKyc == KYC_STATUS.IN_VERIFICATION || statusKyc == KYC_STATUS.ACCEPT"
                     />
             </VCol>
-            <VCol lg="6" sm="12">
+            <VCol sm="6" cols="12">
                 <NewInputComponentVue 
                     v-model="form.second_last_name" 
                     :name="$t('views.profile.personal-data.second-lastname')" 
                     :disabled="statusKyc == KYC_STATUS.IN_VERIFICATION || statusKyc == KYC_STATUS.ACCEPT"
                     />
             </VCol>
-            <VCol lg="6" sm="12">
+            <VCol sm="6" cols="12">
                 <div class="d-flex align-center mx-auto">
                     <div class="" style="width: 90%;">
                         <NewInputComponentVue 
@@ -56,7 +56,7 @@
                     />
                 
             </VCol>
-            <VCol lg="6" sm="12">
+            <VCol sm="6" cols="12">
                 <div class="d-flex align-center mx-auto">
                     <div class="" style="width: 90%;">
                         <TelInput
@@ -84,7 +84,7 @@
                         :isValidPhone="permitValidatePhone"
                     />
             </VCol>
-            <VCol lg="6" sm="12">
+            <VCol sm="6" cols="12">
                 <SelectComponentVue
                 :items="userStore.typeDocuments"
                 v-model="form.type_documents_id"
@@ -94,7 +94,7 @@
                 :disabled="statusKyc == KYC_STATUS.IN_VERIFICATION || statusKyc == KYC_STATUS.ACCEPT"
                 />
             </VCol>
-            <VCol lg="6" sm="12">
+            <VCol sm="6" cols="12">
                 <NewInputComponentVue 
                     v-model="form.document" 
                     :name="$t('views.profile.personal-data.document')" 
@@ -102,7 +102,7 @@
                     :disabled="statusKyc == KYC_STATUS.IN_VERIFICATION || statusKyc == KYC_STATUS.ACCEPT"
                     />
             </VCol>
-            <VCol lg="6" sm="12">
+            <VCol sm="6" cols="12">
                 <NewInputComponentVue 
                     v-model="form.birth" 
                     type="date"
@@ -111,7 +111,7 @@
                     :disabled="statusKyc == KYC_STATUS.IN_VERIFICATION || statusKyc == KYC_STATUS.ACCEPT"
                     />
             </VCol>
-            <VCol lg="6" sm="12">
+            <VCol sm="6" cols="12">
                 <SelectComponentVue
                 :items="userStore.countries"
                 v-model="form.nationality_id"
@@ -121,7 +121,7 @@
                 :disabled="statusKyc == KYC_STATUS.IN_VERIFICATION || statusKyc == KYC_STATUS.ACCEPT"
                 />
             </VCol>
-            <VCol lg="6" sm="12">
+            <VCol sm="6" cols="12">
                 <SelectComponentVue
                 :items="userStore.countries"
                 v-model="form.country_id"
@@ -131,7 +131,7 @@
                 :disabled="statusKyc == KYC_STATUS.IN_VERIFICATION || statusKyc == KYC_STATUS.ACCEPT"
                 />
             </VCol>
-            <VCol lg="6" sm="12">
+            <VCol sm="6" cols="12">
                 <SelectComponentVue
                 :items="userStore.departaments"
                 v-model="form.department_id"
@@ -142,7 +142,7 @@
                 :disabled="statusKyc == KYC_STATUS.IN_VERIFICATION || statusKyc == KYC_STATUS.ACCEPT"
                 />
             </VCol>
-            <VCol lg="6" sm="12">
+            <VCol sm="6" cols="12">
                 <SelectComponentVue
                 :items="userStore.municipalities"
                 v-model="form.municipalitie_id"
@@ -152,7 +152,7 @@
                 :disabled="statusKyc == KYC_STATUS.IN_VERIFICATION || statusKyc == KYC_STATUS.ACCEPT"
                 />
             </VCol>
-            <VCol lg="6" sm="12">
+            <VCol sm="6" cols="12">
                 <NewInputComponentVue 
                     v-model="form.address" 
                     :name="$t('views.profile.personal-data.address')" 

@@ -13,8 +13,8 @@
     </div>
     <VDivider class="" />
 
-    <div class="mt-10 d-flex">
-        <div class="px-2 border-primary rounded-lg text-table font-weight-bold py-5"
+    <div class="mt-10 d-lg-flex">
+        <div class="px-2 border-primary rounded-lg text-table font-weight-bold py-5 mx-auto"
             style="max-width: 345px;"
             >
             <p class="mb-4">
@@ -97,23 +97,23 @@
                 </p>
             </div>
 
-            <div class="mt-5">
+            <!-- <div class="mt-5">
                 <p>
                     {{ $t('views.admin.kyc.deplucity-sistem') }} :
                 </p>
                 <p>
                     {{ $t('views.admin.kyc.login-valid') }} :
                 </p>
-            </div>
+            </div> -->
         </div>
 
         <!-- Imagenes del kyc -->
-        <div class="d-flex my-auto ml-3" style=" gap: 15px;">
-            <div v-for="image,i in images" :key="i">
+        <div class="d-lg-flex my-auto ml-3 mx-auto" style=" gap: 15px;">
+            <div :class="$vuetify.display.mdAndDown ? 'mt-10' : ''" class="mx-auto" style="min-width: 210px;max-width:  210px;" v-for="image,i in images" :key="i">
                 <div class="text-center">
-                    <span class="">{{image.name}}</span>
+                    <span class="text-18 font-weight-semibold text-table">{{image.name}}</span>
                 </div>
-                <VCard style="min-width: 210px;max-width:  210px;" class="mx-auto">
+                <VCard elevation="0" style="min-width: 210px;max-width:  210px;" class="mx-auto bg-sky-1">
                     <template #title>
                         <div class="d-flex justify-center">
                             <VImg 
@@ -151,13 +151,13 @@
                 </VCard>
 
                 
-                <div class="d-flex mt-2" 
+                <div class="d-flex mt-2"  style="width: 210px;"
                     v-if="image.status === KYC_STATUS.IN_VERIFICATION"
                     >
                     <VBtnSuccess 
                         class="text-uppercase font-weight-bold"
                         style=""
-                        elevation="20"
+                        elevation="10"
                         @click="rejectOrAccept(image.value,'accept')"
                         >
                         Aprobar
@@ -167,7 +167,7 @@
                         @click="rejectOrAccept(image.value,'reject')"
                         class="text-uppercase font-weight-bold"
                         style=""
-                        elevation="20"
+                        elevation="10"
                         >
                         Rechazar
                     </VBtnDanger>

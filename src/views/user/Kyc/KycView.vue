@@ -156,7 +156,7 @@ const sendKyc = () => {
     helper
         .http(url, 'post', { data }, t('commons.message-success', { message: 'Kyc' }))
         .then(() => {
-            router.push({ name: 'Profile' })
+            window.location.reload()
         })
 }
 //--------------------------
