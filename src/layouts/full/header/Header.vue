@@ -18,6 +18,7 @@ import { onUnmounted } from "vue";
 
 const userStore = UserStore()
 const interval = ref()
+userStore.updateUserAuth()
 onMounted(()=>{
   interval.value = setInterval(()=>{
     userStore.updateUserAuth()
@@ -88,7 +89,7 @@ const profileRoutes = {
       <!-- ---------------------------------------------- -->
       <v-menu anchor="bottom end" origin="auto" min-width="300">
         <template v-slot:activator="{ props }">
-          <v-btn v-bind="props" class="pa-0" elevation="0" color="transparent">
+          <v-btn  v-bind="props" class="pa-0" elevation="0" color="transparent">
             <!-- <v-avatar size="35"> -->
             <ProfileIcon style="color:#5043E9" />
             <!-- </v-avatar> -->

@@ -1,6 +1,6 @@
 <template>
-    <div class="d-flex justify-space-between">
-        <h3>{{ $t("views.transactions.title", 2) }}</h3>
+    <div class="d-flex justify-space-between flex-column flex-sm-row mb-8 text-table">
+        <h3 class="font-weight-semibold">{{ $t("views.transactions.title", 2) }}</h3>
         <SearchInputComponentVue v-model="search" @onSearch="getSearch" />
     </div>
     <TableComponentVue
