@@ -1,5 +1,5 @@
 <template>
-    <VLabel class="pl-3 text-capitalize font-weight-bold" style="">{{ !withoutLabel ?name : '' }}</VLabel>
+    <VLabel class="pl-3 text-capitalize font-weight-semibold text-table" style="">{{ !withoutLabel ?name : '' }}</VLabel>
     <!-- <VResponsive class="v-text-field__slot"> -->
         <vue-tel-input 
             v-model="modelValue" 

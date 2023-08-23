@@ -204,7 +204,7 @@ const { shippingType, form, networkTypes } = storeToRefs(confirmOrderStore);
 const { getShippingTypes } = confirmOrderStore;
 const generalConfiguration = GeneralConfiguration()
 const { generalData } = storeToRefs(generalConfiguration);
-
+form.value.xcop_payment = false
 
 const totalExchngeOriginal = form.value.total_exchange_local
 const totalUsdOriginal = form.value.total_exchange_reference
