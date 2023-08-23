@@ -26,8 +26,13 @@ import PenaltyModal from "../components/Penalty/PenaltyModal.vue";
 import { TransactionStore } from "@/stores/TransactionStore";
 import { OrderTypes } from "@/enums/OrderTypes.enum";
 import { storeToRefs } from "pinia";
+import { GeneralConfiguration } from "@/stores/GeneralConfiguration";
 
 const helper = helperStore()
+const generalConfiguration = GeneralConfiguration()
+generalConfiguration.getGeneralData();
+
+
 const confirmOrderStore = ConfirmOrderStore();
 const transactionStore = TransactionStore()
 const  { form } = storeToRefs(confirmOrderStore)

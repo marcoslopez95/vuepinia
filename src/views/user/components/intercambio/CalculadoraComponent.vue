@@ -1,11 +1,15 @@
 <template>
     <VRow class="d-flex justify-center">
         <VCol>
-            <div :class="$vuetify.display.xs ? '' : 'd-flex justify-center'" class="">
-                <div 
-                    style="width: 170px" class="text-table"
-                        :class="$vuetify.display.xs ? 'mx-auto' : ''"
-                    >
+            <div
+                :class="$vuetify.display.xs ? '' : 'd-flex justify-center'"
+                class=""
+            >
+                <div
+                    style="width: 170px"
+                    class="text-table"
+                    :class="$vuetify.display.xs ? 'mx-auto' : ''"
+                >
                     <InputComponent
                         v-model="amountFiat"
                         :events="eventsFiat"
@@ -22,13 +26,18 @@
                 >
                     <div
                         :class="$vuetify.display.xs ? 'mx-auto' : ''"
-                        class="border-degree "
-                        style="border-radius: 100% !important; width: 35px; height: 35px"
+                        class="border-degree"
+                        style="
+                            border-radius: 100% !important;
+                            width: 35px;
+                            height: 35px;
+                        "
                     >
                         =
                     </div>
                 </div>
-                <div style="width: 170px"
+                <div
+                    style="width: 170px"
                     :class="$vuetify.display.xs ? 'mx-auto' : ''"
                 >
                     <InputComponent
@@ -42,7 +51,7 @@
                 </div>
             </div>
             <div class="w-100 mt-10 text-center font-weight-bold text-table">
-                {{ amountCrypto }} {{ priceSelect?.symbol }} equivalente
+                {{ calculadora.amountCrypto }} {{ priceSelect?.symbol }} equivalente
                 apróximado a {{ calculadora.amountUsd }} USD
             </div>
             <div
@@ -50,6 +59,16 @@
                 class="w-100 text-center font-weight-bold text-error"
             >
                 Transacción mínima {{ formatNumber(minAmount, ",", ".") }} COP
+                <br />
+                Se cobrará un adicional de
+                {{
+                    formatNumber(
+                        generalData?.attributes.administrative_fee as number,
+                        ",",
+                        "."
+                    )
+                }}
+                COP
             </div>
         </VCol>
     </VRow>
@@ -75,7 +94,10 @@ import router from "@/router";
 import { WalletStore } from "@/stores/WalletStore";
 import { storeToRefs } from "pinia";
 import type { CurrencyTicker } from "@/interfaces/Ticker/Ticker.model";
+import { GeneralConfiguration } from "@/stores/GeneralConfiguration";
 
+const generalConfiguration = GeneralConfiguration();
+const { generalData } = storeToRefs(generalConfiguration);
 const walletStore = WalletStore();
 const { currencyTicker: prices } = storeToRefs(walletStore);
 const props = defineProps<{
@@ -90,6 +112,14 @@ const emits = defineEmits<{
 }>();
 
 const helper = helperStore();
+
+const calculadoraWithFees = reactive<
+    Pick<Calculator, "amountFiat" | "amountCrypto" | "amountUsd">
+>({
+    amountCrypto: 0,
+    amountFiat: 0,
+    amountUsd: 0,
+});
 
 const calculadora = reactive<Calculator>({
     amountFiat: 0,
@@ -155,32 +185,63 @@ const amountFiat = ref<string>("0,00");
 const amountCrypto = ref<string>("0,00000000");
 
 const updateCrypto = () => {
-    calculadora.amountFiat = transformAmount(amountFiat.value);
+    let feesInFiat = 0
 
-    const division = calculadora.amountFiat / (priceSelect.value?.buy ?? 1);
-    calculadora.amountCrypto = division.toFixed(8);
-    amountCrypto.value = calculadora.amountCrypto;
+    const montoFiat = transformAmount(amountFiat.value);
+
+    if(montoFiat < (generalData.value?.attributes.order_fee_limit as number)){
+        feesInFiat = (generalData.value?.attributes.administrative_fee as number)
+    }
+
+    const montoFiatWithFees = montoFiat + feesInFiat;
+
+    calculadora.amountFiat = montoFiatWithFees;
+
+    const division = montoFiat / (priceSelect.value?.buy ?? 1);
+    const montoCrypto = division.toFixed(8);
+
+    const divisionWithFees = montoFiatWithFees / (priceSelect.value?.buy ?? 1);
+    const montoCryptoWithFees = divisionWithFees.toFixed(8);
+
+    calculadora.amountCrypto = montoCryptoWithFees;
+
+    amountCrypto.value = montoCrypto;
+
     calculadora.amountUsd = (
-        parseFloat(calculadora.amountCrypto) * oficialValue.value
+        parseFloat(montoCryptoWithFees) * oficialValue.value
     ).toFixed(2);
+
     emits("update:model-value", calculadora);
 };
 
 const updateFiat = () => {
-    calculadora.amountCrypto = transformAmount(amountCrypto.value);
-    calculadora.amountFiat =
-        calculadora.amountCrypto * (priceSelect.value?.buy ?? 1);
-    calculadora.amountUsd = (
-        calculadora.amountCrypto * oficialValue.value
-    ).toFixed(2);
-    amountFiat.value = calculadora.amountFiat.toFixed(2);
+    let feesInCrypto = 0
+    
+    const montoCrypto = transformAmount(amountCrypto.value);
+    const montoFiat = montoCrypto * (priceSelect.value?.buy ?? 1);
+
+    if(montoFiat < (generalData.value?.attributes.order_fee_limit as number)){
+        feesInCrypto = (generalData.value?.attributes.administrative_fee as number) / (calculadora.criptoOficial as number)
+    }
+
+    const montoCryptoWithFees = montoCrypto + feesInCrypto;
+    console.log('esto',montoCryptoWithFees, montoCrypto, feesInCrypto)
+    const montoFiatWithFees = montoCryptoWithFees * (priceSelect.value?.buy ?? 1);
+    const montoUsd = (montoCryptoWithFees * oficialValue.value).toFixed(2);
+    
+    calculadora.amountCrypto = montoCryptoWithFees;
+    calculadora.amountFiat = montoFiatWithFees;
+    calculadora.amountUsd = montoUsd;
+
+    amountFiat.value = montoFiat.toFixed(2);
+
     emits("update:model-value", calculadora);
 };
 
 watch(
     () => calculadora.amountFiat,
     (nuevo) => {
-        if (nuevo >= props.minAmount) {
+        if (nuevo > (generalData.value?.attributes.administrative_fee as number)) {
             emits("amountPermitted", true);
             return;
         }

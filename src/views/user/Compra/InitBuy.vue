@@ -31,7 +31,7 @@
             @update:model-value="(value) => (calculatorValue = value)"
             :currency="currency!"
             @no-price="noPrice"
-            :minAmount="200000"
+            :minAmount="(generalConfiguration.generalData?.attributes.order_fee_limit as number)"
             @amount-permitted="(value) => (amountPermitted = value)"
         >
         </CalculadoraComponent>
@@ -68,6 +68,9 @@ import CalculadoraComponent from "../components/intercambio/CalculadoraComponent
 import { ConfirmOrderStore } from "./CompraStore";
 import type { Calculator } from "@/interfaces/Calculadora.interface";
 import { storeToRefs } from "pinia";
+import { GeneralConfiguration } from "@/stores/GeneralConfiguration";
+
+const generalConfiguration = GeneralConfiguration()
 
 const confirmOrderStore = ConfirmOrderStore();
 const { form } = storeToRefs(confirmOrderStore);

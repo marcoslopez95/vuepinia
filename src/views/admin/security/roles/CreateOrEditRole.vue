@@ -143,7 +143,7 @@ const storeRole = async () => {
         message = 'Actualizado correctamente'
     }
     form.permissions = permissions.value
-    const data = { form }
+    const data = form
     const res = await helper.http(url, method, { data }, message)
     clearForm()
 }

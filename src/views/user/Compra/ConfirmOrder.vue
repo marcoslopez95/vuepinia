@@ -190,6 +190,8 @@ import { computed } from "vue";
 import { TransactionStore } from "@/stores/TransactionStore";
 import PreviewOrderForConfirm from '@/layouts/full/menuRight/PreviewOrder/PreviewOrderForConfirm.vue';
 import { useDisplay } from "vuetify/lib/framework.mjs";
+import { watch } from "vue";
+import { GeneralConfiguration } from "@/stores/GeneralConfiguration";
 
 const { smAndDown } = useDisplay()
 const transactionStore = TransactionStore()
@@ -200,7 +202,12 @@ const walletStore = WalletStore()
 const confirmOrderStore = ConfirmOrderStore();
 const { shippingType, form, networkTypes } = storeToRefs(confirmOrderStore);
 const { getShippingTypes } = confirmOrderStore;
+const generalConfiguration = GeneralConfiguration()
+const { generalData } = storeToRefs(generalConfiguration);
 
+
+const totalExchngeOriginal = form.value.total_exchange_local
+const totalUsdOriginal = form.value.total_exchange_reference
 onMounted(() => {
     form.value.shipping_type_id = ''
     form.value.red_id = ''
@@ -247,7 +254,31 @@ const comisiones = reactive<Comisiones>({
     feesPriority: false,
 });
 
+
+const addFeesToTotalLocal = () => {
+    let feesXCOP = 0;
+    let feesXCOPusd = 0;
+    
+    const currency = walletStore.currencies.find(c=> c.id === form.value.currency_id);
+    const currencyTicker = walletStore.getCurrencyTickerByAbbreviation(currency?.attributes.abbreviation!);
+
+    const priceUsd = currencyTicker?.trm!
+    if(form.value.xcop_payment){
+        const withFeesXCOP = generalData.value?.attributes.administrative_fee as number
+        feesXCOP = withFeesXCOP;
+        feesXCOPusd = withFeesXCOP / parseFloat(priceUsd)
+    }
+
+    const priceExchangeFees = parseFloat(form.value.fee) * parseFloat(priceUsd)
+    
+    form.value.total_exchange_local = (parseFloat(totalExchngeOriginal) + priceExchangeFees + feesXCOP).toFixed(2)
+    form.value.total_exchange_reference = (parseFloat(totalUsdOriginal) + parseFloat(form.value.fee) + feesXCOPusd).toFixed(2)
+    
+}
+
 form.value.fee = "11";
+addFeesToTotalLocal()
+
 transactionStore.feeMiner = form.value.fee
 const checkboxes: Checkboxes[] = [
     {
@@ -292,6 +323,14 @@ const clickInOption = (label: keyof Comisiones) => {
         }
     }
 };
+
+watch(()=>form.value.fee,(nuevo) => {
+    addFeesToTotalLocal()
+})
+
+watch(()=>form.value.xcop_payment,(nuevo)=>{
+        addFeesToTotalLocal( )
+})
 
 interface Checkboxes {
     label: keyof Comisiones;
