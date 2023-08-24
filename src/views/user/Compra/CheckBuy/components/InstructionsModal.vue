@@ -38,8 +38,8 @@
     >
         <template #title>
             <VImg
-                style="filter: grayscale(1)"
                 v-if="bankHaveImage"
+                style="filter: grayscale(1)"
                 :width="$vuetify.display.mdAndUp ? 400 : 200"
                 :height="$vuetify.display.mdAndUp ? 60 : 30"
                 :src="getImage()"
@@ -63,42 +63,23 @@
             Debes escribir el siguiente texto a mano y con letra clara en el
             recibo:
         </p>
-        <div class="border-lg my-5 border-dashed text-primary text-center rounded-xl " v-html="textHand">
-        </div>
         <div
-            class="font-machine border-voucher-machine mx-auto"
-            style="width: 200px"
-        >
-            <div
-                class="d-flex justify-center wather-mark position-absolute font-proxima text-uppercase"
-                style="font-size: 40px; opacity: 0.1"
-            >
-                <div class="mx-auto">ejemplo</div>
-            </div>
-            <div class="text-center text-18">
-                <div>REDEBAN</div>
-                <div>DIC 11 2020 14:21</div>
-                <div>
-                    CORRESPONSAL BANCOLOMBIA<br />
-                    LERIDA II - TOLIMA<br />
-                    CALLE 9 6 36 <br />
-                </div>
-                <div
-                    class="d-flex justify-space-between text-white px-3"
-                    style="background-color: black"
-                >
-                    <div>VALOR</div>
-                    <div>$1,000,000</div>
-                </div>
-                <div>
-                    Bancolombia es responsable por los servicos prestados por el
-                    corresponsal
-                </div>
-                <div class="font-hand text-primary" v-html="textHand">
-
-                </div>
-            </div>
-        </div>
+            class="border-lg my-5 border-dashed text-primary text-center rounded-xl"
+            v-html="textHand"
+        ></div>
+        <!-- <v-carousel>
+            <v-carousel-item>  -->
+                <component
+                    class="mt-4"
+                    v-for="(item, index) in examplesRecipe"
+                    :key="index"
+                    :is="item.component"
+                    :text-hand="textHand"
+                    :bankHaveImage="bankHaveImage"
+                    :getImage="getImage()"
+                />
+            <!-- </v-carousel-item> -->
+        <!-- </v-carousel> -->
         <template #actions>
             <div class="text-center w-100">
                 <VBtnPrimary @click="openModal = false">Ok</VBtnPrimary>
@@ -108,11 +89,14 @@
 </template>
 
 <script setup lang="ts">
+import CorresponsalBancario from "@/views/user/Compra/CheckBuy/components/instructionsModal/CorresponsalBancario.vue";
+import TransferenciaBancaria from "./instructionsModal/TransferenciaBancaria.vue";
 import DialogGlobal from "@/components/global/DialogGlobal.vue";
 import { getWalletFormated } from "@/helper";
 import type { BankAccount } from "@/interfaces/CompanyAccount/BankAccount/BankAccount.model";
 import type { Order } from "@/interfaces/Order/Order.model";
 import { ref, computed } from "vue";
+import CajeroAutomatico from "@/views/user/Compra/CheckBuy/components/instructionsModal/CajeroAutomatico.vue";
 
 const props = defineProps<{
     order: Order;
@@ -120,13 +104,30 @@ const props = defineProps<{
 const imageBank = ref("");
 const openModal = ref(false);
 
+const examplesRecipe:{component:any,type:string}[] = [
+    {
+        type: 'corresponsal',
+        component: CorresponsalBancario
+    },
+    {
+        component:CajeroAutomatico,
+         type: 'cajero'
+    },
+    {
+        component: TransferenciaBancaria,
+        type: 'transferencia'
+    }
+];
+
 const textHand = computed(() => {
     return `
     "Compra de Criptomonedas <br />
-            Dirección destino: (${getWalletFormated(props.order.attributes.address_send!)}) <br />
+            Dirección destino: ${getWalletFormated(
+                props.order.attributes.address_send!
+            )} <br />
             Pago irreversible"
-    `
-})
+    `;
+});
 
 const account_delivery = props.order.relationships
     ?.account_delivery as BankAccount;
@@ -136,19 +137,20 @@ const bankHaveImage = computed((): boolean => {
     return true;
 });
 const getImage = () => {
+    if(account_delivery.relationships?.bank.relationships?.images.length == 0) return ''
     return account_delivery.relationships?.bank.relationships?.images[0]
         .attributes.aws_url;
 };
 </script>
 
 <style lang="scss" scoped>
-@import url('https://fonts.googleapis.com/css2?family=Handjet:wght@700&family=Schoolbell&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Handjet:wght@700&family=Schoolbell&display=swap");
 .font-machine {
     font-family: "Handjet", cursive;
 }
 
 .font-hand {
-    font-family: 'Schoolbell', cursive;
+    font-family: "Schoolbell", cursive;
 }
 .border-voucher-machine {
     border: 2px solid black;
