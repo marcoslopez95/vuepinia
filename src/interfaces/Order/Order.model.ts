@@ -37,6 +37,7 @@ export declare interface OrderAttributes {
         processed_by?: any;
         account_delivery_type: string;
         xcop_payment: boolean
+        administrative_fee_order: number;
 }
 
 export declare interface OrderRelationships {

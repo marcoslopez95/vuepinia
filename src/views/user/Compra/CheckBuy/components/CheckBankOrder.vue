@@ -122,7 +122,7 @@
     <VRow
         v-if="
             //order.relationships?.status.id === StatusOrder.RECEIVED_ORDER ||
-            typeof comprobant != 'string'
+            false
         "
     >
         <div class="text-table mt-7">
@@ -176,7 +176,7 @@ const comprobant = ref<Blob | string>(
     props.order.relationships!.images.length > 0 &&
         props.order.relationships?.images[0].attributes.aws_url
         ? props.order.relationships?.images[0].attributes.aws_url
-        : ""
+        : ''
 );
 const timeSet = dayjs().add(30, "minute").format();
 

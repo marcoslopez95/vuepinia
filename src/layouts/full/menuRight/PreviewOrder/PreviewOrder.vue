@@ -3,15 +3,15 @@
         <div class=" mt-5 mb-0 text-center text-primary mx-0 pb-0 px-0 font-weight-bold"  style="font-size: 23px; ">
             {{ $t("views.menu-right.preview-order.title") }}
         </div>
-        <VCardText class="px-3 my-auto text-left text-table text-20 font-weight-bold">
+        <VCardText class="px-3 my-auto text-left text-table text-20 font-weight-semibold">
             <div class="my-6 d-flex " style="justify-content: space-between ;">
-                <span>Cantidad:</span>
+                <span class="font-weight-regular">Cantidad:</span>
                 <span class="">
                     {{ transactionStore.order!.attributes.amount_currency }} {{  transactionStore.order!.relationships!.currency.attributes.abbreviation.toLocaleUpperCase() }}
                 </span>
             </div>
             <div v-if="transactionStore.order.attributes.type == OrderTypes.COMPRA" class="my-6 d-flex " style="justify-content: space-between ;">
-                <span>Pesos:</span>              
+                <span class="font-weight-regular">Pesos:</span>              
                 <span class="">
                     {{ formatNumber(parseFloat(transactionStore.order!.relationships!.currencyExchangeOrder.attributes.total_exchange_local)) }}
                     {{ transactionStore.order!.relationships!.currencyExchangeOrder.relationships?.localCurrency.attributes.abbreviation }}
@@ -20,9 +20,15 @@
             </div>
             <div class="my-6 d-flex " style="justify-content: space-between ;">
 
-                <span>Doláres:</span>            
+                <span class="font-weight-regular">Doláres:</span>            
                 <div class="align-center justify-center d-flex">
-                    <VIcon class="mt-0 pt-0 mr-1" size="20" :icon="InformationIcon" color="primary" />
+                    <v-tooltip text="Valor Apróximado">
+                        <template v-slot:activator="{ props }">
+                                <VIcon 
+                                v-bind="props"
+                                class="mt-0 pt-0 mr-1" size="20" :icon="InformationIcon" color="primary" />
+                        </template>
+                    </v-tooltip>
                     <span class="">
                         {{ transactionStore.order.relationships?.currencyExchangeOrder.attributes.total_exchange_reference }}
                         USD
@@ -31,24 +37,29 @@
             </div>
             <div v-if="transactionStore.order.attributes.type == OrderTypes.COMPRA" class="my-6 d-flex " style="justify-content: space-between ;">
 
-                <span>Fee Mineros:</span>        
+                <span class="font-weight-regular">Fee Mineros:</span>        
                 <span class="">
-                    {{ transactionStore.order?.attributes.fee }}
+                    {{ transactionStore.order?.attributes.fee }} USD
                 </span>
             </div>
-            <div class="my-6 d-flex " style="justify-content: space-between ;">
-
-                <span>Fee administrativo:</span> 
+            <div v-if="transactionStore.order?.attributes.administrative_fee_order" class="my-6 d-flex " style="justify-content: space-between ;">
+                <span class="font-weight-regular">Fee administrativo:</span> 
                 <div class="align-center justify-center d-flex">
-                    <VIcon class="mt-0 mr-1 pt-0" :icon="QuestionIcon" color="primary" size="20" />
+                    <v-tooltip text="Comisión por monto menor al mínimo">
+                        <template v-slot:activator="{ props }">
+                                <VIcon 
+                                v-bind="props"
+                                class="mt-0 mr-1 pt-0" :icon="QuestionIcon" color="primary" size="20" />
+                        </template>
+                    </v-tooltip>
                     <span class="">
-                    {{ transactionStore.order?.attributes.fee }}
+                    {{ formatNumber(transactionStore.order?.attributes.administrative_fee_order) }}
 
                 </span>
                 </div>
             </div>
             <div v-if="transactionStore.order.attributes.type == OrderTypes.VENTA" class="my-6 d-flex " style="justify-content: space-between ;">
-                <span>Pesos a Recibir:</span>              
+                <span class="font-weight-regular">Pesos a Recibir:</span>              
                 <span class="">
                     {{ formatNumber(parseFloat(transactionStore.order.relationships?.currencyExchangeOrder.attributes.total_exchange_local!)) }}
                     COP

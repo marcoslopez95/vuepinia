@@ -30,7 +30,8 @@ export const ConfirmOrderStore = defineStore('confirm-order', () => {
         account_delivery_id: '',
         wallet_id: '',
         address_send: '',
-        xcop_payment:false
+        xcop_payment:false,
+        administrative_fee_order: 0,
     })
 
     const shippingType = ref<ShippingType[]>([])

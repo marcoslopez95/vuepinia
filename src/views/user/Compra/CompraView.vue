@@ -56,6 +56,7 @@ const timeSet = dayjs().add(30, "minutes").format();
 const createOrder2 = () => {
     if(havePenalization.value) return
     transactionStore.showPreviewOrder = false
+    form.value.administrative_fee_order = generalConfiguration.generalData?.attributes.administrative_fee as number
     confirmOrderStore.createOrder(OrderTypes.COMPRA);
     console.log('pagos', confirmOrderStore.form)
 };
