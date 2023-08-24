@@ -10,6 +10,25 @@
         :items="helper.items"
         @show="clickInShow"
     >
+        <template #cel-status="{ data }">
+            <VIcon
+                v-if="
+                    order(data).relationships?.status.id ==
+                    StatusOrder.ORDER_CANCELED
+                "
+                :icon="ErrorFilledIcon"
+                color="warning"
+            />
+            <VIcon
+                v-else-if="
+                    order(data).relationships?.status.id ==
+                    StatusOrder.ORDER_COMPLETED
+                "
+                :icon="CheckFilledIcon"
+                color="ok-2"
+            />
+            <span v-else> {{ order(data).relationships?.status.attributes.name }}</span>
+        </template>
         <template #cel-tranx_no="{ data }">
             <span class="text-primary">{{
                 order(data).attributes.tranx_no
@@ -96,15 +115,16 @@ import { computed } from "vue";
 import { OrderTypes } from "@/enums/OrderTypes.enum";
 import type { Order } from "@/interfaces/Order/Order.model";
 import { useRouter } from "vue-router";
+import { StatusOrder } from "@/enums/StatusOrder.enum";
+import ErrorFilledIcon from "@/assets/icons/ErrorFilledIcon.vue";
+import CheckFilledIcon from "@/assets/icons/CheckFilledIcon.vue";
 
 const router = useRouter();
 const helper = helperStore();
 helper.url = "order";
 // helper.url = 'client/wallet/adress/wallet'
 
-const order = (item: unknown): Order => {
-    return item as Order;
-};
+const order = (item: unknown): Order => item as Order;
 helper.index();
 const walletStore = WalletStore();
 walletStore.getCurrencies();
@@ -244,6 +264,7 @@ const clickInShow = (order: Order) => {
         },
     });
 };
+
 </script>
 
 <style scoped></style>

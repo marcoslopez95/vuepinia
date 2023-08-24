@@ -1,12 +1,12 @@
 <template>
     <VRow>
-        <VCol cols="12">
+        <VCol cols="12" class="text-primary text-center">
             <h3>Pago de compra #{{ order.attributes.tranx_no }}</h3>
         </VCol>
-        <VCol cols="12">
+        <VCol cols="12" class="">
             <instructions-modal :order="order"></instructions-modal>
         </VCol>
-        <VCol cols="12">
+        <VCol v-if="!$vuetify.display.xs" cols="12">
             <div
                 class="w-100 alertError py-2 px-1 rounded-lg text-soft-error d-flex"
                 style="gap: 15px"
@@ -45,18 +45,19 @@
         </VCol>
     </VRow>
     <VRow>
-        <VCol cols="12">
-            <h3 class="text-primary">
+        <VCol cols="12" class="mx-0 px-0">
+            <h3 class="text-primary text-center">
                 Realizar pago y sube el comprobante de pago
             </h3>
         </VCol>
-        <VCol cols="12" lg="6" class="my-6 h-100" style="height: 200px">
-            <div class="v-text-field__slot h-100">
-                <div>
+        <VCol cols="12" lg="6" class="my-6 h-100" style="height: 200px;">
+            <div class=" mx-auto v-text-field__slot h-100" style="width: 300px;">
+                <div class=" mt-2">
                     <VImg
                         v-if="getImageBank()"
                         :src="(getImageBank() as string)"
                         width="250px"
+                        class="mx-auto"
                         cover
                     >
                     </VImg>
@@ -106,11 +107,13 @@
             cols="12"
             class="text-center"
             v-if="
-                //order.relationships?.status.id === StatusOrder.RECEIVED_ORDER ||
-                typeof comprobant != 'string'
+                order.relationships?.status.id === StatusOrder.RECEIVED_ORDER 
+                //|| 
+                //typeof comprobant != 'string'
             "
         >
             <VBtnPrimary
+                style="min-width: 170px;"
                 @click="uploadVoucher"
                 :disabled="!comprobant || typeof comprobant == 'string'"
             >
@@ -121,8 +124,9 @@
 
     <VRow
         v-if="
-            //order.relationships?.status.id === StatusOrder.RECEIVED_ORDER ||
-            false
+            order.relationships?.status.id === StatusOrder.RECEIVED_ORDER 
+            // ||
+            // false
         "
     >
         <div class="text-table mt-7">
@@ -187,7 +191,7 @@ const getImageBank = (): string | false => {
 };
 
 const getColorBank = computed(() => {
-    return accountDelivery.relationships?.bank.attributes.color ?? "yellow";
+    return accountDelivery.relationships?.bank?.attributes?.color ?? "yellow";
 });
 
 const uploadVoucher = async () => {
@@ -198,9 +202,9 @@ const uploadVoucher = async () => {
     data.append("vouchers[]", comprobant.value);
     await helper.http(url, "post", { data });
     helper.showNotify("Su comprobante se ha subido Satisfactoriamente");
-    setInterval(() => {
-        router.push({ name: "user-profile" });
-    }, 5000);
+    // setInterval(() => {
+        router.push({ name: "user-transactions" });
+    // }, 5000);
 };
 </script>
 
