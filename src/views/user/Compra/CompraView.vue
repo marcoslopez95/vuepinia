@@ -38,14 +38,17 @@ const transactionStore = TransactionStore()
 const  { form } = storeToRefs(confirmOrderStore)
 form.value.type = OrderTypes.COMPRA
 transactionStore.showPreviewOrder = false;
+
 const backStep = () => {
     confirmatedOrder.value = false
     transactionStore.showPreviewOrder = false
 }
+
 const nextStep = () => {
     confirmatedOrder.value = true
     transactionStore.showPreviewOrder = true
 }
+
 const confirmatedOrder = ref(false);
 const havePenalization = ref(false);
 const alerta = () => {

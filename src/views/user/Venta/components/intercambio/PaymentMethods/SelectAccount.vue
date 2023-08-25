@@ -7,7 +7,9 @@
             es la cuenta activa.
         </p>
     </div>
-    <div style="width: 390px" class="mx-auto">
+    <div :style="{
+        width: $vuetify.display.xs ? '300px' : '390px'
+    }" class="mx-auto">
         <SelectComponent
             name=""
             v-model="valueSelect"
@@ -21,8 +23,10 @@
         <VCard
             elevation="0"
             class="border custom-border-primary mx-auto mt-10"
-            width="390px"
-            height="173"
+            :style="{
+                width: $vuetify.display.xs ? '300px' : '390px'
+            }" 
+            :height=" $vuetify.display.xs ? 200 :173"
         >
             <VCardText class="" style="font-size: 18px;">
                     <VRow dense  class="d-flex text-table align-content-space-between">

@@ -25,11 +25,16 @@
         @update:model-value="(value)=>calculatorValue=value"
         :currency="currency!"
         @no-price="noPrice"
-        :minAmount="200000"
+        :minAmount="(generalConfiguration.generalData?.attributes.order_fee_limit as number)"
         @amount-permitted="(value) => amountPermitted = value"
         >
         </CalculadoraComponent>
         <VRow>
+            <VCol v-if="form.total_exchange_local < generalConfiguration.generalData?.attributes.order_fee_limit!" cols="12" class="d-flex justify-center">
+                <div>
+                    <VCheckbox v-model="form.xcop_payment" label="Pagar Comisión con XCOP"></VCheckbox>
+                </div>
+            </VCol>
             <VCol class="text-center my-6">
                 <VBtnPrimary :disabled="!amountPermitted" @click="clickInContinue">
                     {{ $t('general-views.continue') }}
@@ -57,12 +62,15 @@ import type { Calculator } from '@/interfaces/Calculadora.interface'
 import { storeToRefs } from 'pinia';
 import SelectAccount from './components/intercambio/PaymentMethods/SelectAccount.vue';
 import { ConfirmOrderStore } from '../Compra/CompraStore';
+import { GeneralConfiguration } from '@/stores/GeneralConfiguration';
+
 const confirmOrderStore = ConfirmOrderStore()
 const { form } = storeToRefs(confirmOrderStore)
 const emits = defineEmits<{
     (e:'click:continue'):void
 }>()
-
+const generalConfiguration = GeneralConfiguration()
+generalConfiguration.getGeneralData();
 const helper = helperStore()
 const currency = ref<Currency | null>(null)
 const paymentMethod = ref<PaymentMethod | null>(null)

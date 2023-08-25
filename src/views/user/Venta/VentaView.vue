@@ -1,6 +1,6 @@
 <template>
-    <InitBuy @click:continue="createOrder2">
-    </InitBuy>
+    <InitSell @click:continue="createOrder2">
+    </InitSell>
     <div class="text-table mt-7">
         Tienes
         <CountDown :dateFinish="timeSet" @endTime="alerta"></CountDown> minutos
@@ -14,7 +14,7 @@
 <script setup lang="ts">
 import CountDown from "@/components/CountDown.vue";
 import { ref } from "vue";
-import InitBuy from "./InitSell.vue";
+import InitSell from "./InitSell.vue";
 import dayjs from "dayjs";
 
 import { helperStore } from "@/helper";
@@ -25,8 +25,12 @@ import { TransactionStore } from "@/stores/TransactionStore";
 import { ConfirmOrderStore } from "../Compra/CompraStore";
 import { storeToRefs } from "pinia";
 import { OrderTypes } from "@/enums/OrderTypes.enum";
+import { GeneralConfiguration } from "@/stores/GeneralConfiguration";
 
 const helper = helperStore()
+const generalConfiguration = GeneralConfiguration()
+generalConfiguration.getGeneralData();
+
 const confirmOrderStore = ConfirmOrderStore();
 const  { form } = storeToRefs(confirmOrderStore)
 form.value.type = OrderTypes.VENTA
@@ -53,6 +57,9 @@ const createOrder2 = async () => {
     if(havePenalization.value) return
     await confirmOrderStore.getAddressSendForSell()
     form.value.address_send = confirmOrderStore.addressSendForSell
+    if(form.value.total_exchange_local < generalConfiguration.generalData?.attributes.order_fee_limit!){
+        form.value.administrative_fee_order = generalConfiguration.generalData?.attributes.administrative_fee! as number
+    }
     confirmOrderStore.createOrder(OrderTypes.VENTA);
     console.log('pagos', confirmOrderStore.form)
 };

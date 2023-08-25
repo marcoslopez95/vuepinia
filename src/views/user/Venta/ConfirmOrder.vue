@@ -1,30 +1,47 @@
 <template>
+    <VCol cols="12" class="text-primary text-center">
+        <h3>Detalle de venta #{{ order.attributes.tranx_no }}</h3>
+    </VCol>
     <div
         class="d-lg-flex d-flex justify-center align-center mb-8"
         :style="[$vuetify.display.mdAndDown ? 'flex-direction: column' : '']"
         style="gap: 30px"
     >
-        <div class="d-flex justify-center order-1 order-md-0"
-        :style="[$vuetify.display.mdAndDown ? 'flex-direction: column' : '']">
-            <div 
-                @click="showQr = !showQr" 
-                class=" my-4 border-degree rounded-lg justify-space-between cursor-pointer px-3 align-center d-flex d-md-none" 
-                style="width: 322px; height: 38px;">
+        <div
+            class="d-flex justify-center order-1 order-md-0"
+            :style="[
+                $vuetify.display.mdAndDown ? 'flex-direction: column' : '',
+            ]"
+        >
+            <div
+                @click="showQr = !showQr"
+                class="my-4 border-degree rounded-lg justify-space-between cursor-pointer px-3 align-center d-flex d-md-none"
+                style="width: 322px; height: 38px"
+            >
                 <div>
-                    <VIcon  :icon="QrIcon"></VIcon>
+                    <VIcon :icon="QrIcon"></VIcon>
                 </div>
                 <div class="text-table">
-                    {{ !showQr ? 'Mostrar' : 'Ocultar'}} QR
+                    {{ !showQr ? "Mostrar" : "Ocultar" }} QR
                 </div>
                 <div></div>
             </div>
             <div v-if="showQr" class="mx-auto">
-                <QrcodeVue :foreground="$vuetify.display.smAndDown ? '#5043E8' : '#000000'" :value="getDataForQr()" render-as="svg" :size="208"></QrcodeVue>
+                <QrcodeVue
+                    :foreground="
+                        $vuetify.display.smAndDown ? '#5043E8' : '#000000'
+                    "
+                    :value="getDataForQr()"
+                    render-as="svg"
+                    :size="208"
+                ></QrcodeVue>
                 <p
                     style="width: 208px"
                     class="font-weight-bold text-center"
                     :class="[
-                        $vuetify.display.smAndDown ? 'text-primary' : 'text-table'
+                        $vuetify.display.smAndDown
+                            ? 'text-primary'
+                            : 'text-table',
                     ]"
                 >
                     Click en el qr para abrir en tu wallet
@@ -40,34 +57,43 @@
                         <span class="text-primary">Cantidad a enviar</span>
                     </div>
                     <div
-                        style="width:357px"
+                        style="width: 357px"
                         class="v-text-field__slot py-1 d-flex align-center justify-space-between px-3"
                     >
                         <div></div>
                         <div class="text-table">
                             {{ order.attributes.amount_currency }}
                         </div>
-                        <div class="cursor-pointer" @click="copyToClipboard(order.attributes.amount_currency)">
-                            <VIcon :icon="CopyIcon" size="20" />
+                        <div class="cursor-pointer">
+                            <CopyComponent
+                                :value="order.attributes.amount_currency"
+                            />
+                            <!-- <VIcon :icon="CopyIcon" size="20" /> -->
                         </div>
                     </div>
                 </div>
                 <div class="mt-6">
                     <div class="text-center">
                         <span class="text-primary"
-                            >Enviar los {{ order.relationships?.currency.attributes.abbreviation.toLocaleUpperCase() }} a la siguiente direccion</span
+                            >Enviar los
+                            {{
+                                order.relationships?.currency.attributes.abbreviation.toLocaleUpperCase()
+                            }}
+                            a la siguiente direccion</span
                         >
                     </div>
                     <div
-                        style="width:357px"
+                        style="width: 357px"
                         class="v-text-field__slot py-1 d-flex align-center justify-space-between px-3"
                     >
                         <div></div>
                         <div class="text-table">
                             {{ order.attributes.address_send }}
                         </div>
-                        <div class="cursor-pointer" @click="copyToClipboard(order.attributes.address_send!)">
-                            <VIcon :icon="CopyIcon" size="20" />
+                        <div class="cursor-pointer">
+                            <CopyComponent
+                                :value="order.attributes.address_send!"
+                            />
                         </div>
                     </div>
                 </div>
@@ -76,14 +102,16 @@
     </div>
     <div
         class="w-100 alertError py-1 px-1 rounded-lg text-soft-error d-flex align-center"
-        style="gap: 5px"
+        style="gap: 10px"
     >
         <div class="text-center align-self-center">
-            <VIcon size="50" :icon="InformationIconLight" />
+            <VIcon :size="$vuetify.display.xs ? 20 :50" :icon="InformationIconLight" />
         </div>
-        <div>
-            Envia UNICAMENTE {{ order.relationships?.currency.attributes.name }} ({{ order.relationships?.currency.attributes.abbreviation.toLocaleUpperCase() }}) a esta direccion usando la red nativa
-            de bitcoin
+        <div :class="$vuetify.display.xs ? 'text-13':''">
+            Envia unicamente
+            <span class="font-weight-semibold">{{ order.relationships?.currency.attributes.name }} ({{
+                order.relationships?.currency.attributes.abbreviation.toLocaleUpperCase()
+            }})</span> a esta direccion usando la red nativa de bitcoin
         </div>
     </div>
     <p class="text-table my-5">
@@ -96,7 +124,11 @@
         diferentes billeteras te recomendamos agruparlos y luego hacer un solo
         envio.
     </p>
-    <preview-order v-if="$vuetify.display.smAndDown" class="mx-auto mt-5" style="max-width: 300px;" ></preview-order>
+    <preview-order
+        v-if="$vuetify.display.smAndDown"
+        class="mx-auto mt-5"
+        style="max-width: 300px"
+    ></preview-order>
     <div class="text-center mt-10">
         <cancel-order :order="order"></cancel-order>
     </div>
@@ -118,8 +150,10 @@ import InformationIconLight from "@/assets/icons/InformationIconLight.vue";
 import { ConfirmOrderStore } from "../Compra/CompraStore";
 import type { Order } from "@/interfaces/Order/Order.model";
 import CancelOrder from "../Compra/CheckBuy/components/CancelOrder.vue";
-import QrIcon from '@/assets/icons/QrIcon.vue'
+import QrIcon from "@/assets/icons/QrIcon.vue";
 import PreviewOrder from "@/layouts/full/menuRight/PreviewOrder/PreviewOrder.vue";
+import CopyComponent from "@/components/CopyComponent.vue";
+
 const props = defineProps<{
     order: Order;
 }>();
@@ -133,9 +167,9 @@ const confirmOrderStore = ConfirmOrderStore();
 const { shippingType, form, networkTypes } = storeToRefs(confirmOrderStore);
 const { getShippingTypes } = confirmOrderStore;
 
-const showQr = ref(true)
-if(useDisplay().smAndDown.value){
-    showQr.value = false
+const showQr = ref(true);
+if (useDisplay().smAndDown.value) {
+    showQr.value = false;
 }
 confirmOrderStore.getNetworkTypes();
 const emitConfirmOrder = async () => {
@@ -221,10 +255,11 @@ const checkboxes: Checkboxes[] = [
 ];
 
 const getDataForQr = () => {
-    const money = props.order.relationships?.currency.attributes.name.toLocaleLowerCase()
+    const money =
+        props.order.relationships?.currency.attributes.name.toLocaleLowerCase();
 
-    return `${money}:${props.order.attributes.address_send}?amount=${props.order.attributes.amount_currency}`
-}
+    return `${money}:${props.order.attributes.address_send}?amount=${props.order.attributes.amount_currency}`;
+};
 interface Checkboxes {
     label: keyof Comisiones;
     text: string;
@@ -237,8 +272,6 @@ interface Comisiones {
     sendNormal: boolean;
     feesPriority: boolean;
 }
-
-
 </script>
 
 <style scoped lang="scss">
