@@ -89,6 +89,7 @@ import { storeToRefs } from 'pinia';
 import { watch , shallowRef} from 'vue';
 import ActivityDetailUser from "./ActivityDetailUser.vue";
 import TransactionView from "../../transactions/TransactionView.vue";
+import PersonalInformation from "./PersonalInformation.vue";
 
 const props = defineProps<{
     user: User;
@@ -108,6 +109,10 @@ const tabs = shallowRef<ItemTab[]>([
         name: 'Transacciones',
         value: TransactionView,
     },
+    {
+        name: 'Información Personal',
+        value: PersonalInformation
+    }
 ])
 
 

@@ -35,6 +35,7 @@ interface Relationships {
   kyc: Kyc
   last_connection: ActivityUser
   penaltyNow: Penalty[]
+  referred: User
 }
 
 interface UserDetail extends BaseModelSoftDelete<UserDetailAttributes,UserDetailRelationships>{}

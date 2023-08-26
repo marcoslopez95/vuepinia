@@ -11,6 +11,7 @@
                 }}</span>
             </div>
             <div class="text-center ml-6" v-if="!verifyOrderCompleted && $vuetify.display.lgAndUp">
+                
                 <BtnWithModalComponent
                     :color-btn="(order!.attributes.processed_by) ? 'warning' :'primary'"
                     :text-btn="(order!.attributes.processed_by) ? 'Ceder Orden' :'Tomar Transacción'"
@@ -45,7 +46,7 @@
             <VCol :cols="$vuetify.display.mdAndDown ? 12: 6">
                 <div class="mx-auto" style="max-width: 421px">
                     <general-detail></general-detail>
-                    <div class="text-center ml-6 mt-3" v-if="$vuetify.display.mdAndDown">
+                    <div class="text-center ml-6 mt-3" v-if="!verifyOrderCompleted && $vuetify.display.mdAndDown">
                         <BtnWithModalComponent
                             :color-btn="(order!.attributes.processed_by) ? 'warning' :'primary'"
                             :text-btn="(order!.attributes.processed_by) ? 'Ceder Orden' :'Tomar Transacción'"

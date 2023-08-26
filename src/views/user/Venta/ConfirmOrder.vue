@@ -129,7 +129,12 @@
         class="mx-auto mt-5"
         style="max-width: 300px"
     ></preview-order>
-    <div class="text-center mt-10">
+    <div class="text-center mt-10" 
+        v-if="
+            order.relationships?.status.id != StatusOrder.ORDER_COMPLETED
+            && order.relationships?.status.id != StatusOrder.ORDER_CANCELED
+        "
+        >
         <cancel-order :order="order"></cancel-order>
     </div>
 </template>
@@ -153,6 +158,7 @@ import CancelOrder from "../Compra/CheckBuy/components/CancelOrder.vue";
 import QrIcon from "@/assets/icons/QrIcon.vue";
 import PreviewOrder from "@/layouts/full/menuRight/PreviewOrder/PreviewOrder.vue";
 import CopyComponent from "@/components/CopyComponent.vue";
+import { StatusOrder } from "@/enums/StatusOrder.enum";
 
 const props = defineProps<{
     order: Order;

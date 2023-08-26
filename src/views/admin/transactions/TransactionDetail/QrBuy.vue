@@ -25,28 +25,10 @@
                         <span class="text-white">Desembolso</span>
                     </template>
                 </btn-with-modal-component>
-                <btn-with-modal-component
-                    :icon="QuestionIcon"
-                    text-btn="Desembolso"
-                    color-btn="primary"
-                    color-icon="warning"
-                    title-modal="¿Realmente quiere hacer un desembolso EXTERNO?"
-                    btn-modal="Sí"
-                    @click:btn-modal="modalExternalPayment = true"
-                >
-                    <template #btn>
-                        <span class="text-white">Desembolso Externo</span>
-                    </template>
-                    <template #titleModal>
-                        <div
-                            class="text-center text-table font-weight-bold"
-                            style="font-size: 20px"
-                        >
-                            ¿Realmente quiere hacer un desembolso
-                            <span class="text-primary">EXTERNO</span>?
-                        </div>
-                    </template>
-                </btn-with-modal-component>
+
+                <VBtnDangerT color="primary" @click="modalExternalPayment = true">
+                    Desembolso Externo
+                </VBtnDangerT>
             </div>
         </div>
     </div>

@@ -7,7 +7,7 @@
             <div class="text-left" >
                 {{
                     dayjs(order?.attributes.created_at).format(
-                        "dd-mm-YYYY HH:MM"
+                        "DD-MM-YYYY HH:mm"
                     )
                 }}
             </div>
@@ -31,21 +31,25 @@
                 }}
             </div>
         </div>
-        <div class="d-flex justify-space-between">
+        <div class="d-flex justify-space-between ">
             <div class="text-left text-table">
                 Usuario:
             </div>
-            <div class="text-left text-sky" >
+            <div class="text-left text-sky cursor-pointer" @click="openDetailUser = true" >
                 {{ order?.relationships?.user.attributes.username }}
-                <VIcon :icon="HuellaIcon" color="ok-3" />
+                <VIcon 
+                    v-if="order?.relationships?.user.relationships?.kyc.attributes.status" 
+                    :icon="HuellaIcon" 
+                    color="ok-3" />
             </div>
+
         </div>
-        <div class="d-flex justify-space-between">
+        <div v-if="order?.attributes.type == OrderTypes.COMPRA" class="d-flex justify-space-between">
             <div class="text-left text-table">
                 Forma de Pago:
             </div>
             <div class="text-left" >
-                {{ order?.relationships?.shipping.attributes.name }}
+                {{ order?.relationships?.shipping?.attributes?.name }}
             </div>
         </div>
         <div class="d-flex justify-space-between">
@@ -72,6 +76,10 @@
             </div>
         </div>
     </div>
+
+    <dialog-global :dialog="openDetailUser" @close-dialog="openDetailUser = false">
+        <detail-user-view :user="order?.relationships?.user!"></detail-user-view>
+    </dialog-global>
 </template>
 
 <script setup lang="ts">
@@ -80,10 +88,13 @@ import { TransactionStore } from "@/stores/TransactionStore";
 import HuellaIcon from "@/assets/icons/HuellaIcon.vue";
 import { OrderTypes } from "@/enums/OrderTypes.enum";
 import dayjs from "dayjs";
-
+import DialogGlobal from "@/components/global/DialogGlobal.vue";
+import { ref } from "vue";
+import DetailUserView from "../../users/DetailUser/DetailUserView.vue";
 
 const transactionStore = TransactionStore();
 const { order } = storeToRefs(transactionStore);
+const openDetailUser = ref(false)
 </script>
 
 <style scoped lang="scss">
