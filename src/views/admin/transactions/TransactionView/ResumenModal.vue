@@ -8,10 +8,10 @@
         <template #title>
             Transacción: {{ order.attributes.tranx_no }}
         </template>
-        <payment-detail></payment-detail>
+        <payment-detail showDetailAmount></payment-detail>
         <div v-if="order.attributes.type == OrderTypes.VENTA" class="mt-3">
             <!-- <DetailAccountSell /> -->
-            <AmountDetail />
+            <AmountDetail  />
         </div>
         <div class="d-flex justify-center align-center mt-5">
             <div style="width: 130px;">

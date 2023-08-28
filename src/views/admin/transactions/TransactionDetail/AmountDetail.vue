@@ -63,6 +63,8 @@ import type { BankAccountClient } from "@/interfaces/CompanyAccount/BankAccount/
 const transactionStore = TransactionStore();
 const { order } = storeToRefs(transactionStore);
 
+
+
 const bankAccount = computed(() => {
     if (!order.value) return undefined;
     return order.value.relationships?.account_delivery as BankAccountClient;

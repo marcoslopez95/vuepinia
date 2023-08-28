@@ -68,7 +68,7 @@
                 </div>
             </div>
         </div>
-        <div v-if="order?.attributes.type == OrderTypes.VENTA">
+        <div v-if="order?.attributes.type == OrderTypes.VENTA && showDetailAmount">
             <div>
                 Titular:
                 <div class="d-inline-block float-end">
@@ -117,6 +117,10 @@ import { TransactionStore } from "@/stores/TransactionStore";
 import { storeToRefs } from "pinia";
 import { watch } from "vue";
 import { ref, computed } from "vue";
+
+const props = defineProps<{
+    showDetailAmount?: boolean
+}>()
 
 const transacionStore = TransactionStore();
 const { order } = storeToRefs(transacionStore);
