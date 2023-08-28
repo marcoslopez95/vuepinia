@@ -14,32 +14,15 @@
         </div>
         <div>Dirección de envío:</div>
         <div
-            class="cursor-pointer d-flex align-center justify-space-between"
+            class="cursor-pointer w-100 pr-9 d-flex align-center justify-space-between"
             @click="openTool"
         >
-            <VTooltip
-                v-model="tooltip"
-                location="top"
-                attach="#algo"
-                :open-on-focus="false"
-                :open-on-hover="false"
-                close-on-content-click
-            >
-                <template #activator="{ props }">
-                    <span style="font-size: 16px">{{
-                        order?.attributes.address_send
-                    }}</span>
-                    <VIcon
-                        v-bind="props"
-                        color="primary"
-                        :icon="CopyIcon"
-                        size="20"
-                    />
-                </template>
-                <span>Copiado</span>
-            </VTooltip>
+            <span class="w-100" style="font-size: 16px">{{
+                order?.attributes.address_send
+            }}</span>
+            <copy-component :value="order?.attributes.address_send!"></copy-component>
         </div>
-        <div v-if="order?.attributes.type == OrderTypes.COMPRA">
+        <div>
             Cantidad:
             <div class="d-inline-block float-end">
                 {{
@@ -53,6 +36,7 @@
                 COP
             </div>
         </div>
+
         <div v-if="order?.attributes.type == OrderTypes.COMPRA">
             Comisión:
             <div class="d-inline-block float-end">
@@ -84,17 +68,55 @@
                 </div>
             </div>
         </div>
+        <div v-if="order?.attributes.type == OrderTypes.VENTA">
+            <div>
+                Titular:
+                <div class="d-inline-block float-end">
+                    {{ bankAccount?.attributes.beneficiary }}
+                </div>
+            </div>
+            <div>
+                Documento:
+                <div class="d-inline-block float-end">
+                    {{ bankAccount?.attributes.identification_document }} <br />
+                </div>
+            </div>
+            <div>
+                Número de Cuenta:
+                <div class="d-inline-block float-end">
+                    {{ bankAccount?.attributes.account_number }}
+                </div>
+            </div>
+            <div>
+                Banco:
+                <div class="d-inline-block float-end">
+                    <span v-if="bankAccount?.relationships?.bank">
+                        Banco: {{ bankAccount?.relationships?.bank?.attributes.name }}
+                    </span>
+                </div>
+            </div>
+            <div>
+                Tipo Cuenta:
+                <div class="d-inline-block float-end">
+                    {{
+                        bankAccount?.relationships?.typeAccountBank.attributes.name
+                    }}
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script setup lang="ts">
 import CopyIcon from "@/assets/icons/CopyIcon.vue";
 import { OrderTypes } from "@/enums/OrderTypes.enum";
+import CopyComponent from '@/components/CopyComponent.vue'
 import { copyToClipboard, formatCrypoAmount, formatNumber, itemHaveImages } from "@/helper";
+import type { BankAccountClient } from "@/interfaces/CompanyAccount/BankAccount/BankAccount.model";
 import { TransactionStore } from "@/stores/TransactionStore";
 import { storeToRefs } from "pinia";
 import { watch } from "vue";
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
 const transacionStore = TransactionStore();
 const { order } = storeToRefs(transacionStore);
@@ -111,6 +133,11 @@ watch(tooltip, (nuevo, viejo) => {
             clearInterval(intervalToolTip);
         }, 3000);
     }
+});
+
+const bankAccount = computed(() => {
+    if (!order.value) return undefined;
+    return order.value.relationships?.account_delivery as BankAccountClient;
 });
 </script>
 

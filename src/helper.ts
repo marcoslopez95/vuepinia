@@ -393,3 +393,22 @@ export const formatCrypoAmount = (value: string) => {
   const fixed = parseFloat(value).toFixed(6)
   return formatNumber(parseFloat(fixed), '.', ',', 6)
 }
+
+
+export const verifyCompatibilityShareInNav = (): boolean =>{
+  if(!("share" in navigator)) return false
+  return true
+}
+export const shareInNav = async (content:ShareData):Promise<boolean> => {
+  const helper = helperStore()
+  if(!verifyCompatibilityShareInNav()) return false
+  
+  try{
+    await navigator.share(content)
+    return true
+  }catch(err){
+    helper.showNotify('Ha ocurrido un error',{type:'error'})
+    return false
+  }
+
+}

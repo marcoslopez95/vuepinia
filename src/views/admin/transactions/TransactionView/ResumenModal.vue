@@ -9,6 +9,10 @@
             Transacción: {{ order.attributes.tranx_no }}
         </template>
         <payment-detail></payment-detail>
+        <div v-if="order.attributes.type == OrderTypes.VENTA" class="mt-3">
+            <!-- <DetailAccountSell /> -->
+            <AmountDetail />
+        </div>
         <div class="d-flex justify-center align-center mt-5">
             <div style="width: 130px;">
 
@@ -26,6 +30,7 @@
 </template>
 
 <script setup lang="ts">
+import DetailAccountSell from "../TransactionDetail/DetailAccountSell.vue";
 import DialogGlobal from "@/components/global/DialogGlobal.vue";
 import PaymentDetail from "@/views/admin/transactions/TransactionDetail/PaymentDetail.vue";
 import type { Order } from "@/interfaces/Order/Order.model";
@@ -34,6 +39,8 @@ import { ref } from "vue";
 import QrcodeVue from "qrcode.vue";
 import { storeToRefs } from "pinia";
 import { watch } from "vue";
+import AmountDetail from "../TransactionDetail/AmountDetail.vue";
+import { OrderTypes } from "@/enums/OrderTypes.enum";
 
 const emits = defineEmits<{
     (e:'update:model-value',value: boolean):void
