@@ -94,14 +94,22 @@
                             <input-component v-model="secondCode" name=""></input-component>
                         </div> -->
                         <div
-                            class="mx-auto my-3 border-degree d-flex"
-                            style="width: 161px; height: 38px"
+                            class="mx-auto my-3 border-primary rounded-lg d-flex"
+                            style="width: 300px; height: 81px"
                         >
-                            <input
+                            <!-- <input
                                 v-model="secondCode"
                                 class="border-0 text-uppercase text-center"
                                 style="width: 161px; height: 38px"
-                            />
+                            /> -->
+                            <v-otp-input 
+                                v-model="secondCode" 
+                                color="primary" 
+                                length="4" 
+                                variant="underlined"
+                                height="81"
+                                width="300"
+                                />
                         </div>
 
                         <div class="">
@@ -134,6 +142,7 @@
 </template>
 
 <script setup lang="ts">
+import { VOtpInput } from 'vuetify/labs/VOtpInput'
 import { helperStore } from "@/helper";
 import { TransactionStore } from "@/stores/TransactionStore";
 import { ref } from "vue";
@@ -149,9 +158,10 @@ import CountDown from "@/components/CountDown.vue";
 import InputComponent from "@/components/InputComponent.vue";
 import PreviewOrder from "@/layouts/full/menuRight/PreviewOrder/PreviewOrder.vue";
 import { watch } from "vue";
+import type { Order } from "@/interfaces/Order/Order.model";
 
 const props = defineProps<{
-    numTransaction: string;
+    order: Order;
 }>();
 
 const secondCode = ref("");
@@ -165,8 +175,9 @@ const count = dayjs().add(6, "minutes").format("YYYY-MM-DD HH:mm:ss");
 const helper = helperStore;
 const transactionStore = TransactionStore();
 const { order } = storeToRefs(transactionStore);
+order.value = props.order
 const dialog = ref(false);
-transactionStore.getOrderByNum(props.numTransaction);
+// transactionStore.getOrderByNum(props.numTransaction);
 
 const alerta = () => alert("se acbo");
 const comprobant = ref<Blob | "">("");
