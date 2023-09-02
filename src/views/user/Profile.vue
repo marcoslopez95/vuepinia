@@ -81,6 +81,7 @@ import WalletView from './wallet/WalletView.vue';
 import BankAccountView from './Accounts/Bank/BankAccountView.vue';
 import OtherAccountView from './Accounts/Other/OtherAccountView.vue';
 import ReferredView from './Refer/ReferredView.vue'
+import PasswordTab from '../admin/profile/PasswordTab.vue';
 
 const { t } = useI18n()
 const helper = helperStore()
@@ -119,6 +120,10 @@ const tabs = shallowRef<ItemTab[]>([
     {
         name: t('views.refer.title',2),
         value: ReferredView
+    },
+    {
+        name: 'Contraseñas',
+        value: PasswordTab,
     },
 ])
 
