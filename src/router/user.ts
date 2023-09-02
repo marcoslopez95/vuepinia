@@ -84,7 +84,7 @@ const generals: RouteRecordRaw[] = [
         name: "user-referred",
         path: "/user/referred",
         component: () =>
-            import("@/views/admin/users/UsersView.vue"),
+            import("@/views/user/Refer/UserReferredView.vue"),
         meta: {
             roles: [
                 ROLES.USER

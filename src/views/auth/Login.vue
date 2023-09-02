@@ -6,7 +6,12 @@ import * as validator from "@/validator";
 import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
 import { ROLES } from "@/interfaces/Role/Role.enum";
+import { TwoFactorAuthStore } from "@/stores/TwoFactorAuthStore";
+
 const helper = helperStore();
+const twoFactorAuthStore = TwoFactorAuthStore()
+twoFactorAuthStore.url = 'login/f2a'
+
 const router = useRouter();
 const { formRef, errorsInput } = storeToRefs(helper);
 const form = ref({
@@ -21,6 +26,13 @@ const SigIn = async () => {
         return;
     }
     helper.http("login", "post", { data: form.value }).then((res) => {
+        if(res.status == 205){
+            twoFactorAuthStore.form = form.value
+            twoFactorAuthStore.modal = true;
+            twoFactorAuthStore.method = "POST";
+            twoFactorAuthStore.callback = SigIn
+            return;
+        }
         const { user, token } = res.data;
         setLocalStorage(token);
         setUser(user);

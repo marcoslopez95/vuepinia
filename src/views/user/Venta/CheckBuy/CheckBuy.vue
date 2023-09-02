@@ -2,11 +2,12 @@
     <div v-if="order">
         <confirm-order 
             v-if="
-                order.relationships?.status.id != StatusOrder.RECEIVED_ORDER
+                order.relationships?.status.id == StatusOrder.RECEIVED_ORDER
             "
             :order="order!">
             </confirm-order> 
         <timeline-view v-else :order="order"></timeline-view>
+        
     </div>
     <div v-else>No existe transaction con ese numero</div>
 </template>

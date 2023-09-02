@@ -4,10 +4,12 @@
   <v-overlay v-model="helper.loading" class="overl">
       <v-progress-circular indeterminate size="64"></v-progress-circular>
     </v-overlay>
+    <TwoFactorAuth />
   </VApp>
 </template>
 
 <script setup lang="ts">
+import TwoFactorAuth from "./components/TwoFactorAuth.vue";
 import { RouterView } from "vue-router";
 import { helperStore } from "./helper";
 const helper = helperStore()

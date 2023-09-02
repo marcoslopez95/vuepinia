@@ -1,4 +1,4 @@
-import Pusher, { Channel } from 'pusher-js';
+import Pusher, { Channel, type Options } from 'pusher-js';
 
 export default class usePusher {
 
@@ -11,9 +11,21 @@ export default class usePusher {
         private eventName: string,
         private callback: Function
     ) {
-        this.pusher = new Pusher('ac94401f44c9c5b17be8', {
+
+        const options: Options = {
             cluster: 'us2',
-        });
+        }
+
+        if(localStorage.getItem('token')){
+            options.authEndpoint = import.meta.env.VITE_API_URL + 'pusher/auth', // Cambia esto a tu URL de autenticación
+            options.auth  = {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                }
+            }
+        }
+        
+        this.pusher = new Pusher('ac94401f44c9c5b17be8', options);
         this.channel = this.pusher.subscribe(this.channelName);
 
         this.eventHandler = (data: any) => {

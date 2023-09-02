@@ -36,6 +36,7 @@ interface Relationships {
   last_connection: ActivityUser
   penaltyNow: Penalty[]
   referred: User
+  referrals: User[]
 }
 
 interface UserDetail extends BaseModelSoftDelete<UserDetailAttributes,UserDetailRelationships>{}

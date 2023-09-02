@@ -18,7 +18,11 @@
                     Habilitar 2FA
                 </VBtnPrimary>
             </div>
-            <div>Estado Actual: <VChip color="ok">asd</VChip></div>
+            <div>Estado Actual: 
+                <VChip :color="userStore.userAuth?.attributes.google_authentication ? 'ok' : 'warning'">
+                    {{ userStore.userAuth?.attributes.google_authentication ? 'Habilitado' : 'No Habilitado' }}
+                </VChip>
+            </div>
         </div>
     </div>
     <dialog-global :dialog="modal" @close-dialog="modal = false">
@@ -78,9 +82,12 @@ import SecurityIcon from "@/assets/icons/SecurityIcon.vue";
 import DialogGlobal from "@/components/global/DialogGlobal.vue";
 import InputComponent from "@/components/InputComponent.vue";
 import { helperStore } from "@/helper";
+import { UserStore } from "@/stores/UserStore";
 import { ref } from "vue";
 
 const helper = helperStore();
+const userStore = UserStore()
+userStore.updateUserAuth()
 const modal = ref(false);
 const code = ref("");
 const qr = ref("");

@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex justify-space-between text-primary">
+    <div class="d-flex flex-column flex-sm-row justify-space-between text-primary">
         <h3>{{ $t("views.transactions.title", 2) }}</h3>
         <SearchInputComponentVue v-model="search" @onSearch="getSearch" />
     </div>
