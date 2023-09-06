@@ -9,8 +9,8 @@ import { ROLES } from "@/interfaces/Role/Role.enum";
 import { TwoFactorAuthStore } from "@/stores/TwoFactorAuthStore";
 
 const helper = helperStore();
-const twoFactorAuthStore = TwoFactorAuthStore()
-twoFactorAuthStore.url = 'login/f2a'
+const twoFactorAuthStore = TwoFactorAuthStore();
+twoFactorAuthStore.url = "login/f2a";
 
 const router = useRouter();
 const { formRef, errorsInput } = storeToRefs(helper);
@@ -26,23 +26,30 @@ const SigIn = async () => {
         return;
     }
     helper.http("login", "post", { data: form.value }).then((res) => {
-        if(res.status == 205){
-            twoFactorAuthStore.form = form.value
+        if (res.status == 205) {
+            twoFactorAuthStore.form = form.value;
             twoFactorAuthStore.modal = true;
             twoFactorAuthStore.method = "POST";
-            twoFactorAuthStore.callback = SigIn
+            twoFactorAuthStore.callback = setAllLogin;
             return;
         }
-        const { user, token } = res.data;
-        setLocalStorage(token);
-        setUser(user);
-
-        let name = "Dashboard";
-        if (getUserAuth().roles[0].name === ROLES.USER) {
-            name = "user-buy";
-        }
-        router.push({ name });
+        setAllLogin(res.data);
     });
+};
+
+const setAllLogin = (data: { user: any; token: any }) => {
+    console.log("asd");
+
+    const { user, token } = data;
+    setLocalStorage(token);
+    setUser(user);
+
+    let name = "Dashboard";
+    if (getUserAuth().roles[0].name === ROLES.USER) {
+        name = "user-buy";
+    }
+    router.push({ name });
+    
 };
 
 const setLocalStorage = (token: string) => {
@@ -52,9 +59,9 @@ const setLocalStorage = (token: string) => {
 const setUser = (user: Object) => {
     localStorage.setItem("user", JSON.stringify(user));
 };
-const errorA = ref<any>('')
+const errorA = ref<any>("");
 
-const share = async () =>{
+const share = async () => {
     if (navigator.share) {
         try {
             await navigator.share({
@@ -63,14 +70,14 @@ const share = async () =>{
                 url: "https://www.ejemplo.com",
             });
         } catch (error) {
-            errorA.value = error
+            errorA.value = error;
             console.error("Error al compartir:", error);
         }
     } else {
-        errorA.value = "La API de Web Share no está disponible"
+        errorA.value = "La API de Web Share no está disponible";
         console.warn("La API de Web Share no está disponible");
     }
-}
+};
 </script>
 
 <template>
