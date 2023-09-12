@@ -8,32 +8,42 @@ import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
 import { toast } from "vue3-toastify";
 import { useI18n } from "vue-i18n";
-import { RegisterStore } from '@/stores/RegisterStore'
-import TelInput from '@/components/TelInput.vue';
 import { computed } from "vue";
+import { reactive } from "vue";
 
 const { t } = useI18n()
+const form = reactive({
+    email: '',
+    password: '',
+    code: ''
+})
+const dialog = ref(false)
 const helper = helperStore()
 const router = useRouter()
 const { formRef } = storeToRefs(helper)
-const registerStore = RegisterStore()
-const { form } = storeToRefs(registerStore)
-const isPhoneValid = ref(false)
-const phoneFormat = ref('')
-const accepTerms = ref(false)
-
 const showPassword = ref(false)
-const showPasswordConfirmation = ref(false)
 
-const SigUp = async () => {
+const emailValid = computed(() => validator.email(form.email) === true)
+
+
+const sendCodeVerification = async () => {
+    const url = 'send/reset/password/code'
+    try{
+        const res = await helper.http(url,'post',{data:{email:form.email}})
+        dialog.value = true
+    }catch(e) {
+        
+    }
+}
+const changePassword = async () => {
     const { valid } = await formRef.value?.validate()
     if (!valid) {
         return
     }
     helper
-        .http('register', 'post', { data: form.value })
+        .http('reset/password', 'post', { data: form })
         .then((res) => {
-            toast.success(t('views.register.success'))
+            toast.success('Cambio Realizado')
             router.push({ name: 'Login' })
         })
 }
@@ -45,21 +55,64 @@ const SigUp = async () => {
             Recuperar Contraseña
         </v-toolbar-title>
     </v-toolbar>
-    <div class="">
+    <div v-show="!dialog" class="">
         <VForm ref="formRef" class="mx-3">
             <template #default>
                 <VRow>
                     <VCol cols="12">
                         <InputComponent 
                             :placeholder="$t('views.users.email')" 
-                            withoutLabel :name="$t('views.users.email')" v-model="form.username"
+                            withoutLabel :name="$t('views.users.email')" v-model="form.email"
                             :rules="[validator.required]" />
                     </VCol>
                 </VRow>
             </template>
         </VForm>
         <div class="text-center mt-5">
-            <VBtnPrimary @click="SigUp" :disabled="!accepTerms">
+            <VBtnPrimary @click="sendCodeVerification" :disabled="!emailValid">
+                Continuar
+            </VBtnPrimary>
+        </div>
+    </div>
+    <div v-show="dialog" class="text-table">
+        <VRow dense>
+            <VCol cols="12" class="text-center">
+                Introduzca el código enviado a su correo electrónico.
+            </VCol>
+            <VCol cols="12" sm="4" class="mx-auto">
+                <InputComponent v-model="form.code" name="" withoutLabel>
+                </InputComponent>
+            </VCol>
+        </VRow>
+        <VRow dense>
+            <VCol cols="12" class="text-center">
+                Introduzca la nueva contraseña.
+            </VCol>
+            <VCol cols="12" sm="4" class="mx-auto">
+                <InputComponent 
+                    :name="$t('views.users.password')"
+                    withoutLabel
+                    :placeholder="$t('views.users.password')"
+                    v-model="form.password"
+                    :rules="[validator.required,validator.password]"
+                    :type="!showPassword? 'password' : 'text'"
+                    :appendIcon="!showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                    @click:append-icon="showPassword = !showPassword"
+                    />
+                    <br>
+                <span class="text-table">
+                    La contraseña debe cumplir con:<br>
+                    <ul class="ml-8">
+                        <li>1 mayúscula</li>
+                        <li>1 caractér especial (./_*?¿)</li>
+                        <li>1 número</li>
+                        <li>mínimo 8 dígitos</li>
+                    </ul>
+                </span>
+            </VCol>
+        </VRow>
+        <div class="text-center mt-5">
+            <VBtnPrimary @click="changePassword" :disabled="!(form.code && form.password)">
                 Continuar
             </VBtnPrimary>
         </div>
