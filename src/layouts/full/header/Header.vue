@@ -15,6 +15,7 @@ import BlueStarkIcon from '@/assets/icons/header/Profile/BlueStarkIcon.vue'
 import { UserStore } from "@/stores/UserStore";
 import { onMounted } from "vue";
 import { onUnmounted } from "vue";
+import NotificationComponent from '@/layouts/full/header/NotificationComponent.vue'
 
 const userStore = UserStore()
 const interval = ref()
@@ -85,7 +86,8 @@ const profileRoutes = {
     <!-- User Profile -->
     <div class="d-flex align-center" :class="[!isMobile ? 'gap-icon-web' : 'gap-icon-mobile']">
       <MessageIcon :class="colorIcons" :active="existNotifications" />
-      <NotificationIcon :class="colorIcons" :active="existMessages" />
+      <!-- <NotificationIcon :class="colorIcons" :active="existMessages" /> -->
+      <NotificationComponent/>
       <!-- ---------------------------------------------- -->
       <v-menu anchor="bottom end" origin="auto" min-width="300">
         <template v-slot:activator="{ props }">

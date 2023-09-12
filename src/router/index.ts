@@ -51,7 +51,12 @@ const router = createRouter({
       children: [
         ...admin,
         ...user,
-        
+        {
+          name: "Notifications",
+          path: "notifications/2",
+          component: () =>
+            import("@/views/generals/NotificationsView2.vue"),
+        },
         {
           name: "Alerts",
           path: "ui-components/alert",
