@@ -99,7 +99,8 @@ const configurations: RouteRecordRaw[] = [
       import("@/views/admin/activities/ActivitiesView.vue"),
     meta: {
       roles: [
-        ROLES.ADMIN
+        ROLES.ADMIN,
+        ROLES.USER
       ]
     },
     beforeEnter: checkedRole

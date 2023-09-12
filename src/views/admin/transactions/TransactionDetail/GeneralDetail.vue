@@ -38,7 +38,7 @@
             <div class="text-left text-sky cursor-pointer" @click="openDetailUser = true" >
                 {{ order?.relationships?.user.attributes.username }}
                 <VIcon 
-                    v-if="order?.relationships?.user.relationships?.kyc.attributes.status" 
+                    v-if="order?.relationships?.user.relationships?.kyc?.attributes.status" 
                     :icon="HuellaIcon" 
                     color="ok-3" />
             </div>

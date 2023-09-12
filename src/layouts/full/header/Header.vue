@@ -69,7 +69,7 @@ const profileRoutes = {
   },
   User: {
     profile: 'user-profile',
-    activity: '#'
+    activity: 'activities'
   },
   Agent: {
     profile: '#',

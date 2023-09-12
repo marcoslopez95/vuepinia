@@ -30,7 +30,7 @@ import { UserStore } from "@/stores/UserStore";
 const userStore = UserStore()
 
 const kycAccept = computed(():boolean => {
-    const kyc = userStore.userAuth?.relationships?.kyc.attributes.status == KYC_STATUS.ACCEPT ? '1' : '0'
+    const kyc = userStore.userAuth?.relationships?.kyc?.attributes?.status == KYC_STATUS.ACCEPT ? '1' : '0'
     if(!localStorage.getItem('kyc')){
         localStorage.setItem('kyc',kyc)
     }else{
