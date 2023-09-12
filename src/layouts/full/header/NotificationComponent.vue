@@ -128,7 +128,7 @@ index();
 
 const interval = ref()
 onMounted(() => {
-    interval.value = setInterval(()=> index(),3000)
+    interval.value = setInterval(()=> index(),10000)
 })
 
 onUnmounted(() => {

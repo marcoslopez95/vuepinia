@@ -1,6 +1,6 @@
 <template>
     <div v-if="order">
-        <v-timeline align="start" density="compact" side="end">
+        <v-timeline density="compact" side="end">
             <v-timeline-item
                 v-for="(item, i) in items"
                 :key="i"
@@ -12,24 +12,24 @@
                 <template #icon>
                     <VIcon :color="item.color" :icon="item.icon" />
                 </template>
-                {{ item.text }}
+                <span class="py-1">{{ item.text }}</span>
             </v-timeline-item>
         </v-timeline>
 
         <VRow
             v-if="
-                order.attributes.payment_type_id ==
+                order.attributes.payment_type_id !=
                 PAYMENT_METHODS_AVAILABLE.EFECTY
             "
         >
-            <VCol
+            <!-- <VCol
                 class="bg-sky-1 text-center"
                 cols="6"
                 v-for="(img, i) in comprobantes"
             >
                 <h3 class="text-primary">Comprobante {{ i + 1 }}</h3>
                 <VImg height="400px" width="293px" :src="img"></VImg>
-            </VCol>
+            </VCol> -->
         </VRow>
         <div v-else class="mt-10">
             <VRow class="text-table">
@@ -102,14 +102,14 @@
                                 class="border-0 text-uppercase text-center"
                                 style="width: 161px; height: 38px"
                             /> -->
-                            <v-otp-input 
-                                v-model="secondCode" 
-                                color="primary" 
-                                length="4" 
+                            <v-otp-input
+                                v-model="secondCode"
+                                color="primary"
+                                length="4"
                                 variant="underlined"
                                 height="81"
                                 width="300"
-                                />
+                            />
                         </div>
 
                         <div class="">
@@ -142,7 +142,7 @@
 </template>
 
 <script setup lang="ts">
-import { VOtpInput } from 'vuetify/labs/VOtpInput'
+import { VOtpInput } from "vuetify/labs/VOtpInput";
 import { helperStore } from "@/helper";
 import { TransactionStore } from "@/stores/TransactionStore";
 import { ref } from "vue";
@@ -175,7 +175,7 @@ const count = dayjs().add(6, "minutes").format("YYYY-MM-DD HH:mm:ss");
 const helper = helperStore;
 const transactionStore = TransactionStore();
 const { order } = storeToRefs(transactionStore);
-order.value = props.order
+order.value = props.order;
 const dialog = ref(false);
 // transactionStore.getOrderByNum(props.numTransaction);
 

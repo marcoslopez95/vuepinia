@@ -97,7 +97,7 @@ const index = async () => {
 index();
 const interval = ref()
 onMounted(() => {
-    interval.value = setInterval(()=> index(),3000)
+    interval.value = setInterval(()=> index(),8000)
 })
 
 onUnmounted(() => {
