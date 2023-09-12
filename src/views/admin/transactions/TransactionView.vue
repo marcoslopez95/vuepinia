@@ -260,6 +260,7 @@ import type { User } from "@/interfaces/User/User.model";
 
 const props = defineProps<{
     user?: User
+    dashboard?: Boolean
 }>()
 const helper = helperStore();
 helper.url = "order";
@@ -270,12 +271,15 @@ helper.defaultParams = {
     user_id: props.user?.id
 }
 watch(()=> route.query, (nuevo,viejo)=> {
+    if(route.name != 'admin-transactions') return
     const { type } = route.query
     
     helper.defaultParams = {
         types: type
     }
-    helper.index()
+    // if(!props.dashboard){
+        helper.index()
+    // }
 })
 helper.index();
 

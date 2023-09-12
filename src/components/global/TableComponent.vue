@@ -438,7 +438,7 @@ const maxColumns = computed(() => {
       </VRow>
     </VCol>
     <VCol>
-      <VPagination size="32" :total-visible="6" v-model="helper.pagination.currentPage" :length="helper.pagination.total"
+      <VPagination size="32" :total-visible="$vuetify.display.xs ? 4 :  6" v-model="helper.pagination.currentPage" :length="helper.pagination.total"
         active-color="#B46BFE" color="#75757578" variant="outlined" @update:model-value="helper.index">
         <template #prev="{ onClick, disabled, icon }">
           <VBtn :disabled="disabled" @click="onClick"

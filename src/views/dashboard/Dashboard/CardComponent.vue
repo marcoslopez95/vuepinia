@@ -4,7 +4,7 @@
             <div class="font-weight-semibold my-auto">
                 {{ title }}
             </div>
-            <div class="contenedor ml-auto mr-3" id="asd">
+            <div class="contenedor ml-auto mr-1" id="asd">
                 <!-- <VResponsive
                 class="border-degree d-flex align-center justify-center"
                 style="width:110px; height:30px"
@@ -12,7 +12,7 @@
                 <VSelect
                     v-if="withFilter"
                     class="border-degree"
-                    style="width: 120px"
+                    style="width: 110px"
                     variant="plain"
                     single-line
                     v-model="timeSelect"
@@ -95,7 +95,7 @@
                     <span v-if="icon != 'xcop'" class="ml-2">$</span
                     >{{ formatNumber(amount, ".", ",", 0) }}
                 </span>
-                <span v-else>
+                <span v-else class="ml-2">
                     {{ amount }}
                 </span>
             </div>
@@ -125,8 +125,8 @@ const props = defineProps<{
 const helper = helperStore();
 const timeSelect = ref("1 months");
 const quantityMonths = 4;
-const times = ref<TimeSelector[]>([]);
 const amount = ref(0);
+const times = ref<TimeSelector[]>([]);
 
 const setTimes = () => {
     return new Promise((ok, reject) => {
@@ -203,5 +203,8 @@ $top: 5px;
 }
 .contenedor .v-field__append-inner {
     padding-top: $top !important;
+}
+.contenedor .v-select__selection{
+    max-width:110%;
 }
 </style>
