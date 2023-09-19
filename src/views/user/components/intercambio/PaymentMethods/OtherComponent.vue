@@ -5,7 +5,7 @@
                 @click="selectItem(OtherAccount)">
                 <VBtnDegree rounded="lg" :class="{
                     'payment-selected': OtherAccount.id == modelValue?.id
-                }" color="primary">
+                }" color="white">
                    
                     {{ OtherAccount.attributes.description }}
                 </VBtnDegree>
@@ -35,12 +35,14 @@ const itemSelect = ref<OtherAccount | null>(null)
 </script>
 
 
-<style scoped>
+<style scoped lang="scss">
+@import "@/scss/variables.scss";
 .v-text-field__slot.payment-selected {
     background: none;
 }
 
 .payment-selected {
     color: white !important;
+    background-color: $color-primary !important;
 }
 </style>

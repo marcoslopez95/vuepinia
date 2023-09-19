@@ -14,7 +14,7 @@
                 @click="emits('update:model-value', paymentMethod)">
                 <VBtnDegree class="w-100" rounded="lg" :class="{
                     'payment-selected': paymentMethod.id == modelValue?.id
-                }" color="primary">
+                }" color="white">
                     {{ paymentMethod.attributes.name }}
                 </VBtnDegree>
             </VCol>
@@ -38,12 +38,15 @@ defineProps<{
 }>()
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import "@/scss/variables.scss";
+
 .v-text-field__slot.payment-selected {
     background: none;
 }
 
 .payment-selected {
     color: white !important;
+    background-color: $color-primary !important;
 }
 </style>

@@ -24,6 +24,7 @@
                         :src="bankAccount.relationships!.images[0].attributes.aws_url"
                         width="150"
                         cover
+                        class="mx-auto"
                         aspect-ratio="16/9"
                         :max-height="34"
                     >

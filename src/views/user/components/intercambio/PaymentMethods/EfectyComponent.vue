@@ -6,7 +6,7 @@
                 @click="selectItem(efectyAccount)">
                 <VBtnDegree rounded="lg" :class="{
                     'payment-selected': efectyAccount.id == modelValue?.id
-                }" color="primary">
+                }" color="white">
                     <template #prepend>
                         <VIcon icon="mdi-map-marker" size="28"></VIcon>
                     </template>
@@ -73,12 +73,14 @@ const itemSelect = ref<EfectyAccount | null>(null)
 </script>
 
 
-<style scoped>
+<style scoped lang="scss">
+@import "@/scss/variables.scss";
 .v-text-field__slot.payment-selected {
     background: none;
 }
 
 .payment-selected {
     color: white !important;
+    background-color: $color-primary !important;
 }
 </style>
