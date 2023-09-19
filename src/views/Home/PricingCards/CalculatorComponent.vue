@@ -204,7 +204,7 @@
                     <span v-if="amountCrypto">
                         Equivalente a
                         <b>
-                            {{ formatNumber(parseFloat(calculadora.amountUsd as string)) }}
+                            {{ formatNumber(parseFloat(calculadora.amountUsd as string), '.',',',2) }}
                             USD</b
                         >
                         apróximadamente
