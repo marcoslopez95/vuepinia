@@ -92,6 +92,18 @@ const generals: RouteRecordRaw[] = [
         },
         beforeEnter: checkedRole
     },
+    {
+        name: "user-referred-list",
+        path: "/user/referred-list",
+        component: () =>
+            import("@/views/user/Refer/UsersReferredList.vue"),
+        meta: {
+            roles: [
+                ROLES.USER
+            ]
+        },
+        beforeEnter: checkedRole
+    },
 ]
 
 const configurations: RouteRecordRaw[] = [

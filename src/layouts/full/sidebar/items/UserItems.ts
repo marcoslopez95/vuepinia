@@ -33,7 +33,7 @@ const items: SidebarItem[] = [
     {
         title: "Referidos",
         icon: ReferredIcon,
-        to: "",
+        to: "user-referred-list",
         roles: [
             ROLES.USER,
         ],

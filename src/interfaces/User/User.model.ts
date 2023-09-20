@@ -27,6 +27,7 @@ export interface UserAttributes {
   affiliate_id?: any;
   xcop:  number
   google_authentication: boolean
+  order_system?: boolean
 }
 
 interface Relationships {

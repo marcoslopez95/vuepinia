@@ -35,7 +35,8 @@
       "nationalities": {
         "title": "Nacionality"
       },
-      "activity": "Activity"
+      "activity": "Activity",
+      "referreds": "Referreds"
     },
     "permissions": {
       "guard_name": "Guard Name",
