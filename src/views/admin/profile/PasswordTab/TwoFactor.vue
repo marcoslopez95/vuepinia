@@ -14,13 +14,18 @@
         </div>
         <div class="d-flex justify-space-between mt-5 align-center flex-column flex-sm-row" style="gap:40px">
             <div>
-                <VBtnPrimary style="width: 110px !important" @click="openModal">
-                    Habilitar 2FA
+                <VBtnPrimary 
+                    style="width: 110px !important"
+                    @click="enabledOrDisabled"
+                    :color="!userStore.userAuth?.attributes.google_authentication ? 'primary' : 'warning'"
+                    >
+                    
+                    {{ !!userStore.userAuth?.attributes.google_authentication ? 'Deshabilitar 2FA' : 'Habilitar 2FA' }}
                 </VBtnPrimary>
             </div>
             <div>Estado Actual: 
-                <VChip :color="userStore.userAuth?.attributes.google_authentication ? 'ok' : 'warning'">
-                    {{ userStore.userAuth?.attributes.google_authentication ? 'Habilitado' : 'No Habilitado' }}
+                <VChip :color="!!userStore.userAuth?.attributes.google_authentication ? 'ok' : 'warning'">
+                    {{ !!userStore.userAuth?.attributes.google_authentication ? 'Habilitado' : 'No Habilitado' }}
                 </VChip>
             </div>
         </div>
@@ -108,6 +113,14 @@ const getQr = async () => {
     codeString.value = data.code
 };
 
+const enabledOrDisabled = () => {
+    if(userStore.userAuth?.attributes.google_authentication){
+        unenabledTAF()
+        return
+    }
+    openModal();
+}
+
 const confirm = async () => {
     const url = 'users/validate/code/auth'
     const data = {
@@ -116,6 +129,13 @@ const confirm = async () => {
     const res = await helper.http(url,'post', { data });
     code.value = ''
     modal.value = false
+    userStore.updateUserAuth()
+}
+
+const unenabledTAF = async () => {
+    const url = 'users/disanble/auth/code'
+    const res = await helper.http(url)
+    userStore.updateUserAuth()
 }
 </script>
 

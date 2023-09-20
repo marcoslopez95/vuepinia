@@ -35,6 +35,9 @@
             @amount-permitted="(value) => (amountPermitted = value)"
         >
         </CalculadoraComponent>
+        <!-- <code lang="json">
+            {{ calculatorValue }}
+        </code> -->
         <VRow>
             <VCol class="text-center my-6">
                 <VBtnPrimary
