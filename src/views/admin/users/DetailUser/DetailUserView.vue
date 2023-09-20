@@ -90,6 +90,7 @@ import { watch , shallowRef} from 'vue';
 import ActivityDetailUser from "./ActivityDetailUser.vue";
 import TransactionView from "../../transactions/TransactionView.vue";
 import PersonalInformation from "./PersonalInformation.vue";
+import UserReferredList from '@/views/user/Refer/UsersReferredList.vue'
 
 const props = defineProps<{
     user: User;
@@ -112,6 +113,10 @@ const tabs = shallowRef<ItemTab[]>([
     {
         name: 'Información Personal',
         value: PersonalInformation
+    },
+    {
+        name: 'Referidos',
+        value: UserReferredList
     }
 ])
 

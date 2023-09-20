@@ -58,14 +58,14 @@ const helper = helperStore();
 const user = (item: unknown): User => item as User;
 
 const props = defineProps<{
-    user_id?: number;
+    user?: User;
 }>();
 
 const usersReferreds = ref<User[]>();
 
 const getReferreds = async () => {
     const url = "users/referes/affiliate";
-    const params = { user_id: props.user_id };
+    const params = { user_id: props.user?.id };
     const res = await helper.http(url, "get", { params });
     usersReferreds.value = res.data.response.relationships.referrals;
 };
