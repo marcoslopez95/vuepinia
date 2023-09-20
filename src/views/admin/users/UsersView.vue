@@ -63,6 +63,15 @@
                     Kyc
                 </span>
             </template>
+            <template #cel-referred="{data}">
+                <div 
+                    v-if="user(data).relationships?.referred"
+                    class="text-left text-sky cursor-pointer"
+                    @click="openModalDetailUser(user(data).relationships?.referred?.id!)" >
+                    {{ user(data).relationships?.referred?.attributes.username }}
+                </div>
+                
+            </template>
             <!-- Botones -->
             <template #newButtons="{ data }">
                 <OptionsMenu
@@ -78,6 +87,15 @@
             </template>
         </TableComponentVue>
     </div>
+    <dialog-global 
+        :dialog="openDetailUser"
+        @close-dialog="
+            openDetailUser = false
+            helper.url = 'users';
+            getSearch()
+        ">
+        <detail-user-view :user="userModal!"></detail-user-view>
+    </dialog-global>
     <send-message
         ref="sendMessageRef"
         :user="userSelect!"
@@ -98,6 +116,7 @@
 </template>
 
 <script setup lang="ts">
+import DialogGlobal from "@/components/global/DialogGlobal.vue";
 import DetailUserView from "@/views/admin/users/DetailUser/DetailUserView.vue";
 import SendMessage from "./OptionsMenu/SendMessage.vue";
 import CrudComponent from "@/components/global/CrudComponent.vue";
@@ -121,7 +140,14 @@ const helper = helperStore();
 helper.url = "users";
 
 const role_id = ref<number | "">("");
-
+const openDetailUser = ref(false)
+const userModal = ref<User>()
+const openModalDetailUser = async (user_id:number) => {
+    const url = '/users/'+ user_id
+    const res = await helper.http(url)
+    userModal.value = res.data.response
+    openDetailUser.value = true
+}
 const typeNotification = ref<TypeNotification>();
 const sendMessageRef = ref<InstanceType<typeof SendMessage> | null>();
 const userSelect = ref<User>();
@@ -358,7 +384,7 @@ const headers: Head[] = [
     },
     {
         name: t("views.users.referred-by"),
-        value: "relationships.referred.attributes.username",
+        value: "referred",
     },
     {
         name: t("genereal-views.state"),

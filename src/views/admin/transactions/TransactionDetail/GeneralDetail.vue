@@ -35,7 +35,7 @@
             <div class="text-left text-table">
                 Usuario:
             </div>
-            <div class="text-left text-sky cursor-pointer" @click="openDetailUser = true" >
+            <div class="text-left text-sky cursor-pointer" @click="openModal" >
                 {{ order?.relationships?.user.attributes.username }}
                 <VIcon 
                     v-if="order?.relationships?.user.relationships?.kyc?.attributes.status" 
@@ -78,7 +78,7 @@
     </div>
 
     <dialog-global :dialog="openDetailUser" @close-dialog="openDetailUser = false">
-        <detail-user-view :user="order?.relationships?.user!"></detail-user-view>
+        <detail-user-view :user="user!"></detail-user-view>
     </dialog-global>
 </template>
 
@@ -91,10 +91,20 @@ import dayjs from "dayjs";
 import DialogGlobal from "@/components/global/DialogGlobal.vue";
 import { ref } from "vue";
 import DetailUserView from "../../users/DetailUser/DetailUserView.vue";
+import { helperStore } from "@/helper";
+import type { User } from "@/interfaces/User/User.model";
 
+const helper = helperStore()
 const transactionStore = TransactionStore();
 const { order } = storeToRefs(transactionStore);
 const openDetailUser = ref(false)
+const user = ref<User>()
+const openModal = async () => {
+    const url = '/users/'+ order.value?.relationships?.user.id!
+    const res = await helper.http(url)
+    user.value = res.data.response
+    openDetailUser.value = true
+}
 </script>
 
 <style scoped lang="scss">
