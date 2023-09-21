@@ -62,6 +62,14 @@
                     </VIcon>
                     Kyc
                 </span>
+                <span class="text-table" id="dolaricon">
+                    <VIcon
+                        :icon="DollarIcon"
+                        :color="haveTransactions(user(data)) ? 'success' : 'inactive'"
+                    >
+                    </VIcon>
+                    Transc.
+                </span>
             </template>
             <template #cel-referred="{data}">
                 <div 
@@ -135,6 +143,7 @@ import SearchInputComponentVue from "@/components/global/SearchInputComponent.vu
 import OptionsMenu from "./OptionsMenu/OptionsMenu.vue";
 import type { Profile } from "@/interfaces/User/User.dto";
 import { onUnmounted } from "vue";
+import DollarIcon from "@/assets/icons/DollarIcon.vue";
 
 const helper = helperStore();
 helper.url = "users";
@@ -411,6 +420,7 @@ const kycVerificated = (user: User): boolean => {
         ? true
         : false;
 };
+const haveTransactions = (user: User): boolean => !!user.attributes.order_system
 
 const showDetailUser = (user: User) => {
     userSelect.value = user;
@@ -446,4 +456,8 @@ onUnmounted(() => {
 })
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+#dolaricon {
+    $icon-line-height: 3;
+}
+</style>

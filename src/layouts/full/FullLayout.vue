@@ -23,7 +23,7 @@ const userRole = getUserAuth().roles[0].name;
 </script>
 
 <template>
-    <v-app>
+    <v-app >
         <!-- ---------------------------------------------- -->
         <!---Sidebar -->
         <!-- ---------------------------------------------- -->
@@ -65,7 +65,7 @@ const userRole = getUserAuth().roles[0].name;
         <!-- ---------------------------------------------- -->
         <!---Page Wrapper -->
         <!-- ---------------------------------------------- -->
-        <v-main class="">
+        <v-main class="" >
             <v-container fluid class="page-wrapper">
                 <RouterView />
             </v-container>
