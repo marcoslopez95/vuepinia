@@ -263,7 +263,7 @@ const addFeesToTotalLocal = () => {
     const currencyTicker = walletStore.getCurrencyTickerByAbbreviation(currency?.attributes.abbreviation!);
 
     const priceUsd = currencyTicker?.trm!
-    if(form.value.xcop_payment){
+    if(!form.value.xcop_payment){
         const withFeesXCOP = generalData.value?.attributes.administrative_fee as number
         feesXCOP = withFeesXCOP;
         feesXCOPusd = withFeesXCOP / parseFloat(priceUsd)

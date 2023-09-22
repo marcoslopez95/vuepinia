@@ -109,6 +109,7 @@ const emits = defineEmits<{
     (e: "update:model-value", value: Calculator): void;
     (e: "noPrice"): void;
     (e: "amountPermitted", value: boolean): void;
+    (e: "montoFiat", value: string): void;
 }>();
 
 const helper = helperStore();
@@ -184,11 +185,12 @@ getPrices();
 const amountFiat = ref<string>("0,00");
 const amountCrypto = ref<string>("0,00000000");
 
+
 const updateCrypto = () => {
     let feesInFiat = 0
 
     const montoFiat = transformAmount(amountFiat.value);
-
+    emits('montoFiat',montoFiat.toFixed(2));
     if(montoFiat < (generalData.value?.attributes.order_fee_limit as number)){
         feesInFiat = (generalData.value?.attributes.administrative_fee as number)
     }
@@ -219,7 +221,7 @@ const updateFiat = () => {
     
     const montoCrypto = transformAmount(amountCrypto.value);
     const montoFiat = montoCrypto * (priceSelect.value?.buy ?? 1);
-
+    emits('montoFiat',montoFiat.toFixed(2));
     if(montoFiat < (generalData.value?.attributes.order_fee_limit as number)){
         feesInCrypto = (generalData.value?.attributes.administrative_fee as number) / (calculadora.criptoOficial as number)
     }

@@ -159,7 +159,7 @@
                     getCurrencyById(
                         confirmOrderStore.form.currency_id as number
                     ).attributes.abbreviation.toLocaleUpperCase()
-                }}
+                }} 
             </p>
         </VCardActions>
     </VCard>

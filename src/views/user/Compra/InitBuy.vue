@@ -33,10 +33,11 @@
             @no-price="noPrice"
             :minAmount="(generalConfiguration.generalData?.attributes.order_fee_limit as number)"
             @amount-permitted="(value) => (amountPermitted = value)"
+            @monto-fiat="(value) => form.fiat_received = value"
         >
         </CalculadoraComponent>
         <!-- <code lang="json">
-            {{ calculatorValue }}
+            {{ form.fiat_received }}
         </code> -->
         <VRow>
             <VCol class="text-center my-6">
@@ -146,8 +147,8 @@ const clickInContinue = () => {
 
     form.value.total_exchange_local =
         calculatorValue.value.amountFiat.toFixed(2);
-    form.value.fiat_received =
-        calculatorValue.value.amountFiat.toFixed(2);
+    // form.value.fiat_received =
+    //     calculatorValue.value.amountFiat.toFixed(2);
 
     form.value.currency_price = (
         calculatorValue.value.tasaCompra as number
@@ -176,10 +177,10 @@ const clickInContinue = () => {
         + parseFloat(form.value.fee as string)
     ).toFixed(8);
 
-    form.value.fiat_received = (
-        parseFloat(form.value.amount_currency as string)
-        + parseFloat(form.value.fee as string)
-    ).toFixed(8);
+    // form.value.fiat_received = (
+    //     parseFloat(form.value.amount_currency as string)
+    //     + parseFloat(form.value.fee as string)
+    // ).toFixed(8);
     emits("click:continue");
 };
 </script>
