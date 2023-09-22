@@ -25,7 +25,7 @@
                 class="my-6 d-flex"
                 style="justify-content: space-between"
             >
-                <span>Pesos :</span>
+                <span>Pesos a pagar :</span>
                 <span class="">
                     {{
                         formatNumber(
@@ -103,8 +103,8 @@
                 </div>
             </div>
             <div
-                v-if="confirmOrderStore.form.type == OrderTypes.VENTA"
-                class="my-6 d-flex"
+                
+                class="py-6 d-flex border-t"
                 style="justify-content: space-between"
             >
                 <span>Pesos a Recibir:</span>
@@ -112,7 +112,7 @@
                     {{
                         formatNumber(
                             parseFloat(
-                                confirmOrderStore.form.total_exchange_local
+                                confirmOrderStore.form.fiat_received
                             )
                         )
                     }}
@@ -133,7 +133,7 @@
                 >
                     <template #label>
                         <div
-                            @click="form.xcop_payment = !form.xcop_payment"
+                           
                             class="text-table"
                             style="opacity: 1 !important"
                         >

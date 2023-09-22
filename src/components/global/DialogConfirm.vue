@@ -48,7 +48,9 @@ const emit = defineEmits([
     <DialogBase footer :dialog="dialog" :widthDialog="widthDialog" @closeDialog="emit('closeDialog')">
         <template #title>{{ title }}</template>
         <template #content>
-            {{ content }}
+            <slot name="content">
+                {{ content }}
+            </slot>
         </template>
         <template #actions>
             <VRow class="mx-auto text-center justify-space-between d-flex">

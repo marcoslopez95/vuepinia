@@ -93,6 +93,9 @@
                 >
                 </OptionsMenu>
             </template>
+            <template #cel-penalty="{data}">
+                <RemovePenalty @delete-penalty="getSearch()" :user="user(data)" />
+            </template>
         </TableComponentVue>
     </div>
     <dialog-global 
@@ -144,6 +147,7 @@ import OptionsMenu from "./OptionsMenu/OptionsMenu.vue";
 import type { Profile } from "@/interfaces/User/User.dto";
 import { onUnmounted } from "vue";
 import DollarIcon from "@/assets/icons/DollarIcon.vue";
+import RemovePenalty from "./RemovePenalty.vue";
 
 const helper = helperStore();
 helper.url = "users";
@@ -399,6 +403,10 @@ const headers: Head[] = [
         name: t("genereal-views.state"),
         value: "attributes.deleted_at",
         status: "deleted",
+    },
+    {
+        name: 'Penalizaciones',
+        value: "penalty",
     },
     {
         name: t("views.users.created_at"),

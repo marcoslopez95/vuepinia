@@ -1,6 +1,8 @@
 import type { OrderAttributes } from "./Order.model";
 
-export declare interface OrderCreate extends OmitField { }
+export declare interface OrderCreate extends OmitField {
+    fiat_received: string
+}
 
 type OmitField = Omit<OrderAttributes,
     | 'user_id'
