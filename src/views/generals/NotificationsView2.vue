@@ -5,7 +5,7 @@
         <div class="d-flex justify-space-between my-3 ">
             <div></div>
             <div class="text-primary font-weight-semibold">Notificaciones</div>
-            <div>
+            <div class="cursor-pointer" @click="deleteAllNotifications">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="19"
@@ -24,7 +24,7 @@
             <v-list>
                 <v-divider></v-divider>
                 <span v-for="(item, index) in notifications" :key="index">
-                    <v-list-item value="1" class="text-table my-1">
+                    <v-list-item value="1" @click="readNotification(item.id)" class="text-table my-1">
                         <template #title>
                             <div class="d-flex gap-2">
                                 <div>
@@ -73,6 +73,11 @@
                     </v-list-item>
                     <v-divider></v-divider>
                 </span>
+                <div class="text-center text-table" v-if="notifications.length == 0">
+                    <span class="" >
+                        Sin notificaciones
+                    </span>
+                </div>
             </v-list>
         </div>
     </VCol>
@@ -116,6 +121,19 @@ const onlyTwoWords = (value: string): string => {
     return newValue.join(" ");
 };
 
+const deleteAllNotifications = async () => {
+    const url = 'notifications/delete/all/actives'
+    const res = await helper.http(url,'delete')
+    index()
+}
+
+const readNotification = async (id:string|number) => {
+    const url = `notifications/user/read/active/${id}`
+    try{
+        const res = await helper.http(url,'post')
+        await index()
+    }catch(e){}
+}
 interface Notifications {
     id: number;
     user_id: number;
