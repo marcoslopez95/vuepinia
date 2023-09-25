@@ -4,16 +4,16 @@
             <template #activator="{ props }">
                 <!-- <v-btn icon class="mx-0 px-0"  v-bind="props" elevation="0" color="transparent"> -->
                 <!-- <v-avatar size="35"> -->
-                <NotificationIcon
+                <MessageIcon
                     class="cursor-pointer"
                     v-bind="props"
                     :class="colorIcons"
-                    :active="notifications.length > 0"
+                    :active="false"
                 />
                 <!-- </v-avatar> -->
                 <!-- </v-btn> -->
             </template>
-            <v-card max-width="280" elevation="50" class="rounded-xl">
+            <v-card v-if="false" max-width="280" elevation="50" class="rounded-xl">
                 <v-list>
                     <v-list-item class="text-primary text-center">
                         <template #title>
@@ -24,8 +24,8 @@
                     </v-list-item>
 
                     <v-divider></v-divider>
-                    <span v-for="(item, index) in notifications" :key="index">
-                        <v-list-item @click="readNotification(item.id)" value="1" class="text-table">
+                    <span v-for="(item, index) in notifications" :key="index" >
+                        <v-list-item  :value="index" class="text-table">
                             <template #title>
                                 <div class="d-flex gap-2">
                                     <div>
@@ -80,7 +80,6 @@
                         <v-divider></v-divider>
                     </span>
                     <v-list-item
-                        v-if="notifications.length > 0"
                         @click="goViewNotification"
                         class="text-primary text-center"
                     >
@@ -92,17 +91,6 @@
                             </span>
                         </template>
                     </v-list-item>
-                    <v-list-item
-                        v-else
-                        class="text-primary text-center"
-                    >
-                        <template #title>
-                            <span
-                            >
-                                No hay
-                            </span>
-                        </template>
-                    </v-list-item>
                 </v-list>
             </v-card>
         </VMenu>
@@ -110,6 +98,7 @@
 </template>
 
 <script setup lang="ts">
+import MessageIcon from "@/assets/icons/header/MessageIcon.vue";
 import { ref, computed,onMounted, onUnmounted} from "vue";
 import NotificationIcon from "@/assets/icons/header/NotificationIcon.vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
@@ -134,7 +123,7 @@ const index = async () => {
     const res = await helper.http(url, "get", {
         params: { pag: 5 },
     },'',true);
-    notifications.value = (res.data.response.data as Notifications[]).filter(n => !n.read);
+    notifications.value = res.data.response.data;
 };
 index();
 
@@ -162,11 +151,12 @@ const onlyTwoWords = (value: string): string => {
     const newValue = valueArray.splice(0, quantityWordsTitle);
     return newValue.join(" ");
 };
+
 const readNotification = async (id:string|number) => {
     const url = `notifications/user/read/active/${id}`
     try{
         const res = await helper.http(url,'post')
-        await index()
+        index()
     }catch(e){}
 }
 interface Notifications {

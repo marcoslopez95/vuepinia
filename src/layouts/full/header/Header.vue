@@ -16,7 +16,7 @@ import { UserStore } from "@/stores/UserStore";
 import { onMounted } from "vue";
 import { onUnmounted } from "vue";
 import NotificationComponent from '@/layouts/full/header/NotificationComponent.vue'
-
+import MessagesComponent from "./MessagesComponent.vue";
 const userStore = UserStore()
 const interval = ref()
 userStore.updateUserAuth()
@@ -86,26 +86,7 @@ const profileRoutes = {
     <!-- User Profile -->
     <div class="d-flex align-center" :class="[!isMobile ? 'gap-icon-web' : 'gap-icon-mobile']">
       
-      <VMenu>
-        <template #activator="{ props }">
-            <!-- <v-btn icon class="mx-0 px-0"  v-bind="props" elevation="0" color="transparent"> -->
-            <!-- <v-avatar size="35"> -->
-              <MessageIcon :class="colorIcons" :active="existNotifications" />
-            <!-- </v-avatar> -->
-            <!-- </v-btn> -->
-        </template>
-        <v-card max-width="280" elevation="50" class="rounded-xl">
-            <v-list>
-                <v-list-item class="text-primary text-center">
-                    <template #title>
-                        <span class="font-weight-semibold">
-                            Notificaciones
-                        </span>
-                    </template>
-                </v-list-item>
-            </v-list>
-        </v-card>
-      </VMenu>
+      <MessagesComponent />
 
 
       <!-- <NotificationIcon :class="colorIcons" :active="existMessages" /> -->
