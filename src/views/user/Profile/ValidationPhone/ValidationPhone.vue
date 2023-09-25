@@ -15,7 +15,7 @@
                 {{ $t('views.profile.personal-data.validation-phone.content') }}
             </p>
             <VRow>
-                <VCol cols="12" class="mx-auto">
+                <VCol cols="12" sm="4" class="mx-auto">
                     <NewInputComponentVue 
                         v-model="code"
                         :placeholder="$t('views.profile.personal-data.validation-phone.code-verification')"

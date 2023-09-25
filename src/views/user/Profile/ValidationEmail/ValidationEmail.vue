@@ -12,9 +12,11 @@
                 {{ $t('views.profile.personal-data.validation-phone.content') }}
             </p>
             <VRow>
-                <VCol cols="4" class="mx-auto">
+                <VCol cols="12" sm="4" class="mx-auto">
                     <NewInputComponentVue v-model="code"
-                        :name="$t('views.profile.personal-data.validation-phone.code-verification')" />
+                        :placeholder="$t('views.profile.personal-data.validation-phone.code-verification')"
+                        name=""
+                        />
                 </VCol>
                 <VCol cols="12" class="text-center">
                     <VBtnPrimary :disabled="!code" @click.prevent="verificateCode">
