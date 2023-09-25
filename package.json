@@ -11,6 +11,8 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
+    "@mempool/mempool.js": "^2.3.0",
     "aos": "^2.3.4",
     "apexcharts": "^3.35.0",
     "axios": "^1.4.0",

@@ -24,9 +24,21 @@ export const FeesStore = defineStore('fees', () => {
     })
 
     const getFeesPrice = async() => {
+        
         try{
             const url = 'https://mempool.space/api/v1/fees/recommended'
-            const res = (await helper.http(url)).data as DataMempool
+            const headers = {
+                "content-type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Headers": "Content-Type",
+              }
+              const res = await fetch(url, {
+                method: 'get',
+                headers
+              })
+              console.log(await res.json())
+            //   const res = await (await axios.get(url,{headers})).data as DataMempool
+            // const res = (await helper.http(url,'get',{headers})).data as DataMempool
             dataMempoolFees.economyFee = res.economyFee
             dataMempoolFees.fastestFee = res.fastestFee
             dataMempoolFees.halfHourFee = res.halfHourFee
@@ -34,7 +46,7 @@ export const FeesStore = defineStore('fees', () => {
             dataMempoolFees.minimumFee = res.minimumFee
         }catch(e){
             helper.showNotify('Ha ocurrido un error, por favor intente mas tarde',{type:'error'})
-            setTimeout(() => {window.location.reload()},5000)
+            // setTimeout(() => {window.location.reload()},5000)
         }
     }
 

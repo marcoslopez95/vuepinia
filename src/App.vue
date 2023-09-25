@@ -12,7 +12,10 @@
 import TwoFactorAuth from "./components/TwoFactorAuth.vue";
 import { RouterView } from "vue-router";
 import { helperStore } from "./helper";
+import { FeesStore } from "./stores/FeesStore";
 const helper = helperStore()
+const feesStore = FeesStore()
+feesStore.setCheckbox()
 </script>
 <style lang="scss">
 .v-navigation-drawer__scrim{

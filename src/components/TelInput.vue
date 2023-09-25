@@ -4,6 +4,7 @@
         <vue-tel-input 
             v-model="modelValue" 
             :autoDefaultCountry="false"
+            defaultCountry="co"
             styleClasses="v-text-field__slot"
             style="min-height: 40px;"
             :inputOptions="{placeholder,styleClasses: 'text-primary'}"
