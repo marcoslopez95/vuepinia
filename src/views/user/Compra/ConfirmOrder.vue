@@ -192,18 +192,22 @@ import PreviewOrderForConfirm from '@/layouts/full/menuRight/PreviewOrder/Previe
 import { useDisplay } from "vuetify/lib/framework.mjs";
 import { watch } from "vue";
 import { GeneralConfiguration } from "@/stores/GeneralConfiguration";
+import { FeesStore } from "@/stores/FeesStore";
 
 const { smAndDown } = useDisplay()
 const transactionStore = TransactionStore()
 const modalSelectWallet = ref(false)
+const feesStore = FeesStore()
 const helper = helperStore()
 const { formRef } = storeToRefs(helper)
+const { checkboxes } = storeToRefs(feesStore)
 const walletStore = WalletStore()
 const confirmOrderStore = ConfirmOrderStore();
 const { shippingType, form, networkTypes } = storeToRefs(confirmOrderStore);
 const { getShippingTypes } = confirmOrderStore;
 const generalConfiguration = GeneralConfiguration()
 const { generalData } = storeToRefs(generalConfiguration);
+feesStore.setCheckbox()
 form.value.xcop_payment = false
 
 const totalExchngeOriginal = form.value.total_exchange_local
@@ -280,43 +284,43 @@ form.value.fee = "11";
 addFeesToTotalLocal()
 
 transactionStore.feeMiner = form.value.fee
-const checkboxes: Checkboxes[] = [
-    {
-        label: "groupTransaction",
-        text: ` <span class="text-primary font-weight-bold">Agrupar</span> mi transaccion con otras de esta manera se paga una
-                comision mas alta por todas y esto hace que se confirme mas
-                rapido el tiempo de espera es de (1-3 horas).`,
-        fees: "5",
-    },
-    {
-        label: "payFee",
-        text: ` <span class="text-primary font-weight-bold">Pagar</span> una comision normal de 0.00001536 BTC equivalentes a -
-                (0.31 USD) con esta opcion es mas probable tener una
-                confirmacion mas rapido.`,
-        fees: "10",
-    },
-    {
-        label: "sendNormal",
-        text: ` <span class="text-primary font-weight-bold">Enviar</span> mi transaccion inmediatamente con la comision que xeler
-                puede asumir entiendo que no hay tiempo estimado de confirmacion
-                pueden ser varias horas.`,
-        fees: "11",
-    },
-    {
-        label: "feesPriority",
-        text: ` <span class="text-primary font-weight-bold">Pagar</span> una comision de envio prioritario de 0.00015 BTC
-                equivalentes a (3 USD) esta opcion el envio se envia con la
-                comision mas alta posible para ser confirmado en diez minutos o
-                maximo 20.`,
-        fees: "15",
-    },
-];
+// const checkboxes: Checkboxes[] = [
+//     {
+//         label: "groupTransaction",
+//         text: ` <span class="text-primary font-weight-bold">Agrupar</span> mi transaccion con otras de esta manera se paga una
+//                 comision mas alta por todas y esto hace que se confirme mas
+//                 rapido el tiempo de espera es de (1-3 horas).`,
+//         fees: "5",
+//     },
+//     {
+//         label: "payFee",
+//         text: ` <span class="text-primary font-weight-bold">Pagar</span> una comision normal de 0.00001536 BTC equivalentes a -
+//                 (0.31 USD) con esta opcion es mas probable tener una
+//                 confirmacion mas rapido.`,
+//         fees: "10",
+//     },
+//     {
+//         label: "sendNormal",
+//         text: ` <span class="text-primary font-weight-bold">Enviar</span> mi transaccion inmediatamente con la comision que xeler
+//                 puede asumir entiendo que no hay tiempo estimado de confirmacion
+//                 pueden ser varias horas.`,
+//         fees: "11",
+//     },
+//     {
+//         label: "feesPriority",
+//         text: ` <span class="text-primary font-weight-bold">Pagar</span> una comision de envio prioritario de 0.00015 BTC
+//                 equivalentes a (3 USD) esta opcion el envio se envia con la
+//                 comision mas alta posible para ser confirmado en diez minutos o
+//                 maximo 20.`,
+//         fees: "15",
+//     },
+// ];
 
 const clickInOption = (label: keyof Comisiones) => {
     for (let key in comisiones) {
         comisiones[key as keyof Comisiones] = key === label;
         if (key === label) {
-            form.value.fee = checkboxes.find(
+            form.value.fee = checkboxes.value.find(
                 (check) => check.label === label
             )!.fees;
             transactionStore.feeMiner = form.value.fee
