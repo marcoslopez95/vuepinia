@@ -211,6 +211,7 @@ feesStore.setCheckbox()
 form.value.xcop_payment = false
 
 const totalExchngeOriginal = form.value.total_exchange_local
+// console.log('totalExchngeOriginal',totalExchngeOriginal)
 const totalUsdOriginal = form.value.total_exchange_reference
 onMounted(() => {
     form.value.shipping_type_id = ''
@@ -254,7 +255,7 @@ const clickInBack = () => {
 const comisiones = reactive<Comisiones>({
     groupTransaction: false,
     payFee: false,
-    sendNormal: true,
+    sendNormal: false,
     feesPriority: false,
 });
 
@@ -262,59 +263,34 @@ const comisiones = reactive<Comisiones>({
 const addFeesToTotalLocal = () => {
     let feesXCOP = 0;
     let feesXCOPusd = 0;
+    const withFeesXCOP = generalData.value?.attributes.administrative_fee as number
     
     const currency = walletStore.currencies.find(c=> c.id === form.value.currency_id);
     const currencyTicker = walletStore.getCurrencyTickerByAbbreviation(currency?.attributes.abbreviation!);
-
+    
     const priceUsd = currencyTicker?.trm!
     if(!form.value.xcop_payment){
-        const withFeesXCOP = generalData.value?.attributes.administrative_fee as number
-        feesXCOP = withFeesXCOP;
+        const feesMinerCop = parseFloat(form.value.fee) * parseFloat(priceUsd)
+        // feesXCOP = withFeesXCOP + feesMinerCop;
         feesXCOPusd = withFeesXCOP / parseFloat(priceUsd)
+        // feesXCOPusd += feesMinerCop
+    }else{
+        feesXCOP = - withFeesXCOP ;
+
     }
 
     const priceExchangeFees = parseFloat(form.value.fee) * parseFloat(priceUsd)
     
     form.value.total_exchange_local = (parseFloat(totalExchngeOriginal) + priceExchangeFees + feesXCOP).toFixed(2)
+
     form.value.total_exchange_reference = (parseFloat(totalUsdOriginal) + parseFloat(form.value.fee) + feesXCOPusd).toFixed(2)
     
 }
 
-form.value.fee = "11";
+form.value.fee = '0';
 addFeesToTotalLocal()
 
 transactionStore.feeMiner = form.value.fee
-// const checkboxes: Checkboxes[] = [
-//     {
-//         label: "groupTransaction",
-//         text: ` <span class="text-primary font-weight-bold">Agrupar</span> mi transaccion con otras de esta manera se paga una
-//                 comision mas alta por todas y esto hace que se confirme mas
-//                 rapido el tiempo de espera es de (1-3 horas).`,
-//         fees: "5",
-//     },
-//     {
-//         label: "payFee",
-//         text: ` <span class="text-primary font-weight-bold">Pagar</span> una comision normal de 0.00001536 BTC equivalentes a -
-//                 (0.31 USD) con esta opcion es mas probable tener una
-//                 confirmacion mas rapido.`,
-//         fees: "10",
-//     },
-//     {
-//         label: "sendNormal",
-//         text: ` <span class="text-primary font-weight-bold">Enviar</span> mi transaccion inmediatamente con la comision que xeler
-//                 puede asumir entiendo que no hay tiempo estimado de confirmacion
-//                 pueden ser varias horas.`,
-//         fees: "11",
-//     },
-//     {
-//         label: "feesPriority",
-//         text: ` <span class="text-primary font-weight-bold">Pagar</span> una comision de envio prioritario de 0.00015 BTC
-//                 equivalentes a (3 USD) esta opcion el envio se envia con la
-//                 comision mas alta posible para ser confirmado en diez minutos o
-//                 maximo 20.`,
-//         fees: "15",
-//     },
-// ];
 
 const clickInOption = (label: keyof Comisiones) => {
     for (let key in comisiones) {
@@ -335,12 +311,6 @@ watch(()=>form.value.fee,(nuevo) => {
 watch(()=>form.value.xcop_payment,(nuevo)=>{
         addFeesToTotalLocal( )
 })
-
-interface Checkboxes {
-    label: keyof Comisiones;
-    text: string;
-    fees: string;
-}
 
 interface Comisiones {
     groupTransaction: boolean;

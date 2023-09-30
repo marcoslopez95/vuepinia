@@ -26,19 +26,19 @@ export const FeesStore = defineStore('fees', () => {
     const getFeesPrice = async() => {
         
         try{
-            const url = 'https://mempool.space/api/v1/fees/recommended'
+            const url = '/currency/fees/recomend'
             const headers = {
                 "content-type": "application/json",
                 "Access-Control-Allow-Origin": "*",
                 "Access-Control-Allow-Headers": "Content-Type",
               }
-              const res = await fetch(url, {
-                method: 'get',
-                headers
-              })
-              console.log(await res.json())
+            //   const res = await fetch(url, {
+            //     method: 'get',
+            //     headers
+            //   })
+            //   console.log(await res.json())
             //   const res = await (await axios.get(url,{headers})).data as DataMempool
-            // const res = (await helper.http(url,'get',{headers})).data as DataMempool
+            const res = (await helper.http(url,'get',{headers})).data as DataMempool
             dataMempoolFees.economyFee = res.economyFee
             dataMempoolFees.fastestFee = res.fastestFee
             dataMempoolFees.halfHourFee = res.halfHourFee
@@ -84,7 +84,7 @@ export const FeesStore = defineStore('fees', () => {
         },
         {
             label: "feesPriority",
-            text: ` <span class="text-primary font-weight-bold">Pagar</span> una comision de envio prioritario de 0.00015 BTC
+            text: ` <span class="text-primary font-weight-bold">Pagar</span> una comision de envio prioritario de {btc} BTC
                 equivalentes a ({usd} USD) esta opcion el envio se envia con la
                 comision mas alta posible para ser confirmado en diez minutos o
                 maximo 20.`,
@@ -106,25 +106,49 @@ export const FeesStore = defineStore('fees', () => {
         }
     }
 
-    const convertInBtc = (value:number):number => (value/100000000)
-    const  convertBtcInBytes = (value:number):number => (value * 256)
+    const convertInBtc = (satoshi:number):number => (satoshi/100000000)
+    const  convertBtcInBytes = (btc:number):number => (btc * 256)
+
+
 
     const setCheckbox = async() => {
         await getPriceBitcoin()
         await getFeesPrice()
         const btc = currencyTicker.value.find(c => c.symbol === 'BTC');
+        const priceBtcInUsd = parseFloat(btc!.oficial_usd.replace('.',''))
         for(let label in labelToFees){
             const feeName = labelToFees[label as keyof LabelToFees] as keyof DataMempool
             const feeValue = dataMempoolFees[feeName]
             const feesInBtc = convertInBtc(feeValue)
+            console.log('feesInBtc',feesInBtc)
             const feesInBytes = convertBtcInBytes(feesInBtc)
-            const newFeePrice = feesInBytes * parseFloat(btc?.oficial_usd??'')
+            console.log('feesInBytes',feesInBytes)
+            const newFeePriceUsd = feesInBytes * priceBtcInUsd
+            console.log('newFeePrice',newFeePriceUsd)
+            console.log('oficial_usd',btc?.oficial_usd)
+            const oldCheck = checkboxes.find(check => check.label === label)!
+            const newCheck: Checkboxes = {
+                fees: newFeePriceUsd.toFixed(2),
+                feesBtc: feesInBytes.toFixed(8),
+                label: oldCheck.label,
+                text: oldCheck.text.replace('{usd}',newFeePriceUsd.toFixed(2))
+                .replace('{btc}',feesInBytes.toFixed(8))
+            }
             checkboxes.find(check => check.label === label)!
-            checkboxes.find(check => check.label === label)!.fees = newFeePrice.toFixed(2)
-            checkboxes.find(check => check.label === label)!.feesBtc = feesInBtc.toFixed(8)
-            checkboxes.find(check => check.label === label)!.text.replace('{usd}',newFeePrice.toFixed(2))
-                        .replace('{btc}',feesInBtc.toFixed(8))
+            checkboxes.find(check => check.label === label)!.fees = newCheck.fees
+            checkboxes.find(check => check.label === label)!.feesBtc = newCheck.feesBtc
+            checkboxes.find(check => check.label === label)!.text = newCheck.text
         }
+    }
+
+    const convertBtcInPesos = (btcV:number|string):number => {
+        let value = btcV
+        if(typeof value === 'string'){
+            value = parseFloat(value)
+        }
+
+        const btc = currencyTicker.value.find(c => c.symbol === 'BTC');
+        return value * btc!.oficial
     }
     
     
@@ -132,7 +156,8 @@ export const FeesStore = defineStore('fees', () => {
         checkboxes,
         getPriceBitcoin,
         getFeesPrice,
-        setCheckbox
+        setCheckbox,
+        convertBtcInPesos
     }
 
 

@@ -37,7 +37,7 @@
         >
         </CalculadoraComponent>
         <!-- <code lang="json">
-            {{ form.fiat_received }}
+            {{ calculatorValue }}
         </code> -->
         <VRow>
             <VCol class="text-center my-6">
@@ -145,8 +145,8 @@ const clickInContinue = () => {
     form.value.currency_id = currency.value!.id;
     form.value.payment_type_id = paymentMethod.value!.id;
 
-    form.value.total_exchange_local =
-        calculatorValue.value.amountFiat.toFixed(2);
+    // form.value.total_exchange_local =
+    //     calculatorValue.value.amountFiat.toFixed(2);
     // form.value.fiat_received =
     //     calculatorValue.value.amountFiat.toFixed(2);
 

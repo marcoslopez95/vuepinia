@@ -2,6 +2,7 @@
     <InitBuy v-if="!confirmatedOrder" @click:continue="nextStep">
     </InitBuy>
     <confirm-order v-else @back="backStep" @confirmOrder="createOrder2"> </confirm-order>
+    <!-- {{ form }} -->
     <div class="text-table mt-7">
         Tienes
         <CountDown :dateFinish="timeSet" @endTime="alerta"></CountDown> minutos
