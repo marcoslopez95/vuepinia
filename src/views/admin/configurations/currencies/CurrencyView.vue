@@ -78,7 +78,9 @@ const openUpdate = (item:Currency) => {
         sale: !!item.attributes.sale,
         buy: !!item.attributes.buy,
         icon: item.relationships?.images && item.relationships.images.length>0 ? item.relationships?.images[0].attributes.aws_url : "",
-        color: item.attributes.color
+        color: item.attributes.color,
+        min_buy: item.attributes.min_buy,
+        min_sale: item.attributes.min_sale
     }
     formCrud.value = itemUpdate
     openModalCrud.value = true;
@@ -172,6 +174,24 @@ const rows: Row[] = [
             //     valueForm: 'wallet_default',
             //     rules: []
             // }
+        ]
+    },
+    {
+        fields: [
+            {
+                label: 'Mín. para venta',
+                type: 'number',
+                valueForm: 'min_sale',
+                colClass: ['v-col-12 v-col-sm-6'],
+                rules: [ ]
+            },
+            {
+                label: 'Mín. para compra',
+                type: 'number',
+                valueForm: 'min_buy',
+                colClass: ['v-col-12 v-col-sm-6'],
+                rules: []
+            },
         ]
     },
     {

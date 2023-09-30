@@ -14,6 +14,8 @@ export declare interface CurrencyAttributes {
     buy: boolean
     icon: '' | string
     color: string | null
+    min_sale: string | number
+    min_buy: string | number
 }
 
 export declare interface CurrencyRelationships {

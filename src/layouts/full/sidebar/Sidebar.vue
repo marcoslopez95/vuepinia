@@ -134,7 +134,8 @@ getCountOrders()
                             <template #append>
                                 <span
                                     v-if="countOrders[children.reference as keyof CountOrders] > 0"
-                                    class="rounded-circle px-2 bg-white text-active font-weight-bold"
+                                    class="rounded-circle bg-white text-active font-weight-bold d-flex align-center justify-center"
+                                    style="width: 30px!important; height: 30px!important;"
                                     >
                                     {{ countOrders[children.reference as keyof CountOrders] }}
                                     </span>
