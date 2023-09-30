@@ -68,6 +68,22 @@
                         </div>
                     </div>
                 </div>
+                <div class="w-100">
+                    <div
+                        class="d-flex flex-column flex-sm-row gap-2 align-center mt-4 justify-space-between"
+                    >
+                        <div class="text-center text-sm-left">Min. XCOP para retiro</div>
+                        <div style="width: 150px">
+                            <input-component
+                                v-model="form.min_withdrawal_xcop"
+                                name="min_withdrawal_xcop"
+                                :rules="[validator.required]"
+                                :events="eventsXcop"
+                                without-label
+                            ></input-component>
+                        </div>
+                    </div>
+                </div>
                 <div class="w-100 text-center my-3">
                     <VBtnPrimary @click="updateGeneralConfiguration" :disabled="!(isValid.value)">
                         Guardar
@@ -95,6 +111,7 @@ const form = reactive<ConfigurationGeneralsAttributes>({
     confirmation_time: "0",
     initial_time: "0",
     order_fee_limit: '0',
+    min_withdrawal_xcop: '0'
 });
 const { generalData } = storeToRefs(generalConfiguration);
 
@@ -103,12 +120,14 @@ generalConfiguration.getGeneralData().then(()=>{
     form.confirmation_time  = generalData.value!.attributes.confirmation_time
     form.administrative_fee = formatNumber(generalData.value!.attributes.administrative_fee as number)
     form.order_fee_limit    = formatNumber(generalData.value!.attributes.order_fee_limit as number)
+    form.min_withdrawal_xcop    = formatNumber(generalData.value!.attributes.min_withdrawal_xcop as number)
 });
 
 const updateGeneralConfiguration = async () => {
     const url = "general/configuration/1";
     form.administrative_fee = formatNumberStringToNumber(form.administrative_fee as string)
     form.order_fee_limit = formatNumberStringToNumber(form.order_fee_limit as string)
+    form.min_withdrawal_xcop    = formatNumberStringToNumber(form.min_withdrawal_xcop as string)
     const data = form;
     const res = await helper.http(url, "put", { data });
     generalConfiguration.getGeneralData().then(()=>{
@@ -116,6 +135,7 @@ const updateGeneralConfiguration = async () => {
     form.confirmation_time  = generalData.value!.attributes.confirmation_time
     form.administrative_fee = formatNumber(generalData.value!.attributes.administrative_fee as number)
     form.order_fee_limit    = formatNumber(generalData.value!.attributes.order_fee_limit as number)
+    form.min_withdrawal_xcop    = formatNumber(generalData.value!.attributes.min_withdrawal_xcop as number)
     console.log('administrative_fee',generalData.value!.attributes.administrative_fee as number,formatNumber(generalData.value!.attributes.administrative_fee as number))
     console.log('order_fee_limit',generalData.value!.attributes.order_fee_limit as number,formatNumber(generalData.value!.attributes.order_fee_limit as number))
 });
@@ -134,6 +154,19 @@ const eventsAdministrative: EventComponent = {
         form.administrative_fee = validator.amountFormat(event)
     }
 };
+const eventsXcop: EventComponent = {
+    keypress: (event: any) => {
+        if (!validator.keyPressIsNumber(event) && event.key != "Backscape") {
+            event.preventDefault();
+            return;
+        }
+        // amountFiat.value = amountFormat(event)
+    },
+    keyup: (event: any) => {
+        form.min_withdrawal_xcop = validator.amountFormat(event)
+    }
+};
+
 const eventsLimit: EventComponent = {
     keypress: (event: any) => {
         if (!validator.keyPressIsNumber(event) && event.key != "Backscape") {
