@@ -25,7 +25,7 @@
         @update:model-value="(value)=>calculatorValue=value"
         :currency="currency!"
         @no-price="noPrice"
-        :minAmount="(generalConfiguration.generalData?.attributes.order_fee_limit as number)"
+        :minAmount="parseFloat(currency?.attributes.min_buy as string) ?? 0"
         @amount-permitted="(value) => amountPermitted = value"
         >
         </CalculadoraComponent>

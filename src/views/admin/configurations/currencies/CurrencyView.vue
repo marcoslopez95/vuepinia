@@ -179,18 +179,22 @@ const rows: Row[] = [
     {
         fields: [
             {
-                label: 'Mín. para venta',
+                label: 'Mín. para venta (COP)',
                 type: 'number',
                 valueForm: 'min_sale',
                 colClass: ['v-col-12 v-col-sm-6'],
-                rules: [ ]
+                rules: [
+                    validator.required
+                ]
             },
             {
-                label: 'Mín. para compra',
+                label: 'Mín. para compra (COP)',
                 type: 'number',
                 valueForm: 'min_buy',
                 colClass: ['v-col-12 v-col-sm-6'],
-                rules: []
+                rules: [
+                    validator.required
+                ]
             },
         ]
     },
