@@ -112,7 +112,7 @@ export const FeesStore = defineStore('fees', () => {
 
 
     const setCheckbox = async() => {
-        await getPriceBitcoin()
+        // await getPriceBitcoin()
         await getFeesPrice()
         const btc = currencyTicker.value.find(c => c.symbol === 'BTC');
         const priceBtcInUsd = parseFloat(btc!.oficial_usd.replace('.',''))

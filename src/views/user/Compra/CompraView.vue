@@ -1,7 +1,16 @@
 <template>
-    <InitBuy v-if="!confirmatedOrder" @click:continue="nextStep">
+    <InitBuy
+        v-if="!confirmatedOrder"
+        @click:continue="nextStep"
+        @currency="(c) => (transactionStore.currencyUsed = c)"
+    >
     </InitBuy>
-    <confirm-order v-else @back="backStep" @confirmOrder="createOrder2"> </confirm-order>
+    <confirm-order 
+        v-else 
+        @back="backStep"
+        @confirmOrder="createOrder2"
+        >
+    </confirm-order>
     <!-- {{ form }} -->
     <div class="text-table mt-7">
         Tienes
@@ -10,7 +19,10 @@
         una nueva orden hasta dentro de
         <span class="text-error text-h6">30 minutos</span>
     </div>
-    <PenaltyModal @have-penalization="(value)=> havePenalization = value" :TypePenalty="PENALTY_TYPES.COMPRA"></PenaltyModal>
+    <PenaltyModal
+        @have-penalization="(value) => (havePenalization = value)"
+        :TypePenalty="PENALTY_TYPES.COMPRA"
+    ></PenaltyModal>
 </template>
 
 <script setup lang="ts">
@@ -21,48 +33,53 @@ import ConfirmOrder from "./ConfirmOrder.vue";
 import dayjs from "dayjs";
 import { ConfirmOrderStore } from "./CompraStore";
 import { helperStore } from "@/helper";
-import { createPenalty } from '@/stores/PenaltyStore'
+import { createPenalty } from "@/stores/PenaltyStore";
 import { PENALTY_TYPES } from "@/enums/PenaltyTypes.enum";
 import PenaltyModal from "../components/Penalty/PenaltyModal.vue";
 import { TransactionStore } from "@/stores/TransactionStore";
 import { OrderTypes } from "@/enums/OrderTypes.enum";
 import { storeToRefs } from "pinia";
 import { GeneralConfiguration } from "@/stores/GeneralConfiguration";
+import type { Currency } from "@/interfaces/Currency/Currency.model";
 
-const helper = helperStore()
-const generalConfiguration = GeneralConfiguration()
+const helper = helperStore();
+const generalConfiguration = GeneralConfiguration();
 generalConfiguration.getGeneralData();
-
+const currency = ref<Currency>();
 
 const confirmOrderStore = ConfirmOrderStore();
-const transactionStore = TransactionStore()
-const  { form } = storeToRefs(confirmOrderStore)
-form.value.type = OrderTypes.COMPRA
+const transactionStore = TransactionStore();
+transactionStore.typeOrder = OrderTypes.COMPRA
+const { form } = storeToRefs(confirmOrderStore);
+form.value.type = OrderTypes.COMPRA;
 transactionStore.showPreviewOrder = false;
 
 const backStep = () => {
-    confirmatedOrder.value = false
-    transactionStore.showPreviewOrder = false
-}
+    confirmatedOrder.value = false;
+    transactionStore.showPreviewOrder = false;
+};
 
 const nextStep = () => {
-    confirmatedOrder.value = true
-    transactionStore.showPreviewOrder = true
-}
+    confirmatedOrder.value = true;
+    transactionStore.showPreviewOrder = true;
+    transactionStore.currencyUsed
+    console.log('currency2',transactionStore.currencyUsed)
+};
 
 const confirmatedOrder = ref(false);
 const havePenalization = ref(false);
 const alerta = () => {
-    createPenalty(PENALTY_TYPES.COMPRA)
+    createPenalty(PENALTY_TYPES.COMPRA);
 };
 const timeSet = dayjs().add(30, "minutes").format();
 
 const createOrder2 = () => {
-    if(havePenalization.value) return
-    transactionStore.showPreviewOrder = false
-    form.value.administrative_fee_order = generalConfiguration.generalData?.attributes.administrative_fee as number
+    if (havePenalization.value) return;
+    transactionStore.showPreviewOrder = false;
+    form.value.administrative_fee_order = generalConfiguration.generalData
+        ?.attributes.administrative_fee as number;
     confirmOrderStore.createOrder(OrderTypes.COMPRA);
-    console.log('pagos', confirmOrderStore.form)
+    console.log("pagos", confirmOrderStore.form);
 };
 </script>
 

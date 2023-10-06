@@ -36,7 +36,7 @@ export default class usePusher {
         console.log(`Suscrito al canal ${this.channelName} `);
     }
 
-    unMounted = () => {
+    public unMounted() {
         this.channel.unbind(this.eventName, this.eventHandler);
         this.pusher.unsubscribe(this.channelName);
         console.log(`Desuscrito del canal ${this.channelName} `);

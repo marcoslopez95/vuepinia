@@ -86,11 +86,14 @@
 </template>
 
 <script setup lang="ts">
-import { helperStore } from "@/helper";
+import { getUserAuth, helperStore } from "@/helper";
 import type { User } from "@/interfaces/User/User.model";
+import usePusher from "@/pusher";
 import dayjs from "dayjs";
 import { ref, onMounted, onUnmounted} from "vue";
 
+
+const pusher = ref<usePusher>()
 const helper = helperStore();
 const url = "notifications/active/user";
 
@@ -101,12 +104,18 @@ const index = async () => {
 };
 index();
 const interval = ref()
+const channelName = 'notification.' + getUserAuth().id
+const eventName = 'App\Events\NotificateEvent'
 onMounted(() => {
+    pusher.value = new usePusher(channelName, eventName,(data:any) => {
+        console.log('data desde puisher',data)
+    })
     interval.value = setInterval(()=> index(),8000)
 })
 
 onUnmounted(() => {
     clearInterval(interval.value)
+    pusher.value?.unMounted()
 })
 const quantityWordsTitle = 2;
 const allContentMinunTwoFirstWords = (value: string): string => {

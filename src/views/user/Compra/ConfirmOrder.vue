@@ -207,6 +207,7 @@ const { shippingType, form, networkTypes } = storeToRefs(confirmOrderStore);
 const { getShippingTypes } = confirmOrderStore;
 const generalConfiguration = GeneralConfiguration()
 const { generalData } = storeToRefs(generalConfiguration);
+
 feesStore.setCheckbox()
 form.value.xcop_payment = false
 
@@ -263,27 +264,32 @@ const comisiones = reactive<Comisiones>({
 const addFeesToTotalLocal = () => {
     let feesXCOP = 0;
     let feesXCOPusd = 0;
+    let priceExchangeFees = 0;
+    let fee = 0;
     const withFeesXCOP = generalData.value?.attributes.administrative_fee as number
     
     const currency = walletStore.currencies.find(c=> c.id === form.value.currency_id);
     const currencyTicker = walletStore.getCurrencyTickerByAbbreviation(currency?.attributes.abbreviation!);
     
     const priceUsd = currencyTicker?.trm!
+    
     if(!form.value.xcop_payment){
-        const feesMinerCop = parseFloat(form.value.fee) * parseFloat(priceUsd)
+        fee = parseFloat(form.value.fee)
+        priceExchangeFees = parseFloat(form.value.fee) * parseFloat(priceUsd)
+        // const feesMinerCop = parseFloat(form.value.fee) * parseFloat(priceUsd)
         // feesXCOP = withFeesXCOP + feesMinerCop;
         feesXCOPusd = withFeesXCOP / parseFloat(priceUsd)
         // feesXCOPusd += feesMinerCop
     }else{
         feesXCOP = - withFeesXCOP ;
-
+        // priceExchangeFees = 0
+        // fee = -fee
     }
 
-    const priceExchangeFees = parseFloat(form.value.fee) * parseFloat(priceUsd)
     
     form.value.total_exchange_local = (parseFloat(totalExchngeOriginal) + priceExchangeFees + feesXCOP).toFixed(2)
 
-    form.value.total_exchange_reference = (parseFloat(totalUsdOriginal) + parseFloat(form.value.fee) + feesXCOPusd).toFixed(2)
+    form.value.total_exchange_reference = (parseFloat(totalUsdOriginal) + fee + feesXCOPusd).toFixed(2)
     
 }
 

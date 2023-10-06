@@ -73,7 +73,7 @@
             </div>
 
             <div
-                v-if=" totalLocal  < (generalData?.attributes.order_fee_limit as number)"
+                v-if="transactionStore.orderHaveFees(parseFloat(confirmOrderStore.form.fiat_received))"
                 class="my-6 d-flex"
                 style="justify-content: space-between"
             >

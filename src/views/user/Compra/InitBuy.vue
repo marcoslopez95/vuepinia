@@ -80,6 +80,7 @@ const confirmOrderStore = ConfirmOrderStore();
 const { form } = storeToRefs(confirmOrderStore);
 const emits = defineEmits<{
     (e: "click:continue"): void;
+    (e: "currency",value:Currency): void;
 }>();
 
 const helper = helperStore();
@@ -182,6 +183,8 @@ const clickInContinue = () => {
     //     + parseFloat(form.value.fee as string)
     // ).toFixed(8);
     emits("click:continue");
+    console.log('currency',currency.value)
+    emits("currency", currency.value!);
 };
 </script>
 
