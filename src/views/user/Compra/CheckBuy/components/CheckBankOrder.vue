@@ -166,7 +166,7 @@ const props = defineProps<{
 }>();
 
 const form = reactive<OrderUploadVoucher>({
-    name: "",
+    name: dayjs().toISOString(),
     order_id: props.order.id,
     vouchers: [],
 });
