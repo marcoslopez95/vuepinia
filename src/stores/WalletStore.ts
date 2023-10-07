@@ -31,7 +31,7 @@ export const WalletStore = defineStore('wallet', () => {
                 const res = await helper.http(url, 'get', {}, '', true)
                 currencyTicker.value = (res.data as resJsonTicker).data
                 dateQueryTicker.value = dayjs().format('YYYY-MM-DD T: HH:mm UTC')
-                if(coinsInit.value.length == 0){
+                if (coinsInit.value.length == 0) {
                     coinsInit.value = setCoins()
                 }
                 resolve(currencyTicker.value)
@@ -68,54 +68,54 @@ export const WalletStore = defineStore('wallet', () => {
         down: "0",
     };
 
-    const coins = computed(()=> setCoins() ?? [])
-    const getBandForCoin = (coin:Coin,value:number): BandCoin => {
+    const coins = computed(() => setCoins() ?? [])
+    const getBandForCoin = (coin: Coin, value: number): BandCoin => {
         // console.log('coin',coin)
         // return 'same'
-        if(coin?.value == value) return 'same'
+        if (coin?.value == value) return 'same'
         return value > coin?.value ? 'up' : 'down'
     }
-    const getporcentForCoin = (coin:Coin,value:number): string => {
+    const getporcentForCoin = (coin: Coin, value: number): string => {
         // return '0'
-        if(coin.value == value) return '0'
+        if (coin.value == value) return '0'
         const percent = ((value - coin.value) / coin.value) * 100
-        if(percent.toFixed(2) == '0.00') return '0.00'
-        return percent > 0 ? `+`+percent.toFixed(2) : percent.toFixed(2)
+        if (percent.toFixed(2) == '0.00') return '0.00'
+        return percent > 0 ? `+` + percent.toFixed(2) : percent.toFixed(2)
     }
-    
-const setCoins = (): Coin[] => {
-    return currencies.value
-        .filter((currency: Currency) =>
-            getCurrencyTickerByAbbreviation(
-                currency.attributes.abbreviation
-            )
-        )
-        .map((currency: Currency): Coin => {
-            const currencyT = getCurrencyTickerByAbbreviation(
-                currency.attributes.abbreviation
-            );
-            const images = currency.relationships?.images;
-            const coin = coinsInit.value.find((coinI:Coin) => coinI.name == currency.attributes.name)!
-            const band: BandCoin = coin ? getBandForCoin(coin,currencyT?.oficial!) : 'same'
-            const porcent: string = coin ? getporcentForCoin(coin,currencyT?.oficial!)  : '0'
-            return {
-                name: currency.attributes.name,
-                value: currencyT?.oficial ?? 0, 
-                up: true,
-                icon: images!.length > 0 ? images![0].attributes.aws_url : "",
-                band,
-                porcent,
-                abbreviation: currency.attributes.abbreviation
-            };
-        });
-}
 
-const cryptoHaveImage = (currency?: Currency): false | string => {
-    if(!currency) return false
-    const images = currency.relationships?.images
-    if(!images || images.length == 0) return false
-    return images[0].attributes.aws_url
-}
+    const setCoins = (): Coin[] => {
+        return currencies.value
+            .filter((currency: Currency) =>
+                getCurrencyTickerByAbbreviation(
+                    currency.attributes.abbreviation
+                )
+            )
+            .map((currency: Currency): Coin => {
+                const currencyT = getCurrencyTickerByAbbreviation(
+                    currency.attributes.abbreviation
+                );
+                const images = currency.relationships?.images;
+                const coin = coinsInit.value.find((coinI: Coin) => coinI.name == currency.attributes.name)!
+                const band: BandCoin = coin ? getBandForCoin(coin, currencyT?.oficial!) : 'same'
+                const porcent: string = coin ? getporcentForCoin(coin, currencyT?.oficial!) : '0'
+                return {
+                    name: currency.attributes.name,
+                    value: currencyT?.oficial ?? 0,
+                    up: true,
+                    icon: images!.length > 0 ? images![0].attributes.aws_url : "",
+                    band,
+                    porcent,
+                    abbreviation: currency.attributes.abbreviation
+                };
+            });
+    }
+
+    const cryptoHaveImage = (currency?: Currency): false | string => {
+        if (!currency) return false
+        const images = currency.relationships?.images
+        if (!images || images.length == 0) return false
+        return images[0].attributes.aws_url
+    }
     return {
         currencies,
         getCurrencies,
@@ -128,7 +128,9 @@ const cryptoHaveImage = (currency?: Currency): false | string => {
         setCoins,
         coins,
         dateQueryTicker,
-        cryptoHaveImage
+        cryptoHaveImage,
+        getBandForCoin,
+        getporcentForCoin
     }
 
     interface resJsonTicker {

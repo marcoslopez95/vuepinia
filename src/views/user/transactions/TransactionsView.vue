@@ -1,6 +1,10 @@
 <template>
-    <div class="d-flex justify-space-between flex-column flex-sm-row mb-8 text-table">
-        <h3 class="font-weight-semibold">{{ $t("views.transactions.title", 2) }}</h3>
+    <div
+        class="d-flex justify-space-between flex-column flex-sm-row mb-8 text-table"
+    >
+        <h3 class="font-weight-semibold">
+            {{ $t("views.transactions.title", 2) }}
+        </h3>
         <SearchInputComponentVue v-model="search" @onSearch="getSearch" />
     </div>
     <TableComponentVue
@@ -27,7 +31,9 @@
                 :icon="CheckFilledIcon"
                 color="ok-2"
             />
-            <span v-else> {{ order(data).relationships?.status.attributes.name }}</span>
+            <span v-else>
+                {{ order(data).relationships?.status.attributes.name }}</span
+            >
         </template>
         <template #cel-tranx_no="{ data }">
             <span class="text-primary">{{
@@ -69,7 +75,10 @@
                 <div>
                     {{
                         formatNumber(
-                            parseFloat(order(data).attributes.received_amount)
+                            parseFloat(order(data).attributes.received_amount),
+                            ",",
+                            ".",
+                            8
                         )
                     }}
                     {{
@@ -93,6 +102,40 @@
         </template>
         <template #cel-wallet="{ data }">
             {{ getWalletFormated(order(data).attributes.address_send!) }}
+        </template>
+        <template #cel-pnl="{ data }">
+            <div class="d-inline-block align-center" style="width: 100px">
+                <VBtn
+                    elevation="0"
+                    size="small"
+                    :flat="false"
+                    style="width: 24px !important; height: 24px"
+                    class="rounded"
+                    :class="`bg-${colors[coinBand(order(data))]}`"
+                    icon
+                >
+                    <VIcon
+                        icon="mdi-arrow-down"
+                        :class="`arrow-${
+                            colors[coinBand(order(data))]
+                        }`"
+                        :style="`
+                                transform: rotate(${
+                                    orientationArrow[
+                                        coinBand(order(data))
+                                    ]
+                                }deg);
+                            `"
+                    >
+                    </VIcon>
+                </VBtn>
+                <span
+                    class="font-weight-light mt-0 pt-0 ml-3 font-15"
+                    :class="`text-${colorsText[coinBand(order(data))]}`"
+                >
+                    {{ coinPercent(order(data)) }} %
+                </span>
+            </div>
         </template>
     </TableComponentVue>
 </template>
@@ -129,7 +172,14 @@ helper.index();
 const walletStore = WalletStore();
 walletStore.getCurrencies();
 
-const { currencies } = storeToRefs(walletStore);
+const {
+    // getBandForCoin,
+    // getporcentForCoin,
+    colors,
+    colorsText,
+    orientationArrow,
+} = walletStore;
+const { currencies, coins } = storeToRefs(walletStore);
 const search = ref<string>("");
 const getSearch = () => {
     helper.index({
@@ -228,15 +278,21 @@ const headers: Head[] = [
         value: "transaction",
     },
     {
+        name: t("views.transactions.crypto_currency"),
+        value: "crypto_currency",
+        style: "min-width:250px",
+    },
+    {
         name: t("views.transactions.local_currency"),
         value: "local_currency",
         style: "min-width:250px",
     },
     {
-        name: t("views.transactions.crypto_currency"),
-        value: "crypto_currency",
+        name: "PNL",
+        value: "pnl",
         style: "min-width:250px",
     },
+
     {
         name: t("views.transactions.reference_currency"),
         value: "reference_currency",
@@ -256,7 +312,10 @@ const haveCurrencyImage = (item: unknown): boolean => {
 };
 
 const clickInShow = (order: Order) => {
-    let  name = order.attributes.type == OrderTypes.COMPRA ? 'user-check-buy' : 'user-check-sell'
+    let name =
+        order.attributes.type == OrderTypes.COMPRA
+            ? "user-check-buy"
+            : "user-check-sell";
     router.push({
         name,
         params: {
@@ -265,6 +324,81 @@ const clickInShow = (order: Order) => {
     });
 };
 
+const coinCurrent = (order: Order): Coin => {
+    const abbreviation = order.relationships?.currency.attributes.abbreviation!;
+    const coin = coins.value.find((c) =>
+        c.abbreviation.includes(abbreviation)
+    )!;
+    return coin;
+};
+
+const coinBand = (order: Order): BandCoin => {
+    const coin = coinCurrent(order);
+    const valueCurrent = coin.value
+    const value = parseFloat(order.relationships?.currencyExchangeOrder.attributes.exchange_local!)
+    return getBandForCoin(valueCurrent,value);
+};
+const coinPercent = (order: Order): string => {
+    const coin = coinCurrent(order);
+    const valueCurrent = coin.value
+    const value = parseFloat(order.relationships?.currencyExchangeOrder.attributes.exchange_local!)
+    return getporcentForCoin(valueCurrent,value);
+};
+
+const getBandForCoin = (valueCurrent:number, value: number): BandCoin => {
+    // console.log('coin',coin)
+    // return 'same'
+    if (valueCurrent == value) return "same";
+    return value > valueCurrent ? "up" : "down";
+};
+const getporcentForCoin = (valueCurrent:number, value: number): string => {
+    // return '0'
+    if (valueCurrent == value) return "0";
+    const percent = ((value - valueCurrent) / valueCurrent) * 100;
+    if (percent.toFixed(2) == "0.00") return "0.00";
+    return percent > 0 ? `+` + percent.toFixed(2) : percent.toFixed(2);
+};
+
+interface Coin {
+    name: string;
+    value: number;
+    up: boolean;
+    icon: string;
+    porcent: string;
+    band: BandCoin;
+    abbreviation: string;
+}
+type BandCoin = "same" | "up" | "down";
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+@import "@/scss/variables.scss";
+
+.border-primary {
+    border: 2px solid;
+    border-color: $color-primary;
+}
+.bg-down-2 {
+    background-color: #ff707033 !important;
+}
+
+.arrow-down-2 {
+    color: #ff7070 !important;
+}
+
+.bg-same {
+    background-color: #d3c9c933 !important;
+}
+
+.arrow-same {
+    color: #3d3d3c !important;
+}
+
+.bg-up {
+    background-color: #95ff7033 !important;
+}
+
+.arrow-up {
+    color: #2b5517 !important;
+}
+</style>
