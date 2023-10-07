@@ -104,6 +104,18 @@ const generals: RouteRecordRaw[] = [
         },
         beforeEnter: checkedRole
     },
+    {
+        name: "wallet-xcop",
+        path: "/wallet-xcop",
+        component: () =>
+            import("@/views/user/walletXCOP/WalletXCOPView.vue"),
+        meta: {
+            roles: [
+                ROLES.USER
+            ]
+        },
+        beforeEnter: checkedRole
+    },
 ]
 
 const configurations: RouteRecordRaw[] = [

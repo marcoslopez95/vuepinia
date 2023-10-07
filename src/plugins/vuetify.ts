@@ -25,6 +25,7 @@ const Lighttheme: ThemeDefinition = {
     active: '#6E60E8',
     disabled: '#809FB8',
     sky: '#20ABE6',
+    'light': '#F7F8FA',
     'bg-ok':'#BBF3E0',
     'bg-erro':'#E9AAC4',
     'ok':'#1AD598',

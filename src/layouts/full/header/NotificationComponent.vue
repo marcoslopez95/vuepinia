@@ -1,5 +1,6 @@
 <template>
-    <div>
+    <div class="d-flex align-center justify-center">
+
         <VMenu>
             <template #activator="{ props }">
                 <!-- <v-btn icon class="mx-0 px-0"  v-bind="props" elevation="0" color="transparent"> -->

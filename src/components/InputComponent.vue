@@ -18,7 +18,9 @@
             hide-details 
             single-line
             v-model="mValue" 
-            style="max-height: 40px;" 
+            :style="{
+                'max-height': maxHeightField ?? '40px'
+            }" 
             :type="type ?? 'text'"
             :rules="rules" 
             :placeholder="placeholder"
@@ -73,6 +75,7 @@ const props = defineProps<{
     height?: any
     idElement?: string
     appendText?: string
+    maxHeightField?: string
 }>()
 const { modelValue:mValue } = toRefs(props)
 const helper = helperStore()
