@@ -1,8 +1,10 @@
 <template>
   <VApp>
   <RouterView></RouterView>
-  <v-overlay v-model="helper.loading" class="overl">
+  <v-overlay width="100%" height="100%" v-model="helper.loading" class="overl" >
+    <div class="w-100 h-100 d-flex justify-center align-center">
       <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </div>
     </v-overlay>
     <TwoFactorAuth />
   </VApp>
@@ -12,18 +14,24 @@
 import TwoFactorAuth from "./components/TwoFactorAuth.vue";
 import { RouterView } from "vue-router";
 import { helperStore } from "./helper";
+import { ref } from 'vue'
+import type { EventComponent } from "./interfaces/Components.helper";
 const helper = helperStore()
+const load  = ref(
+  // helper.loading
+  true
+  )
 </script>
 <style lang="scss">
 .v-navigation-drawer__scrim{
   z-index: 1 !important;
 }
-
+/*
 .overl{
   justify-content: center;
   align-items: center;
   top: 50%;
-}
+}*/
 
 %scroll-styles{
   overflow-y: auto;

@@ -16,7 +16,7 @@
             <VBtnPrimary @click="clickInOption = SendComponent" style="min-width: 90px">
                 <VIcon icon="mdi-play" />Enviar
             </VBtnPrimary>
-            <VBtnPrimary @click="clickInOption = ''" style="min-width: 90px">
+            <VBtnPrimary @click="clickInOption = SwapComponent" style="min-width: 90px">
                 <VIcon>
                     <svg
                         width="16"
@@ -58,6 +58,7 @@ import SendComponent from '@/views/user/walletXCOP/Send/SendComponent.vue'
 import { ref } from "vue";
 import MessageModal from "./MessageModal.vue";
 import ReceivedComponent from '@/views/user/walletXCOP/Received/ReceivedComponent.vue'
+import SwapComponent from "./Swap/SwapComponent.vue";
 
 const clickInOption = ref<any>('')
 const userStore = UserStore();

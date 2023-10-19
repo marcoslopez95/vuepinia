@@ -103,7 +103,7 @@
         <template #cel-wallet="{ data }">
             {{ getWalletFormated(order(data).attributes.address_send!) }}
         </template>
-        <template #cel-pnl="{ data }">
+        <!-- <template #cel-pnl="{ data }">
             <div class="d-inline-block align-center" style="width: 100px">
                 <VBtn
                     elevation="0"
@@ -136,7 +136,7 @@
                     {{ coinPercent(order(data)) }} %
                 </span>
             </div>
-        </template>
+        </template> -->
     </TableComponentVue>
 </template>
 
@@ -287,11 +287,11 @@ const headers: Head[] = [
         value: "local_currency",
         style: "min-width:250px",
     },
-    {
-        name: "PNL",
-        value: "pnl",
-        style: "min-width:250px",
-    },
+    // {
+    //     name: "PNL",
+    //     value: "pnl",
+    //     style: "min-width:250px",
+    // },
 
     {
         name: t("views.transactions.reference_currency"),
