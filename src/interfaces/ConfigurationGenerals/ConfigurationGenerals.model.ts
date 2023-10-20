@@ -8,4 +8,5 @@ export declare interface ConfigurationGeneralsAttributes {
     administrative_fee: string | number
     order_fee_limit: string | number
     min_withdrawal_xcop: string | number
+    fee_withdrawal_xcop: string | number
 }
