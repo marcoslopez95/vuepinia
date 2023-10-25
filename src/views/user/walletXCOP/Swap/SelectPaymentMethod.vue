@@ -75,7 +75,7 @@
                     v-model="vModel"
                 >
                     <option value="">Seleccione...</option>
-                    <option v-for="(item, i) in accounts" :key="i">
+                    <option v-for="(item, i) in accounts" :key="i" :value="item.id" >
                         {{ getText(item) }}
                     </option>
                 </select>

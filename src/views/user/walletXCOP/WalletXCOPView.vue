@@ -10,6 +10,9 @@
             </div>
         </div>
         <div class="d-flex gap-2 justify-center">
+            <VBtnPrimary @click="clickInOption = IndexComponent" style="min-width: 90px">
+                <VIcon icon="mdi-clipboard-text" />Transac.
+            </VBtnPrimary>
             <VBtnPrimary @click="clickInOption = ReceivedComponent" style="min-width: 90px">
                 <VIcon icon="mdi-qrcode" />Recibir
             </VBtnPrimary>
@@ -59,7 +62,7 @@ import { ref } from "vue";
 import MessageModal from "./MessageModal.vue";
 import ReceivedComponent from '@/views/user/walletXCOP/Received/ReceivedComponent.vue'
 import SwapComponent from "./Swap/SwapComponent.vue";
-
+import IndexComponent from '@/views/user/walletXCOP/Index/IndexComponent.vue'
 const clickInOption = ref<any>('')
 const userStore = UserStore();
 
