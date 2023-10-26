@@ -102,6 +102,7 @@ import OtherPaymentsView from "./OtherPayments/OtherPaymentsView.vue";
 import PenaltyTypeView from "./PenaltyTypes/PenaltyTypeView.vue";
 import NetworkTypeView from "./NetworkType/NetworkTypeView.vue";
 import RolesView from "../security/roles/RolesView.vue";
+import ExternalDeposit from "./CompanyAccounts/ExternalDeposit/ExternalDeposit.vue"
 import PermissionsView from "../security/permissions/PermissionsView.vue";
 import ConfigurationGeneralView from './Generals/ConfigurationGeneralView.vue'
 
@@ -215,6 +216,10 @@ const tabs = shallowRef<ItemTab[]>([
                 name: t("views.company-accounts.other.title", 2),
                 value: OtherAccountCompanyView,
             },
+            {
+                name: 'Deposito Externo',
+                value: ExternalDeposit
+            }
         ],
     },
     {
