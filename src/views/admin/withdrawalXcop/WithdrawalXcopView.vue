@@ -1,5 +1,5 @@
 <template>
-    <div v-if="helper.clickIn != 'Show'">
+    <div>
         <div class="d-flex justify-space-between mx-5 mb-5">
             <h2 class="text-primary font-weight-bold">Retiro de XCOP</h2>
             <SearchInputComponentVue v-model="search" @onSearch="getSearch" />
@@ -9,7 +9,6 @@
             optionsHabilit
             newButtons
             icon-show
-            new
             :headers="headers"
             @show="showItem"
             :items="helper.items"
@@ -42,11 +41,17 @@
                 Aceptar
             </template>
         </TableComponentVue>
+        <ResumenModal
+            v-if="helper.item"
+            v-model="showKyc"
+            >
+        </ResumenModal>
     </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
+import ResumenModal from "./ResumenModal.vue";
 import { useI18n } from "vue-i18n";
 import { helperStore } from "@/helper";
 import SearchInputComponentVue from "@/components/global/SearchInputComponent.vue";
@@ -62,7 +67,7 @@ const { t } = useI18n();
 const helper = helperStore();
 const search = ref<string>("");
 helper.url = "withdrawal/xcop";
-
+const account = ref({})
 helper.index();
 
 const getSearch = () => {
@@ -92,7 +97,9 @@ const headers: Head[] = [
 
 const showItem = (element: Kyc) => {
     helper.item = element;
+    showKyc.value = true
     helper.clickIn = "Show";
+
 };
 
 const accept = async (itemI:unknown) => {
