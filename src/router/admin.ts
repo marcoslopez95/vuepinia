@@ -21,6 +21,18 @@ const generals: RouteRecordRaw[] = [
     beforeEnter: checkedRole
   },
   {
+    name: "admin-withdrawal-xcop",
+    path: "/withdrawal-xcop",
+    component: () =>
+      import("@/views/admin/withdrawalXcop/WithdrawalXcopView.vue"),
+    meta: {
+      roles: [
+        ROLES.ADMIN
+      ]
+    },
+    beforeEnter: checkedRole
+  },
+  {
     name: "admin-users",
     path: "/users",
     component: () =>

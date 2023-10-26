@@ -4,8 +4,8 @@ import type { User } from "../User/User.model";
 export declare interface TransactionXCOP extends BaseModel<TransactionXCOPAttributes, TransactionXCOPRelationships> { }
 
 export declare interface TransactionXCOPAttributes {
-    user_receipt_id: number | ''
-    user_send_id: number | ''
+    user_receipt: number | ''
+    user_send: number | ''
     quantity: number
     created_at: string;
     updated_at: string;

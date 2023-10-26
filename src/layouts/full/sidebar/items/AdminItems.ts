@@ -75,13 +75,21 @@ const items: SidebarItem[] = [
         ],
     },
     {
-        title: "Contabilidad",
-        icon: AccountingIcon,
-        to: "Alerts",
+        title: "Retiro XCOP",
+        icon: FileIcon,
+        to: "admin-withdrawal-xcop",
         roles: [
             ROLES.ADMIN,
         ],
     },
+    // {
+    //     title: "Contabilidad",
+    //     icon: AccountingIcon,
+    //     to: "Alerts",
+    //     roles: [
+    //         ROLES.ADMIN,
+    //     ],
+    // },
     {
         title: "Usuarios",
         icon: UserIcon,

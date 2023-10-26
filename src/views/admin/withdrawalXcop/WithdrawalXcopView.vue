@@ -1,0 +1,106 @@
+<template>
+    <div v-if="helper.clickIn != 'Show'">
+        <div class="d-flex justify-space-between mx-5 mb-5">
+            <h2 class="text-primary font-weight-bold">Retiro de XCOP</h2>
+            <SearchInputComponentVue v-model="search" @onSearch="getSearch" />
+        </div>
+
+        <TableComponentVue
+            optionsHabilit
+            newButtons
+            icon-show
+            new
+            :headers="headers"
+            @show="showItem"
+            :items="helper.items"
+        >
+            <template #cel-attributes.status="{ data }">
+                <VChipSuccess class="" v-if="data.attributes.status === 'Procesado'">
+                    {{ (data as Kyc).attributes.status }}
+                </VChipSuccess>
+                <VChipWarning class=""
+                    v-if="data.attributes.status == 'En proceso' "
+                >
+                    {{ data.attributes.status }}
+                </VChipWarning>
+            </template>
+            <template #newButtons="{data}">
+                <VBtn
+                    title="Aceptar"
+                    color="transparent"
+                    size="x-small"
+                    elevation="0"
+                    icon
+                    @click="accept(data)"
+                >
+                    <VIcon
+                        color="primary"
+                        size="24"
+                        :icon="CheckIconVue"
+                    />
+                </VBtn>
+                Aceptar
+            </template>
+        </TableComponentVue>
+    </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from "vue";
+import { useI18n } from "vue-i18n";
+import { helperStore } from "@/helper";
+import SearchInputComponentVue from "@/components/global/SearchInputComponent.vue";
+import TableComponentVue from "@/components/global/TableComponent.vue";
+import type { Head } from "@/interfaces/TableComponent.helper";
+import type { Kyc } from "@/interfaces/User/Kyc/Kyc.model";
+import { KYC_STATUS } from "@/enums/Kyc.enum";
+import CheckIconVue from "@/assets/icons/CheckIcon.vue";
+import type { WithdrawalXCOP } from "@/interfaces/TransactionXCOP/TransactionXCOP.model";
+
+const showKyc = ref(false);
+const { t } = useI18n();
+const helper = helperStore();
+const search = ref<string>("");
+helper.url = "withdrawal/xcop";
+
+helper.index();
+
+const getSearch = () => {
+    helper.index({
+        type_document: search.value,
+    });
+};
+
+const headers: Head[] = [
+    {
+        name: t("general-views.id"),
+        value: "id",
+    },
+    {
+        name: t("views.users.title"),
+        value: "relationships.user.attributes.username",
+    },
+    {
+        name: t("views.users.email"),
+        value: "relationships.user.attributes.email",
+    },
+    {
+        name: t("general-views.status"),
+        value: "attributes.status",
+    },
+];
+
+const showItem = (element: Kyc) => {
+    helper.item = element;
+    helper.clickIn = "Show";
+};
+
+const accept = async (itemI:unknown) => {
+    const item = itemI as WithdrawalXCOP
+    const url = 'withdrawal/xcop/accept/process/'+ item.id
+    await helper.http(url,'POST')
+    helper.index()
+}
+</script>
+
+<style scoped></style>

@@ -25,7 +25,7 @@
                     class="d-flex justify-space-between w-100 border-b-md py-2"
                 >
                     <div class="w-25 text-center" v-if="isTransaction(item)">
-                        <span>
+                        <span v-if="isReceived(item)">
                             <svg
                                 width="28"
                                 height="26"
@@ -45,7 +45,7 @@
                                 />
                             </svg>
                         </span>
-                        <span>
+                        <span v-else>
                             <svg
                                 width="28"
                                 height="26"
@@ -69,13 +69,17 @@
                     </div>
                     <div class="w-25 d-flex justify-center align-center" v-else>
                         <!-- <div class=""> -->
-                        <VBadge
-                            :color="colorBadge(item)"
-                            :content="withdrawal(item).attributes.status"
-                            location="center center"
-                        />
+                            <VChipSuccess size="md" class="text-10 px-2" small v-if="item.attributes.status === 'Procesado'">
+                                {{ item.attributes.status }}
+                            </VChipSuccess>
+                            <VChipWarning size="md" class="text-10 px-2" small
+                                v-if="item.attributes.status == 'En proceso' "
+                            >
+                                {{ item.attributes.status }}
+                            </VChipWarning>
                         <!-- </div> -->
                     </div>
+                    <!-- {{ transaction(item).attributes }} -->
                     <div
                         class="text-primary font-weight-semibold w-25 text-center"
                     >
@@ -97,7 +101,7 @@
 </template>
 
 <script setup lang="ts">
-import { formatNumber, helperStore } from "@/helper";
+import { formatNumber, getUserAuth, helperStore } from "@/helper";
 import { ref, watch } from "vue";
 import type {
     WithdrawalXCOP,
@@ -133,11 +137,16 @@ const withdrawal = (item: unknown) => item as WithdrawalXCOP;
 const transaction = (item: unknown) => item as TransactionXCOP;
 
 const isTransaction = (item: unknown) => {
-    if (transaction(item).attributes.user_send_id) {
+    if (transaction(item).attributes.user_send) {
         return true;
     }
     return false;
 };
+
+const isReceived = (item: unknown) =>{
+    const user_id = getUserAuth().id
+    return transaction(item).attributes.user_receipt == user_id
+}
 
 const amount = (item: unknown) => {
     if (url.value == "shipping/record/user/history/transactions") {

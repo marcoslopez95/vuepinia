@@ -201,7 +201,7 @@ const getUser = async () => {
         };
         const res = await helper.http(url, "get", { params });
         if (res.data.response) {
-            users.value = res.data.response 
+            users.value = res.data.response.splice(0,3)
             // (res.data.response as User[]).forEach((user) => {
             //     users.push(user);
             // });
