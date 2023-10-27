@@ -6,7 +6,7 @@
             cols="12"
             :lg="$vuetify.display.width <1400 ? 12 : 6"
             md="12"
-            v-for="currency, i in walletStore.currencies" 
+            v-for="currency, i in wallets" 
             :key="i"
             @click="emit(currency)"
         >
@@ -43,9 +43,26 @@
 import { formatNumber } from "@/helper";
 import type { Currency } from "@/interfaces/Currency/Currency.model";
 import { WalletStore } from "@/stores/WalletStore"
+import { computed } from 'vue'
 const walletStore = WalletStore()
-walletStore.getCurrencies()
-walletStore.getCurrencyTicker()
+
+const wallets = computed(():Currency[]=>{
+    if(walletStore.currencyTicker.length == 0 || walletStore.currencies.length == 0) return []
+    
+    const codes = walletStore.currencyTicker.map(i => {
+        if(import.meta.env.VITE_ENV_NETWORK == 'testnet'){
+            return 't'+i.symbol.toLocaleLowerCase()
+        }
+        return i.symbol.toLocaleLowerCase()
+    });
+    console.log('codes',codes);
+    return walletStore.currencies.filter((i) => codes.includes(i.attributes.symbol))
+})
+// Promise.all([
+    walletStore.getCurrencies(),
+    walletStore.getCurrencyTicker()
+// ]).then(()=>{
+// })
 
 const emit = (currency: Currency) => {
     if(walletStore.currencyTicker.length == 0)return
