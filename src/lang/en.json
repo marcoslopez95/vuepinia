@@ -274,7 +274,8 @@
     },
     "sell": {
       "title": "Sell",
-      "payment-method": "Payment Method"
+      "payment-method": "Payment Method",
+      "amount": "Amount to Sell"
     },
     "accounts": {
       "title": "Account | Accounts"

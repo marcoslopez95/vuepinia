@@ -15,7 +15,7 @@
     </SelectAccount>        
     <div class="mt-5" v-if="itemDetailSelected">
         <h3 class="text-primary">
-            {{ $t('views.buy.amount') }}
+            {{ $t('views.sell.amount') }}
         </h3>
         <p class="text-table text-18">
             Ingresa la cantidad a calcular, puedes usar cualquiera de los campos para hacer el cálculo

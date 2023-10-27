@@ -273,7 +273,8 @@
     },
     "sell": {
       "title": "Vender",
-      "payment-method": "Forma de Pago"
+      "payment-method": "Forma de Pago",
+      "amount": "Monto a Vender"
     },
     "accounts": {
       "title": "Cuenta | Cuentas"
