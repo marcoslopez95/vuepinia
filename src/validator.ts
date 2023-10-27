@@ -115,3 +115,10 @@ export const keyPressOnlyNumberAndBackscape = (event: any) => {
         return;
     }
 }
+export const keyPressOnlyLettersAndSpace = (event: KeyboardEvent) => {
+    const regex = /^[A-Za-z\s]$/
+    if(!regex.test(event.key)) {
+        event.preventDefault();
+        return;
+    }
+}

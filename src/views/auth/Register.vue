@@ -47,6 +47,9 @@ const SigUp = async () => {
         })
 }
 
+const eventOnlyLetter = {
+    keypress : validator.keyPressOnlyLettersAndSpace
+}
 </script>
 
 <template>
@@ -66,11 +69,11 @@ const SigUp = async () => {
                             :events="{keypress: removeSpace}"/>
                     </VCol>
                     <VCol cols="12">
-                        <InputComponent :placeholder="$t('views.users.first_name')" withoutLabel :name="$t('views.users.first_name')" v-model="form.first_name"
+                        <InputComponent :events="eventOnlyLetter" :placeholder="$t('views.users.first_name')" withoutLabel :name="$t('views.users.first_name')" v-model="form.first_name"
                             :rules="[validator.required]" />
                     </VCol>
                     <VCol cols="12">
-                        <InputComponent :placeholder="$t('views.users.last_name')" withoutLabel :name="$t('views.users.last_name')" v-model="form.last_name"
+                        <InputComponent :events="eventOnlyLetter" :placeholder="$t('views.users.last_name')" withoutLabel :name="$t('views.users.last_name')" v-model="form.last_name"
                             :rules="[validator.required]" />
                     </VCol>
                     <VCol cols="12">
