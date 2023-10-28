@@ -9,6 +9,7 @@
             style="min-height: 40px;"
             :inputOptions="{placeholder,styleClasses: 'text-primary'}"
             @onInput="updateModel"
+            validCharactersOnly
             >
         </vue-tel-input>
     <!-- </VResponsive> -->
