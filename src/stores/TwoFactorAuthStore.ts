@@ -13,7 +13,10 @@ export const TwoFactorAuthStore = defineStore('TwoFactorAuth', () => {
     const url = ref('')
     const form = ref<Object>()
     const method = ref<Method>('get')
-    const callback = ref<Function>(() => { });
+    const callback = ref<{fn:Function}>({
+        fn: ()=>{}
+    });
+    
     const ejectFunction = (): Promise<boolean> => {
         return new Promise<boolean>(async (resolve, reject) => {
             try {
@@ -33,6 +36,28 @@ export const TwoFactorAuthStore = defineStore('TwoFactorAuth', () => {
         })
     }
 
+    const ejectFunction2 = (): Promise<boolean> => {
+        return new Promise<boolean>(async (resolve, reject) => {
+            try {
+                const data = {
+                    google2fa_secret: code.value
+                }
+                try{
+                    const res = await helper.http('/users/verificate/code/2fa', 'post', { data })
+                    callback.value.fn()
+                }catch (err) {
+                    code.value = ''
+                }
+                modal.value = false
+                // console.log(res.data)
+                // setAllLogin(res.data)
+                resolve(true)
+            } catch (err) {
+                console.log(err)
+                reject(err)
+            }
+        })
+    }
     const setAllLogin = (data: { user: any; token: any }) => {
         console.log("asd");
 
@@ -55,13 +80,17 @@ export const TwoFactorAuthStore = defineStore('TwoFactorAuth', () => {
     const setUser = (user: Object) => {
         localStorage.setItem("user", JSON.stringify(user));
     };
+
+    const newFlow = ref(false)
     return {
+        newFlow ,
         modal,
         ejectFunction,
         code,
         url,
         form,
         callback,
-        method
+        method,
+        ejectFunction2
     }
 })

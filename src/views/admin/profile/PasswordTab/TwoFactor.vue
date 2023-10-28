@@ -129,12 +129,19 @@ const confirm = async () => {
     const res = await helper.http(url,'post', { data });
     code.value = ''
     modal.value = false
+    if(localStorage.getItem('2fa')){
+        localStorage.removeItem('2fa')
+    }
+    localStorage.setItem('2fa','1')
     userStore.updateUserAuth()
 }
 
 const unenabledTAF = async () => {
     const url = 'users/disanble/auth/code'
     const res = await helper.http(url)
+    if(localStorage.getItem('2fa')){
+        localStorage.removeItem('2fa')
+    }
     userStore.updateUserAuth()
 }
 </script>

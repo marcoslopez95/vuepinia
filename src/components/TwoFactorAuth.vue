@@ -26,6 +26,14 @@
                 <VBtnPrimary
                     variant="elevated"
                     @click="twoFactorAuthStore.ejectFunction"
+                    v-if="!twoFactorAuthStore.newFlow"
+                >
+                    Continuar
+                </VBtnPrimary>
+                <VBtnPrimary
+                    variant="elevated"
+                    @click="twoFactorAuthStore.ejectFunction2"
+                    v-else
                 >
                     Continuar
                 </VBtnPrimary>

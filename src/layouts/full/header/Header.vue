@@ -41,9 +41,10 @@ const colorIcons = computed(() => {
 })
 
 const logout = () => {
-  localStorage.removeItem('token')
-  localStorage.removeItem('user')
-  localStorage.removeItem('kyc')
+  localStorage.clear()
+  // localStorage.removeItem('token')
+  // localStorage.removeItem('user')
+  // localStorage.removeItem('kyc')
   router.push({name: 'Login'})
 }
 

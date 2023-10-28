@@ -27,6 +27,9 @@ const SigIn = async () => {
     }
     helper.http("login", "post", { data: form.value }).then((res) => {
         if (res.status == 205) {
+            if(!localStorage.getItem('2fa')){
+                localStorage.setItem('2fa','1')
+            }
             twoFactorAuthStore.form = form.value;
             twoFactorAuthStore.modal = true;
             twoFactorAuthStore.method = "POST";
