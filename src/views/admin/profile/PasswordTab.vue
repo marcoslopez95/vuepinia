@@ -68,7 +68,19 @@ const validPasswordNew = computed(():boolean => {
 })
 
 const changePassword = async () => {
-    alert("cambio de contraseña")
+    try{
+        const url = 'users/change/profile/password'
+        const data = {
+            password: form.passwordCurrent,
+            old_password: form.newPassword
+        }
+        const res = await helper.http(url,'put',{ data }, 'Contraseña Cambiada con éxito')
+        form.passwordCurrent = ''
+        form.confirmPassword = ''
+        form.newPassword = ''
+    }catch(e){
+
+    }
 }
 
 const updatePassword = () => {
