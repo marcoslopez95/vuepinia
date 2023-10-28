@@ -91,10 +91,7 @@ const tabs = shallowRef<ItemTab[]>([
         name: t('views.profile.personal-data.title'),
         value: PersonalData,
     },
-    {
-        name: t('views.profile.kyc.title'),
-        value: KycView
-    },
+    
     {
         name: t('views.wallets.title',2),
         value: WalletView
@@ -126,6 +123,13 @@ const tabs = shallowRef<ItemTab[]>([
         value: PasswordTab,
     },
 ])
+
+if(!(!!localStorage.getItem('2fa'))){
+    tabs.value.push({
+        name: t('views.profile.kyc.title'),
+        value: KycView
+    },)
+}
 
 
 const submenuActive = ref("");

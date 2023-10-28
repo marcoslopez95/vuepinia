@@ -32,8 +32,11 @@ const SigIn = async () => {
             }
             twoFactorAuthStore.form = form.value;
             twoFactorAuthStore.modal = true;
+            twoFactorAuthStore.newFlow = false
             twoFactorAuthStore.method = "POST";
-            twoFactorAuthStore.callback = setAllLogin;
+            twoFactorAuthStore.callback = {
+                fn: setAllLogin
+            };
             return;
         }
         setAllLogin(res.data);

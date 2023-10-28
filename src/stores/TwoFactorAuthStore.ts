@@ -28,8 +28,12 @@ export const TwoFactorAuthStore = defineStore('TwoFactorAuth', () => {
                 console.log(res.data)
                 setAllLogin(res.data)
                 modal.value = false
+                code.value = ''
+
                 resolve(true)
             } catch (err) {
+                code.value = ''
+
                 console.log(err)
                 reject(err)
             }
@@ -46,8 +50,8 @@ export const TwoFactorAuthStore = defineStore('TwoFactorAuth', () => {
                     const res = await helper.http('/users/verificate/code/2fa', 'post', { data })
                     callback.value.fn()
                 }catch (err) {
-                    code.value = ''
                 }
+                code.value = ''
                 modal.value = false
                 // console.log(res.data)
                 // setAllLogin(res.data)
