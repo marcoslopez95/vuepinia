@@ -10,7 +10,7 @@ export const OtherPaymentStore = defineStore('OtherPaymentStore', () => {
     const { paymentMethods } = storeToRefs(companyAccount)
     const { getPaymentMethods } = companyAccount
 
-    const otherPayments = ref<OtherPayment[]>()
+    const otherPayments = ref<OtherPayment[]>([])
     const getOtherPayments = (): Promise<Boolean> => {
         return new Promise<Boolean> (async (resolve, reject) => {
             try{

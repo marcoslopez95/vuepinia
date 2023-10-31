@@ -109,6 +109,7 @@
                         :rules="field.rules"
                         :name="field.label"
                         :id="field.valueForm"
+                        :events="field.events"
                         :style="
                             field.fieldStyle && field.fieldStyle.length > 0
                                 ? field.fieldStyle
@@ -132,12 +133,13 @@
 
 <script setup lang="ts">
 import { helperStore } from "@/helper";
-import type { Row } from "@/interfaces/FormComponent.helper";
+import type { Row, Field} from "@/interfaces/FormComponent.helper";
 import InputComponent from "@/components/InputComponent.vue";
 import SelectComponent from "../SelectComponent.vue";
 import { storeToRefs } from "pinia";
 import UploadImageComponent from "@/views/user/Kyc/components/UploadImageComponent.vue";
 import TelInput from "../TelInput.vue";
+import type { EventComponent } from "@/interfaces/Components.helper";
 const props = defineProps<Props>();
 
 const helper = helperStore();
@@ -153,6 +155,19 @@ const verificateIfExistUpload = (): boolean => {
     );
 };
 // -------------------------------------------
+
+// const setEvents = (item:  Field): EventComponent => {
+//     let events;
+//     item.events?.forEach((event) =>{
+//         if(typeof event == "string"){
+
+//         }
+//     })
+// }
+
+// const eventsAvailable = {
+
+// }
 </script>
 
 <style scoped></style>

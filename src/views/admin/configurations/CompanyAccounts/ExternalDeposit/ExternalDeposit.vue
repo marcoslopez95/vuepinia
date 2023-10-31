@@ -36,7 +36,7 @@
 import { ref } from 'vue';
 import CrudComponent from '@/components/global/CrudComponentExternalDeposit.vue';
 import TableComponentVue from '@/components/global/TableComponent.vue';
-import { formatCrypoAmount, formatNumber, helperStore } from '@/helper';
+import { formatCrypoAmount, formatNumber, formatNumberStringToNumber, helperStore } from '@/helper';
 import type { Row } from '@/interfaces/FormComponent.helper';
 import type { Head } from '@/interfaces/TableComponent.helper';
 import { storeToRefs} from 'pinia';
@@ -47,6 +47,7 @@ import { ExternalDeposit as ExternalDepositStore } from '@/stores/ExternalDeposi
 import type{ ExternalDeposit } from '@/interfaces/ExternalDeposit/ExternalDeposit.model'
 import type{ ExternalDepositUpdate } from '@/interfaces/ExternalDeposit/ExternalDeposit.dto'
 import dayjs from 'dayjs';
+import type { EventComponent } from '@/interfaces/Components.helper';
 const helper = helperStore()
 helper.url = 'external/purchase'
 helper.index()
@@ -61,14 +62,25 @@ const getSearch = () => {
         name: search.value
     })
 }
-
+const eventsTotalExchange: EventComponent = {
+    keypress: validator.keyPressOnlyNumberAndBackscape,
+    keyup: (event: any) => {
+        formCrud.value.total_exchange_local = validator.amountFormat(event);
+    },
+}; 
+const eventsTotalExchangeLocal: EventComponent = {
+    keypress: validator.keyPressOnlyNumberAndBackscape,
+    keyup: (event: any) => {
+        formCrud.value.received_amount = validator.amountFormat(event);
+    },
+}; 
 const openUpdate = (item: ExternalDeposit) => {
     itemH.value = item
     const itemUpdate: ExternalDepositUpdate = {
         id: item.id,
         currency_id: item.relationships!.currency.id,
         received_amount: item.attributes.received_amount,
-        total_exchange_local: item.attributes.total_exchange_local,
+        total_exchange_local: formatNumber(item.attributes.total_exchange_local),
         currency_price: item.attributes.currency_price,
         fec_pay: item.attributes.fec_pay
     }
@@ -125,7 +137,9 @@ const rows: Row[] = [
                 rules: [
                     validator.required
                 ],
-                type: 'number',
+                type: 'text',
+                events: eventsTotalExchange,
+                decode: formatNumberStringToNumber
             },
             {
                 label: 'Total de Crypto Recibida',
@@ -133,7 +147,9 @@ const rows: Row[] = [
                 rules: [
                     validator.required
                 ],
-                type: 'number',
+                type: 'text',
+                events: eventsTotalExchangeLocal,
+                decode: formatNumberStringToNumber
             },
             {
                 label: 'Tasa de Cambio Apróx.',

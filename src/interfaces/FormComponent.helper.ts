@@ -1,4 +1,5 @@
 import type { Ref } from "vue"
+import type { EventComponent } from "./Components.helper"
 
 export declare interface Row {
   fields: Field[]
@@ -20,8 +21,12 @@ export declare interface Field{
     fieldCode: string,
     fieldPhone: string
     fieldValid: string
-  }
+  },
+  events?: EventComponent
+  decode?: Function
 }
+
+export type Events = 'keypress' | 'keyup'
 
 interface Select {
   itemValue: string

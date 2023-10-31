@@ -122,3 +122,5 @@ export const keyPressOnlyLettersAndSpace = (event: KeyboardEvent) => {
         return;
     }
 }
+
+// export const setAmountFormatEvent = ()

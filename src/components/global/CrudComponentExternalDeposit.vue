@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { helperStore } from "@/helper";
+import { formatNumberStringToNumber, helperStore } from "@/helper";
 import type { Row } from "@/interfaces/FormComponent.helper";
 import DialogBase from "@/components/global/DialogGlobal.vue";
 import { useI18n } from "vue-i18n";
@@ -22,7 +22,7 @@ const { singular } = toRefs(props);
 const CreateOrUpdate = async () => {
     const { valid } = await formRef.value.validate();
     if (!valid) return;
-    let data;
+    let data:any = {};
     if (verificateIfExistUpload()) {
         // emits('click:post', formCrud.value)
         data = new FormData();
@@ -49,7 +49,25 @@ const CreateOrUpdate = async () => {
         });
         return;
     }
-    data = formCrud.value;
+    for (let key in formCrud.value) {
+        let value;
+        let bool = false
+        props.rows.forEach(row => {
+            if(bool) return
+            
+            const field = row.fields.find(field => field.valueForm == key)
+            if(field?.decode) {
+                bool = true
+                value = field.decode(formCrud.value[key]);
+            }
+        })
+        if(!bool){
+            value = formCrud.value[key];
+        }
+        console.log(key,value);
+        data[key] = value;
+    }
+    // data = formCrud.value;
     let res =
         clickIn.value == "Edit"
             ? await helper.put(item.value.id, data)
@@ -119,8 +137,10 @@ watch(() => formCrud.value.total_exchange_local,()=>updateExchange())
 watch(() => formCrud.value.received_amount,()=>updateExchange())
 
 const updateExchange = () => {
-    if(formCrud.value.total_exchange_local && formCrud.value.received_amount){
-        const value = formCrud.value.total_exchange_local / formCrud.value.received_amount
+    const total_exchange_local = formatNumberStringToNumber(formCrud.value.total_exchange_local ?? '0')
+    const received_amount = formatNumberStringToNumber(formCrud.value.received_amount ?? '0')
+    if(total_exchange_local && received_amount){
+        const value = total_exchange_local / received_amount
         formCrud.value.exchange_local = value.toFixed(2)
     }
 }
