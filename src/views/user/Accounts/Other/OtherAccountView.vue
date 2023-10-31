@@ -40,6 +40,7 @@ import SearchInputComponentVue from '@/components/global/SearchInputComponent.vu
 import * as validator from '@/validator'
 import { PAYMENT_METHODS_AVAILABLE } from '@/enums/PaymentMethod.enum';
 import { CompanyAccountStore } from '@/stores/CompanyAccountStore';
+import { OtherPaymentStore } from '@/stores/OtherPaymentStore';
 const helper = helperStore()
 helper.url = 'client/account'
 helper.defaultParams.payment_type_id = PAYMENT_METHODS_AVAILABLE.OTHER
@@ -52,7 +53,9 @@ const getSearch = () => {
         name: search.value
     })
 }
-
+const otherPaymentsStore = OtherPaymentStore();
+otherPaymentsStore.getOtherPayments();
+const { otherPayments } = storeToRefs(otherPaymentsStore);
 const companyAccount = CompanyAccountStore()
 companyAccount.getBanks()
 companyAccount.getCurrencies()
@@ -64,6 +67,7 @@ const openUpdate = (item:OtherAccountClient) => {
     itemH.value = item
 
     const itemUpdate: OtherAccountClientCreate = {
+        sub_payment_type: item.attributes.sub_payment_type ?? "",
         account_number: item.attributes.account_number,
         beneficiary: item.attributes.beneficiary,
         currency_id: item.relationships!.currency.id,
@@ -93,6 +97,17 @@ const {
 const rows: Row[] = [
     {
         fields: [
+            {
+                label: "Tipo de Pago",
+                valueForm: "sub_payment_type",
+                rules: [validator.required],
+                type: "select",
+                select: {
+                    items: otherPayments,
+                    itemTitle: "attributes.name",
+                    itemValue: "id",
+                },
+            },
             {
                 label: t('views.currencies.title'),
                 valueForm: 'currency_id',
