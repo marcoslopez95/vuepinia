@@ -1,13 +1,17 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import CardComponent from "@/views/dashboard/Dashboard/CardComponent.vue";
 import { OrderTypes } from "@/enums/OrderTypes.enum";
 import TransactionView from "../admin/transactions/TransactionView.vue";
-import { getUserAuth, helperStore } from "@/helper";
+import { formatNumber, getUserAuth, helperStore } from "@/helper";
 import { onBeforeUnmount, onBeforeMount, onMounted } from "vue";
 import dayjs from "dayjs";
 import GraficoTorta from "./Dashboard/GraficoTorta.vue";
 import { ROLES } from "@/interfaces/Role/Role.enum";
+import { WalletStore } from "@/stores/WalletStore";
+import { computed } from "vue";
+import InputComponentVue from "@/components/InputComponent.vue";
+import SelectComponent from "@/components/SelectComponent.vue";
 
 const helper = helperStore();
 helper.pagination.perPage = 3;
@@ -18,10 +22,52 @@ onBeforeMount(() => {
 onBeforeUnmount(() => {
     helper.pagination.perPage = 15;
 });
+
+const currency = ref<number | "">("");
+
+const code = ref('')
+const avarageCurrency = ref<AvarageCurrency>();
+const getDataAvarage = async () => {
+    try {
+        const url = "order/total/average/sale/currency";
+        const params = { currency_id: currency.value };
+        const res = await helper.http(url, "get", { params });
+        avarageCurrency.value = res.data;
+        const c = walletStore.currencies.find((c) => c.id == currency.value)
+        code.value = c!.attributes.abbreviation
+
+    } catch (e) {}
+};
+
+const fec_ini = ref('')
+const fec_end = ref('')
+
+
+const walletStore = WalletStore();
+walletStore
+    .getCurrencies()
+    .then(() => {
+        console.log('qui dod',walletStore.currencies[1].id)
+        currency.value = walletStore.currencies[1].id
+        getDataAvarage()
+    });
+
+interface AvarageCurrency {
+    total_orders: number;
+    amount_currency: number;
+    amount_local_currency: number;
+    amount_referer_currency: number;
+    average_currency_local: number;
+    average_currency_referer: number;
+}
+
 </script>
 
 <template>
-    <div v-if="(getUserAuth().roles[0].name as ROLES) === ROLES.USER" class="text-table font-30 font-weight-semibold">
+    <div
+        v-if="(getUserAuth().roles[0].name as ROLES) === ROLES.USER"
+        class="text-table font-30 font-weight-semibold"
+    >
         Bienvenid@
     </div>
     <div v-if="(getUserAuth().roles[0].name as ROLES) === ROLES.ADMIN">
@@ -103,10 +149,140 @@ onBeforeUnmount(() => {
             </VCol>
         </VRow>
         <VRow dense>
-            <VCol class="text-table mx-0 px-0" cols="12" sm="5">
-                <GraficoTorta></GraficoTorta>
+            <VCol class="text-table mx-0 px-0" cols="12" sm="8">
+                <!-- <GraficoTorta></GraficoTorta> -->
+                <div class="border-degree pt-3 pb-5 text-table pl-3">
+                    <div class="d-flex gap-2 px-1">
+                        <div class="w-25">
+                            <InputComponentVue v-model="fec_ini" name="Fecha Inicio" type="date">
+                            </InputComponentVue>
+                        </div>
+                        <div class="w-25">
+
+                            <InputComponentVue v-model="fec_end" name="Fecha Fin" type="date">
+                            </InputComponentVue>
+                        </div>
+                        <div class="w-25">
+                            <SelectComponent
+                                style="width: 110px"
+                                name="Moneda"
+                                v-model="currency"
+                                item-value="id"
+                                item-title="attributes.name"
+                                :items="walletStore.currencies"
+                            >
+                            </SelectComponent>
+                        </div>
+                        <div class="w-25 d-flex align-end justify-center">
+                            <VBtnPrimary @click="getDataAvarage">Filtrar</VBtnPrimary>
+                        </div>
+                    </div>
+                    <div class="pr-1 pt-3">
+                        <div class="d-flex justify-space-between gap-4">
+                            <div
+                                class="d-flex align-center justify-space-between w-50"
+                            >
+                                <div class="font-weight-bold" style="width: 135px;">
+                                    Total de Ordenes:
+                                </div>
+                                <div>
+                                    {{ avarageCurrency?.total_orders }}
+                                </div>
+                            </div>
+                            <div
+                                class="d-flex align-center justify-space-between w-50"
+                            >
+                                <div class="font-weight-bold" style="width: 135px;">Cantidad:</div>
+                                <div>
+                                    {{
+                                        formatNumber(
+                                            avarageCurrency?.amount_currency ??
+                                                0
+                                        )
+                                    }}
+                                    {{
+                                        code
+                                    }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-space-between gap-4">
+                            <div
+                                class="d-flex align-center justify-space-between w-50"
+                            >
+                                <div class="font-weight-bold" style="width: 135px;">
+                                    Cantidad Pesos:
+                                </div>
+                                <div>
+                                    {{
+                                        formatNumber(
+                                            avarageCurrency?.amount_local_currency ??
+                                                0
+                                        )
+                                    }}
+                                    COP
+                                </div>
+                            </div>
+                            <div
+                                class="d-flex align-center justify-space-between w-50"
+                            >
+                                <div class="font-weight-bold" style="width: 135px;">
+                                    Cantidad Dólares:
+                                </div>
+                                <div>
+                                    {{
+                                        formatNumber(
+                                            avarageCurrency?.amount_referer_currency ??
+                                                0
+                                        )
+                                    }}
+                                    USD
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-space-between gap-4">
+                            <div
+                                class="d-flex align-center justify-space-between w-50"
+                            >
+                                <div class="font-weight-bold" style="width: 135px;">
+                                    Promedio Pesos:
+                                </div>
+                                <div>
+                                    {{
+                                        formatNumber(
+                                            avarageCurrency?.average_currency_local ??
+                                                0
+                                        )
+                                    }}
+                                    COP
+                                </div>
+                            </div>
+                            <div
+                                class="d-flex align-center justify-space-between w-50"
+                            >
+                                <div class="font-weight-bold" style="width: 135px;">
+                                    Promedio Dólares:
+                                </div>
+                                <div>
+                                    {{
+                                        formatNumber(
+                                            avarageCurrency?.average_currency_referer ??
+                                                0
+                                        )
+                                    }}
+                                    COP
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </VCol>
             <VCol> </VCol>
         </VRow>
     </div>
 </template>
+<style>
+.gap-4{
+    gap: 4rem
+}
+</style>
