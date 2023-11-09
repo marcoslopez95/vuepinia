@@ -74,6 +74,12 @@ const eventsTotalExchangeLocal: EventComponent = {
         formCrud.value.received_amount = validator.amountFormat(event);
     },
 }; 
+const eventsTotalExchangeReference: EventComponent = {
+    keypress: validator.keyPressOnlyNumberAndBackscape,
+    keyup: (event: any) => {
+        formCrud.value.total_exchange_reference = validator.amountFormat(event);
+    },
+}; 
 const openUpdate = (item: ExternalDeposit) => {
     itemH.value = item
     const itemUpdate: ExternalDepositUpdate = {
@@ -152,7 +158,17 @@ const rows: Row[] = [
                 decode: formatNumberStringToNumber
             },
             {
-                label: 'Tasa de Cambio Apróx.',
+                label: 'Total en Dólares ',
+                valueForm: 'total_exchange_reference',
+                rules: [
+                    validator.required
+                ],
+                type: 'text',
+                events: eventsTotalExchangeReference,
+                decode: formatNumberStringToNumber
+            },
+            {
+                label: 'Tasa de Cambio Apróx. COP',
                 valueForm: 'exchange_local',
                 rules: [
                     validator.required
