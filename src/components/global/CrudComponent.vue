@@ -18,6 +18,7 @@ const props = defineProps<Props>();
 const { singular } = toRefs(props);
 
 const CreateOrUpdate = async () => {
+    
     const { valid } = await formRef.value.validate();
     if (!valid) return;
     let data;
