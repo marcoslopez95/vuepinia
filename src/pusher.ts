@@ -17,7 +17,8 @@ export default class usePusher {
         }
 
         if(localStorage.getItem('token')){
-            options.authEndpoint = import.meta.env.VITE_API_URL + 'pusher/auth', // Cambia esto a tu URL de autenticación
+            const new_url = import.meta.env.VITE_API_URL.replace('api/','')
+            options.authEndpoint = new_url + 'broadcasting/auth', // Cambia esto a tu URL de autenticación
             options.auth  = {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
