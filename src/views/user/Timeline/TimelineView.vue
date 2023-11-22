@@ -142,7 +142,7 @@
 </template>
 
 <script setup lang="ts">
-import { VOtpInput } from "vuetify/labs/VOtpInput";
+// import { VOtpInput } from "vuetify/labs/VOtpInput";
 import { helperStore } from "@/helper";
 import { TransactionStore } from "@/stores/TransactionStore";
 import { ref } from "vue";
