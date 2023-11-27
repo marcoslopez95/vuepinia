@@ -4,7 +4,7 @@
     <VCol class="mx-auto" cols="12" style="max-width: 360px;">
         <div class="d-flex justify-space-between my-3 ">
             <div></div>
-            <div class="text-primary font-weight-semibold">Notificaciones</div>
+            <div class="text-primary font-weight-light">Notificaciones</div>
             <div class="cursor-pointer" @click="deleteAllNotifications">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -54,7 +54,7 @@
                                     </svg>
                                 </div>
                                 <div class="text-wrap">
-                                    <span class="font-weight-semibold">
+                                    <span class="font-weight-light">
                                         {{ onlyTwoWords(item.notification) }}
                                     </span>
                                     {{

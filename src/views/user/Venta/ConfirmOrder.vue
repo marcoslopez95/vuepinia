@@ -109,7 +109,7 @@
         </div>
         <div :class="$vuetify.display.xs ? 'text-13':''">
             Envia unicamente
-            <span class="font-weight-semibold">{{ order.relationships?.currency.attributes.name }} ({{
+            <span class="font-weight-light">{{ order.relationships?.currency.attributes.name }} ({{
                 order.relationships?.currency.attributes.abbreviation.toLocaleUpperCase()
             }})</span> a esta direccion usando la red nativa de bitcoin
         </div>

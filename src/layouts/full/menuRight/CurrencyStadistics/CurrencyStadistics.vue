@@ -1,7 +1,7 @@
 <template>
     <div class="rounded-xl color-border-degree">
         <div class="w-100 text-center" >
-            <label class="mx-auto bg-white px-4 text-primary font-weight-semibold font-22">
+            <label class="mx-auto bg-white px-4 text-primary font-weight-light font-22">
                 Valores basados en TRM
                 <h4 v-if="coins.length == 0" class="bg-down"> No Existe información ahora</h4>
                 <!-- <h4 class="bg-down"> {{bool}}</h4> -->

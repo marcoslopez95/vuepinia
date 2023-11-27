@@ -1,7 +1,7 @@
 <template>
     <div class="d-flex align-center">
         <div class="" style="max-width: 200px">
-            <span class="font-22 font-weight-semibold">Mayor Movimiento</span>
+            <span class="font-22 font-weight-light">Mayor Movimiento</span>
         </div>
         <div class="contenedor ml-2 mr-1" id="asd">
             <!-- <VResponsive
@@ -66,7 +66,7 @@
                             {{ name }}
                         </div>
                     </div>
-                    <div class="font-weight-semibold text-18">
+                    <div class="font-weight-light text-18">
                         {{ value ?? 0 }}
                     </div>
                 </div>

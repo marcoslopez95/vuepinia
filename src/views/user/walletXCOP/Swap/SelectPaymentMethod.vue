@@ -22,7 +22,7 @@
                         </svg>
                     </VIcon>
                     <div class="text-table">
-                        <span class="font-weight-semibold">Tipo de Pago:</span>
+                        <span class="font-weight-light">Tipo de Pago:</span>
                         <span class="ml-4">
                             <span v-if="paymentMethod">{{
                                 paymentMethodName[paymentMethod - 1]

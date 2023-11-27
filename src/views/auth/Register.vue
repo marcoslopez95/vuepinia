@@ -54,7 +54,7 @@ const eventOnlyLetter = {
 
 <template>
     <v-toolbar color="transparent" class="text-center">
-        <v-toolbar-title class="font-weight-semibold text-primary">
+        <v-toolbar-title class="font-weight-light text-primary">
             {{ $t('views.register.title') }}
         </v-toolbar-title>
     </v-toolbar>

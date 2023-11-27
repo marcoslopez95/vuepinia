@@ -1,29 +1,29 @@
 <template>
     <div class="text-table d-flex gap-2 justify-center flex-wrap">
         <div class="border-degree pa-2 text-table" style="min-width: 300px">
-            <div class="font-weight-semibold text-primary">
+            <div class="font-weight-light text-primary">
                 Datos Personales
             </div>
             <div class="d-flex gap-2">
-                <div class="font-weight-semibold">Referido por:</div>
+                <div class="font-weight-light">Referido por:</div>
                 <div>
                     {{ user.relationships?.referred?.attributes?.username }}
                 </div>
             </div>
             <div class="d-flex gap-2">
-                <div class="font-weight-semibold">Nombre Completo:</div>
+                <div class="font-weight-light">Nombre Completo:</div>
                 <div>
                     {{ getFullName(user) }}
                 </div>
             </div>
             <div class="d-flex gap-2">
-                <div class="font-weight-semibold">Documento Identidad:</div>
+                <div class="font-weight-light">Documento Identidad:</div>
                 <div>
                     {{ user.relationships?.userDetail.attributes.document }}
                 </div>
             </div>
             <div class="d-flex gap-2">
-                <div class="font-weight-semibold">Nacionalidad:</div>
+                <div class="font-weight-light">Nacionalidad:</div>
                 <div>
                     {{
                         user.relationships?.userDetail.relationships
@@ -32,25 +32,25 @@
                 </div>
             </div>
             <div class="d-flex gap-2">
-                <div class="font-weight-semibold">Correo:</div>
+                <div class="font-weight-light">Correo:</div>
                 <div>
                     {{ user.attributes.email }}
                 </div>
             </div>
             <div class="d-flex gap-2">
-                <div class="font-weight-semibold">Teléfono:</div>
+                <div class="font-weight-light">Teléfono:</div>
                 <div>
                     {{ user.attributes.code_phone }} {{ user.attributes.phone }}
                 </div>
             </div>
         </div>
         <div class="border-degree pa-2 text-table" style="min-width: 250px">
-            <div class="font-weight-semibold text-primary">
+            <div class="font-weight-light text-primary">
                 Datos de Habitación
             </div>
             <div class="d-flex flex-column h-100 pb-8 justify-center">
                 <div class="d-flex gap-2">
-                    <div class="font-weight-semibold">País:</div>
+                    <div class="font-weight-light">País:</div>
                     <div>
                         {{
                             user.relationships?.userDetail.relationships
@@ -59,7 +59,7 @@
                     </div>
                 </div>
                 <div class="d-flex gap-2">
-                    <div class="font-weight-semibold">Departamento:</div>
+                    <div class="font-weight-light">Departamento:</div>
                     <div>
                         {{
                             user.relationships?.userDetail.relationships
@@ -70,12 +70,12 @@
             </div>
         </div>
         <div class="border-degree pa-2 text-table ali" style="min-width: 250px">
-            <div class="font-weight-semibold text-primary">
+            <div class="font-weight-light text-primary">
                 Nivel de Verificación
             </div>
             <div class="d-flex flex-column h-100 pb-8 justify-center">
                 <div class="d-flex gap-2">
-                    <div class="font-weight-semibold">Teléfono:</div>
+                    <div class="font-weight-light">Teléfono:</div>
                     <div
                         :class="
                             user.attributes.phone_verified_at
@@ -91,7 +91,7 @@
                     </div>
                 </div>
                 <div class="d-flex gap-2">
-                    <div class="font-weight-semibold">Correo:</div>
+                    <div class="font-weight-light">Correo:</div>
                     <div
                         :class="
                             user.attributes.email_verified_at
@@ -107,7 +107,7 @@
                     </div>
                 </div>
                 <div class="d-flex gap-2">
-                    <div class="font-weight-semibold">KYC:</div>
+                    <div class="font-weight-light">KYC:</div>
                     <div
                         :class="
                             user.relationships?.kyc?.attributes?.status ===

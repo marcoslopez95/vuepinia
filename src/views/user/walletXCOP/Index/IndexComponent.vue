@@ -15,7 +15,7 @@
             >
         </div>
         <div class="">
-            <div class="my-3 text-primary font-weight-semibold text-center font-22">
+            <div class="my-3 text-primary font-weight-light text-center font-22">
                 Transacciones
             </div>
             <div class="">
@@ -70,23 +70,23 @@
                     <div class="w-25 d-flex justify-center align-center" v-else>
                         <!-- <div class=""> -->
                             <VChipSuccess size="md" class="text-10 px-2" small v-if="item.attributes.status === 'Procesado'">
-                                {{ item.attributes.status }}
+                                Completado
                             </VChipSuccess>
                             <VChipWarning size="md" class="text-10 px-2" small
                                 v-if="item.attributes.status == 'En proceso' "
                             >
-                                {{ item.attributes.status }}
+                                Pendiente
                             </VChipWarning>
                         <!-- </div> -->
                     </div>
                     <!-- {{ transaction(item).attributes }} -->
                     <div
-                        class="text-primary font-weight-semibold w-25 text-center"
+                        class="text-primary font-weight-light w-25 text-center"
                     >
                         {{ amount(item) }}
                     </div>
                     <div
-                        class="text-disabled font-weight-semibold w-50 text-center"
+                        class="text-disabled font-weight-light w-50 text-center"
                     >
                         {{
                             dayjs(item.attributes.created_at).format(
@@ -118,7 +118,7 @@ const indexFor = [
         url: "shipping/record/user/history/transactions",
     },
     {
-        type: "Swap",
+        type: "Retiros",
         color: "active",
         url: "withdrawal/xcop",
     },

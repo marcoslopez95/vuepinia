@@ -67,7 +67,7 @@
                                 >
                                     <VIcon :icon="ColombiaIcon" />
                                     <span
-                                        class="font-weight-semibold text-20 text-table-2"
+                                        class="font-weight-light text-20 text-table-2"
                                         >COP</span
                                     >
                                 </div>
@@ -118,7 +118,7 @@
                                 >
                                     <template #selection="{ index, item }">
                                         <!-- <div
-                                        class="d-flex h-100 w-100 align-center font-weight-semibold gap-2"
+                                        class="d-flex h-100 w-100 align-center font-weight-light gap-2"
                                     > -->
                                         <VImg
                                             v-if="itemHaveImages((item.raw as Currency).relationships?.images)"
@@ -127,7 +127,7 @@
                                             sizes="20px"
                                         ></VImg>
                                         <span
-                                            class="font-weight-semibold text-20 text-table-2"
+                                            class="font-weight-light text-20 text-table-2"
                                         >
                                             {{
                                                 (
@@ -161,7 +161,7 @@
                                             >
                                                 <div>
                                                     <span
-                                                        class="ml-2 font-weight-semibold font-22"
+                                                        class="ml-2 font-weight-light font-22"
                                                     >
                                                         {{
                                                             (

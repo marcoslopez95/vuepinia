@@ -1,6 +1,6 @@
 <template>
     <div class="d-flex justify-space-around w-100">
-        <div>
+        <!-- <div>
             <VBtnPrimary
                 :active="clickIn == 'inner'"
                 density="compact"
@@ -22,30 +22,22 @@
             >
                 Dirección Externa
             </VBtnDangerT>
-        </div>
+        </div> -->
     </div>
-    <div class="mt-3 text-center" v-if="false">
-        <VBtn variant="outlined" rounded="xl">Código QR</VBtn>
-        <div class="center stream">
+    <div class="mt-3 text-center" >
+        <VBtn variant="outlined" @click="showCamera = !showCamera" rounded="xl">Código QR</VBtn>
+        <div v-if="showCamera" class="center stream">
             <QrcodeStream @decode="qrDecode" class="mb">
               <div style="color: red;" class="frame"></div>
             </QrcodeStream>
           </div>
         <code>{{ qrCode }}</code>
     </div>
-    <div v-if="clickIn != ''" class="w-100 text-center mt-5">
-        <InputComponentVue
-            name="Cantidad a enviar"
-            v-model="form.xcop_send"
-            :events="eventsXcop"
-            appendText="XCOP"
-        >
-        </InputComponentVue>
-        <div class="my-4" />
-        <VMenu v-model="openUsers" v-if="clickIn == 'inner'">
+    <div  class="w-100 text-center mt-5">
+        <VMenu v-model="openUsers" >
             <template #activator="{ props }">
                 <VLabel
-                    class="pl-3 text-capitalize font-weight-semibold text-table"
+                    class="pl-3 text-capitalize font-weight-light text-table"
                     style=""
                 >
                     Email o Usuario
@@ -102,6 +94,16 @@
                 )
             }}
         </span>
+        <br>
+        <InputComponentVue
+            name="Cantidad a enviar"
+            v-model="form.xcop_send"
+            :events="eventsXcop"
+            appendText="XCOP"
+        >
+        </InputComponentVue>
+        <div class="my-4" />
+        
 
         <InputComponentVue
             v-if="clickIn == 'external'"
@@ -111,14 +113,14 @@
         >
         </InputComponentVue>
     </div>
-    <div v-if="clickIn != ''" class="text-center mt-6">
+    <div class="text-center mt-6">
         <VBtnPrimary
             @click="sendXcop"
             :disabled="form.user_receipt_id == '' || form.xcop_send == ''"
             >Enviar</VBtnPrimary
         >
     </div>
-    <div v-if="clickIn != ''" class="mt-3 font-weight-regular">
+    <div class="mt-3 font-weight-regular">
         <VAlert
             class="border-primary-alert px-2"
             color="primary"
@@ -156,6 +158,7 @@ import { QrcodeStream } from 'vue-qrcode-reader';
 
 const helper = helperStore();
 const userStore = UserStore();
+const showCamera = ref(false)
 const emits = defineEmits<{
     (e: 'send', value: {
         user:string,
@@ -212,10 +215,10 @@ const getUser = async () => {
 
 const getFullNameParse = (user: User): string => {
     const newName = user.attributes.first_name
-        ? user.attributes.first_name[0] + "***"
+        ? user.attributes.first_name[0] + user.attributes.first_name[1] + "***"
         : "***";
     const newLastname = user.attributes.last_name
-        ? user.attributes.last_name[0] + "***"
+        ? user.attributes.last_name[0] + user.attributes.last_name[1] + "***"
         : "***";
     return `${newName} ${newLastname}`;
 };

@@ -67,7 +67,7 @@
                                     <div
                                         class="font-22 text-table-2 font-weight-bold mb-0 pb-0"
                                     >
-                                        COP {{ formatNumber(coin.value,',','.',0) }}
+                                        COP <br v-if="formatNumber(coin.value,',','.',0).length <= 7"> {{ formatNumber(coin.value,',','.',0) }}
                                     </div>
                                     <div
                                         class="font-weight-light mt-0 pt-1 text-20"

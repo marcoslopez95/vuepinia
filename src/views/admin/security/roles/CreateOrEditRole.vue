@@ -1,7 +1,7 @@
 <template>
     <div class="text-table">
         <VForm>
-            <div class="font-22 font-weight-semibold text-primary">
+            <div class="font-22 font-weight-light text-primary">
                 {{ helper.clickIn == "Edit" ? "Editar" : "Crear" }} Rol
             </div>
             <div class="my-5" :class="$vuetify.display.xs ? 'w-75' : 'w-25'">

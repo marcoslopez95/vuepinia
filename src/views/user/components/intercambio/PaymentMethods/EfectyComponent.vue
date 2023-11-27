@@ -18,12 +18,12 @@
         <VRow v-if="itemSelect" class="px-5">
             <VCol cols="12" sm="12" class=" text-table border-degree text-left font-22 font-weight-light" >
                 <p class="">
-                    <span class="text-primary font-weight-semibold">Dirección:</span> <br>{{ itemSelect?.attributes.description }}
+                    <span class="text-primary font-weight-light">Dirección:</span> <br>{{ itemSelect?.attributes.description }}
                 </p>
                 <p>Nombre: {{ itemSelect?.attributes.beneficiary }}</p>
                 <VSpacer></VSpacer>
                 <p class="mt-5">
-                    <span class="text-primary font-weight-semibold">Indicaciones:</span>
+                    <span class="text-primary font-weight-light">Indicaciones:</span>
                 <ul class="ml-10" style="list-style-type: decimal;">
                     <li>Informar un pago para Xeler Go!.</li>
                     <li>Entregar el dinero.</li>

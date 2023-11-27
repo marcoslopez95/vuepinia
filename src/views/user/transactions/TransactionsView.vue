@@ -2,7 +2,7 @@
     <div
         class="d-flex justify-space-between flex-column flex-sm-row mb-8 text-table"
     >
-        <h3 class="font-weight-semibold">
+        <h3 class="font-weight-light">
             {{ $t("views.transactions.title", 2) }}
         </h3>
         <SearchInputComponentVue v-model="search" @onSearch="getSearch" />

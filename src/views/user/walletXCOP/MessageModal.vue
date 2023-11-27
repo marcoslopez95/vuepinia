@@ -3,7 +3,7 @@
         <div class="text-center w-100">
             <div class="d-flex justify-center gap-2">
                 <div>
-                    <p class="font-weight-semibold text-warning font-25"
+                    <p class="font-weight-light text-warning font-25"
                     :class="type == 'send' ? 'text-warning' : 'text-success'">
                         -{{amount}} XCOP
                     </p>
@@ -22,35 +22,35 @@
                 style="max-width: 340px"
             >
                 <VRow dense class="text-left">
-                    <VCol cols="5" class="text-primary font-weight-semibold"
+                    <VCol cols="5" class="text-primary font-weight-light"
 
                         >Usuario:</VCol
                     >
                     <VCol cols="7" class="">{{ user }}</VCol>
 
-                    <VCol cols="5" class="text-primary font-weight-semibold"
+                    <VCol cols="5" class="text-primary font-weight-light"
                     v-if="false"
                         >Destino:</VCol
                     >
                     <VCol cols="7" class="" v-if="false">{{ user }}</VCol>
 
-                    <VCol cols="5" class="text-primary font-weight-semibold"
+                    <VCol cols="5" class="text-primary font-weight-light"
                         >Transacción:</VCol
                     >
                     <VCol cols="7" class="">{{ number_transaction }}</VCol>
 
-                    <VCol cols="5" class="text-primary font-weight-semibold"
+                    <VCol cols="5" class="text-primary font-weight-light"
                     v-if="false"
                         >Tx id:</VCol
                     >
                     <VCol v-if="false" cols="7" class="">{{ user }}</VCol>
 
-                    <VCol cols="5" class="text-primary font-weight-semibold"
+                    <VCol cols="5" class="text-primary font-weight-light"
                         >Costo:</VCol
                     >
                     <VCol cols="7" class="">0 XCOP</VCol>
 
-                    <VCol cols="5" class="text-primary font-weight-semibold"
+                    <VCol cols="5" class="text-primary font-weight-light"
                         >Estado:</VCol
                     >
                     <VCol cols="7" class="">Completado</VCol>

@@ -5,7 +5,7 @@
         >
             <div>
                 Detalle de:
-                <span class="font-weight-semibold">{{
+                <span class="font-weight-light">{{
                     user.attributes.username
                 }}</span>
             </div>

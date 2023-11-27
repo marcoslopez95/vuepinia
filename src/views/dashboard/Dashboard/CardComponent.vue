@@ -1,7 +1,7 @@
 <template>
     <div  class="border-degree pt-3 pb-5 text-table pl-3">
         <div class="d-flex justify-start pt-1">
-            <div class="font-weight-semibold my-auto">
+            <div class="font-weight-light my-auto">
                 {{ title }}
             </div>
             <div class="contenedor ml-auto mr-1" id="asd">

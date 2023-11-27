@@ -39,7 +39,7 @@
 
                         </div>
                     </template>
-                    <p class="ml-4 font-weight-semibold text-table" :class="isMobile ? 'text-h6' : 'font-30'" v-html="item.text" >
+                    <p class="ml-4 font-weight-light text-table" :class="isMobile ? 'text-h6' : 'font-30'" v-html="item.text" >
                     </p>
                 </VListItem>
             </VList>

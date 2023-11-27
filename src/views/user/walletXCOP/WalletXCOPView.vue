@@ -1,9 +1,9 @@
 <template>
     <div style="max-width: 340px" class="mx-auto">
         <div
-            class="d-flex justify-center align-center flex-column text-primary font-weight-semibold"
+            class="d-flex justify-center align-center flex-column text-primary font-weight-light"
         >
-            <div class="">Wallet XCOP</div>
+            <h3 class="">Wallet XCOP</h3>
             <div class="my-3 font-30 d-flex">
                 <VIcon :icon="XcopIcon"></VIcon>
                 {{ xelerCop }}
@@ -34,7 +34,7 @@
                         />
                     </svg>
                 </VIcon>
-                Swap
+                Retiro
             </VBtnPrimary>
         </div>
         <div class="mt-7">

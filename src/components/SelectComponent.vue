@@ -1,6 +1,6 @@
 <template>
     <slot name="label">
-        <VLabel class="pl-3 text-capitalize font-weight-semibold text-table" :class="classLabel" style="">{{name}}</VLabel>
+        <VLabel class="pl-3 text-capitalize font-weight-light text-table" :class="classLabel" style="">{{name}}</VLabel>
     </slot>
     <VResponsive 
         class="v-text-field__slot" 

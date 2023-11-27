@@ -17,7 +17,7 @@
                 <v-list>
                     <v-list-item class="text-primary text-center">
                         <template #title>
-                            <span class="font-weight-semibold">
+                            <span class="font-weight-light">
                                 Notificaciones
                             </span>
                         </template>
@@ -54,7 +54,7 @@
                                         </svg>
                                     </div>
                                     <div class="text-wrap">
-                                        <span class="font-weight-semibold">
+                                        <span class="font-weight-light">
                                             {{
                                                 onlyTwoWords(item.notification)
                                             }}

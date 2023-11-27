@@ -15,12 +15,12 @@
         >
             <template #cel-attributes.status="{ data }">
                 <VChipSuccess class="" v-if="data.attributes.status === 'Procesado'">
-                    {{ (data as Kyc).attributes.status }}
+                    Completado
                 </VChipSuccess>
                 <VChipWarning class=""
                     v-if="data.attributes.status == 'En proceso' "
                 >
-                    {{ data.attributes.status }}
+                    Pendiente
                 </VChipWarning>
             </template>
             <template #newButtons="{data}">

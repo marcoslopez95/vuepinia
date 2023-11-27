@@ -4,7 +4,7 @@
             <VImg class="mx-auto" :src="FirstImage" width="573px" height="369px" />
         </VCol>
         <VCol 
-            class="text-primary font-weight-semibold text-h5 text-sm-h4 text-lg-h3 text-wrap"
+            class="text-primary font-weight-light text-h5 text-sm-h4 text-lg-h3 text-wrap"
             :class="[isMobile ? 'text-center':'']">
             <!-- <div class="text-primary font-weight-bold text-h1" > -->
             Xeler go es la plataforma más rápida y eficiente para comprar y vender <br> <VueTyper v-bind="propVueType"></VueTyper> en Colombia.

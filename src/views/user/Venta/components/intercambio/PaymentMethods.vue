@@ -1,9 +1,9 @@
 <template>
     <div class="my-4">
         <div>
-            <h3 class="text-primary">
+            <h5 class="text-primary">
                 {{ $t('views.sell.payment-method') }}
-            </h3>
+            </h5>
             <p class="text-table text-18">
                 Selecciona la forma de pago y se mostrará el formulario para ingresár el monto a vender.
             </p>
@@ -12,7 +12,7 @@
         <VRow>
             <VCol cols="4" v-for="paymentMethod, i in companyAccountStore.paymentMethods" :key="i"
                 @click="emits('update:model-value', paymentMethod)">
-                <VBtnDegree class="w-100" rounded="lg" :class="{
+                <VBtnDegree class="w-100 font-weight-light" rounded="lg" :class="{
                     'payment-selected': paymentMethod.id == modelValue?.id
                 }" color="primary">
                     {{ paymentMethod.attributes.name }}

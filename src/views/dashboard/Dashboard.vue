@@ -30,7 +30,11 @@ const avarageCurrency = ref<AvarageCurrency>();
 const getDataAvarage = async () => {
     try {
         const url = "order/total/average/sale/currency";
-        const params = { currency_id: currency.value };
+        const params = { 
+            currency_id: currency.value,
+            fec_ini: fec_ini.value,
+            fec_end: fec_end.value,
+        };
         const res = await helper.http(url, "get", { params });
         avarageCurrency.value = res.data;
         const c = walletStore.currencies.find((c) => c.id == currency.value)
@@ -66,7 +70,7 @@ interface AvarageCurrency {
 <template>
     <div
         v-if="(getUserAuth().roles[0].name as ROLES) === ROLES.USER"
-        class="text-table font-30 font-weight-semibold"
+        class="text-table font-30 font-weight-light"
     >
         Bienvenid@
     </div>
@@ -152,8 +156,8 @@ interface AvarageCurrency {
             <VCol class="text-table mx-0 px-0" cols="12" sm="8">
                 <!-- <GraficoTorta></GraficoTorta> -->
                 <div class="border-degree pt-3 pb-5 text-table pl-3">
-                    <div class="d-flex gap-2 px-1">
-                        <div class="w-25">
+                    <div class="d-sm-flex d-block gap-2 px-1">
+                        <div :class="[ $vuetify.display.mdAndUp ? 'w-25' : 'w-100' ]">
                             <InputComponentVue v-model="fec_ini" name="Fecha Inicio" type="date">
                             </InputComponentVue>
                         </div>
@@ -197,7 +201,10 @@ interface AvarageCurrency {
                                     {{
                                         formatNumber(
                                             avarageCurrency?.amount_currency ??
-                                                0
+                                                0,
+                                                ',',
+                                                '.',
+                                                6
                                         )
                                     }}
                                     {{
@@ -217,7 +224,10 @@ interface AvarageCurrency {
                                     {{
                                         formatNumber(
                                             avarageCurrency?.amount_local_currency ??
-                                                0
+                                                0,
+                                                ',',
+                                                '.',
+                                                2
                                         )
                                     }}
                                     COP
@@ -233,7 +243,10 @@ interface AvarageCurrency {
                                     {{
                                         formatNumber(
                                             avarageCurrency?.amount_referer_currency ??
-                                                0
+                                                0,
+                                                ',',
+                                                '.',
+                                                2
                                         )
                                     }}
                                     USD
@@ -251,7 +264,10 @@ interface AvarageCurrency {
                                     {{
                                         formatNumber(
                                             avarageCurrency?.average_currency_local ??
-                                                0
+                                                0,
+                                                ',',
+                                                '.',
+                                                2
                                         )
                                     }}
                                     COP
@@ -267,10 +283,13 @@ interface AvarageCurrency {
                                     {{
                                         formatNumber(
                                             avarageCurrency?.average_currency_referer ??
-                                                0
+                                                0,
+                                                ',',
+                                                '.',
+                                                2
                                         )
                                     }}
-                                    COP
+                                    USD
                                 </div>
                             </div>
                         </div>

@@ -11,7 +11,7 @@
             {{ $t("views.menu-right.preview-order.title") }}
         </div>
         <VCardText
-            class="px-3 my-auto text-left text-table font-weight-semibold"
+            class="px-3 my-auto text-left text-table font-weight-light"
             :style="{
                 'font-size': $vuetify.display.smAndDown ? '17px' : '20px'
             }"

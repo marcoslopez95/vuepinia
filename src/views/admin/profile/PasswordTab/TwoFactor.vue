@@ -32,7 +32,7 @@
     </div>
     <dialog-global :dialog="modal" @close-dialog="modal = false">
         <template #title>
-            <span class="font-weight-semibold"
+            <span class="font-weight-light"
                 >Habilitar Autenticación 2FA</span
             >
         </template>

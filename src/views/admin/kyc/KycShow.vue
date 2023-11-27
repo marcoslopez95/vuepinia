@@ -111,7 +111,7 @@
         <div class="d-lg-flex my-auto ml-3 mx-auto" style=" gap: 15px;">
             <div :class="$vuetify.display.mdAndDown ? 'mt-10' : ''" class="mx-auto" style="min-width: 210px;max-width:  210px;" v-for="image,i in images" :key="i">
                 <div class="text-center">
-                    <span class="text-18 font-weight-semibold text-table">{{image.name}}</span>
+                    <span class="text-18 font-weight-light text-table">{{image.name}}</span>
                 </div>
                 <VCard elevation="0" style="min-width: 210px;max-width:  210px;" class="mx-auto bg-sky-1">
                     <template #title>

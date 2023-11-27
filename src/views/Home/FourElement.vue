@@ -22,7 +22,7 @@
                     }"
                 >
                     <p
-                        class="font-weight-semibold text-center"
+                        class="font-weight-light text-center"
                         :class="{
                             'text-primary': isMobile,
                             'font-25': isMobile,
@@ -77,7 +77,7 @@
                 </div>
                 <div class="text-justify">
                     <p  
-                        class="font-weight-semibold text-center px-3"
+                        class="font-weight-light text-center px-3"
                         :class="{
                             'font-25': isMobile,
                             'font-44': !isMobile,

@@ -20,12 +20,12 @@
                     }}
                 </span>
             </div>
-            <div
+            <!-- <div
                 v-if="confirmOrderStore.form.type == OrderTypes.COMPRA"
                 class="my-6 d-flex"
                 style="justify-content: space-between"
-            >
-                <span>Pesos a pagar :</span>
+            > -->
+                <!-- <span>Pesos a pagar :</span>
                 <span class="">
                     {{
                         formatNumber(
@@ -35,8 +35,8 @@
                         )
                     }}
                     COP
-                </span>
-            </div>
+                </span> -->
+            <!-- </div> -->
             <div
                 class="my-6 d-flex align-center"
                 style="justify-content: space-between"
@@ -104,15 +104,26 @@
             </div>
             <div
                 
-                class="py-6 d-flex border-t"
+                class="py-6 d-flex border-t text-primary font-weight-light"
                 style="justify-content: space-between"
             >
-                <span>Pesos a Recibir:</span>
+                <!-- <span>Pesos a Recibir:</span>
                 <span class="">
                     {{
                         formatNumber(
                             parseFloat(
                                 confirmOrderStore.form.fiat_received
+                            )
+                        )
+                    }}
+                    COP
+                </span> -->
+                <span>Pesos a pagar :</span>
+                <span class="">
+                    {{
+                        formatNumber(
+                            parseFloat(
+                                confirmOrderStore.form.total_exchange_local
                             )
                         )
                     }}

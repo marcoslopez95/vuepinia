@@ -29,7 +29,7 @@
                         :max-height="34"
                     >
                     </VImg>
-                    <span class="text-capitalize font-weight-semibold text-table" v-else>
+                    <span class="text-capitalize font-weight-light text-table" v-else>
                         {{ bankAccount.attributes.name }}
                     </span>
                 </div>
