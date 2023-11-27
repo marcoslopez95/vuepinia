@@ -25,36 +25,53 @@ onBeforeUnmount(() => {
 
 const currency = ref<number | "">("");
 
-const code = ref('')
+const code = ref("");
 const avarageCurrency = ref<AvarageCurrency>();
+const avarageBuyCurrency = ref<AvarageCurrency>();
 const getDataAvarage = async () => {
     try {
         const url = "order/total/average/sale/currency";
-        const params = { 
+        const params = {
             currency_id: currency.value,
             fec_ini: fec_ini.value,
             fec_end: fec_end.value,
         };
         const res = await helper.http(url, "get", { params });
         avarageCurrency.value = res.data;
-        const c = walletStore.currencies.find((c) => c.id == currency.value)
-        code.value = c!.attributes.abbreviation
-
+        const c = walletStore.currencies.find((c) => c.id == currency.value);
+        code.value = c!.attributes.abbreviation;
     } catch (e) {}
 };
 
-const fec_ini = ref('')
-const fec_end = ref('')
+const getDataBuyAvarage = async () => {
+    try {
+        const url = "order/total/buy/currency";
+        const params = {
+            currency_id: currency.value,
+            fec_ini: fec_ini.value,
+            fec_end: fec_end.value,
+        };
+        const res = await helper.http(url, "get", { params });
+        avarageBuyCurrency.value = res.data;
+        const c = walletStore.currencies.find((c) => c.id == currency.value);
+        code.value = c!.attributes.abbreviation;
+    } catch (e) {}
+};
 
+const callFilter = async () => {
+    getDataAvarage()
+    getDataBuyAvarage()
+}
+
+const fec_ini = ref("");
+const fec_end = ref("");
 
 const walletStore = WalletStore();
-walletStore
-    .getCurrencies()
-    .then(() => {
-        console.log('qui dod',walletStore.currencies[1].id)
-        currency.value = walletStore.currencies[1].id
-        getDataAvarage()
-    });
+walletStore.getCurrencies().then(() => {
+    console.log("qui dod", walletStore.currencies[1].id);
+    currency.value = walletStore.currencies[1].id;
+    getDataAvarage();
+});
 
 interface AvarageCurrency {
     total_orders: number;
@@ -64,7 +81,6 @@ interface AvarageCurrency {
     average_currency_local: number;
     average_currency_referer: number;
 }
-
 </script>
 
 <template>
@@ -153,20 +169,45 @@ interface AvarageCurrency {
             </VCol>
         </VRow>
         <VRow dense>
-            <VCol class="text-table mx-0 px-0" cols="12" sm="8">
+            <VCol class="text-table mx-0 px-0" cols="12" sm="9"> 
                 <!-- <GraficoTorta></GraficoTorta> -->
                 <div class="border-degree pt-3 pb-5 text-table pl-3">
                     <div class="d-sm-flex d-block gap-2 px-1">
-                        <div :class="[ $vuetify.display.mdAndUp ? 'w-25' : 'w-100' ]">
-                            <InputComponentVue v-model="fec_ini" name="Fecha Inicio" type="date">
+                        <div
+                            :class="{
+                                'w-100': $vuetify.display.mdAndDown,
+                                'w-50': $vuetify.display.lg,
+                                'w-25': $vuetify.display.xlAndUp,
+                            }"
+                        >
+                            <InputComponentVue
+                                v-model="fec_ini"
+                                name="Fecha Inicio"
+                                type="date"
+                            >
                             </InputComponentVue>
                         </div>
-                        <div class="w-25">
-
-                            <InputComponentVue v-model="fec_end" name="Fecha Fin" type="date">
+                        <div
+                            :class="{
+                                'w-100': $vuetify.display.mdAndDown,
+                                'w-50': $vuetify.display.lg,
+                                'w-25': $vuetify.display.xlAndUp,
+                            }"
+                        >
+                            <InputComponentVue
+                                v-model="fec_end"
+                                name="Fecha Fin"
+                                type="date"
+                            >
                             </InputComponentVue>
                         </div>
-                        <div class="w-25">
+                        <div
+                            :class="{
+                                'w-100': $vuetify.display.mdAndDown,
+                                'w-50': $vuetify.display.lg,
+                                'w-25': $vuetify.display.xlAndUp,
+                            }"
+                        >
                             <SelectComponent
                                 style="width: 110px"
                                 name="Moneda"
@@ -177,119 +218,389 @@ interface AvarageCurrency {
                             >
                             </SelectComponent>
                         </div>
-                        <div class="w-25 d-flex align-end justify-center">
-                            <VBtnPrimary @click="getDataAvarage">Filtrar</VBtnPrimary>
+                        <div
+                            :class="{
+                                'w-100 mt-2': $vuetify.display.mdAndDown,
+                                'w-50': $vuetify.display.lg,
+                                'w-25': $vuetify.display.xlAndUp,
+                            }"
+                            class="d-flex align-end justify-center"
+                        >
+                            <VBtnPrimary
+                                :style="[
+                                    $vuetify.display.mdAndDown
+                                        ? 'min-width: 80px!important'
+                                        : '',
+                                ]"
+                                @click="callFilter"
+                                >Filtrar</VBtnPrimary
+                            >
                         </div>
                     </div>
-                    <div class="pr-1 pt-3">
-                        <div class="d-flex justify-space-between gap-4">
+                    <div class=" mr-3">
+                        <div
+                            style="max-width: 600px;"
+                            class="w-100 px-2 mx-auto pt-1 border border-primary rounded-lg mt-2"
+                        >
+                            <div class="text-primary">Venta</div>
                             <div
-                                class="d-flex align-center justify-space-between w-50"
+                                :class="[
+                                    $vuetify.display.mdAndUp
+                                        ? 'd-flex justify-space-between gap-4'
+                                        : '',
+                                ]"
                             >
-                                <div class="font-weight-bold" style="width: 135px;">
-                                    Total de Ordenes:
+                                <div
+                                    class="d-flex align-center justify-space-between"
+                                    :class="[
+                                        $vuetify.display.mdAndUp
+                                            ? 'w-50'
+                                            : 'w-100',
+                                    ]"
+                                >
+                                    <div
+                                        class="font-weight-bold"
+                                        style="width: 135px"
+                                    >
+                                        Total de Ordenes:
+                                    </div>
+                                    <div>
+                                        {{ avarageCurrency?.total_orders }}
+                                    </div>
                                 </div>
-                                <div>
-                                    {{ avarageCurrency?.total_orders }}
-                                </div>
-                            </div>
-                            <div
-                                class="d-flex align-center justify-space-between w-50"
-                            >
-                                <div class="font-weight-bold" style="width: 135px;">Cantidad:</div>
-                                <div>
-                                    {{
-                                        formatNumber(
-                                            avarageCurrency?.amount_currency ??
-                                                0,
-                                                ',',
-                                                '.',
+                                <div
+                                    class="d-flex align-center justify-space-between"
+                                    :class="[
+                                        $vuetify.display.mdAndUp
+                                            ? 'w-50'
+                                            : 'd-block w-100',
+                                    ]"
+                                >
+                                    <div
+                                        class="font-weight-bold"
+                                        style="width: 135px"
+                                    >
+                                        Cantidad:
+                                    </div>
+                                    <div>
+                                        {{
+                                            formatNumber(
+                                                avarageCurrency?.amount_currency ??
+                                                    0,
+                                                ",",
+                                                ".",
                                                 6
-                                        )
-                                    }}
-                                    {{
-                                        code
-                                    }}
+                                            )
+                                        }}
+                                        {{ code }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                :class="[
+                                    $vuetify.display.mdAndUp
+                                        ? 'd-flex justify-space-between gap-4'
+                                        : '',
+                                ]"
+                            >
+                                <div
+                                    class="d-flex align-center justify-space-between"
+                                    :class="[
+                                        $vuetify.display.mdAndUp
+                                            ? 'w-50'
+                                            : 'w-100',
+                                    ]"
+                                >
+                                    <div
+                                        class="font-weight-bold"
+                                        style="width: 135px"
+                                    >
+                                        Cantidad Pesos:
+                                    </div>
+                                    <div>
+                                        {{
+                                            formatNumber(
+                                                avarageCurrency?.amount_local_currency ??
+                                                    0,
+                                                ",",
+                                                ".",
+                                                2
+                                            )
+                                        }}
+                                        COP
+                                    </div>
+                                </div>
+                                <div
+                                    class="d-flex align-center justify-space-between"
+                                    :class="[
+                                        $vuetify.display.mdAndUp
+                                            ? 'w-50'
+                                            : 'w-100',
+                                    ]"
+                                >
+                                    <div
+                                        class="font-weight-bold"
+                                        style="width: 135px"
+                                    >
+                                        Cantidad Dólares:
+                                    </div>
+                                    <div>
+                                        {{
+                                            formatNumber(
+                                                avarageCurrency?.amount_referer_currency ??
+                                                    0,
+                                                ",",
+                                                ".",
+                                                2
+                                            )
+                                        }}
+                                        USD
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                :class="[
+                                    $vuetify.display.mdAndUp
+                                        ? 'd-flex justify-space-between gap-4'
+                                        : '',
+                                ]"
+                            >
+                                <div
+                                    class="d-flex align-center justify-space-between"
+                                    :class="[
+                                        $vuetify.display.mdAndUp
+                                            ? 'w-50'
+                                            : 'w-100',
+                                    ]"
+                                >
+                                    <div
+                                        class="font-weight-bold"
+                                        style="width: 135px"
+                                    >
+                                        Promedio Pesos:
+                                    </div>
+                                    <div>
+                                        {{
+                                            formatNumber(
+                                                avarageCurrency?.average_currency_local ??
+                                                    0,
+                                                ",",
+                                                ".",
+                                                2
+                                            )
+                                        }}
+                                        COP
+                                    </div>
+                                </div>
+                                <div
+                                    class="d-flex align-center justify-space-between"
+                                    :class="[
+                                        $vuetify.display.mdAndUp
+                                            ? 'w-50'
+                                            : 'w-100',
+                                    ]"
+                                >
+                                    <div
+                                        class="font-weight-bold"
+                                        style="width: 135px"
+                                    >
+                                        Promedio Dólares:
+                                    </div>
+                                    <div>
+                                        {{
+                                            formatNumber(
+                                                avarageCurrency?.average_currency_referer ??
+                                                    0,
+                                                ",",
+                                                ".",
+                                                2
+                                            )
+                                        }}
+                                        USD
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="d-flex justify-space-between gap-4">
+                        <div
+                            style="max-width: 600px;"
+                            class="w-100 px-2 mx-auto pt-1 border border-primary rounded-lg  mt-2"
+                        >
+                            <div class="text-primary">Compra</div>
                             <div
-                                class="d-flex align-center justify-space-between w-50"
+                                :class="[
+                                    $vuetify.display.mdAndUp
+                                        ? 'd-flex justify-space-between gap-4'
+                                        : '',
+                                ]"
                             >
-                                <div class="font-weight-bold" style="width: 135px;">
-                                    Cantidad Pesos:
+                                <div
+                                    class="d-flex align-center justify-space-between"
+                                    :class="[
+                                        $vuetify.display.mdAndUp
+                                            ? 'w-50'
+                                            : 'w-100',
+                                    ]"
+                                >
+                                    <div
+                                        class="font-weight-bold"
+                                        style="width: 135px"
+                                    >
+                                        Total de Ordenes:
+                                    </div>
+                                    <div>
+                                        {{ avarageBuyCurrency?.total_orders }}
+                                    </div>
                                 </div>
-                                <div>
-                                    {{
-                                        formatNumber(
-                                            avarageCurrency?.amount_local_currency ??
-                                                0,
-                                                ',',
-                                                '.',
-                                                2
-                                        )
-                                    }}
-                                    COP
+                                <div
+                                    class="d-flex align-center justify-space-between"
+                                    :class="[
+                                        $vuetify.display.mdAndUp
+                                            ? 'w-50'
+                                            : 'd-block w-100',
+                                    ]"
+                                >
+                                    <div
+                                        class="font-weight-bold"
+                                        style="width: 135px"
+                                    >
+                                        Cantidad:
+                                    </div>
+                                    <div>
+                                        {{
+                                            formatNumber(
+                                                avarageBuyCurrency?.amount_currency ??
+                                                    0,
+                                                ",",
+                                                ".",
+                                                6
+                                            )
+                                        }}
+                                        {{ code }}
+                                    </div>
                                 </div>
                             </div>
                             <div
-                                class="d-flex align-center justify-space-between w-50"
+                                :class="[
+                                    $vuetify.display.mdAndUp
+                                        ? 'd-flex justify-space-between gap-4'
+                                        : '',
+                                ]"
                             >
-                                <div class="font-weight-bold" style="width: 135px;">
-                                    Cantidad Dólares:
-                                </div>
-                                <div>
-                                    {{
-                                        formatNumber(
-                                            avarageCurrency?.amount_referer_currency ??
-                                                0,
-                                                ',',
-                                                '.',
+                                <div
+                                    class="d-flex align-center justify-space-between"
+                                    :class="[
+                                        $vuetify.display.mdAndUp
+                                            ? 'w-50'
+                                            : 'w-100',
+                                    ]"
+                                >
+                                    <div
+                                        class="font-weight-bold"
+                                        style="width: 135px"
+                                    >
+                                        Cantidad Pesos:
+                                    </div>
+                                    <div>
+                                        {{
+                                            formatNumber(
+                                                avarageBuyCurrency?.amount_local_currency ??
+                                                    0,
+                                                ",",
+                                                ".",
                                                 2
-                                        )
-                                    }}
-                                    USD
+                                            )
+                                        }}
+                                        COP
+                                    </div>
+                                </div>
+                                <div
+                                    class="d-flex align-center justify-space-between"
+                                    :class="[
+                                        $vuetify.display.mdAndUp
+                                            ? 'w-50'
+                                            : 'w-100',
+                                    ]"
+                                >
+                                    <div
+                                        class="font-weight-bold"
+                                        style="width: 135px"
+                                    >
+                                        Cantidad Dólares:
+                                    </div>
+                                    <div>
+                                        {{
+                                            formatNumber(
+                                                avarageBuyCurrency?.amount_referer_currency ??
+                                                    0,
+                                                ",",
+                                                ".",
+                                                2
+                                            )
+                                        }}
+                                        USD
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="d-flex justify-space-between gap-4">
                             <div
-                                class="d-flex align-center justify-space-between w-50"
+                                :class="[
+                                    $vuetify.display.mdAndUp
+                                        ? 'd-flex justify-space-between gap-4'
+                                        : '',
+                                ]"
                             >
-                                <div class="font-weight-bold" style="width: 135px;">
-                                    Promedio Pesos:
-                                </div>
-                                <div>
-                                    {{
-                                        formatNumber(
-                                            avarageCurrency?.average_currency_local ??
-                                                0,
-                                                ',',
-                                                '.',
+                                <div
+                                    class="d-flex align-center justify-space-between"
+                                    :class="[
+                                        $vuetify.display.mdAndUp
+                                            ? 'w-50'
+                                            : 'w-100',
+                                    ]"
+                                >
+                                    <div
+                                        class="font-weight-bold"
+                                        style="width: 135px"
+                                    >
+                                        Promedio Pesos:
+                                    </div>
+                                    <div>
+                                        {{
+                                            formatNumber(
+                                                avarageBuyCurrency?.average_currency_local ??
+                                                    0,
+                                                ",",
+                                                ".",
                                                 2
-                                        )
-                                    }}
-                                    COP
+                                            )
+                                        }}
+                                        COP
+                                    </div>
                                 </div>
-                            </div>
-                            <div
-                                class="d-flex align-center justify-space-between w-50"
-                            >
-                                <div class="font-weight-bold" style="width: 135px;">
-                                    Promedio Dólares:
-                                </div>
-                                <div>
-                                    {{
-                                        formatNumber(
-                                            avarageCurrency?.average_currency_referer ??
-                                                0,
-                                                ',',
-                                                '.',
+                                <div
+                                    class="d-flex align-center justify-space-between"
+                                    :class="[
+                                        $vuetify.display.mdAndUp
+                                            ? 'w-50'
+                                            : 'w-100',
+                                    ]"
+                                >
+                                    <div
+                                        class="font-weight-bold"
+                                        style="width: 135px"
+                                    >
+                                        Promedio Dólares:
+                                    </div>
+                                    <div>
+                                        {{
+                                            formatNumber(
+                                                avarageBuyCurrency?.average_currency_referer ??
+                                                    0,
+                                                ",",
+                                                ".",
                                                 2
-                                        )
-                                    }}
-                                    USD
+                                            )
+                                        }}
+                                        USD
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -301,7 +612,7 @@ interface AvarageCurrency {
     </div>
 </template>
 <style>
-.gap-4{
-    gap: 4rem
+.gap-4 {
+    gap: 4rem;
 }
 </style>
