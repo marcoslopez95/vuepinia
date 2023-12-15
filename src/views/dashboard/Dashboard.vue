@@ -59,9 +59,9 @@ const getDataBuyAvarage = async () => {
 };
 
 const callFilter = async () => {
-    getDataAvarage()
-    getDataBuyAvarage()
-}
+    getDataAvarage();
+    getDataBuyAvarage();
+};
 
 const fec_ini = ref("");
 const fec_end = ref("");
@@ -72,6 +72,16 @@ walletStore.getCurrencies().then(() => {
     currency.value = walletStore.currencies[1].id;
     getDataAvarage();
 });
+
+const gananciaReal = computed(() => {
+    const prom_venta  = avarageCurrency.value?.average_currency_local ?? 0
+    const prom_compra = avarageBuyCurrency.value?.average_currency_local ?? 0
+    const cant_vend = avarageCurrency.value?.amount_currency ?? 0
+
+    const value = (prom_venta - prom_compra) * cant_vend
+    return formatNumber( value, ",", ".", 0 )
+})
+
 
 interface AvarageCurrency {
     total_orders: number;
@@ -169,7 +179,7 @@ interface AvarageCurrency {
             </VCol>
         </VRow>
         <VRow dense>
-            <VCol class="text-table mx-0 px-0" cols="12" sm="9"> 
+            <VCol class="text-table mx-0 px-0" cols="12" sm="9">
                 <!-- <GraficoTorta></GraficoTorta> -->
                 <div class="border-degree pt-3 pb-5 text-table pl-3">
                     <div class="d-sm-flex d-block gap-2 px-1">
@@ -237,9 +247,29 @@ interface AvarageCurrency {
                             >
                         </div>
                     </div>
-                    <div class=" mr-3">
+                    <div
+                        class="d-flex align-center justify-space-between px-4 my-2"
+                        :class="[$vuetify.display.mdAndUp ? 'w-50' : 'w-100']"
+                    >
+                        <div class="font-weight-bold text-primary" style="width: 135px">
+                            Ganancia Real:
+                        </div>
+                        <div>
+                            {{
+                                formatNumber(
+                                    avarageCurrency?.average_currency_referer ??
+                                        0,
+                                    ",",
+                                    ".",
+                                    2
+                                )
+                            }}
+                            COP
+                        </div>
+                    </div>
+                    <div class="mr-3">
                         <div
-                            style="max-width: 600px;"
+                            style="max-width: 600px"
                             class="w-100 px-2 mx-auto pt-1 border border-primary rounded-lg mt-2"
                         >
                             <div class="text-primary">Venta</div>
@@ -422,8 +452,8 @@ interface AvarageCurrency {
                             </div>
                         </div>
                         <div
-                            style="max-width: 600px;"
-                            class="w-100 px-2 mx-auto pt-1 border border-primary rounded-lg  mt-2"
+                            style="max-width: 600px"
+                            class="w-100 px-2 mx-auto pt-1 border border-primary rounded-lg mt-2"
                         >
                             <div class="text-primary">Compra</div>
                             <div
@@ -566,7 +596,7 @@ interface AvarageCurrency {
                                         {{
                                             formatNumber(
                                                 avarageBuyCurrency?.average_currency_local ??
-                                                    0,
+                                                0,
                                                 ",",
                                                 ".",
                                                 2
