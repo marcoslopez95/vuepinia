@@ -57,7 +57,7 @@ watch(modal, () => {
 })
 const transactionStore = TransactionStore();
 const { order } = storeToRefs(transactionStore);
-order.value = props.order;
+order.value = props.order!;
 const getDataForQr = () => {
     return transactionStore.getDataForQr(
         order.value?.relationships?.currency.attributes.name!,
