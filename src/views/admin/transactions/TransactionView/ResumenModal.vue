@@ -6,10 +6,10 @@
         class-title="text-center text-primary"
     >
         <template #title>
-            Transacción: {{ order.attributes.tranx_no }}
+            Transacción: {{ order?.attributes.tranx_no }}
         </template>
         <payment-detail showDetailAmount></payment-detail>
-        <div v-if="order.attributes.type == OrderTypes.VENTA" class="mt-3">
+        <div v-if="order?.attributes.type == OrderTypes.VENTA" class="mt-3">
             <!-- <DetailAccountSell /> -->
             <AmountDetail  />
         </div>
@@ -57,7 +57,7 @@ watch(modal, () => {
 })
 const transactionStore = TransactionStore();
 const { order } = storeToRefs(transactionStore);
-order.value = props.order!;
+order.value = props.order;
 const getDataForQr = () => {
     return transactionStore.getDataForQr(
         order.value?.relationships?.currency.attributes.name!,
