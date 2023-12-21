@@ -47,6 +47,14 @@ const items: SidebarItem[] = [
             ROLES.USER,
         ],
     },
+    {
+        title: "Conf. Empresas",
+        icon: 'mdi-account-tie',
+        to: "bussiness",
+        roles: [
+            ROLES.USER,
+        ],
+    },
     
 ]
 export default items

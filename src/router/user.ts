@@ -131,6 +131,18 @@ const configurations: RouteRecordRaw[] = [
         },
         beforeEnter: checkedRole
     },
+    {
+        name: "bussiness",
+        path: "/user/bussiness",
+        component: () =>
+            import("@/views/user/Bussiness/IndexComponent.vue"),
+        meta: {
+            roles: [
+                ROLES.USER
+            ]
+        },
+        beforeEnter: checkedRole
+    },
 ]
 export default [
     ...security,
