@@ -154,6 +154,10 @@ const getImage = () => {
 
 .font-hand {
     font-family: "Schoolbell", cursive;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 15px;
 }
 .border-voucher-machine {
     border: 2px solid black;
