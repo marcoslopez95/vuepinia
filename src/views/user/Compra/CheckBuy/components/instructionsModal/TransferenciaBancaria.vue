@@ -1,12 +1,16 @@
 <template>
     <div
         class="font-machine border-voucher-machine mx-auto"
-        style="width: 250px; color: #6280EA"
+        style=" color: #6280EA"
+        :style="{
+            width: $vuetify.display.mdAndUp ? '450px' : '200px'
+        }"
     >
         <div
             class="d-flex justify-center wather-mark position-absolute font-proxima text-uppercase"
             style="font-size: 40px; opacity: 0.1"
         >
+        
             <div class="mx-auto">ejemplo</div>
         </div>
         <div class="text-center ml-2" :style="$vuetify.display.xs ? 'font-size:9px' : 'font-size:18px'">

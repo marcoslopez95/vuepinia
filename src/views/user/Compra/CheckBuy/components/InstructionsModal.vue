@@ -37,7 +37,7 @@
         :dialog="openModal"
         @close-dialog="openModal = false"
         classTitle="mx-auto"
-        :widthDialog="$vuetify.display.mdAndUp ? '600' : '300'"
+        :widthDialog="$vuetify.display.mdAndUp ? '800' : '300'"
     >
         <template #title>
             <VImg
