@@ -10,14 +10,14 @@
                     class="text-table"
                     :class="$vuetify.display.xs ? 'mx-auto' : ''"
                 >
-                    <InputComponent
+                    <TextTareaComponent
                         v-model="amountFiat"
                         :events="eventsFiat"
                         :rules="[onlyNumbers]"
                         name=""
                         appendText="COP"
                     >
-                    </InputComponent>
+                    </TextTareaComponent>
                 </div>
                 <div
                     class="my-auto mx-3 pt-6 text-center"
@@ -40,14 +40,14 @@
                     style="width: 170px"
                     :class="$vuetify.display.xs ? 'mx-auto' : ''"
                 >
-                    <InputComponent
+                    <TextTareaComponent
                         v-model="amountCrypto"
                         :events="eventsCrypto"
                         :rules="[onlyNumbers]"
                         name=""
                         :appendText="priceSelect?.symbol"
                     >
-                    </InputComponent>
+                    </TextTareaComponent>
                 </div>
             </div>
             <div class="w-100 mt-10 text-center font-weight-bold text-table">
@@ -78,6 +78,7 @@
 
 <script setup lang="ts">
 import InputComponent from "@/components/InputComponent.vue";
+import TextTareaComponent from "@/components/TextTareaComponent.vue";
 import { formatNumber, helperStore } from "@/helper";
 import type { Currency } from "@/interfaces/Currency/Currency.model";
 import { computed } from "vue";
@@ -165,7 +166,7 @@ const eventsCrypto: EventComponent = {
         }
     },
     keyup: (event: any) => {
-        amountCrypto.value = amountFormat(event, 8);
+        amountCrypto.value = amountFormat(event, 7);
         updateFiat();
     },
 };
@@ -196,7 +197,7 @@ const getPrices = async () => {
 getPrices();
 
 const amountFiat = ref<string>("0,00");
-const amountCrypto = ref<string>("0,00000000");
+const amountCrypto = ref<string>("0,00000");
 
 const updateCrypto = () => {
     let feesInFiat = 0;
