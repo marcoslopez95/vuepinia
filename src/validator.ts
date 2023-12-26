@@ -40,6 +40,10 @@ export const onlyNumbers = (number: string): boolean | string => {
 };
 
 export const amountFormat = (event: any, length = 3): string => {
+    if(length === 1){
+        const val:string = event.target.value
+        event.target.value = val + ','
+    }
     const text = event.target.value
     let reem = text
         .toString()
@@ -52,7 +56,8 @@ export const amountFormat = (event: any, length = 3): string => {
         reem = '0' + reem // agrego un cero al principio
         // }
     } else {
-        if (reem.substring(0, 1) == '0') {
+    // console.log('numero', reem.substring(0, 1) == '0')
+    if (reem.substring(0, 1) == '0') {
             // Si el primero número es un cero
             let subNum = reem.substring(1, reem.length) // obtengo el resto de números
             reem = subNum // es decir, los "decimales"
@@ -71,11 +76,14 @@ export const amountFormat = (event: any, length = 3): string => {
         partInteger = '0'
     }
     const partDecimal = reem.substring(reem.length - (length - 1), reem.length) // parte decimal
-    var coma = partInteger + ',' + partDecimal
+    var coma:string = partInteger + ',' + partDecimal
+    console.log('coma', coma)
 
     // agrupar de a grupos de a 3 antes de la coma y añadie un . 
     event.target.value = coma.toString().replace(/\d(?=(\d{3})+\,)/g, '$&.')
+
     console.log('numero2', event.target.value)
+
     if (event.target.value != null) {
         for (let i = 0; i < event.target.value.length; i++) {
             if (event.target.value.indexOf(',,') != -1) {
@@ -83,7 +91,9 @@ export const amountFormat = (event: any, length = 3): string => {
             }
         }
     }
+
     console.log('ifpenu', event.target.value)
+    
     if (event.target.value.length < length + 1) {
         const lengthCurrent = event.target.value.length
         const lengthTotal = length + 1
@@ -91,7 +101,12 @@ export const amountFormat = (event: any, length = 3): string => {
             + '0'.repeat(lengthTotal - lengthCurrent)
             + event.target.value.replace(',', '')
     }
+
     console.log('return', event.target.value)
+    if(length === 1){
+        const val:string = event.target.value
+        event.target.value = val.slice(0,val.length-1)
+    }
     return event.target.value
 }
 

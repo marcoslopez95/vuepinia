@@ -69,7 +69,7 @@ const userStore = UserStore();
 userStore.updateUserAuth();
 
 const xelerCop = computed(() => {
-    return formatNumber(userStore.userAuth?.attributes.xcop ?? 0) + " Xelercop";
+    return formatNumber(userStore.userAuth?.attributes.xcop ?? 0, '.',',',0) + " Xelercop";
 });
 
 const openModal = ref(false)

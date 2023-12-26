@@ -110,7 +110,7 @@ const eventsXcop: EventComponent = {
         // amountFiat.value = amountFormat(event)
     },
     keyup: (event: any) => {
-        amount.value = amountFormat(event);
+        amount.value = amountFormat(event,1);
     },
 };
 
