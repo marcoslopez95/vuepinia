@@ -65,7 +65,7 @@ const getSearch = () => {
 const eventsTotalExchange: EventComponent = {
     keypress: validator.keyPressOnlyNumberAndBackscape,
     keyup: (event: any) => {
-        formCrud.value.total_exchange_local = validator.amountFormat(event);
+        formCrud.value.total_exchange_local = validator.amountFormat(event,1);
     },
 }; 
 const eventsTotalExchangeLocal: EventComponent = {
