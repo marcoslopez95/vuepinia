@@ -154,7 +154,7 @@ const eventsFiat: EventComponent = {
         // amountFiat.value = amountFormat(event)
     },
     keyup: (event: any) => {
-        amountFiat.value = amountFormat(event);
+        amountFiat.value = amountFormat(event,1);
         updateCrypto();
     },
 };

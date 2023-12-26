@@ -100,7 +100,7 @@ const eventsXcop = {
         // amountFiat.value = amountFormat(event)
     },
     keyup: (event: any) => {
-        form.value.amount = amountFormat(event);
+        form.value.amount = amountFormat(event,1);
     },
 };
 interface FormWithdrawalXcop {

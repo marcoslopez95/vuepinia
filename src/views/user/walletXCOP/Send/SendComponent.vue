@@ -187,7 +187,7 @@ const eventsXcop: EventComponent = {
         // amountFiat.value = amountFormat(event)
     },
     keyup: (event: any) => {
-        form.xcop_send = amountFormat(event);
+        form.xcop_send = amountFormat(event,1);
     },
 };
 
