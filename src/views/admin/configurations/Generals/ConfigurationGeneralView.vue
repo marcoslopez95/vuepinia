@@ -171,7 +171,7 @@ const eventsAdministrative: EventComponent = {
         // amountFiat.value = amountFormat(event)
     },
     keyup: (event: any) => {
-        form.administrative_fee = validator.amountFormat(event)
+        form.administrative_fee = validator.amountFormat(event,1)
     }
 };
 const eventsXcop: EventComponent = {
@@ -183,7 +183,7 @@ const eventsXcop: EventComponent = {
         // amountFiat.value = amountFormat(event)
     },
     keyup: (event: any) => {
-        form.min_withdrawal_xcop = validator.amountFormat(event)
+        form.min_withdrawal_xcop = validator.amountFormat(event,1)
     }
 };
 const eventsXcopFee: EventComponent = {
@@ -195,7 +195,7 @@ const eventsXcopFee: EventComponent = {
         // amountFiat.value = amountFormat(event)
     },
     keyup: (event: any) => {
-        form.fee_withdrawal_xcop = validator.amountFormat(event)
+        form.fee_withdrawal_xcop = validator.amountFormat(event,1)
     }
 };
 const eventsLimit: EventComponent = {
@@ -207,7 +207,7 @@ const eventsLimit: EventComponent = {
         // amountFiat.value = amountFormat(event)
     },
     keyup: (event: any) => {
-        form.order_fee_limit = validator.amountFormat(event)
+        form.order_fee_limit = validator.amountFormat(event,1)
     }
 };
 </script>
