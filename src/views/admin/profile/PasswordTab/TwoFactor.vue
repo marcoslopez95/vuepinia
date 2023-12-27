@@ -89,7 +89,9 @@ import InputComponent from "@/components/InputComponent.vue";
 import { helperStore } from "@/helper";
 import { UserStore } from "@/stores/UserStore";
 import { ref } from "vue";
+import { TwoFactorAuthStore } from "@/stores/TwoFactorAuthStore";
 
+const twoFactor = TwoFactorAuthStore()
 const helper = helperStore();
 const userStore = UserStore()
 userStore.updateUserAuth()
@@ -115,7 +117,14 @@ const getQr = async () => {
 
 const enabledOrDisabled = () => {
     if(userStore.userAuth?.attributes.google_authentication){
-        unenabledTAF()
+        twoFactor.modal = true
+        twoFactor.newFlow = true
+        twoFactor.callback = {
+            fn: unenabledTAF
+        }
+        // twoFactor.ejectFunction2(changePassword)
+        // return
+        // unenabledTAF()
         return
     }
     openModal();

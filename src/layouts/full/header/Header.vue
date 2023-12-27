@@ -54,7 +54,7 @@ const fullname = computed(()=>{
 })
 
 const xelerCop = computed(()=> {
-  return formatNumber(userStore.userAuth?.attributes.xcop!) + ' XCOP'
+  return formatNumber(userStore.userAuth?.attributes.xcop!,',','.',0) + ' XCOP'
 })
 
 const clickInProfile =  (to: ToItems ) : undefined => {

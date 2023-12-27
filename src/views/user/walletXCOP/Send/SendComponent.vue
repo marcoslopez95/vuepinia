@@ -24,17 +24,19 @@
             </VBtnDangerT>
         </div> -->
     </div>
-    <div class="mt-3 text-center" >
-        <VBtn variant="outlined" @click="showCamera = !showCamera" rounded="xl">Código QR</VBtn>
+    <!-- <div class="mt-3 text-center">
+        <VBtn variant="outlined" @click="showCamera = !showCamera" rounded="xl"
+            >Código QR</VBtn
+        >
         <div v-if="showCamera" class="center stream">
             <QrcodeStream @decode="qrDecode" class="mb">
-              <div style="color: red;" class="frame"></div>
+                <div style="color: red" class="frame"></div>
             </QrcodeStream>
-          </div>
+        </div>
         <code>{{ qrCode }}</code>
-    </div>
-    <div  class="w-100 text-center mt-5">
-        <VMenu v-model="openUsers" >
+    </div> -->
+    <div class="w-100 text-center mt-5">
+        <VMenu v-model="openUsers">
             <template #activator="{ props }">
                 <VLabel
                     class="pl-3 text-capitalize font-weight-light text-table"
@@ -94,7 +96,7 @@
                 )
             }}
         </span>
-        <br>
+        <br />
         <InputComponentVue
             name="Cantidad a enviar"
             v-model="form.xcop_send"
@@ -103,7 +105,6 @@
         >
         </InputComponentVue>
         <div class="my-4" />
-        
 
         <InputComponentVue
             v-if="clickIn == 'external'"
@@ -151,26 +152,31 @@ import type { EventComponent } from "@/interfaces/Components.helper";
 import type { User } from "@/interfaces/User/User.model";
 import { UserStore } from "@/stores/UserStore";
 import { amountFormat, keyPressIsNumber } from "@/validator";
-import { reactive,  ref } from "vue";
-import type { TransactionXCOPCreate } from '@/interfaces/TransactionXCOP/TransactionXCOP.dto'
+import { reactive, ref } from "vue";
+import type { TransactionXCOPCreate } from "@/interfaces/TransactionXCOP/TransactionXCOP.dto";
 import dayjs from "dayjs";
-import { QrcodeStream } from 'vue-qrcode-reader';
+import { QrcodeStream } from "vue-qrcode-reader";
+import { TwoFactorAuthStore } from "@/stores/TwoFactorAuthStore";
 
 const helper = helperStore();
 const userStore = UserStore();
-const showCamera = ref(false)
+const showCamera = ref(false);
+const twoFactor = TwoFactorAuthStore();
 const emits = defineEmits<{
-    (e: 'send', value: {
-        user:string,
-        amount:number,
-        date:string,
-        number_transaction: string
-    }):void
-}>()
-const qrCode = ref<any>()
-const qrDecode = (value:any) => {
-    qrCode.value = value
-}
+    (
+        e: "send",
+        value: {
+            user: string;
+            amount: number;
+            date: string;
+            number_transaction: string;
+        }
+    ): void;
+}>();
+const qrCode = ref<any>();
+const qrDecode = (value: any) => {
+    qrCode.value = value;
+};
 const clickIn = ref<ClickIn>("");
 const form = reactive<TransactionXCOPCreate>({
     user_receipt_id: "",
@@ -187,7 +193,7 @@ const eventsXcop: EventComponent = {
         // amountFiat.value = amountFormat(event)
     },
     keyup: (event: any) => {
-        form.xcop_send = amountFormat(event,1);
+        form.xcop_send = amountFormat(event, 1);
     },
 };
 
@@ -204,7 +210,7 @@ const getUser = async () => {
         };
         const res = await helper.http(url, "get", { params });
         if (res.data.response) {
-            users.value = res.data.response.splice(0,3)
+            users.value = res.data.response.splice(0, 3);
             // (res.data.response as User[]).forEach((user) => {
             //     users.push(user);
             // });
@@ -229,53 +235,66 @@ const clickInUser = (user: User) => {
 };
 
 const sendXcop = async () => {
+    if (localStorage.getItem("2fa")) {
+        twoFactor.modal = true;
+        twoFactor.newFlow = true;
+        twoFactor.callback = {
+            fn: completeSend,
+        };
+        // twoFactor.ejectFunction2(changePassword)
+        return;
+    }
+    completeSend();
+};
+
+const completeSend = async () => {
     try {
         const url = "users/send/xcop";
-        const data = { 
-            user_receipt_id:form.user_receipt_id, 
+        const data = {
+            user_receipt_id: form.user_receipt_id,
             xcop_send: formatNumberStringToNumber(form.xcop_send as string),
         };
         const res = (await helper.http(url, "post", { data })).data as Res;
 
-        helper.showNotify('XCOP enviados correctamente',{type:'success'})
+        helper.showNotify("XCOP enviados correctamente", { type: "success" });
         form.user_receipt_id = "";
         form.xcop_send = "";
         searchUser.value = "";
         userStore.updateUserAuth();
-        emits('send',{
+        emits("send", {
             amount: res.details.attributes.quantity,
-            date: dayjs(res.details.attributes.created_at).format('YYYY-MM-DD | HH:mm'),
+            date: dayjs(res.details.attributes.created_at).format(
+                "YYYY-MM-DD | HH:mm"
+            ),
             number_transaction: res.details.attributes.tranx_no,
-            user: res.user_send.attributes.username
-        })
+            user: res.user_send.attributes.username,
+        });
     } catch (e) {}
 };
-
 type ClickIn = "inner" | "external" | "";
 
 interface Res {
-  message: string;
-  user: User;
-  user_send: User;
-  details: Details;
+    message: string;
+    user: User;
+    user_send: User;
+    details: Details;
 }
 
 interface Details {
-  id: number;
-  attributes: Attributes3;
-  relationships: any[];
+    id: number;
+    attributes: Attributes3;
+    relationships: any[];
 }
 
 interface Attributes3 {
-  tranx_no: string;
-  user_send: number;
-  user_receipt: number;
-  quantity: number;
-  created_at: string;
-  updated_at: string;
-  deleted_at?: any;
+    tranx_no: string;
+    user_send: number;
+    user_receipt: number;
+    quantity: number;
+    created_at: string;
+    updated_at: string;
+    deleted_at?: any;
 }
-
 </script>
 
 <style scoped lang="scss">
@@ -288,8 +307,8 @@ interface Attributes3 {
     max-height: 500px;
     max-width: 500px;
     margin: auto;
-  }
-  .frame {
+}
+.frame {
     border-style: solid;
     border-width: 2px;
     border-color: red;
@@ -301,5 +320,5 @@ interface Attributes3 {
     right: 0px;
     left: 0px;
     margin: auto;
-  }
+}
 </style>

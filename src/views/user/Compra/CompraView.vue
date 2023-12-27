@@ -41,11 +41,13 @@ import { OrderTypes } from "@/enums/OrderTypes.enum";
 import { storeToRefs } from "pinia";
 import { GeneralConfiguration } from "@/stores/GeneralConfiguration";
 import type { Currency } from "@/interfaces/Currency/Currency.model";
+import { TwoFactorAuthStore } from "@/stores/TwoFactorAuthStore";
 
 const helper = helperStore();
 const generalConfiguration = GeneralConfiguration();
 generalConfiguration.getGeneralData();
 const currency = ref<Currency>();
+const twoFactor = TwoFactorAuthStore()
 
 const confirmOrderStore = ConfirmOrderStore();
 const transactionStore = TransactionStore();
@@ -74,13 +76,26 @@ const alerta = () => {
 const timeSet = dayjs().add(30, "minutes").format();
 
 const createOrder2 = () => {
+
     if (havePenalization.value) return;
+    if(localStorage.getItem('2fa')){
+        twoFactor.modal = true
+        twoFactor.newFlow = true
+        twoFactor.callback = {
+            fn: completeOrder
+        }
+        // twoFactor.ejectFunction2(changePassword)
+        return
+    }
+    completeOrder()
+};
+const completeOrder = () => {
     transactionStore.showPreviewOrder = false;
     form.value.administrative_fee_order = generalConfiguration.generalData
         ?.attributes.administrative_fee as number;
     confirmOrderStore.createOrder(OrderTypes.COMPRA);
     console.log("pagos", confirmOrderStore.form);
-};
+}
 </script>
 
 <style scoped></style>

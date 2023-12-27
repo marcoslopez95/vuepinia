@@ -26,10 +26,12 @@ import { ConfirmOrderStore } from "../Compra/CompraStore";
 import { storeToRefs } from "pinia";
 import { OrderTypes } from "@/enums/OrderTypes.enum";
 import { GeneralConfiguration } from "@/stores/GeneralConfiguration";
+import { TwoFactorAuthStore } from "@/stores/TwoFactorAuthStore";
 
 const helper = helperStore()
 const generalConfiguration = GeneralConfiguration()
 generalConfiguration.getGeneralData();
+const twoFactor = TwoFactorAuthStore()
 
 const confirmOrderStore = ConfirmOrderStore();
 const  { form } = storeToRefs(confirmOrderStore)
@@ -55,6 +57,21 @@ const timeSet = dayjs().add(30, "minutes").format();
 
 const createOrder2 = async () => {
     if(havePenalization.value) return
+
+    if(localStorage.getItem('2fa')){
+        twoFactor.modal = true
+        twoFactor.newFlow = true
+        twoFactor.callback = {
+            fn: completeOrder
+        }
+        // twoFactor.ejectFunction2(changePassword)
+        return
+    }
+    completeOrder()
+    
+};
+
+const completeOrder = async () => {
     await confirmOrderStore.getAddressSendForSell()
     form.value.address_send = confirmOrderStore.addressSendForSell
     if(form.value.total_exchange_local < generalConfiguration.generalData?.attributes.order_fee_limit!){
@@ -62,7 +79,7 @@ const createOrder2 = async () => {
     }
     confirmOrderStore.createOrder(OrderTypes.VENTA);
     console.log('pagos', confirmOrderStore.form)
-};
+}
 </script>
 
 <style scoped></style>
