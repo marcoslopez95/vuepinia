@@ -78,7 +78,7 @@ const timeSet = dayjs().add(30, "minutes").format();
 const createOrder2 = () => {
 
     if (havePenalization.value) return;
-    if(localStorage.getItem('2fa')){
+    // if(localStorage.getItem('2fa')){
         twoFactor.modal = true
         twoFactor.newFlow = true
         twoFactor.callback = {
@@ -86,7 +86,7 @@ const createOrder2 = () => {
         }
         // twoFactor.ejectFunction2(changePassword)
         return
-    }
+    // }
     completeOrder()
 };
 const completeOrder = () => {

@@ -235,7 +235,7 @@ const clickInUser = (user: User) => {
 };
 
 const sendXcop = async () => {
-    if (localStorage.getItem("2fa")) {
+    // if (localStorage.getItem("2fa")) {
         twoFactor.modal = true;
         twoFactor.newFlow = true;
         twoFactor.callback = {
@@ -243,7 +243,7 @@ const sendXcop = async () => {
         };
         // twoFactor.ejectFunction2(changePassword)
         return;
-    }
+    // }
     completeSend();
 };
 

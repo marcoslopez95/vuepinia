@@ -8,7 +8,8 @@
                 <InputComponent
                     v-model="twoFactorAuthStore.code"
                     name=""
-                    placeholder="Código de la aplicación"
+                    :placeholder="!with2fa() ? 'Contraseña' : 'Código de la aplicación'"
+                    :type="!with2fa() ? 'password' : 'text'"
                 >
                 </InputComponent>
             </div>
@@ -53,6 +54,7 @@ const closeModal = () => {
     twoFactorAuthStore.code = ''
     twoFactorAuthStore.modal = false
 }
+const with2fa = ():boolean => !!localStorage.getItem('2fa')
 </script>
 
 <style scoped>

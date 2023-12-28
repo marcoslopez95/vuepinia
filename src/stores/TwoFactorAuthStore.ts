@@ -43,13 +43,24 @@ export const TwoFactorAuthStore = defineStore('TwoFactorAuth', () => {
     const ejectFunction2 = (): Promise<boolean> => {
         return new Promise<boolean>(async (resolve, reject) => {
             try {
-                const data = {
-                    google2fa_secret: code.value
-                }
-                try{
-                    const res = await helper.http('/users/verificate/code/2fa', 'post', { data })
-                    callback.value.fn()
-                }catch (err) {
+                if(!(!!localStorage.getItem('2fa'))){
+                    const data = {
+                        password: code.value
+                    }
+                    try{
+                        const res = await helper.http('/users/check/password', 'post', { data })
+                        callback.value.fn()
+                    }catch (err) {
+                    }    
+                }else{
+                    const data = {
+                        google2fa_secret: code.value
+                    }
+                    try{
+                        const res = await helper.http('/users/verificate/code/2fa', 'post', { data })
+                        callback.value.fn()
+                    }catch (err) {
+                    }
                 }
                 code.value = ''
                 modal.value = false

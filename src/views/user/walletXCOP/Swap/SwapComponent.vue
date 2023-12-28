@@ -57,9 +57,11 @@ import { ref, computed } from "vue";
 import SelectPaymentMethod from '@/views/user/walletXCOP/Swap/SelectPaymentMethod.vue'
 import { GeneralConfiguration } from "@/stores/GeneralConfiguration";
 import { formatNumber, formatNumberStringToNumber, helperStore } from "@/helper";
+import { TwoFactorAuthStore } from "@/stores/TwoFactorAuthStore";
 
 const generalConfiguration = GeneralConfiguration()
 generalConfiguration.getGeneralData()
+const twoFactor = TwoFactorAuthStore();
 const helper = helperStore()
 const form = ref<FormWithdrawalXcop>({
     account_id: "",
@@ -76,6 +78,14 @@ const isValidSwap = computed(() =>{
 })
 
 const storeWithdrawalXcop = async () => {
+    twoFactor.modal = true;
+    twoFactor.newFlow = true;
+    twoFactor.callback = {
+        fn: completeWithdrawal,
+    };
+}
+
+const completeWithdrawal = async() => {
     try{
         const url = 'withdrawal/xcop'
         const data = {
