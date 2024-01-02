@@ -9,7 +9,7 @@
     </div>
 
     <CrudComponent 
-        :singular="$t('views.currencies.title')" 
+        singular="Compañía" 
         :rows="rows"
         @click:post="postCurrency"
     >
@@ -49,13 +49,22 @@ import type { CurrencyCreate } from '@/interfaces/Currency/Currency.dto';
 import SearchInputComponentVue from '@/components/global/SearchInputComponent.vue';
 import * as validator from '@/validator'
 import { CurrencyStore } from '@/stores/CurrencyStore';
-
+import type { BussinessUpdate } from '@/interfaces/Bussiness/Bussiness.dto'
+import type { Bussiness } from '@/interfaces/Bussiness/Bussiness.model'
+import { UserStore } from '@/stores/UserStore';
 const helper = helperStore()
 helper.url = 'companys'
 
 helper.index()
 const currencyStore = CurrencyStore()
 currencyStore.getCurrencyTypes()
+const userStore = UserStore()
+
+userStore.getCountries()
+userStore.getDepartaments()
+userStore.getMunicipalities()
+
+const { countries,departaments,municipalities } = storeToRefs(userStore)
 
 const currency  = (item:any): Currency => item as Currency
 
@@ -66,23 +75,31 @@ const getSearch = () => {
         name: search.value
     })
 }
-const openUpdate = (item:Currency) => {
+const openUpdate = (item: Bussiness) => {
     itemH.value = item
-    const itemUpdate: CurrencyCreate = {
+    const itemUpdate: BussinessUpdate = {
+        id: item.id,
+        address: item.attributes.address,
+        code_phone: item.attributes.code_phone,
+        country_id: item.attributes.country_id,
+        department_id: item.attributes.department_id,
         name: item.attributes.name,
-        abbreviation: item.attributes.abbreviation,
-        symbol: item.attributes.symbol,
-        type_currency_id: item.relationships?.typeCurrency?.id ??  '',
-        reference_system_currency: !!item.attributes.reference_system_currency,
-        wallet_default: !!item.attributes.wallet_default,
-        sale: !!item.attributes.sale,
-        buy: !!item.attributes.buy,
-        icon: item.relationships?.images && item.relationships.images.length>0 ? item.relationships?.images[0].attributes.aws_url : "",
-        color: item.attributes.color,
-        min_buy: item.attributes.min_buy,
-        min_sale: item.attributes.min_sale
+        nic: item.attributes.nic,
+        phone: item.attributes.phone,
+        municipalitie_id: item.attributes.municipalitie_id,
+        verified: item.attributes.verified,
+
+        address_verification: '',
+        banking_certification: '',
+        chamber_commerce_certificate: '',
+        rut: '',
+        shareholding_structure: '',
+
     }
-    formCrud.value = itemUpdate
+    formCrud.value = {
+        ...itemUpdate,
+        phoneFormat: `+${itemUpdate.code_phone}${itemUpdate.phone}`
+    }
     openModalCrud.value = true;
 }
 
@@ -145,7 +162,7 @@ const rows: Row[] = [
                     validator.required
                 ],
                 select: {
-                    items: currencyTypes,
+                    items: countries,
                     itemTitle: 'attributes.name',
                     itemValue: 'id'
                 }
@@ -159,7 +176,7 @@ const rows: Row[] = [
                     validator.required
                 ],
                 select: {
-                    items: currencyTypes,
+                    items: departaments,
                     itemTitle: 'attributes.name',
                     itemValue: 'id'
                 }
@@ -173,7 +190,7 @@ const rows: Row[] = [
                     validator.required
                 ],
                 select: {
-                    items: currencyTypes,
+                    items: municipalities,
                     itemTitle: 'attributes.name',
                     itemValue: 'id'
                 }
