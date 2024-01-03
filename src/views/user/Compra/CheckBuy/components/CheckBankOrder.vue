@@ -137,7 +137,8 @@
             <span class="text-error text-h6">30 minutos</span>
         </div>
     </VRow>
-    <div class="text-center w-100 mt-10">
+    <div class="text-center w-100 mt-10" v-if="getStatusOrder === StatusOrder.ORDER_FOR_PAYMENT"
+    >
         <cancel-order :order="order"></cancel-order>
     </div>
 </template>
@@ -170,6 +171,7 @@ const form = reactive<OrderUploadVoucher>({
     order_id: props.order.id,
     vouchers: [],
 });
+const getStatusOrder = computed( () : StatusOrder =>  props.order?.relationships?.status.id as StatusOrder)
 const helper = helperStore();
 const transactionStore = TransactionStore();
 const openModal = ref(false);
