@@ -68,7 +68,8 @@
                 <span>Fee Mineros:</span>
                 <span class="">
                     {{ transactionStore.feeMiner }}
-                    {{ transactionStore.order?.attributes.fee }} USD
+                    <!-- {{ transactionStore.order?.attributes.fee }}  -->
+                    USD
                 </span>
             </div>
 
@@ -106,6 +107,7 @@
                 
                 class="py-6 d-flex border-t text-primary font-weight-light"
                 style="justify-content: space-between"
+                v-if="false"
             >
                 <!-- <span>Pesos a Recibir:</span>
                 <span class="">
@@ -156,21 +158,34 @@
         </VCardText>
         <VCardActions class="bg-primary text-white py-4 px-3">
             <VImg
-                v-if="getIconOfCurrency"
+                v-if="getIconOfCurrency && confirmOrderStore.form.type != OrderTypes.COMPRA"
                 :src="getIconOfCurrency"
                 width="60"
                 height="60"
             >
             </VImg>
-            <VIcon v-else :icon="BtcIcon" size="60" />
-            <VSpacer></VSpacer>
-            <p class="text-h5 font-weight-bold ml-1">
+            <VIcon v-else-if="!getIconOfCurrency && confirmOrderStore.form.type != OrderTypes.COMPRA" :icon="BtcIcon" size="60" />
+            <VSpacer v-if="confirmOrderStore.form.type != OrderTypes.COMPRA"></VSpacer>
+            <p v-if="confirmOrderStore.form.type != OrderTypes.COMPRA" class="text-h5 font-weight-bold ml-1">
                 {{ confirmOrderStore.form.amount_currency }}
                 {{
                     getCurrencyById(
                         confirmOrderStore.form.currency_id as number
                     ).attributes.abbreviation.toLocaleUpperCase()
                 }} 
+            </p>
+            <p v-else class="w-100 text-center text-h5 font-weight-bold ml-1">
+                {{
+                    formatNumber(
+                        parseFloat(
+                            confirmOrderStore.form.total_exchange_local
+                        ),
+                        ',',
+                        '.',
+                        0
+                    )
+                }}
+                COP
             </p>
         </VCardActions>
     </VCard>
