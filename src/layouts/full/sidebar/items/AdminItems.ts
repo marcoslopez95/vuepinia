@@ -75,6 +75,14 @@ const items: SidebarItem[] = [
         ],
     },
     {
+        title: "Kyc Empresas",
+        icon: 'mdi-badge-account-horizontal-outline',
+        to: "admin-kyc-bussiness",
+        roles: [
+            ROLES.ADMIN,
+        ],
+    },
+    {
         title: "Retiro XCOP",
         icon: FileIcon,
         to: "admin-withdrawal-xcop",

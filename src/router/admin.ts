@@ -21,6 +21,18 @@ const generals: RouteRecordRaw[] = [
     beforeEnter: checkedRole
   },
   {
+    name: "admin-kyc-bussiness",
+    path: "/kyc-bussiness",
+    component: () =>
+      import("@/views/admin/kycBussiness/Kyc.vue"),
+    meta: {
+      roles: [
+        ROLES.ADMIN
+      ]
+    },
+    beforeEnter: checkedRole
+  },
+  {
     name: "admin-withdrawal-xcop",
     path: "/withdrawal-xcop",
     component: () =>
