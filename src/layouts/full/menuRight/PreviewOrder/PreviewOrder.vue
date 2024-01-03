@@ -141,8 +141,8 @@
         <VCardActions class="bg-primary text-white py-4">
             <VImg
                 v-if="
-                    transactionStore.order.relationships?.currency.relationships
-                        ?.images?.length ?? 0 > 0
+                    (transactionStore.order.relationships?.currency.relationships
+                        ?.images?.length ?? 0 > 0)
                 "
                 :src="transactionStore.order.relationships?.currency.relationships?.images![0].attributes.aws_url"
                 width="60"
@@ -150,10 +150,26 @@
             >
             </VImg>
             <VIcon v-else :icon="BtcIcon" size="60" />
-            <p class="text-h5 font-weight-bold ml-4">
+            <p class="text-h5 font-weight-bold ml-4" v-if="transactionStore.order.attributes.type == OrderTypes.VENTA">
                 {{ transactionStore.order!.attributes.amount_currency }}
                 {{
                     transactionStore.order!.relationships!.currency.attributes.abbreviation.toLocaleUpperCase()
+                }}
+            </p>
+            <p class="text-h5 font-weight-bold ml-4" v-if="transactionStore.order.attributes.type == OrderTypes.COMPRA">
+                {{
+                    formatNumber(
+                        parseFloat(
+                            transactionStore.order!.relationships!
+                                .currencyExchangeOrder.attributes
+                                .total_exchange_local
+                        )
+                    )
+                }}
+                {{
+                    transactionStore.order!.relationships!
+                        .currencyExchangeOrder.relationships?.localCurrency
+                        .attributes.abbreviation
                 }}
             </p>
         </VCardActions>

@@ -8,6 +8,7 @@ export declare interface Row {
 
 export declare interface Field{
   label: string
+  text?: string,
   valueForm: string
   type: typeField
   rules?: Array<any> 

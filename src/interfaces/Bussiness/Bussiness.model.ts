@@ -11,7 +11,7 @@ interface BussinessRelationships {
     user: User;
     municipalitie?: Municipality;
     department?: Departament;
-    kyc?: any;
+    kyc?: Kyc;
 }
 
 export declare interface BussinessAttributes {
@@ -26,3 +26,29 @@ export declare interface BussinessAttributes {
     address?: string;
     verified: number;
 }
+
+interface Kyc {
+    id: number;
+    attributes: KycAttributes;
+}
+
+interface KycAttributes {
+    company_id: number;
+    shareholding_structure_status: StatusKycBussiness;
+    chamber_commerce_certificate_status: StatusKycBussiness;
+    rut_status: StatusKycBussiness;
+    banking_certification_status: StatusKycBussiness;
+    address_verification_status: StatusKycBussiness;
+    status: StatusKycBussiness;
+    
+    // created_at: string;
+    // updated_at: string;
+    // deleted_at?: any;
+    url_aws_shareholding_structure: string;
+    url_aws_chamber_commerce_certificate: string;
+    url_aws_rut: string;
+    url_aws_banking_certification: string;
+    url_aws_address_verification: string;
+}
+
+export declare type StatusKycBussiness = 'en verificacion'

@@ -12,7 +12,7 @@
                 `min-width: ${sizeImage ?? 284}px`,
             ]
             "
-        >
+        > <span v-html="label ?? ''"></span>
             <span v-if='!input' :class="classInput" :style="styleInput">
                 <VIcon 
                     size="57" 
@@ -50,6 +50,7 @@ const props = defineProps<{
     image?: string,
     text: string,
     modelValue: any,
+    label?: string,
     sizeImage?: number
     classText?: string[]
     styleText?: string[]

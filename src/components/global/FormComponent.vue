@@ -68,6 +68,7 @@
                         v-else-if="field.type === 'image'"
                         v-model="form[field.valueForm]"
                         :text="field.label"
+                        :label="field.text"
                         :style="
                             field.fieldStyle && field.fieldStyle.length > 0
                                 ? field.fieldStyle

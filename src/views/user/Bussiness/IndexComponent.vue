@@ -89,11 +89,11 @@ const openUpdate = (item: Bussiness) => {
         municipalitie_id: item.attributes.municipalitie_id,
         verified: item.attributes.verified,
 
-        address_verification: '',
-        banking_certification: '',
-        chamber_commerce_certificate: '',
-        rut: '',
-        shareholding_structure: '',
+        address_verification: item.relationships?.kyc?.attributes.url_aws_address_verification ?? '',
+        banking_certification: item.relationships?.kyc?.attributes.url_aws_banking_certification ?? '',
+        chamber_commerce_certificate: item.relationships?.kyc?.attributes.url_aws_chamber_commerce_certificate ?? '',
+        rut: item.relationships?.kyc?.attributes.url_aws_rut ?? '',
+        shareholding_structure: item.relationships?.kyc?.attributes.url_aws_shareholding_structure ?? '',
 
     }
     formCrud.value = {
@@ -200,31 +200,36 @@ const rows: Row[] = [
     {
         fields: [
             {
-                label: '<div class="text-primary">Composición Accionaria</div> (corrresponde a un certificado emitido por el contador de la empresa)',
+                text: '<div class="text-primary">Composición Accionaria</div>',
+                label: 'corrresponde a un certificado emitido por el contador de la empresa',
                 type: 'image',
                 valueForm: 'shareholding_structure',
                 rules: [ validator.required ]
             },
             {
-                label: '<div class="text-primary">Certificado camara de comercio</div>',
+                text: '<div class="text-primary">Certificado camara de comercio</div>',
+                label: '',
                 type: 'image',
                 valueForm: 'chamber_commerce_certificate',
                 rules: [ validator.required ]
             },
             {
-                label: '<div class="text-primary">Rut</div>',
+                text: '<div class="text-primary">Rut</div>',
+                label: '',
                 type: 'image',
                 valueForm: 'rut',
                 rules: [ validator.required ]
             },
             {
-                label: '<div class="text-primary">Certificacion Bancaria</div>',
+                text: '<div class="text-primary">Certificacion Bancaria</div>',
+                label: '',
                 type: 'image',
                 valueForm: 'banking_certification',
                 rules: [ validator.required ]
             },
             {
-                label: '<div class="text-primary">Verificacion Domicion</div>',
+                text: '<div class="text-primary">Verificacion Domicion</div>',
+                label: '',
                 type: 'image',
                 valueForm: 'address_verification',
                 rules: [ validator.required ]
