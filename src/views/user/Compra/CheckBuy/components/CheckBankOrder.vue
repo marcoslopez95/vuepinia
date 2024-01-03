@@ -107,7 +107,7 @@
             cols="12"
             class="text-center"
             v-if="
-                order.relationships?.status.id === StatusOrder.RECEIVED_ORDER 
+                order.relationships?.status.id === StatusOrder.TRANSACTION_IN_RED 
                 //|| 
                 //typeof comprobant != 'string'
             "
@@ -124,7 +124,7 @@
 
     <VRow
         v-if="
-            order.relationships?.status.id === StatusOrder.RECEIVED_ORDER 
+            order.relationships?.status.id === StatusOrder.TRANSACTION_IN_RED 
             // ||
             // false
         "
