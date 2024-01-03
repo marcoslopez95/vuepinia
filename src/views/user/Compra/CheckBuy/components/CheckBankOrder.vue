@@ -107,7 +107,7 @@
             cols="12"
             class="text-center"
             v-if="
-                order.relationships?.status.id === StatusOrder.TRANSACTION_IN_RED 
+                order.relationships?.status.id === StatusOrder.RECEIVED_ORDER 
                 //|| 
                 //typeof comprobant != 'string'
             "
@@ -124,7 +124,7 @@
 
     <VRow
         v-if="
-            order.relationships?.status.id === StatusOrder.TRANSACTION_IN_RED 
+            order.relationships?.status.id === StatusOrder.RECEIVED_ORDER 
             // ||
             // false
         "
@@ -137,7 +137,7 @@
             <span class="text-error text-h6">30 minutos</span>
         </div>
     </VRow>
-    <div class="text-center w-100 mt-10" v-if="getStatusOrder === StatusOrder.ORDER_FOR_PAYMENT"
+    <div class="text-center w-100 mt-10" v-if="getStatusOrder === StatusOrder.RECEIVED_ORDER"
     >
         <cancel-order :order="order"></cancel-order>
     </div>
