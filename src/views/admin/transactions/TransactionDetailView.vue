@@ -103,7 +103,7 @@
                     <div class="my-5" />
                     <amount-detail v-if="order.attributes.type == OrderTypes.VENTA"></amount-detail>
                     <div class="my-5" />
-                    <qr-buy v-if="verifyOrderTakeForUserAuth && !verifyOrderCompleted" @external-pay="giveExternal"></qr-buy>
+                    <qr-buy v-if="verifyOrderTakeForUserAuth && !verifyOrderCompleted && order.attributes.type == OrderTypes.COMPRA" @external-pay="giveExternal"></qr-buy>
                 </div>
             </VCol>
         </VRow>
