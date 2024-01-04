@@ -71,8 +71,9 @@ const changePassword = async () => {
     try{
         const url = 'users/change/profile/password'
         const data = {
-            password: form.passwordCurrent,
-            old_password: form.newPassword
+            password: form.newPassword,
+            old_password: form.passwordCurrent
+            // old_password: form.newPassword
         }
         const res = await helper.http(url,'put',{ data }, 'Contraseña Cambiada con éxito')
         form.passwordCurrent = ''
