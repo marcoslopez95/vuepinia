@@ -1,7 +1,7 @@
 <template>
     <DialogGlobal @close-dialog="closeModal" class-title="text-center mb-0 text-primary" footer :dialog="twoFactorAuthStore.modal">
         <template #title>
-            Authenticación a dos pasos
+            {{ !with2fa() ? 'Confirmar Contraseña' : 'Authenticación a dos pasos'}}
         </template>
         <div class="d-flex justify-center">
             <div style="width: 300px;">
