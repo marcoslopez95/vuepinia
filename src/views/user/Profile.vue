@@ -7,7 +7,7 @@
             <v-tabs v-model="menuActive" bg-color="transparent" show-arrows>
                 <v-tab
                     v-for="(item, i) in tabs"
-                    @click.prevent="clickInTab(i, item)"
+                    @click.prevent="clickInTab(i, item,item.nameRoute)"
                     :value="item.name"
                 >
                     <span
@@ -48,7 +48,8 @@
                                     clickInSubMenu(
                                         child.value,
                                         child.name,
-                                        item.name
+                                        item.name,
+                                        child.nameRoute
                                     )
                                 "
                                 :active="submenuActive == child.name"
@@ -64,7 +65,8 @@
 
         <v-card-text>
             <v-window v-model="tabActive">
-                <Component :key="tabActive" :is="tabActive" />
+                <!-- <Component :key="tabActive" :is="tabActive" /> -->
+                <RouterView />
             </v-window>
         </v-card-text>
     <!-- </v-card> -->
@@ -83,6 +85,7 @@ import BankAccountView from './Accounts/Bank/BankAccountView.vue';
 import OtherAccountView from './Accounts/Other/OtherAccountView.vue';
 import ReferredView from './Refer/ReferredView.vue'
 import PasswordTab from '../admin/profile/PasswordTab.vue';
+import { useRoute, useRouter } from 'vue-router';
 
 const { t } = useI18n()
 const helper = helperStore()
@@ -91,19 +94,24 @@ const tabs = shallowRef<ItemTab[]>([
     {
         name: t('views.profile.personal-data.title'),
         value: PersonalData,
+        nameRoute: 'user-personal-data'
     },
     
     {
         name: t('views.wallets.title',2),
-        value: WalletView
+        value: WalletView,
+        nameRoute: 'user-wallets'
     },
     {
         name: t('views.accounts.title',2),
         value: 'cuentas',
+        nameRoute: '#',
         children:[
             {
                 name: t("views.company-accounts.bank.title", 2),
                 value: BankAccountView,
+                nameRoute: 'user-bank-accounts'
+
             },
             // {
             //     name: t("views.company-accounts.efecty.title", 2),
@@ -112,52 +120,87 @@ const tabs = shallowRef<ItemTab[]>([
             {
                 name: t("views.company-accounts.other.title", 2),
                 value: OtherAccountView,
+                nameRoute: 'user-other-accounts'
+
             },
         ]
     },
     {
         name: t('views.refer.title',2),
-        value: ReferredView
+        value: ReferredView,
+        nameRoute: 'user-referreds'
     },
     {
         name: 'Contraseñas',
         value: PasswordTab,
+        nameRoute: 'user-password'
     },
 ])
 
 if(!(!!localStorage.getItem('2fa'))){
     tabs.value.push({
         name: t('views.profile.kyc.title'),
-        value: KycView
+        value: KycView,
+        nameRoute: 'user-kyc'
     },)
 }
 
 
 const submenuActive = ref("");
 const menuActive = ref(t('views.profile.personal-data.title'));
+const router = useRouter()
 
-const clickInSubMenu = (component: any, name: string, parent: string) => {
+const clickInSubMenu = (
+    component: any,
+    name: string,
+    parent: string,
+    to: string
+) => {
     submenuActive.value = name;
     tabActive.value = component;
     menuActive.value = parent;
+    router.push({name:to})
 };
 
 const menusOpened = ref(
     tabs.value.filter((item) => item.children).map((item) => false)
 );
 
-const clickInTab = (i: number, item: ItemTab) => {
+const clickInTab = (
+    i: number,
+    item: ItemTab,
+    to: string
+    ) => {
     menusOpened.value[i] = true;
     submenuActive.value = "";
     if (!item.children) {
         tabActive.value = item.value;
         menuActive.value = item.name;
+        router.push({name:to})
     }
 };
 
+const route = useRoute()
+const verificatedUrl = ():void => {
+    const itemChildren = tabs.value.filter(t => t.children)
+                            .find(
+                                t => t.children!.find( t => t.nameRoute == route.name)
+                            )
+                            
+    if(itemChildren){
+        const children = itemChildren.children?.find( t => t.nameRoute == route.name)!
+        submenuActive.value = children.name;
+        menuActive.value = itemChildren.name;
+        return
+    }
+    const item = tabs.value.find( t => t.nameRoute == route.name)!
+    menuActive.value = item.name;
+}
+verificatedUrl()
 interface ItemTab {
     name: string;
     value: any;
+    nameRoute: string;
     children?: ItemTab[];
 }
 </script>

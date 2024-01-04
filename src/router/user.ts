@@ -165,8 +165,46 @@ const configurations: RouteRecordRaw[] = [
     {
         name: "user-profile",
         path: "/user/profile",
+        redirect:{ name: 'user-personal-data'},
         component: () =>
             import("@/views/user/Profile.vue"),
+        children: [
+            {
+                name: 'user-personal-data',
+                path: 'personal-data',
+                component: () => import('@/views/user/Profile/PersonalData.vue')
+            },
+            {
+                name: 'user-wallets',
+                path: 'wallets',
+                component: () => import('@/views/user/wallet/WalletView.vue')
+            },
+            {
+                name: 'user-bank-accounts',
+                path: 'bank-accounts',
+                component: () => import('@/views/user/Accounts/Bank/BankAccountView.vue')
+            },
+            {
+                name: 'user-other-accounts',
+                path: 'other-accounts',
+                component: () => import('@/views/user/Accounts/Other/OtherAccountView.vue')
+            },
+            {
+                name: 'user-referreds',
+                path: 'referreds',
+                component: () => import('@/views/user/Refer/ReferredView.vue')
+            },
+            {
+                name: 'user-password',
+                path: 'password',
+                component: () => import('@/views/admin/profile/PasswordTab.vue')
+            },
+            {
+                name: 'user-kyc',
+                path: 'kyc',
+                component: () => import('@/views/user/Kyc/KycView.vue')
+            },
+        ],
         meta: {
             roles: [
                 ROLES.USER
