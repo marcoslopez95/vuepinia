@@ -1,5 +1,7 @@
 <template>
-    <VForm validate-on="input">
+    <VForm validate-on="input"
+    @submit.prevent="()=>{}"
+    >
         <template #default="{ isValid }">
             <div
                 class="text-table d-flex flex-wrap mx-auto"

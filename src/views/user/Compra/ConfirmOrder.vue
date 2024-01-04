@@ -85,7 +85,9 @@
             </SelectComponent>
         </VCol>
         <VCol cols="12">
-            <VForm ref="formRef">
+            <VForm ref="formRef"
+        @submit.prevent="()=>{}"
+        >
             <InputComponent
                 v-model="form.address_send"
                 :name="$t('views.order.address')"

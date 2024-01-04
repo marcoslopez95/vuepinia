@@ -1,6 +1,8 @@
 <template>
     <div class="text-table">
-        <VForm>
+        <VForm 
+        @submit.prevent="()=>{}"
+        >
             <div class="font-22 font-weight-light text-primary">
                 {{ helper.clickIn == "Edit" ? "Editar" : "Crear" }} Rol
             </div>

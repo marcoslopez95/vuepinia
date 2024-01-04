@@ -59,7 +59,9 @@ const eventOnlyLetter = {
         </v-toolbar-title>
     </v-toolbar>
     <div class="">
-        <VForm ref="formRef" class="mx-3" style="min-height: 212px;">
+        <VForm ref="formRef" class="mx-3" style="min-height: 212px;"
+        @submit.prevent="()=>{}"
+        >
             <template #default="{ isValid }">
                 <VRow>
                     <VCol cols="12">

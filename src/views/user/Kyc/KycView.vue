@@ -35,7 +35,9 @@
         </div>
 
         <div>
-            <VForm class="mx-10">
+            <VForm class="mx-10"
+        @submit.prevent="()=>{}"
+        >
                 <UploadImageComponent :image="items[0].image" :text="items[0].text"
                     v-model="form.front_identity_document" />
                 <UploadImageComponent :image="items[1].image" :text="items[1].text"

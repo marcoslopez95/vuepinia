@@ -3,6 +3,7 @@
         ref="formRef"
         :readonly="helper.clickIn == 'Show'"
         enctype="multipart/form-data"
+        @submit.prevent="()=>{}"
     >
         <VRow v-for="(row, i) in rows" :key="i" :class="row.rowClass ?? 'mb-3'">
             <slot

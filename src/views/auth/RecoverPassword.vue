@@ -56,7 +56,9 @@ const changePassword = async () => {
         </v-toolbar-title>
     </v-toolbar>
     <div v-show="!dialog" class="">
-        <VForm ref="formRef" class="mx-3">
+        <VForm ref="formRef" class="mx-3"
+        @submit.prevent="()=>{}"
+        >
             <template #default>
                 <VRow>
                     <VCol cols="12">

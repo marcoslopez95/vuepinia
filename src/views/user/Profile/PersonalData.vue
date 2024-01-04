@@ -1,5 +1,5 @@
 <template>
-    <VForm ref="formRef" @submit="valid" >
+    <VForm ref="formRef" @submit.prevent="valid" >
         <div class="d-flex mb-4" style="flex-flow: column; gap: 12px">
             <VAlert type="warning" v-if="permitValidatePhone || !isPhoneValid">
                 Verificar Teléfono
