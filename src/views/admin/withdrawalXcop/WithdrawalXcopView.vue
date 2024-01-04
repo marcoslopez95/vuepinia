@@ -14,38 +14,36 @@
             :items="helper.items"
         >
             <template #cel-attributes.status="{ data }">
-                <VChipSuccess class="" v-if="data.attributes.status === 'Procesado'">
+                <VChipSuccess
+                    class=""
+                    v-if="data.attributes.status === 'Procesado'"
+                >
                     Completado
                 </VChipSuccess>
-                <VChipWarning class=""
-                    v-if="data.attributes.status == 'En proceso' "
+                <VChipWarning
+                    class=""
+                    v-if="data.attributes.status == 'En proceso'"
                 >
                     Pendiente
                 </VChipWarning>
             </template>
-            <template #newButtons="{data}">
-                <VBtn
-                    title="Aceptar"
-                    color="transparent"
-                    size="x-small"
-                    elevation="0"
-                    icon
-                    @click="accept(data)"
-                >
-                    <VIcon
-                        color="primary"
-                        size="24"
-                        :icon="CheckIconVue"
-                    />
-                </VBtn>
-                Aceptar
+            <template #newButtons="{ data }">
+                <v-list-item-title class="cursor-pointer"  v-if="data.attributes.status == 'En proceso'">
+                    <VBtn
+                        title="Aceptar"
+                        color="transparent"
+                        size="x-small"
+                        elevation="0"
+                        icon
+                        @click="accept(data)"
+                    >
+                        <VIcon color="primary" size="24" :icon="CheckIconVue" />
+                    </VBtn>
+                    Aceptar
+                </v-list-item-title>
             </template>
         </TableComponentVue>
-        <ResumenModal
-            v-if="helper.item"
-            v-model="showKyc"
-            >
-        </ResumenModal>
+        <ResumenModal v-if="helper.item" v-model="showKyc" @update:model-value="(v) => showKyc = v"> </ResumenModal>
     </div>
 </template>
 
@@ -67,7 +65,7 @@ const { t } = useI18n();
 const helper = helperStore();
 const search = ref<string>("");
 helper.url = "withdrawal/xcop";
-const account = ref({})
+const account = ref({});
 helper.index();
 
 const getSearch = () => {
@@ -97,17 +95,16 @@ const headers: Head[] = [
 
 const showItem = (element: Kyc) => {
     helper.item = element;
-    showKyc.value = true
+    showKyc.value = true;
     helper.clickIn = "Show";
-
 };
 
-const accept = async (itemI:unknown) => {
-    const item = itemI as WithdrawalXCOP
-    const url = 'withdrawal/xcop/accept/process/'+ item.id
-    await helper.http(url,'POST')
-    helper.index()
-}
+const accept = async (itemI: unknown) => {
+    const item = itemI as WithdrawalXCOP;
+    const url = "withdrawal/xcop/accept/process/" + item.id;
+    await helper.http(url, "POST");
+    helper.index();
+};
 </script>
 
 <style scoped></style>
