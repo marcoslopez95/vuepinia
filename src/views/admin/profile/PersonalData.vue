@@ -1,5 +1,5 @@
 <template>
-    <VForm ref="formRef" @submit="valid" >
+    <VForm ref="formRef" @submit.prevent="valid" >
         <VRow>
             <VCol sm="6" xs="12">
                 <NewInputComponentVue 
