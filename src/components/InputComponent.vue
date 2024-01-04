@@ -5,6 +5,9 @@
         </VLabel>
     </slot>
     <VResponsive class="v-text-field__slot"
+        :class="{
+            disabled
+        }"
         :style="{
             height
         }"

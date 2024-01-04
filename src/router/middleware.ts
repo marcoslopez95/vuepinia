@@ -1,5 +1,6 @@
 import { getUserAuth } from "@/helper";
 import type { RouteLocationNormalized,NavigationGuardNext, } from "vue-router";
+import type { UserAuth } from '@/interfaces/User/User.auth';
 
 
 export function checkedRole(
@@ -48,4 +49,21 @@ export function checkedRoleOrPermission(
     }
     next({name: 'Unauthorized'});
 
+}
+
+export function checkedVerificationsUser(
+    to: RouteLocationNormalized,
+    from: RouteLocationNormalized,
+    next: NavigationGuardNext,
+){
+    const user = getUserAuth()
+
+    const verificateds:string[] = to.meta.verificateds as string[];
+    const allVerificateds = verificateds
+                                .map( (v) => user[v as keyof UserAuth] )
+                                .every(v => v)
+    if(allVerificateds){
+        next()
+    }
+    next({name: 'user-profile'});
 }

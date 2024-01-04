@@ -12,7 +12,7 @@
             
         </VCol>
     </VRow>
-    <VRow v-if="!isMobile">
+    <VRow v-if="!isMobile && !isAutenticated()">
         <VCol cols="6" class="">
             <VRow class="d-flex justify-center mx-16 ">
 
@@ -32,6 +32,7 @@
 <script setup lang="ts">
 import FirstImage from '@/assets/images/home/FirstImage.png'
 import InputComponent from '@/components/InputComponent.vue';
+import { isAutenticated } from '@/helper';
 import { ref } from 'vue'
 import { useDisplay } from 'vuetify/lib/framework.mjs'
 // import {VueTyper} from 'vue3-typer'

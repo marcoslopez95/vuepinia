@@ -42,7 +42,9 @@
                     >
                         <VRow dense class="d-flex align-center">
                             <VCol>
-                                <VTextField
+                                <VTextarea
+                                    auto-grow
+                                    rows="1"
                                     bg-color="white"
                                     hide-details
                                     id="algo"
@@ -58,7 +60,7 @@
                                     v-model="amountFiat"
                                     v-on="eventsFiat"
                                 >
-                                </VTextField>
+                                </VTextarea>
                             </VCol>
                             <VCol cols="5" class="mr-3">
                                 <div
@@ -81,7 +83,9 @@
                     >
                         <VRow dense class="d-flex align-center">
                             <VCol>
-                                <VTextField
+                                <VTextarea
+                                auto-grow
+                                rows="1"
                                     bg-color="white"
                                     hide-details
                                     class="font-22"
@@ -96,7 +100,7 @@
                                     v-model="amountCrypto"
                                     v-on="eventsCrypto"
                                 >
-                                </VTextField>
+                                </VTextarea>
                             </VCol>
                             <VCol cols="5" class="mr-3">
                                 <VSelect
@@ -204,7 +208,13 @@
                     <span v-if="amountCrypto">
                         Equivalente a
                         <b>
-                            {{ formatNumber(parseFloat(calculadora.amountUsd as string), '.',',',2) }}
+                            {{ formatNumber(
+                                parseFloat(calculadora.amountUsd as string),
+                                ',',
+                                '.'
+                                ,2
+                                )
+                            }}
                             USD</b
                         >
                         apróximadamente

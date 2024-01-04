@@ -1,5 +1,13 @@
 <template>
     <VForm ref="formRef" @submit="valid" >
+        <div class="d-flex mb-4" style="flex-flow: column; gap: 12px">
+            <VAlert type="warning" v-if="permitValidatePhone || !isPhoneValid">
+                Verificar Teléfono
+            </VAlert>
+            <VAlert type="warning" v-if="!userAuth?.attributes.email_verified_at">
+                Verificar Correo
+            </VAlert>
+        </div>
         <VRow>
             <VCol sm="6" cols="12">
                 <NewInputComponentVue 

@@ -1,6 +1,7 @@
 import { ROLES } from "@/interfaces/Role/Role.enum"
 import type { RouteRecordRaw } from "vue-router"
-import { checkedRole } from "./middleware"
+import { checkedRole, checkedVerificationsUser } from "./middleware"
+import { VERIFICATEDS } from "@/interfaces/User/User.enum"
 
 const security: RouteRecordRaw[] = []
 
@@ -14,9 +15,16 @@ const generals: RouteRecordRaw[] = [
         meta: {
             roles: [
                 ROLES.USER
+            ],
+            verificateds: [
+                VERIFICATEDS.EMAIL,
+                VERIFICATEDS.PHONE
             ]
         },
-        beforeEnter: checkedRole
+        beforeEnter: [
+            checkedRole,
+            checkedVerificationsUser
+        ]
     },
     {
         name: "user-check-buy",
@@ -27,9 +35,16 @@ const generals: RouteRecordRaw[] = [
         meta: {
             roles: [
                 ROLES.USER
+            ],
+            verificateds: [
+                VERIFICATEDS.EMAIL,
+                VERIFICATEDS.PHONE
             ]
         },
-        beforeEnter: checkedRole
+        beforeEnter: [
+            checkedRole,
+            checkedVerificationsUser
+        ]
     },
     {
         name: "user-check-sell",
@@ -40,9 +55,16 @@ const generals: RouteRecordRaw[] = [
         meta: {
             roles: [
                 ROLES.USER
+            ],
+            verificateds: [
+                VERIFICATEDS.EMAIL,
+                VERIFICATEDS.PHONE
             ]
         },
-        beforeEnter: checkedRole
+        beforeEnter: [
+            checkedRole,
+            checkedVerificationsUser
+        ]
     },
     {
         name: "user-buy",
@@ -52,9 +74,16 @@ const generals: RouteRecordRaw[] = [
         meta: {
             roles: [
                 ROLES.USER
+            ],
+            verificateds: [
+                VERIFICATEDS.EMAIL,
+                VERIFICATEDS.PHONE
             ]
         },
-        beforeEnter: checkedRole
+        beforeEnter: [
+            checkedRole,
+            checkedVerificationsUser
+        ]
     },
     {
         name: "user-sell",
@@ -64,9 +93,16 @@ const generals: RouteRecordRaw[] = [
         meta: {
             roles: [
                 ROLES.USER
+            ],
+            verificateds: [
+                VERIFICATEDS.EMAIL,
+                VERIFICATEDS.PHONE
             ]
         },
-        beforeEnter: checkedRole
+        beforeEnter: [
+            checkedRole,
+            checkedVerificationsUser
+        ]
     },
     {
         name: "user-transactions",
@@ -112,9 +148,16 @@ const generals: RouteRecordRaw[] = [
         meta: {
             roles: [
                 ROLES.USER
+            ],
+            verificateds: [
+                VERIFICATEDS.EMAIL,
+                VERIFICATEDS.PHONE
             ]
         },
-        beforeEnter: checkedRole
+        beforeEnter: [
+            checkedRole,
+            checkedVerificationsUser
+        ]
     },
 ]
 
@@ -139,9 +182,16 @@ const configurations: RouteRecordRaw[] = [
         meta: {
             roles: [
                 ROLES.USER
+            ],
+            verificateds: [
+                VERIFICATEDS.EMAIL,
+                VERIFICATEDS.PHONE
             ]
         },
-        beforeEnter: checkedRole
+        beforeEnter: [
+            checkedRole,
+            checkedVerificationsUser
+        ]
     },
 ]
 export default [

@@ -1,5 +1,6 @@
 <template>
     <h2 class="text-table font-weight-bold">{{ $t('views.profile.title') }}</h2>
+    
 
     <!-- <v-card > -->
         <div class="border-b-md">

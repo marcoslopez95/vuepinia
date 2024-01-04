@@ -1,7 +1,21 @@
 <template>
     <VRow>
         <VCol cols="12" class="text-primary text-center">
-            <h3>Pago de compra #{{ order.attributes.tranx_no }}</h3>
+            <h3>Pago de compra #{{ order.attributes.tranx_no }}
+            </h3>
+        </VCol>
+        <VCol cols="12"
+
+            class="text-center"
+            :class="{
+                'text-success': getStatusOrder === StatusOrder.ORDER_COMPLETED,
+                'text-error': getStatusOrder === StatusOrder.ORDER_CANCELED,
+                'text-table': getStatusOrder !== StatusOrder.ORDER_COMPLETED && getStatusOrder !== StatusOrder.ORDER_CANCELED ,
+            }"
+            >
+            <h3>
+                {{ order.relationships?.status.attributes.name }}
+            </h3>
         </VCol>
         <VCol cols="12" class="">
             <instructions-modal :order="order"></instructions-modal>
@@ -96,11 +110,12 @@
         <VCol cols="12" lg="6" class="">
             <UploadImageComponent
                 :class-input="[
-                    'd-flex h-100 flex-column justify-center align-center',
+                    'd-flex h-100 flex-column justify-center align-center ',
                 ]"
                 style="height: 200px"
                 v-model="comprobant"
                 text="Sube tu comprobante de pago"
+                :disabled=" getStatusOrder === StatusOrder.ORDER_COMPLETED || getStatusOrder === StatusOrder.ORDER_CANCELED"
             ></UploadImageComponent>
         </VCol>
         <VCol
@@ -160,6 +175,7 @@ import { reactive } from "vue";
 import { useRouter } from "vue-router";
 import { StatusOrder } from "@/enums/StatusOrder.enum";
 import InstructionsModal from "@/views/user/Compra/CheckBuy/components/InstructionsModal.vue";
+import { OrderTypes } from "@/enums/OrderTypes.enum";
 
 const router = useRouter();
 const props = defineProps<{
@@ -171,6 +187,9 @@ const form = reactive<OrderUploadVoucher>({
     order_id: props.order.id,
     vouchers: [],
 });
+
+
+
 const getStatusOrder = computed( () : StatusOrder =>  props.order?.relationships?.status.id as StatusOrder)
 const helper = helperStore();
 const transactionStore = TransactionStore();

@@ -320,7 +320,7 @@ export const formatNumber = (
   let roundedNumber: number;
 
   if (number - partInt > 0) {
-    roundedNumber = parseFloat(number.toFixed(decimals));
+    roundedNumber = decimals > 0 ? parseFloat(number.toPrecision(decimals)) : parseFloat(number.toFixed(decimals));
   } else {
     roundedNumber = partInt;
     decimals = 0;

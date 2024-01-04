@@ -189,3 +189,9 @@ html {
 //   -ms-border-radius: 20px!important;
 //   -o-border-radius: 20px!important;
 // }
+
+.disabled {
+  user-select: none;
+  opacity: 50%;
+  pointer-events: none;
+}
