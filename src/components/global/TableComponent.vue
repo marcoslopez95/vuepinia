@@ -99,7 +99,7 @@ const openConfirmModal = (id: number) => {
   title.value = deleted ? t('general-views.restore.title') : ( props.textDelete ? 'Desactivar' : t('general-views.delete.title'))
   content.value = deleted ? t('general-views.restore.content') : (props.textDelete ? "¿Estás seguro de desactivar?":t('general-views.delete.content'))
   title.value += ` ${props.singularName ?? ''}`
-  content.value += ` ${props.singularName ?? ''}?`
+  content.value += ` ${props.singularName ?? ''}`
   idAccount.value = id
   dialogAction.value = true
 }

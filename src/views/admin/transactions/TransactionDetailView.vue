@@ -63,7 +63,7 @@
                     </div>
                     <user-detail class="mt-3"></user-detail>
                     <UploadImageComponent
-                        v-if="order.attributes.type == OrderTypes.VENTA"
+                        v-if="order.attributes.type == OrderTypes.VENTA && order!.attributes.processed_by"
                         :sizeImage="421"
                         style="width: 421px"
                         text="Subir comprobante de pago"
@@ -108,11 +108,11 @@
             </VCol>
         </VRow>
        
-        <VRow v-if="!verifyOrderCompleted">
+        <VRow v-if="!verifyOrderCompleted ">
             <VCol>
                 <div
                     class="text-center"
-                    v-if="order.attributes.type == OrderTypes.VENTA"
+                    v-if="order.attributes.type == OrderTypes.VENTA && order!.attributes.processed_by"
                 >
                     <VBtnSecondary
                         :disabled="voucher == ''"
