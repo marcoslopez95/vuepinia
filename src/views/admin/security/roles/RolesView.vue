@@ -23,6 +23,7 @@
     <create-or-edit-role
         v-if="helper.clickIn == 'Edit' || helper.clickIn == 'Create'"
         :role="role"
+        @create-or-update="helper.index()"
         >
     </create-or-edit-role>
 </template>
@@ -43,7 +44,7 @@ import type { Role } from "@/interfaces/Role/Role.model";
 const helper = helperStore();
 helper.url = "roles";
 helper.index();
-
+helper.clickIn = ''
 const search = ref<string>("");
 const getSearch = () => {
     helper.index({

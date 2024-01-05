@@ -80,6 +80,9 @@ import type { Role } from "@/interfaces/Role/Role.model";
 import { ref } from "vue";
 import type { Method } from "axios";
 
+const emits = defineEmits<{
+    (e: 'create-or-update' ):void
+}>()
 const props = defineProps<{
     role?: Role
 }>()
@@ -148,6 +151,7 @@ const storeRole = async () => {
     const data = form
     const res = await helper.http(url, method, { data }, message)
     clearForm()
+    emits('create-or-update')
 }
 
 const clearForm = () => {
