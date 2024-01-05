@@ -9,7 +9,6 @@
     <TableComponentVue
     optionsHabilit
     icon-update
-    icon-delete
     :headers="headers"
     @update="openUpdate"
     :items="helper.items"
