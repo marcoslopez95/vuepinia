@@ -19,7 +19,7 @@ export declare interface ExternalDepositAttributes {
     // tranx_no?: any;
     // reference_currency_id?: any;
     // exchange_reference: number;
-    // total_exchange_reference: number;
+    total_exchange_reference: number;
     // local_currency_id: number;
     // exchange_local: number;
     total_exchange_local: number;

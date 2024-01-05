@@ -29,6 +29,7 @@
                         :class="field.fieldClass"
                         :rules="field.rules"
                         :label="field.label"
+                        :disabled="helper.clickIn == 'Show'"
                         :style="
                             field.fieldStyle && field.fieldStyle.length > 0
                                 ? field.fieldStyle
@@ -37,6 +38,7 @@
                     />
                     <SelectComponent
                         v-else-if="field.type === 'select'"
+                        :disabled="helper.clickIn == 'Show'"
                         :items="(field.select!.items as any)"
                         v-model="form[field.valueForm]"
                         :name="field.label"
@@ -69,6 +71,7 @@
                         v-else-if="field.type === 'image'"
                         v-model="form[field.valueForm]"
                         :text="field.label"
+                        :disabled="helper.clickIn == 'Show'"
                         :label="field.text"
                         :style="
                             field.fieldStyle && field.fieldStyle.length > 0
@@ -105,6 +108,7 @@
                     ></TelInput>
                     <InputComponent
                         v-else
+                        :disabled="helper.clickIn == 'Show'"
                         v-model="form[field.valueForm]"
                         :type="field.type"
                         :class="field.fieldClass"

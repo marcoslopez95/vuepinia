@@ -88,6 +88,7 @@ const openUpdate = (item: ExternalDeposit) => {
         received_amount: item.attributes.received_amount,
         total_exchange_local: formatNumber(item.attributes.total_exchange_local),
         currency_price: item.attributes.currency_price,
+        total_exchange_reference: item.attributes.total_exchange_reference,
         fec_pay: item.attributes.fec_pay
     }
     formCrud.value = itemUpdate

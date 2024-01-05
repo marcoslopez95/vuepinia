@@ -29,7 +29,7 @@
         <template #item="{item,props}">
             <VListItem 
                 class="text-primary" 
-                @click="selectItem(item.value)"
+                @click="!disabled ? selectItem(item.value):''"
                 :active="activeItem(item.value)"
                 >
                 <slot name="title" :item="props">
