@@ -5,7 +5,7 @@ import LogoDark from "../logo/LogoDark.vue";
 import { useRoute, useRouter } from "vue-router";
 import type { StyleValue } from "vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
-import type { SidebarItem } from "@/interfaces/SidebarItems.interface";
+import type { SidebarChildren, SidebarItem } from "@/interfaces/SidebarItems.interface";
 import ConfigurationIcon from "@/assets/icons/sidebar/ConfigurationIcon.vue";
 import { computed } from "vue";
 import { getUserAuth, helperStore } from "@/helper";
@@ -33,7 +33,7 @@ const sidebarMenu = computed(() => {
 // const sidebarMenu = ref<SidebarItem[]>(sidebarItems);
 const verifyWidthWindow = ref(useDisplay().mdAndUp);
 const router = useRouter();
-
+const route = useRoute()
 const isActiveForBorder = (to: string): StyleValue => {
     return {
         // Add a CSS Custom Property
@@ -62,6 +62,16 @@ const getCountOrders = async () => {
 }
 
 getCountOrders()
+
+const activeSubmenu = (children: SidebarChildren):boolean => 
+{
+    
+    if(route.query.type && route.query.type === children.params?.type)
+    {
+        return true
+    }
+    return false
+}
 </script>
 
 <template>
@@ -126,7 +136,7 @@ getCountOrders()
                             v-for="(children, i) in item.children"
                             :key="i"
                             :to="children.to ? { name: children.to, query: children.params } : '#'"
-                            :active="false"
+                            :active="activeSubmenu(children)"
                         >
                             <v-list-item-title
                                 v-text="children.title"
