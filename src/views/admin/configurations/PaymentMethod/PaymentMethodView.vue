@@ -8,9 +8,7 @@
 
     <CrudComponent :singular="$t('views.type-company-account.title')" :rows="rows"></CrudComponent>
     <TableComponentVue
-    optionsHabilit
-    icon-update
-    icon-delete
+    :optionsHabilit="false"
     :headers="headers"
     @update="openUpdate"
     :items="helper.items"
