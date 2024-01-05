@@ -15,6 +15,7 @@ export declare interface EfectyAccountAttributes {
     link:string
     recommendation:string
     coordinate:string
+    limit: number
 }
 
 export declare interface EfectyAccountRelationships {

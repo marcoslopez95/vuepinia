@@ -61,6 +61,7 @@ const openUpdate = (item:EfectyAccount) => {
     itemH.value = item
     const itemUpdate: EfectyAccountCreate = {
         account_number: item.attributes.account_number,
+        limit: item.attributes.limit,
         beneficiary: item.attributes.beneficiary,
         currency_id: item.relationships!.currency.id,
         description: item.attributes.description,
@@ -104,6 +105,16 @@ const rows: Row[] = [
                     itemTitle: 'attributes.name',
                     itemValue: 'id',
                 },
+                
+            },
+            {
+                label: t('views.company-accounts.bank.limit'),
+                valueForm: 'limit',
+                colClass: ['v-col-12 v-col-sm-6'],
+                rules: [
+                    validator.required
+                ],
+                type: 'number',
                 
             },
         ]
