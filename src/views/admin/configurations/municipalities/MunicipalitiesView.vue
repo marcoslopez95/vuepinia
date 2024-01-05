@@ -47,7 +47,9 @@ const { departaments } = storeToRefs(municipalityStore)
 const openUpdate = (item: Municipality) => {
     itemH.value = item
     const itemUpdate: MunicipalityCreate = {
-        name: item.attributes.name
+        name: item.attributes.name,
+        department_id: item.relationships?.department.id
+    
     }
     formCrud.value = itemUpdate
     openModalCrud.value = true;
@@ -103,7 +105,7 @@ const headers: Head[] = [
     },
     {
         name: t('views.departaments.title'),
-        value: 'relationships.departament.attributes.name',
+        value: 'relationships.department.attributes.name',
     },
 
 ]
