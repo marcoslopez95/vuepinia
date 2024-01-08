@@ -10,7 +10,7 @@
                 }}</span>
             </div>
             <div v-if="!inModal">
-                <VBtn @click="emits('back')">Atrás</VBtn>
+                <VBtn @click="emits('back')">Atrás</VBtn> 
             </div>
         </div>
 
@@ -75,7 +75,7 @@
 
         <!-- <v-card-text> -->
         <v-window v-model="tabActive" class="mt-5">
-            <Component inModal="inModal" :key="tabActive" :is="tabActive" :user="user" />
+            <Component :inModal="inModal" :key="tabActive" :is="tabActive" :user="user" />
         </v-window>
     </div>
 </template>

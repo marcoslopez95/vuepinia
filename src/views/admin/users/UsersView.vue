@@ -105,7 +105,7 @@
             helper.url = 'users';
             getSearch()
         ">
-        <detail-user-view :user="userModal!"></detail-user-view>
+        <detail-user-view in-modal :user="userModal!"></detail-user-view>
     </dialog-global>
     <send-message
         ref="sendMessageRef"
@@ -114,15 +114,10 @@
         :type="typeNotification!"
     >
     </send-message>
-    <DetailUserView
+    <detail-user-view
         v-if="userSelect && helper.clickIn == 'Show'"
         :user="userSelect!"
-        @back="
-            userSelect = undefined;
-            helper.clickIn = '';
-            helper.url = 'users';
-            getSearch()
-        "
+        @back="back"
     />
 </template>
 
@@ -220,6 +215,7 @@ const {
 
 const user = (item:unknown):User =>  item as User
 
+const back = () => window.location.reload()
 
 const rows: Row[] = [
     {
@@ -455,6 +451,7 @@ const openUpdate = (user: User) => {
         role_id: user.relationships?.roles[0].id ?? ''
     }
     formCrud.value = itemUpdate
+    itemH.value = user;
     openModalCrud.value = true;
 }
 

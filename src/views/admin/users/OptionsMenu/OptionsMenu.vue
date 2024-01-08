@@ -39,16 +39,16 @@ const emits = defineEmits<{
 }>()
 
 const items:ItemIcon[] = [
-    {
-        title: t('views.users.activity'),
-        event: () => emits('click:activity',props.user),
-        icon: ActivityIcon
-    },
-    {
-        title: t('views.user.resend-verification'),
-        event: () => emits('click:resend-verification',props.user),
-        icon: ResendIcon
-    },
+    // {
+    //     title: t('views.users.activity'),
+    //     event: () => emits('click:activity',props.user),
+    //     icon: ActivityIcon
+    // },
+    // {
+    //     title: t('views.user.resend-verification'),
+    //     event: () => emits('click:resend-verification',props.user),
+    //     icon: ResendIcon
+    // },
     {
         title: t('views.user.send-sms'),
         event: () => emits('click:send-sms',props.user),
