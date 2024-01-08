@@ -10,7 +10,7 @@
 
     <CrudComponent 
         :singular="$t('views.currencies.title')" 
-        :rows="rows"
+        :rows="rowSelected"
         @click:post="postCurrency"
     >
     </CrudComponent>
@@ -36,7 +36,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import CrudComponent from '@/components/global/CrudComponent.vue';
 import TableComponentVue from '@/components/global/TableComponent.vue';
 import { helperStore, itemHaveImages } from '@/helper';
@@ -100,6 +100,13 @@ const {
     clickIn,
     formRef,
     item:itemH} = storeToRefs(helper)
+
+const rowSelected = computed(()=> {
+    if(formCrud.value.type_currency_id === 1){
+        return rowsFiat
+    }
+    return rows
+})
 const rows: Row[] = [
     {
         fields: [
@@ -195,6 +202,82 @@ const rows: Row[] = [
                 rules: [
                     validator.required
                 ]
+            },
+        ]
+    },
+    {
+        fields: [
+            {
+                label: t('views.currencies.image'),
+                type: 'image',
+                valueForm: 'icon',
+                rules: [ ],
+                props: {
+                    sizeImage: 100
+                }
+            },
+            {
+                label: t('general-views.color'),
+                type: 'color',
+                valueForm: 'color',
+            },
+        ]
+    }
+]
+
+const rowsFiat: Row[] = [
+    {
+        fields: [
+            {
+                label: t('general-views.name'),
+                type: 'text',
+                valueForm: 'name',
+                rules: [
+                    validator.required
+                ],
+                colClass: ['v-col-12 v-col-sm-6']
+            },
+            {
+                label: t('views.currencies.abbreviation'),
+                type: 'text',
+                valueForm: 'abbreviation',
+                colClass: ['v-col-12 v-col-sm-6'],
+                rules: [
+                    validator.required
+                ]
+            },
+            {
+                label: t('views.currencies.symbol'),
+                type: 'text',
+                valueForm: 'symbol',
+                colClass: ['v-col-12 v-col-sm-6'],
+                rules: [
+                    validator.required
+                ]
+            },
+            {
+                label: t('views.currency-types.title'),
+                type: 'select',
+                valueForm: 'type_currency_id',
+                colClass: ['v-col-12 v-col-sm-6'],
+                rules: [
+                    validator.required
+                ],
+                select: {
+                    items: currencyTypes,
+                    itemTitle: 'attributes.name',
+                    itemValue: 'id'
+                }
+            }
+        ]
+    },
+    {
+        fields: [
+            {
+                label: t('views.currencies.reference'),
+                type: 'switch',
+                valueForm: 'reference_system_currency',
+                rules: []
             },
         ]
     },

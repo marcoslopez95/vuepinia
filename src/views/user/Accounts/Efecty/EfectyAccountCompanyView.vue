@@ -63,6 +63,7 @@ const { banks,currencies,paymentMethods,typeBankAccounts } = storeToRefs(company
 const openUpdate = (item:EfectyAccount) => {
     itemH.value = item
     const itemUpdate: EfectyAccountCreate = {
+        limit: item.attributes.limit,
         account_number: item.attributes.account_number,
         beneficiary: item.attributes.beneficiary,
         currency_id: item.relationships!.currency.id,
