@@ -261,6 +261,7 @@ import type { User } from "@/interfaces/User/User.model";
 const props = defineProps<{
     user?: User
     dashboard?: Boolean
+    inModal?: boolean,
 }>()
 const helper = helperStore();
 helper.url = "order";
@@ -316,6 +317,9 @@ const openDetailOrder = (order: Order) => {
             numTransaction: order.attributes.tranx_no,
         },
     });
+    if(props.inModal){
+        window.location.reload();
+    }
 };
 const { t } = useI18n();
 const {

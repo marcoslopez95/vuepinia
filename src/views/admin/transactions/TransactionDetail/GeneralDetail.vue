@@ -78,7 +78,7 @@
     </div>
 
     <dialog-global :dialog="openDetailUser" @close-dialog="openDetailUser = false">
-        <detail-user-view :user="user!"></detail-user-view>
+        <detail-user-view in-modal :user="user!"></detail-user-view>
     </dialog-global>
 </template>
 

@@ -17,8 +17,8 @@ const generals: RouteRecordRaw[] = [
                 ROLES.USER
             ],
             verificateds: [
-                VERIFICATEDS.EMAIL,
-                VERIFICATEDS.PHONE
+                // VERIFICATEDS.EMAIL,
+                // VERIFICATEDS.PHONE
             ]
         },
         beforeEnter: [
@@ -37,8 +37,8 @@ const generals: RouteRecordRaw[] = [
                 ROLES.USER
             ],
             verificateds: [
-                VERIFICATEDS.EMAIL,
-                VERIFICATEDS.PHONE
+                // VERIFICATEDS.EMAIL,
+                // VERIFICATEDS.PHONE
             ]
         },
         beforeEnter: [

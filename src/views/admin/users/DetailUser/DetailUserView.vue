@@ -9,7 +9,7 @@
                     user.attributes.username
                 }}</span>
             </div>
-            <div>
+            <div v-if="!inModal">
                 <VBtn @click="emits('back')">Atrás</VBtn>
             </div>
         </div>
@@ -75,7 +75,7 @@
 
         <!-- <v-card-text> -->
         <v-window v-model="tabActive" class="mt-5">
-            <Component :key="tabActive" :is="tabActive" :user="user" />
+            <Component inModal="inModal" :key="tabActive" :is="tabActive" :user="user" />
         </v-window>
     </div>
 </template>
@@ -94,6 +94,7 @@ import UserReferredList from '@/views/user/Refer/UsersReferredList.vue'
 
 const props = defineProps<{
     user: User;
+    inModal?: boolean,
 }>();
 const emits = defineEmits<{
     (e: "back"): void;
