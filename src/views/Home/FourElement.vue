@@ -13,7 +13,7 @@
                 data-aos-duration="1000"
             >
                 <div>
-                    <!-- <VIcon :size="isMobile ? 360 : 500" :icon="img1" /> -->
+                    <VIcon :size="isMobile ? 360 : 500" :icon="img1" />
                 </div>
                 <div
                     class="text-justify"
@@ -73,7 +73,7 @@
                 :class="isMobile ? 'fond_monedas ' : ''"
             >
                 <div>
-                    <!-- <VIcon :size="isMobile ? 360 : 500" :icon="img2" /> -->
+                    <VIcon :size="isMobile ? 360 : 500" :icon="img2" />
                 </div>
                 <div class="text-justify">
                     <p  
@@ -103,8 +103,8 @@
 </template>
 
 <script setup lang="ts">
-// import img1 from "./FourElement/img1.vue";
-// import img2 from "./FourElement/img2.vue";
+import img1 from "./FourElement/img1.vue";
+import img2 from "./FourElement/img2.vue";
 import { ref } from "vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
 import { onMounted } from "vue";
