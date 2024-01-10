@@ -59,9 +59,14 @@ export function checkedVerificationsUser(
     const user = getUserAuth()
 
     const verificateds:string[] = to.meta.verificateds as string[];
+    if(verificateds.length === 0) next()
+    console.log('verificateds',verificateds)
+    console.log('user',user)
     const allVerificateds = verificateds
                                 .map( (v) => user[v as keyof UserAuth] )
-                                .every(v => v)
+                                .every((v) => v)
+    console.log('allVerificateds',allVerificateds)
+                                
     if(allVerificateds){
         next()
     }
