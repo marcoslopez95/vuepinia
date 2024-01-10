@@ -52,6 +52,7 @@ import { CurrencyStore } from '@/stores/CurrencyStore';
 
 const helper = helperStore()
 helper.url = 'currency'
+helper.pagination.currentPage = 1
 
 helper.index()
 const currencyStore = CurrencyStore()

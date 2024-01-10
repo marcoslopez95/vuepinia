@@ -35,6 +35,7 @@ import SearchInputComponentVue from '@/components/global/SearchInputComponent.vu
 import * as validator from '@/validator'
 const helper = helperStore()
 helper.url = 'type/company/bank/accounts'
+helper.pagination.currentPage = 1
 
 helper.index()
 const search = ref<string>('')

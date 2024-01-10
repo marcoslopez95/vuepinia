@@ -19,6 +19,7 @@ import { ref } from "vue";
 
 const helper = helperStore();
 helper.url = "users/activity/user/active/session";
+helper.pagination.currentPage = 1
 
 helper.index();
 

@@ -36,6 +36,7 @@ import * as validator from '@/validator'
 import { CurrencyStore } from '@/stores/CurrencyStore';
 const helper = helperStore()
 helper.url = 'type/currency'
+helper.pagination.currentPage = 1
 
 helper.index()
 

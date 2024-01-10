@@ -40,6 +40,7 @@ import { PAYMENT_METHODS_AVAILABLE } from '@/enums/PaymentMethod.enum';
 import { onUnmounted } from 'vue';
 const helper = helperStore()
 helper.url = 'sub/payment/type'
+helper.pagination.currentPage = 1
 helper.index()
 helper.defaultParamsByCrud = {
     payment_method_id: PAYMENT_METHODS_AVAILABLE.OTHER

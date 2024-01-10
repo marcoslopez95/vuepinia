@@ -146,6 +146,7 @@ import RemovePenalty from "./RemovePenalty.vue";
 
 const helper = helperStore();
 helper.url = "users";
+helper.pagination.currentPage = 1
 
 const role_id = ref<number | "">("");
 const openDetailUser = ref(false)

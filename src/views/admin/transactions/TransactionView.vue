@@ -271,6 +271,7 @@ helper.defaultParams = {
     types: type1,
     user_id: props.user?.id
 }
+helper.pagination.currentPage = 1
 watch(()=> route.query, (nuevo,viejo)=> {
     if(route.name != 'admin-transactions') return
     const { type } = route.query

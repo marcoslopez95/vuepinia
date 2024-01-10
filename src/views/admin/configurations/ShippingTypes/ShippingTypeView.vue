@@ -41,6 +41,7 @@ import type { ShippingTypeCreate } from '@/interfaces/ShippingType/ShippingType.
 import { ShippingTypeStore } from '@/stores/ShippingTypeStore';
 const helper = helperStore()
 helper.url = 'shipping/types'
+helper.pagination.currentPage = 1
 
 helper.index()
 

@@ -41,6 +41,7 @@ const helper = helperStore()
 helper.url = 'company/account'
 helper.defaultParams.payment_type_id = PAYMENT_METHODS_AVAILABLE.EFECTY
 helper.defaultParamsByCrud.payment_type_id = PAYMENT_METHODS_AVAILABLE.EFECTY
+helper.pagination.currentPage = 1
 helper.index()
 
 const search = ref<string>('')

@@ -50,6 +50,7 @@ helper.url = "client/wallet";
 helper.defaultParams = {
     company_payment_address : '0'
 }
+helper.pagination.currentPage = 1
 helper.index();
 const walletStore = WalletStore();
 walletStore.getCurrencies();

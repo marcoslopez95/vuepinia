@@ -166,6 +166,7 @@ const router = useRouter();
 const helper = helperStore();
 helper.url = "order";
 // helper.url = 'client/wallet/adress/wallet'
+helper.pagination.currentPage = 1
 
 const order = (item: unknown): Order => item as Order;
 helper.index();

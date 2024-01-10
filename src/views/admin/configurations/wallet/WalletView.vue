@@ -48,6 +48,7 @@ import * as validator from '@/validator'
 import { WalletStore } from '@/stores/WalletStore';
 const helper = helperStore()
 helper.url = 'company/wallet'
+helper.pagination.currentPage = 1
 
 helper.index()
 const walletStore = WalletStore()

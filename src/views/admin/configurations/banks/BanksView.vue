@@ -51,6 +51,8 @@ import { BankStore } from '@/stores/BankStore'
 import * as validator from '@/validator'
 const helper = helperStore()
 helper.url = 'banks'
+helper.pagination.currentPage = 1
+
 helper.index()
 
 const bankStore = BankStore()
