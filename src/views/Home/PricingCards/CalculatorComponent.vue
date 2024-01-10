@@ -45,6 +45,7 @@
                                 <VTextarea
                                     auto-grow
                                     rows="1"
+                                    inputmode="numeric"
                                     bg-color="white"
                                     hide-details
                                     id="algo"
@@ -88,6 +89,7 @@
                                 rows="1"
                                     bg-color="white"
                                     hide-details
+                                    inputmode="numeric"
                                     class="font-22"
                                     :label="showBuy ? 'Recibes' : 'Vendes'"
                                     variant="solo"

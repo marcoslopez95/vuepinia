@@ -12,6 +12,7 @@
                 >
                     <TextTareaComponent
                         v-model="amountFiat"
+                        inputmode="numeric"
                         :events="eventsFiat"
                         :rules="[onlyNumbers]"
                         name=""
@@ -44,6 +45,7 @@
                         v-model="amountCrypto"
                         :events="eventsCrypto"
                         :rules="[onlyNumbers]"
+                        inputmode="numeric"
                         name=""
                         :appendText="priceSelect?.symbol"
                     >

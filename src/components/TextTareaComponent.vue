@@ -11,6 +11,7 @@
             :id="idElement"
             :rounded="40" 
             variant="filled" 
+            :inputmode="inputmode ?? 'text'"
             class="ma-0 pa-0" 
             auto-grow
             rows="1"
@@ -73,6 +74,7 @@ const props = defineProps<{
     idElement?: string
     appendText?: string
     maxHeightField?: string
+    inputmode?: string
 }>()
 const { modelValue:mValue } = toRefs(props)
 const helper = helperStore()
