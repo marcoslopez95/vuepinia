@@ -144,7 +144,7 @@ const rows: Row[] = [
                 rules: [],
                 type: "phone",
                 phone: {
-                    fieldCode: "code",
+                    fieldCode: "code_phone",
                     fieldPhone: "phone",
                     fieldValid: "phoneIsValid",
                 },

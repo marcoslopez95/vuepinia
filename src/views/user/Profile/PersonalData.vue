@@ -248,6 +248,12 @@ const getUserData = () => {
         form.username = userAuth.value?.attributes.username ?? '' 
         form.type_documents_id = userAuth.value?.relationships?.userDetail.attributes.type_documents_id ?? ''
         form.nationality_id = userAuth.value?.relationships?.userDetail.attributes.nationality_id ?? ''
+
+        const user = getUserAuth()
+        user.phone_verified_at = userAuth.value?.attributes.phone_verified_at
+        user.email_verified_at = userAuth.value?.attributes.email_verified_at
+
+        localStorage.setItem('user',JSON.stringify(user))
     })
 }
 

@@ -1,6 +1,6 @@
 <template>
     <div class="text-center mt-2">
-        <VBtn :disabled="!isValidPhone" @click="openModal">Validar</VBtn>
+        <VBtn  @click="openModal">Validar</VBtn>
     </div>
     <DialogGlobalVue
     :dialog="openDialog"
