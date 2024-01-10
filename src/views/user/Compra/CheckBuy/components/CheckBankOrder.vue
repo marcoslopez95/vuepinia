@@ -64,9 +64,9 @@
                 Realizar pago y sube el comprobante de pago
             </h3>
         </VCol>
-        <VCol cols="12" lg="6" class="my-6 h-100" style="height: 200px;">
-            <div class=" mx-auto v-text-field__slot h-100" style="width: 300px;">
-                <div class=" mt-2">
+        <VCol cols="12" lg="6" class="my-6 " style="height: 300px;">
+            <div class="d-flex flex-column mx-auto v-text-field__slot h-100" style="width: 300px;">
+                <div class=" my-auto">
                     <VImg
                         v-if="getImageBank()"
                         :src="(getImageBank() as string)"
@@ -81,7 +81,7 @@
                         }}
                     </span>
                 </div>
-                <div class="text-left mx-5 my-6 text-table font-weight-bold">
+                <div class="text-left mx-5 my-auto text-table font-weight-bold">
                     <span
                         >Titular:
                         {{ accountDelivery.attributes.beneficiary }}</span
@@ -107,12 +107,12 @@
                 </div>
             </div>
         </VCol>
-        <VCol cols="12" lg="6" class="">
+        <VCol cols="12" lg="6" class="" >
             <UploadImageComponent
                 :class-input="[
                     'd-flex h-100 flex-column justify-center align-center ',
                 ]"
-                style="height: 200px"
+                style="height: 280px"
                 v-model="comprobant"
                 text="Sube tu comprobante de pago"
                 :disabled=" getStatusOrder === StatusOrder.ORDER_COMPLETED || getStatusOrder === StatusOrder.ORDER_CANCELED"

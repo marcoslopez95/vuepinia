@@ -24,7 +24,7 @@
                     v-html="text"
                 ></p>
             </span>
-            <VImg v-else :src="input" width="100%" class="mx-auto"></VImg>
+            <VImg v-else :src="input" width="100%" :max-height="250" class="mx-auto"></VImg>
         </div>
         <div v-if="image" name="kyc" class="mx-4 my-auto">
             <VImg :src="image" height="150" width="145"></VImg>
