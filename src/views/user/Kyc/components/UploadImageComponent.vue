@@ -38,7 +38,7 @@
 <script setup lang="ts">
 import UploadIcon from "@/assets/icons/kyc/UploadIcon.vue";
 import { helperStore } from "@/helper";
-import { ref } from "vue";
+import { ref,toRefs } from "vue";
 import { useI18n } from "vue-i18n";
 import { useDisplay } from "vuetify/lib/framework.mjs";
 
@@ -65,7 +65,8 @@ const props = defineProps<{
     styleInput?: string[];
     disabled?: boolean;
 }>();
-const input = ref(props.modelValue);
+const {modelValue:input} = toRefs(props)
+// const input = ref(modelValue.value);
 const refInput = ref<HTMLInputElement>();
 
 const uploadImage = () => {

@@ -164,7 +164,7 @@ import DialogGlobal from "@/components/global/DialogGlobal.vue";
 import { helperStore } from "@/helper";
 import { TransactionStore } from "@/stores/TransactionStore";
 import UploadImageComponent from "@/views/user/Kyc/components/UploadImageComponent.vue";
-import { ref, computed } from "vue";
+import { ref, computed, toRefs } from "vue";
 import type { BankAccount } from "@/interfaces/CompanyAccount/BankAccount/BankAccount.model";
 import dayjs from "dayjs";
 import { storeToRefs } from "pinia";
@@ -181,28 +181,29 @@ const router = useRouter();
 const props = defineProps<{
     order: Order;
 }>();
+const { order } = toRefs(props)
 
 const form = reactive<OrderUploadVoucher>({
     name: dayjs().toISOString(),
-    order_id: props.order.id,
+    order_id: order.value.id,
     vouchers: [],
 });
 
 
 
-const getStatusOrder = computed( () : StatusOrder =>  props.order?.relationships?.status.id as StatusOrder)
+const getStatusOrder = computed( () : StatusOrder =>  order.value.relationships?.status.id as StatusOrder)
 const helper = helperStore();
 const transactionStore = TransactionStore();
 const openModal = ref(false);
-const accountDelivery = props.order.relationships
+const accountDelivery = order.value.relationships
     ?.account_delivery as BankAccount;
 const alerta = () => alert("se acbo");
-const comprobant = ref<Blob | string>(
-    props.order.relationships!.images.length > 0 &&
-        props.order.relationships?.images[0].attributes.aws_url
-        ? props.order.relationships?.images[0].attributes.aws_url
+const comprobant = computed(():Blob | string=> (
+    order.value.relationships!.images.length > 0 &&
+        order.value.relationships?.images[0].attributes.aws_url
+        ? order.value.relationships?.images[0].attributes.aws_url
         : ''
-);
+));
 const timeSet = dayjs().add(30, "minute").format();
 
 const getImageBank = (): string | false => {
