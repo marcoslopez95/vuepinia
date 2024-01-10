@@ -65,7 +65,7 @@ const { t } = useI18n();
 const helper = helperStore();
 const search = ref<string>("");
 helper.url = "withdrawal/xcop";
-helper.pagination.currentPage = 1
+helper.initView()
 const account = ref({});
 helper.index();
 

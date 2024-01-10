@@ -41,7 +41,7 @@ import * as validator from '@/validator'
 
 const helper = helperStore()
 helper.url = 'reds'
-helper.pagination.currentPage = 1
+helper.initView()
 
 helper.index()
 const search = ref<string>('')

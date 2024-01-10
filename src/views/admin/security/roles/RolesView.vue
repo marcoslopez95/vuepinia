@@ -43,7 +43,7 @@ import { ref } from "vue";
 import type { Role } from "@/interfaces/Role/Role.model";
 const helper = helperStore();
 helper.url = "roles";
-helper.pagination.currentPage = 1
+helper.initView()
 helper.index();
 helper.clickIn = ''
 const search = ref<string>("");

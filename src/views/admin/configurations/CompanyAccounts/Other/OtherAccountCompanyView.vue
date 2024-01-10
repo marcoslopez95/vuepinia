@@ -46,7 +46,7 @@ const helper = helperStore();
 helper.url = "company/account";
 helper.defaultParams.payment_type_id = PAYMENT_METHODS_AVAILABLE.OTHER;
 helper.defaultParamsByCrud.payment_type_id = PAYMENT_METHODS_AVAILABLE.OTHER;
-helper.pagination.currentPage = 1
+helper.initView()
 helper.index();
 
 const search = ref<string>("");

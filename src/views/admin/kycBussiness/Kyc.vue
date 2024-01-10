@@ -56,7 +56,7 @@ const { t } = useI18n();
 const helper = helperStore();
 const search = ref<string>("");
 helper.url = "companys";
-helper.pagination.currentPage = 1
+helper.initView()
 
 helper.index();
 

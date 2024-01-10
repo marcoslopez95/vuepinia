@@ -271,7 +271,14 @@ export const helperStore = defineStore('helper', <T>() => {
 
   }
 
+  const initView = (defaultParamsView = {} , defaultParamsByCrudView = {}):void => {
+    pagination.currentPage = 1
+    defaultParams.value = {}
+    defaultParamsByCrud.value = {}
+  }
+
   return {
+    initView,
     checkedOrBlocked,
     methodVerificatedStatus,
     errorsInput,

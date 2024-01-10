@@ -50,7 +50,7 @@ import dayjs from 'dayjs';
 import type { EventComponent } from '@/interfaces/Components.helper';
 const helper = helperStore()
 helper.url = 'external/purchase'
-helper.pagination.currentPage = 1
+helper.initView()
 helper.index()
 const externalDeposit = ExternalDepositStore()
 externalDeposit.getCurrencies()
