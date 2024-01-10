@@ -9,7 +9,9 @@
                     v-model="twoFactorAuthStore.code"
                     name=""
                     :placeholder="!with2fa() ? 'Contraseña' : 'Código de la aplicación'"
-                    :type="!with2fa() ? 'password' : 'text'"
+                    :type="typeInput"
+                    :appendIcon="appendIcon"
+                    @click:append-icon="showPassword = !showPassword"
                 >
                 </InputComponent>
             </div>
@@ -48,13 +50,27 @@
 import DialogGlobal from './global/DialogGlobal.vue';
 import InputComponent from './InputComponent.vue';
 import { TwoFactorAuthStore } from '@/stores/TwoFactorAuthStore';
+import { ref,computed } from  'vue'
+const showPassword = ref(false);
 
 const twoFactorAuthStore = TwoFactorAuthStore()
 const closeModal = () => {
     twoFactorAuthStore.code = ''
     twoFactorAuthStore.modal = false
 }
+
 const with2fa = ():boolean => !!localStorage.getItem('2fa')
+const appendIcon = computed(():string => {
+    if(with2fa()) return ''
+    if(showPassword.value) return 'mdi-eye-off'
+    return 'mdi-eye'
+})
+
+const typeInput = computed(():string => {
+    if(with2fa()) return 'text'
+    if(showPassword.value) return 'text'
+    return 'password'
+})
 </script>
 
 <style scoped>
