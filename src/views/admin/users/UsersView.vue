@@ -174,7 +174,7 @@ const openModalSendNotification = (
 const search = ref<string>("");
 const getSearch = () => {
     helper.index({
-        name: search.value,
+        user: search.value,
         role_id: role_id.value,
     });
 };

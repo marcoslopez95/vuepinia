@@ -1,7 +1,8 @@
 <template>
     <div v-if="helper.clickIn == ''">
         <div class="d-flex flex-column mb-8 flex-sm-row justify-space-between">
-            <SearchInputComponentVue v-model="search" @onSearch="getSearch" />
+            <!-- <SearchInputComponentVue v-model="search" @onSearch="getSearch" /> -->
+            <div></div>
             <div>
                 <VBtn @click="openComponent(undefined)" prepend-icon="mdi-plus" class="rounded-xl">
                     {{ $t("buttons.add") }}

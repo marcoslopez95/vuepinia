@@ -62,7 +62,7 @@ bankStore.getCountries()
 const search = ref<string>('')
 const getSearch = () => {
     helper.index({
-        type_document: search.value
+        name: search.value
     })
 }
 const openUpdate = (item:Bank) => {
