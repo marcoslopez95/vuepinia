@@ -300,17 +300,21 @@ const images = computed(
 
 const rejectOrAccept = async (type: imageType, action: keyof Actions) => {
     let data: putKyc = {};
+    let front_status  = kyc.value.attributes.front_identity_document_status
+    let back_status   = kyc.value.attributes.reverse_identity_document_status
+    let selfie_status = kyc.value.attributes.selfie_identity_document_status
     const act = actions[action];
     if (type == "back") {
-        data.reverse_identity_document_status = act;
+        data.reverse_identity_document_status = back_status = act;
     } else if (type == "front") {
-        data.front_identity_document_status = act;
+        data.front_identity_document_status = front_status = act;
     } else if (type == "selfie") {
-        data.selfie_identity_document_status = act;
+        data.selfie_identity_document_status = selfie_status =  act;
     }
-    if (action === "reject") {
+    if (front_status == back_status && front_status === selfie_status) {
         data.status_all = act;
     }
+    
     const url = `kyc/verificate/` + helper.item.id;
     const res = (await helper.http(url, "put", { data })).data.response as Kyc;
 
