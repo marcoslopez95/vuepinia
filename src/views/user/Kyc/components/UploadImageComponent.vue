@@ -24,7 +24,7 @@
                     v-html="text"
                 ></p>
             </span>
-            <VImg v-else :src="input" width="100%" :max-height="250" class="mx-auto"></VImg>
+            <VImg v-else :src="img" width="100%" :max-height="250" class="mx-auto"></VImg>
         </div>
         <div v-if="image" name="kyc" class="mx-4 my-auto">
             <VImg :src="image" height="150" width="145"></VImg>
@@ -67,6 +67,10 @@ const props = defineProps<{
 }>();
 const {modelValue:input} = toRefs(props)
 // const input = ref(modelValue.value);
+const img = ref()
+if(typeof input.value == 'string'){
+    img.value = input.value
+}
 const refInput = ref<HTMLInputElement>();
 
 const uploadImage = () => {
@@ -88,7 +92,7 @@ const changeInput = () => {
     //     helper.showNotify(t('commons.invalid-format'), { type: 'error' })
     //     return
     // }
-    input.value = URL.createObjectURL(refInput.value!.files![0]);
+    img.value = URL.createObjectURL(refInput.value!.files![0]);
     emits("update:model-value", refInput.value!.files![0]);
 };
 </script>

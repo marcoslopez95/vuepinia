@@ -3,7 +3,7 @@
     <AlertVerification @exist-kyc="(e) => existKyc = e"/>
     <WarningPersonalData v-model="validPersonalData" @personal-data="setForm" />
 
-    <div v-if="!existKyc || existKyc == KYC_STATUS.REJECT">
+    <div v-if="!existKyc || existKyc == KYC_STATUS.REJECT ">
         <div>
             <p class="text-table mt-4">
                 {{ $t('views.profile.kyc.upload-documents') }}
@@ -80,6 +80,8 @@ import { helperStore } from '@/helper';
 import { useRouter } from 'vue-router';
 import AlertVerification from './AlertVerification/AlertVerification.vue'
 import { KYC_STATUS } from '@/enums/Kyc.enum';
+import { UserStore } from '@/stores/UserStore';
+import { storeToRefs } from 'pinia';
 const helper = helperStore()
 const router = useRouter()
 const { t } = useI18n()
@@ -161,6 +163,15 @@ const sendKyc = () => {
             window.location.reload()
         })
 }
+const userStore = UserStore()
+const { userAuth } = storeToRefs(userStore)
+const partialAccepted = computed(():boolean => {
+    const front_status = userAuth.value?.relationships?.kyc?.attributes?.front_identity_document_status ?? false
+    const back_status = userAuth.value?.relationships?.kyc?.attributes?.reverse_identity_document_status ?? false
+    const selfie_status = userAuth.value?.relationships?.kyc?.attributes?.selfie_identity_document_status ?? false
+    const status = [front_status,back_status,selfie_status]
+    return status.some(v => v === KYC_STATUS.REJECT)
+})
 //--------------------------
 interface ImagesKyc {
     image: string
