@@ -105,7 +105,7 @@
                             <v-otp-input
                                 v-model="secondCode"
                                 color="primary"
-                                length="4"
+                                length="6"
                                 variant="underlined"
                                 height="81"
                                 width="300"
@@ -166,7 +166,7 @@ const props = defineProps<{
 const secondCode = ref("");
 
 watch(secondCode, (nuevo, viejo) => {
-    if (nuevo.length > 4) {
+    if (nuevo.length > 6) {
         secondCode.value = viejo;
     }
 });
