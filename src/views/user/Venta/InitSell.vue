@@ -12,7 +12,12 @@
     <SelectAccount v-if="paymentMethod && paymentMethod.id != PAYMENT_METHODS_AVAILABLE.EFECTY" 
         :paymentMethod="paymentMethod" 
         v-model="itemDetailSelected">
-    </SelectAccount>        
+    </SelectAccount>
+    <EfectyComponent 
+        v-if="paymentMethod?.id == PAYMENT_METHODS_AVAILABLE.EFECTY" 
+        :items-details="itemsDetails"
+        v-model="itemDetailSelected"
+        />
     <div class="mt-5" v-if="itemDetailSelected">
         <h3 class="text-primary">
             {{ $t('views.sell.amount') }}
@@ -57,12 +62,14 @@ import type { BankAccount } from '@/interfaces/CompanyAccount/BankAccount/BankAc
 import type { OtherAccount } from '@/interfaces/CompanyAccount/OtherAccount/OtherAccount.model';
 import { helperStore } from '@/helper';
 import CalculadoraComponent from '../components/intercambio/CalculadoraComponent.vue';
+import EfectyComponent from "./../components/intercambio/PaymentMethods/EfectyComponent.vue";
 
 import type { Calculator } from '@/interfaces/Calculadora.interface'
 import { storeToRefs } from 'pinia';
 import SelectAccount from './components/intercambio/PaymentMethods/SelectAccount.vue';
 import { ConfirmOrderStore } from '../Compra/CompraStore';
 import { GeneralConfiguration } from '@/stores/GeneralConfiguration';
+import type { EfectyAccount } from '@/interfaces/CompanyAccount/EfectyAccount/EfectyAccount.model';
 
 const confirmOrderStore = ConfirmOrderStore()
 const { form } = storeToRefs(confirmOrderStore)
@@ -74,7 +81,7 @@ generalConfiguration.getGeneralData();
 const helper = helperStore()
 const currency = ref<Currency | null>(null)
 const paymentMethod = ref<PaymentMethod | null>(null)
-const itemsDetails = ref<BankAccount[] | OtherAccount[]>([])
+const itemsDetails = ref<BankAccount[] | OtherAccount[] | EfectyAccount[]>([])
 const itemDetailSelected = ref<number | null>()
 
 watch(currency, () => paymentMethod.value = null)
@@ -88,7 +95,10 @@ const getDetailsForPaymentMethod = async () => {
     const params = {
         payment_type_id: paymentMethod.value?.id ?? ''
     }
-    const res = await helper.http('client/account', 'get', { params })
+    const url = paymentMethod.value?.id != PAYMENT_METHODS_AVAILABLE.EFECTY 
+                ? 'client/account'
+                : 'company/account'
+    const res = await helper.http(url, 'get', { params })
     itemsDetails.value = res.data.response
     // .map((item: any) => ({
     //     id:item.id,
@@ -112,7 +122,10 @@ const noPrice = () => {
 }
 
 const clickInContinue = () => {
-    form.value.account_delivery_id = itemDetailSelected.value!
+    form.value.account_delivery_id = paymentMethod.value?.id != PAYMENT_METHODS_AVAILABLE.EFECTY 
+                ? itemDetailSelected.value!
+                : (itemDetailSelected.value! as any).id
+    // form.value.account_delivery_id = itemDetailSelected.value!
     form.value.currency_id = currency.value!.id
     form.value.payment_type_id = paymentMethod.value!.id
     form.value.total_exchange_local = calculatorValue.value.amountFiat.toFixed(2)
