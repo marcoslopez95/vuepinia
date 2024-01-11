@@ -22,7 +22,7 @@
     <VRow class="px-5">
         <VCol cols="12" sm="12" class=" text-table border-degree text-left font-22 font-weight-light" >
             <p class="">
-                <span class="text-primary font-weight-light">Dirección:</span> <br>{{ itemSelect?.attributes.description }}
+                <span class="text-primary font-weight-light">Dirección:</span> <br>{{ accountDelivery?.attributes.description }}
             </p>
             <p>Nombre: {{ accountDelivery?.attributes.beneficiary }}</p>
             <VSpacer></VSpacer>
