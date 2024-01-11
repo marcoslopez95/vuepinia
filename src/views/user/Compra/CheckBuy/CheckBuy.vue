@@ -15,6 +15,7 @@ import { storeToRefs } from "pinia";
 import { computed } from "vue";
 import { PAYMENT_METHODS_AVAILABLE } from "@/enums/PaymentMethod.enum";
 import CheckOtherOrder from "./components/CheckOtherOrder.vue";
+import CheckEfectyOrder from "./components/CheckEfectyOrder.vue";
 const props = defineProps<{
     numTransaction: string;
 }>();
@@ -35,6 +36,8 @@ const typeOrderComponent = computed(()=> {
             return CheckBankOrder
         case PAYMENT_METHODS_AVAILABLE.OTHER:
             return CheckOtherOrder
+        case PAYMENT_METHODS_AVAILABLE.EFECTY:
+            return CheckEfectyOrder
         default:
             return false
     }
