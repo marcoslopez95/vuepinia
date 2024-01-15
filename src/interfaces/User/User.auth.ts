@@ -1,3 +1,5 @@
+import type { Permission } from "../Permission/Permission.model";
+
 export declare interface UserAuth {
   id: number;
   first_name: string;
@@ -31,14 +33,6 @@ interface Role {
   permissions: Permission[];
 }
 
-interface Permission {
-  id: number;
-  name: string;
-  guard_name: string;
-  created_at: string;
-  updated_at: string;
-  pivot: Pivot2;
-}
 
 interface Pivot2 {
   role_id: number;

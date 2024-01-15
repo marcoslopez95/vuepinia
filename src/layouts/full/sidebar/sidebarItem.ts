@@ -10,7 +10,8 @@ const sidebarItems: SidebarItem[] = [
     to: "Dashboard",
     roles: [
       ROLES.ADMIN
-    ]
+    ],
+    permiss: ''
 },
   ...adminItems,
   ...userItems

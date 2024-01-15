@@ -1,12 +1,14 @@
 import { defineStore, storeToRefs } from "pinia";
 import { MunicipalityStore } from "./MunicipalityStore";
 import type { Municipality } from "@/interfaces/Municipality/Municipality.model";
-import { ref } from "vue";
-import { helperStore } from "@/helper";
+import { computed, ref } from "vue";
+import { getUserAuth, helperStore, isAutenticated } from "@/helper";
 import type { User } from "@/interfaces/User/User.model";
 import type { Role } from "@/interfaces/Role/Role.model";
 import type { Country } from "@/interfaces/Country/Country.model";
 import type { TypeDocument } from "@/interfaces/TypeDocument/TypeDocument.model";
+import type { Permission, PermissionAttributes } from "@/interfaces/Permission/Permission.model";
+import type { PERMISSION_ENUM } from "@/enums/Permissions.enum";
 
 export const UserStore = defineStore('user', () => {
     const helper = helperStore()
@@ -89,7 +91,24 @@ export const UserStore = defineStore('user', () => {
             resolve()
         })
     }
+
+    const permiss = computed((): PermissionAttributes[] => {
+        if(!isAutenticated()) return []
+        const user = getUserAuth()
+        return (user.roles[0].permissions as unknown) as PermissionAttributes[]
+    })
+
+    const can = ( permission: PERMISSION_ENUM | string, reference: PERMISSION_ENUM ):boolean => {
+        return !!permiss.value.find(p => { 
+            console.log('p.name',p.name)
+            console.log("reference + '.' + permission",reference + '.' + permission)
+            console.log("p.name == reference + '.' + permissionn",p.name == reference + '.' + permission)
+            return p.name == reference + '.' + permission
+        })
+    }
     return {
+        can,
+        permiss,
         userAuth,
         updateUserAuth,
         getDepartaments,

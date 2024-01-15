@@ -11,7 +11,9 @@ import { computed } from "vue";
 import { getUserAuth, helperStore } from "@/helper";
 import type { ROLES } from "@/interfaces/Role/Role.enum";
 import type { CountOrders } from "@/interfaces/Order/Order.model";
+import { UserStore } from "@/stores/UserStore";
 
+const userStore = UserStore()
 const helper = helperStore()
 
 const sidebarMenu = computed(() => {
@@ -28,7 +30,14 @@ const sidebarMenu = computed(() => {
             item.roles.length > 0
                 ? item.roles.includes(getUserAuth().roles[0].name as ROLES)
                 : true
-        );
+        )
+        .filter(
+            item => {
+                if(item.permiss === '') return true
+                return userStore.can('index', item.permiss)
+            }
+        )
+        ;
 });
 // const sidebarMenu = ref<SidebarItem[]>(sidebarItems);
 const verifyWidthWindow = ref(useDisplay().mdAndUp);

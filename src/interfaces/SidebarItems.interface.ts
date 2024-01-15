@@ -1,3 +1,4 @@
+import type { PERMISSION_ENUM } from '@/enums/Permissions.enum'
 import type { ROLES } from '@/interfaces/Role/Role.enum'
 export declare interface SidebarItem {
     title: string
@@ -7,6 +8,7 @@ export declare interface SidebarItem {
     roles: ROLES[],
     reference?: any
     params?: any
+    permiss: PERMISSION_ENUM | ''
 }
 
 
