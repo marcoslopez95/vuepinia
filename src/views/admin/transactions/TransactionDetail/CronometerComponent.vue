@@ -140,11 +140,12 @@ const saveCron = async () => {
         getCron.value = dayjs()
             .set("hour", cronArray[0])
             .set("minute", cronArray[1])
-            .format("DD/MM/YYYY HH:mm");
+            .format("DD-MM-YYYY HH:mm");
         const url = "order/add/estimate/time";
         const data = {
             order_id: order.value?.id,
-            estimated_time: dayjs(getCron.value).format("YYYY-MM-DD HH:mm"),
+            // estimated_time: dayjs(getCron.value).format("YYYY-MM-DD HH:mm"),
+            estimated_time: getCron.value,
         };
         await helper.http(url,'post',{data})
     }

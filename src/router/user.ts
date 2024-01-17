@@ -1,7 +1,8 @@
 import { ROLES } from "@/interfaces/Role/Role.enum"
 import type { RouteRecordRaw } from "vue-router"
-import { checkedRole, checkedVerificationsUser } from "./middleware"
+import { checkedPermission, checkedRole, checkedVerificationsUser } from "./middleware"
 import { VERIFICATEDS } from "@/interfaces/User/User.enum"
+import { KYC, ORDERS, USERS } from "@/enums/Permissions.enum"
 
 const security: RouteRecordRaw[] = []
 
@@ -72,8 +73,11 @@ const generals: RouteRecordRaw[] = [
         component: () =>
             import("@/views/user/Compra/CompraView.vue"),
         meta: {
-            roles: [
-                ROLES.USER
+            // roles: [
+            //     ROLES.USER
+            // ],
+            permissions: [
+                ORDERS.REFERENCE
             ],
             verificateds: [
                 VERIFICATEDS.EMAIL,
@@ -81,7 +85,8 @@ const generals: RouteRecordRaw[] = [
             ]
         },
         beforeEnter: [
-            checkedRole,
+            // checkedRole,
+            checkedPermission,
             checkedVerificationsUser
         ]
     },
@@ -91,16 +96,17 @@ const generals: RouteRecordRaw[] = [
         component: () =>
             import("@/views/user/Venta/VentaView.vue"),
         meta: {
-            roles: [
-                ROLES.USER
-            ],
+            // roles: [
+            //     ROLES.USER
+            // ],
             verificateds: [
                 VERIFICATEDS.EMAIL,
                 VERIFICATEDS.PHONE
             ]
         },
         beforeEnter: [
-            checkedRole,
+            // checkedRole,
+            checkedPermission,
             checkedVerificationsUser
         ]
     },

@@ -128,12 +128,20 @@
                         v-if="order.attributes.type == OrderTypes.VENTA"
                         color-btn="primary"
                         text-btn="Autorizar Pago"
-                        title-modal="¿Desear Autorizar este pago?"
+                        :title-modal="order.attributes.payment_type_id === PAYMENT_METHODS_AVAILABLE.EFECTY ? 'Introduce el código de verificación' : 'Autorizar Pago'"
                         :icon="QuestionIcon"
                         color-icon="warning"
                         btn-modal="Sí, Aturizo"
                         @click:btn-modal="accept"
-                    />
+                    >
+                    <template #contentModal v-if="order.attributes.payment_type_id === PAYMENT_METHODS_AVAILABLE.EFECTY">
+                        
+                        <input-component
+                            v-model="codeConfirmation"
+                            name=""
+                        ></input-component>
+                    </template>
+                    </BtnWithModalComponent>
                     <BtnWithModalComponent
                         only-modal
                         v-model="openSuccess"
@@ -149,6 +157,7 @@
 </template>
 
 <script setup lang="ts">
+import InputComponent from "@/components/InputComponent.vue";
 import { TransactionStore } from "@/stores/TransactionStore";
 import { storeToRefs } from "pinia";
 import GeneralDetail from "./TransactionDetail/GeneralDetail.vue";
@@ -171,6 +180,7 @@ import CheckIcon from "@/assets/icons/CheckFilledIcon.vue";
 import { StatusOrder } from "@/enums/StatusOrder.enum";
 import { OrderTypes } from "@/enums/OrderTypes.enum";
 import QrBuy from "./TransactionDetail/QrBuy.vue";
+import { PAYMENT_METHODS_AVAILABLE } from "@/enums/PaymentMethod.enum";
 const props = defineProps<{
     numTransaction: string;
 }>();
@@ -185,6 +195,8 @@ const takeOrRelease = reactive({
 const helper = helperStore();
 const transactionStore = TransactionStore();
 const { order } = storeToRefs(transactionStore);
+
+const codeConfirmation = ref('')
 
 const getOrder = () => transactionStore.getOrderByNum(props.numTransaction)
 
@@ -231,7 +243,14 @@ const verifyOrderCompleted = computed(() => {
 const openSuccess = ref(false);
 const accept = async () => {
     const url = "order/accept/" + order.value?.id;
-    await helper.http(url, "get").then(() => (openSuccess.value = true));
+    let params = {}
+    if(order.value?.attributes.payment_type_id === PAYMENT_METHODS_AVAILABLE.EFECTY){
+        params = {
+            code_two: codeConfirmation.value
+        }
+    }
+    
+    await helper.http(url, "get",{ params }).then(() => (openSuccess.value = true));
     getOrder();
 
 };

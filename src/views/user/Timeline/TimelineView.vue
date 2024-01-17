@@ -56,7 +56,7 @@
                         class="border-degree d-flex align-center justify-center"
                         style="width: 161px; height: 38px"
                     >
-                        <span class="">123123</span>
+                        <span class="">{{ order.relationships?.effectiveOrderCode?.code_one }}</span>
                     </div>
                 </VCol>
                 <VCol
@@ -124,7 +124,7 @@
                             No recibí el código
                         </div>
                         <div>
-                            <VBtnPrimary :disabled="secondCode.length < 4">
+                            <VBtnPrimary :disabled="secondCode.length < 4" @click="accept">
                                 Continuar
                             </VBtnPrimary>
                         </div>
@@ -171,7 +171,7 @@ watch(secondCode, (nuevo, viejo) => {
     }
 });
 const count = dayjs().add(6, "minutes").format("YYYY-MM-DD HH:mm:ss");
-const helper = helperStore;
+const helper = helperStore();
 const transactionStore = TransactionStore();
 const { order } = storeToRefs(transactionStore);
 order.value = props.order;
@@ -210,6 +210,20 @@ const items = [
         color: "active",
     },
 ];
+
+const accept = async () => {
+    const url = "order/accept/" + order.value?.id;
+    let params = {}
+    if(order.value?.attributes.payment_type_id === PAYMENT_METHODS_AVAILABLE.EFECTY){
+        params = {
+            code_two: secondCode.value
+        }
+    }
+    
+    await helper.http(url, "get",{ params }).then(() => (dialog.value = false));
+    window.location.reload()
+
+};
 </script>
 
 <style scoped>

@@ -51,9 +51,15 @@ export declare interface OrderRelationships {
         user: User
         images: Image[]
         red: NetworkType
+        effectiveOrderCode?: EffectiveOrderCode
 }
 
 // ----------------------------------------------------------------
+export declare interface EffectiveOrderCode {
+        order_id: number
+        code_one: string
+        code_two: string
+}
 export declare interface OrderStatus extends BaseModel<OrderStatusAttributes, null> { }
 interface OrderStatusAttributes {
         name: string;
