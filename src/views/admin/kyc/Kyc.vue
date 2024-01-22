@@ -59,7 +59,7 @@ helper.index()
 
 const getSearch = () => {
     helper.index({
-        type_document: search.value
+        user: search.value
     })
 }
 
