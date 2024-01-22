@@ -1,6 +1,5 @@
 <template>
     <div class="d-flex align-center justify-center">
-
         <VMenu>
             <template #activator="{ props }">
                 <!-- <v-btn icon class="mx-0 px-0"  v-bind="props" elevation="0" color="transparent"> -->
@@ -26,7 +25,11 @@
 
                     <v-divider></v-divider>
                     <span v-for="(item, index) in notifications" :key="index">
-                        <v-list-item @click="readNotification(item.id)" value="1" class="text-table">
+                        <v-list-item
+                            @click="readNotification(item.id)"
+                            value="1"
+                            class="text-table"
+                        >
                             <template #title>
                                 <div class="d-flex gap-2">
                                     <div>
@@ -93,15 +96,9 @@
                             </span>
                         </template>
                     </v-list-item>
-                    <v-list-item
-                        v-else
-                        class="text-primary text-center"
-                    >
+                    <v-list-item v-else class="text-primary text-center">
                         <template #title>
-                            <span
-                            >
-                                No hay
-                            </span>
+                            <span> No hay </span>
                         </template>
                     </v-list-item>
                 </v-list>
@@ -111,13 +108,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed,onMounted, onUnmounted} from "vue";
+import { ref, computed, onMounted, onUnmounted } from "vue";
 import NotificationIcon from "@/assets/icons/header/NotificationIcon.vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
 import { useRouter } from "vue-router";
 import type { User } from "@/interfaces/User/User.model";
 import { helperStore } from "@/helper";
 import dayjs from "dayjs";
+import usePusher from "@/pusher";
 
 const router = useRouter();
 const { smAndDown: isMobile } = useDisplay();
@@ -126,28 +124,34 @@ const colorIcons = computed(() => {
     return isMobile.value ? "text-white" : "text-disabled mt-2";
 });
 
-
 const helper = helperStore();
 const url = "notifications/active/user";
 
 const notifications = ref<Notifications[]>([]);
 const index = async () => {
-    const res = await helper.http(url, "get", {
-        params: { pag: 5 },
-    },'',true);
-    notifications.value = (res.data.response.data as Notifications[]).filter(n => !n.read);
+    const res = await helper.http(
+        url,
+        "get",
+        {
+            params: { pag: 5 },
+        },
+        "",
+        true
+    );
+    notifications.value = (res.data.response.data as Notifications[]).filter(
+        (n) => !n.read
+    );
 };
 index();
 
-const interval = ref()
+const interval = ref();
 onMounted(() => {
-    interval.value = setInterval(()=> index(),10000)
-})
+    interval.value = setInterval(() => index(), 10000);
+});
 
 onUnmounted(() => {
-    clearInterval(interval.value)
-})
-
+    clearInterval(interval.value);
+});
 
 const goViewNotification = () => router.push({ name: "Notifications" });
 
@@ -163,13 +167,22 @@ const onlyTwoWords = (value: string): string => {
     const newValue = valueArray.splice(0, quantityWordsTitle);
     return newValue.join(" ");
 };
-const readNotification = async (id:string|number) => {
-    const url = `notifications/user/read/active/${id}`
-    try{
-        const res = await helper.http(url,'post')
-        await index()
-    }catch(e){}
-}
+const readNotification = async (id: string | number) => {
+    const url = `notifications/user/read/active/${id}`;
+    try {
+        const res = await helper.http(url, "post");
+        await index();
+    } catch (e) {}
+};
+
+const pusher = new usePusher(
+    "private-notification.1",
+    "App\Events\NotificateEvent",
+    (event: any) => {
+        console.log("event", event);
+    }
+);
+
 interface Notifications {
     id: number;
     user_id: number;

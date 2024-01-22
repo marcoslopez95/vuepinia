@@ -100,9 +100,9 @@ export const UserStore = defineStore('user', () => {
 
     const can = ( permission: PERMISSION_ENUM | string, reference: PERMISSION_ENUM ):boolean => {
         return !!permiss.value.find(p => { 
-            console.log('p.name',p.name)
-            console.log("reference + '.' + permission",reference + '.' + permission)
-            console.log("p.name == reference + '.' + permissionn",p.name == reference + '.' + permission)
+            // console.log('p.name',p.name)
+            // console.log("reference + '.' + permission",reference + '.' + permission)
+            // console.log("p.name == reference + '.' + permissionn",p.name == reference + '.' + permission)
             return p.name == reference + '.' + permission
         })
     }

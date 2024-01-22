@@ -107,7 +107,7 @@ const getDetailsForPaymentMethod = async () => {
         payment_type_id: props.paymentMethod.id,
     };
     const res = await helper.http("client/account", "get", { params });
-    console.log("nuevo", res.data.response);
+    // console.log("nuevo", res.data.response);
     itemsDetails.value = res.data.response.map((item: any) => {
         item.attributes.name = titleSelect(item)
         return item
