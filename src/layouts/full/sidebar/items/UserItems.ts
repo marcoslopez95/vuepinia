@@ -5,13 +5,16 @@ import SellIcon from "@/assets/icons/sidebar/user/SellIcon.vue"
 import TransactionIcon from "@/assets/icons/sidebar/user/TransactionIcon.vue"
 import ReferredIcon from "@/assets/icons/sidebar/user/ReferredIcon.vue"
 import WalletIconVue from "@/assets/icons/WalletIcon.vue"
-import { ORDERS, SETTINGS, ROLES as ROLES_P } from "@/enums/Permissions.enum"
+import { ORDERS, SETTINGS, ROLES as ROLES_P, USERS, BUSSINESS, WALLET_XCOP } from "@/enums/Permissions.enum"
 
 const items: SidebarItem[] = [
     {
         title: "Comprar",
         icon: BuyIcon,
-        permiss: [ORDERS.REFERENCE],
+        permiss_reference: ORDERS.REFERENCE,
+        permiss: [
+            ORDERS.BUY
+        ],
         to: "user-buy",
         // roles: [
         //     ROLES.USER,
@@ -21,7 +24,10 @@ const items: SidebarItem[] = [
         title: "Vender",
         icon: SellIcon,
         to: "user-sell",
-        permiss: [ORDERS.REFERENCE],
+        permiss_reference: ORDERS.REFERENCE,
+        permiss: [
+            ORDERS.SELL
+        ],
         // roles: [
         //     ROLES.USER,
         // ],
@@ -29,7 +35,10 @@ const items: SidebarItem[] = [
     {
         title: "Wallet XCOP",
         icon: WalletIconVue,
-        permiss: [ORDERS.REFERENCE],
+        // permiss_reference: WALLET_XCOP.REFERENCE,
+        permiss: [
+            WALLET_XCOP.REFERENCE
+        ],
         to: "wallet-xcop",
         // roles: [
         //     ROLES.USER,
@@ -38,7 +47,10 @@ const items: SidebarItem[] = [
     {
         title: "Transacciones",
         icon: TransactionIcon,
-        permiss: [ORDERS.REFERENCE],
+        permiss_reference: ORDERS.REFERENCE,
+        permiss: [
+            ORDERS.ONLY_USER
+        ],
         to: "user-transactions",
         // roles: [
         //     ROLES.USER,
@@ -47,7 +59,10 @@ const items: SidebarItem[] = [
     {
         title: "Referidos",
         icon: ReferredIcon,
-        permiss: [ORDERS.REFERENCE],
+        permiss_reference: USERS.REFERENCE,
+        permiss: [
+            USERS.REFERREDS
+        ],
         to: "user-referred-list",
         // roles: [
         //     ROLES.USER,
@@ -56,7 +71,10 @@ const items: SidebarItem[] = [
     {
         title: "Conf. Empresas",
         icon: 'mdi-account-tie',
-        permiss: [ORDERS.REFERENCE],
+        // permiss_reference: BUSSINESS.REFERENCE,
+        permiss: [
+            BUSSINESS.REFERENCE
+        ],
         to: "bussiness",
         // roles: [
         //     ROLES.USER,
