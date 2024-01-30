@@ -4,11 +4,20 @@ export enum COMMONS_PERMISSIONS {
     STORE = 'store',
     UPDATE = 'updated',
     DELETE = 'delete',
-    RESTORE = 'restore'
+    RESTORE = 'restore',
+    GET = "get",
 }
 export enum USERS {
     TITLE = 'Usuarios',
-    REFERENCE = 'users'
+    REFERENCE = 'users',
+    REFERREDS= "referreds",
+    WALLETS= "wallets",
+    PERSONAL_DATA= "personal_data",
+    ACCOUNTS= "accounts",
+    BANK_ACCOUNTS= "bank_accounts",
+    OTHER_ACCOUNTS= "other_accounts",
+    SEND_EMAIL= "send_email",
+    SEND_SMS= "send_sms",
 }
 
 export enum COUNTRIES {
@@ -95,7 +104,13 @@ export enum SHIPPING_TYPES {
 }
 export enum ORDERS {
     TITLE = 'Ordenes',
-    REFERENCE = 'orders'
+    REFERENCE = 'orders',
+    ONLY_USER = "only_user",
+    BUY = "buy",
+    SELL = "sell",
+    ACCEPT = "accept",
+    BLOCKED = "blocked",
+    EXTERNAL_PURCHASE = "external_purchase",
 }
 export enum PAYMENT_SUBTYPE {
     TITLE = 'Subtipos de pago',
@@ -127,13 +142,30 @@ export enum PERMISSIONS {
 }
 export enum SETTINGS {
     TITLE = 'configuracion general',
-    REFERENCE = 'configurations'
+    REFERENCE = 'configurations',
+    DASHBOARD= 'dashboard',
+    CURRENCY_STADISTIC= 'currency_stadistic'
 }
 export enum DEPOSIT_EXTERNAL {
     TITLE = 'Compras externas',
     REFERENCE = 'external_purchases'
 }
-
+export enum BUSSINESS {
+    TITLE = 'Empresas',
+    REFERENCE = 'bussiness'
+}
+export enum KYC_BUSSINESS {
+    TITLE = 'KYC Empresas',
+    REFERENCE = 'kyc_bussiness'
+}
+export enum WALLET_XCOP {
+    TITLE = 'WALLET_XCOP',
+    REFERENCE = 'wallet_xcop',
+    RECEIVED = "received",
+    SEND = "send",
+    WITHDRAWAL = "withdrawal",
+    ACCEPT = "accept",
+}
 export type PERMISSION_ENUM = 
 COMMONS_PERMISSIONS |
 USERS |
@@ -166,4 +198,6 @@ PAYMENT_NETWORKS |
 ROLES |
 PERMISSIONS |
 SETTINGS |
-DEPOSIT_EXTERNAL 
+DEPOSIT_EXTERNAL  |
+BUSSINESS |
+KYC_BUSSINESS 

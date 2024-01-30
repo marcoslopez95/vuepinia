@@ -12,29 +12,37 @@ import { getUserAuth, helperStore } from "@/helper";
 import type { ROLES } from "@/interfaces/Role/Role.enum";
 import type { CountOrders } from "@/interfaces/Order/Order.model";
 import { UserStore } from "@/stores/UserStore";
-
+import { ACCOUNTS, COMMONS_PERMISSIONS } from '@/enums/Permissions.enum'
 const userStore = UserStore()
 const helper = helperStore()
 
 const sidebarMenu = computed(() => {
+    
     return sidebarItems
         .map((item) => {
             item.children = item.children?.filter((child) =>
-                child.roles.length > 0
+            child.roles && child.roles.length > 0
                     ? child.roles.includes(getUserAuth().roles[0].name as ROLES)
                     : true
             );
             return item;
         })
         .filter((item) =>
-            item.roles.length > 0
+            item.roles && item.roles.length > 0
                 ? item.roles.includes(getUserAuth().roles[0].name as ROLES)
                 : true
         )
         .filter(
             item => {
-                if(item.permiss === '') return true
-                return userStore.can('index', item.permiss)
+                if(!item.permiss || item.permiss.length === 0) return true
+                return item.permiss.map( p => {
+                    if(item.permiss_reference){
+                        return userStore.can(p,item.permiss_reference)
+                    }
+                    return userStore.can(COMMONS_PERMISSIONS.GET,p)
+                    
+                }).every(bool => bool === true)
+                // return userStore.can(ACCOUNTS.TITLE, item.permiss)
             }
         )
         ;

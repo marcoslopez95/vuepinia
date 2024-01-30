@@ -20,18 +20,18 @@ const items: SidebarItem[] = [
         title: "Transacciones",
         icon: TransactionsIcon,
         to: "admin-transactions",
-        permiss: ORDERS.REFERENCE,
+        permiss: [ORDERS.REFERENCE],
         roles: [
             ROLES.ADMIN,
         ],
         children: [
             {
                 title: 'Pendientes',
-                permiss: '',
+                permiss: [],
                 to: 'admin-transactions',
-                roles: [
-                    ROLES.ADMIN,
-                ],
+                // roles: [
+                //     ROLES.ADMIN,
+                // ],
                 reference: 'pendings',
                 params: {
                     type: 'pendings'
@@ -39,11 +39,11 @@ const items: SidebarItem[] = [
             },
             {
                 title: 'Tomadas',
-                permiss: '',
+                permiss: [],
                 to: 'admin-transactions',
-                roles: [
-                    ROLES.ADMIN,
-                ],
+                // roles: [
+                //     ROLES.ADMIN,
+                // ],
                 reference: 'takes',
                 params: {
                     type: 'takes'
@@ -51,11 +51,11 @@ const items: SidebarItem[] = [
             },
             {
                 title: 'Aprobadas',
-                permiss: '',
+                permiss: [],
                 to: 'admin-transactions',
-                roles: [
-                    ROLES.ADMIN,
-                ],
+                // roles: [
+                //     ROLES.ADMIN,
+                // ],
                 reference: 'done',
                 params: {
                     type: 'dones'
@@ -63,41 +63,41 @@ const items: SidebarItem[] = [
             },
             {
                 title: 'Todas',
-                permiss: '',
+                permiss: [],
                 to: 'admin-transactions',
-                roles: [
-                    ROLES.ADMIN,
-                ],
+                // roles: [
+                //     ROLES.ADMIN,
+                // ],
                 reference: 'total'
             },
         ]
     },
     {
         title: "Kyc",
-        permiss: KYC.REFERENCE,
+        permiss: [KYC.REFERENCE],
         icon: FileIcon,
         to: "admin-kyc",
-        roles: [
-            ROLES.ADMIN,
-        ],
+        // roles: [
+        //     ROLES.ADMIN,
+        // ],
     },
     {
         title: "Kyc Empresas",
-        permiss: KYC.REFERENCE,
+        permiss: [KYC.REFERENCE],
         icon: 'mdi-badge-account-horizontal-outline',
         to: "admin-kyc-bussiness",
-        roles: [
-            ROLES.ADMIN,
-        ],
+        // roles: [
+        //     ROLES.ADMIN,
+        // ],
     },
     {
         title: "Retiro XCOP",
         icon: FileIcon,
         to: "admin-withdrawal-xcop",
-        permiss: ORDERS.REFERENCE,
-        roles: [
-            ROLES.ADMIN,
-        ],
+        permiss: [ORDERS.REFERENCE],
+        // roles: [
+        //     ROLES.ADMIN,
+        // ],
     },
     // {
     //     title: "Contabilidad",
@@ -109,12 +109,12 @@ const items: SidebarItem[] = [
     // },
     {
         title: "Usuarios",
-        permiss: USERS.REFERENCE,
+        permiss: [USERS.REFERENCE],
         icon: UserIcon,
         to: "admin-users",
-        roles: [
-            ROLES.ADMIN,
-        ],
+        // roles: [
+        //     ROLES.ADMIN,
+        // ],
     },
     // {
     //     title: "Tienda",
@@ -126,12 +126,12 @@ const items: SidebarItem[] = [
     // },
     {
         title: "Configuración",
-        permiss: SETTINGS.REFERENCE,
+        permiss: [SETTINGS.REFERENCE],
         icon: ConfigurationIcon,
         to: "admin-configurations",
-        roles: [
-            ROLES.ADMIN,
-        ],
+        // roles: [
+        //     ROLES.ADMIN,
+        // ],
     },
 ]
 export default items

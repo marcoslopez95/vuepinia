@@ -35,8 +35,9 @@
                         </template>
 
                         <template #cel-permissions="{ data }">
-                            <div class="d-flex" style="min-width: 800px;">
+                            <div class="v-row" style="min-width: 800px;">
                                 <VCheckbox 
+                                    class="v-col-2 text-capitalize"
                                     v-for="(permission, index) in orderPermissions(permissionCategory(data))"
                                     :key="index"
                                     v-model="permissions"
@@ -113,6 +114,7 @@ const verifyPermissionName = (sufix: PermissionSufix, item:Permission): boolean 
 
 const getNamePermission = (item: Permission):string => {
     const nameSplit = item.attributes.name.split('.')[1] as PermissionSufix
+    return nameSplit.replace('_',' ')
     return NAME_PERMISSIONS[nameSplit]
 }
 

@@ -1,8 +1,8 @@
 import { ROLES } from "@/interfaces/Role/Role.enum"
 import type { RouteRecordRaw } from "vue-router"
-import { checkedPermission, checkedRole, checkedVerificationsUser } from "./middleware"
+import { checkedPermission,  checkedVerificationsUser } from "./middleware"
 import { VERIFICATEDS } from "@/interfaces/User/User.enum"
-import { KYC, ORDERS, USERS } from "@/enums/Permissions.enum"
+import { BUSSINESS, CLIENT_ACCOUNTS, KYC, ORDERS, USERS, WALLET_XCOP } from "@/enums/Permissions.enum"
 
 const security: RouteRecordRaw[] = []
 
@@ -14,8 +14,9 @@ const generals: RouteRecordRaw[] = [
         component: () =>
             import("@/views/user/Timeline/TimelineView.vue"),
         meta: {
-            roles: [
-                ROLES.USER
+            reference: ORDERS.REFERENCE,
+            permissions: [
+                ORDERS.ONLY_USER
             ],
             verificateds: [
                 // VERIFICATEDS.EMAIL,
@@ -23,7 +24,7 @@ const generals: RouteRecordRaw[] = [
             ]
         },
         beforeEnter: [
-            checkedRole,
+            checkedPermission,
             checkedVerificationsUser
         ]
     },
@@ -34,8 +35,9 @@ const generals: RouteRecordRaw[] = [
         component: () =>
             import("@/views/user/Compra/CheckBuy/CheckBuy.vue"),
         meta: {
-            roles: [
-                ROLES.USER
+            reference: ORDERS.REFERENCE,
+            permissions: [
+                ORDERS.ONLY_USER
             ],
             verificateds: [
                 // VERIFICATEDS.EMAIL,
@@ -43,7 +45,7 @@ const generals: RouteRecordRaw[] = [
             ]
         },
         beforeEnter: [
-            checkedRole,
+            checkedPermission,
             checkedVerificationsUser
         ]
     },
@@ -54,8 +56,9 @@ const generals: RouteRecordRaw[] = [
         component: () =>
             import("@/views/user/Venta/CheckBuy/CheckBuy.vue"),
         meta: {
-            roles: [
-                ROLES.USER
+            reference: ORDERS.REFERENCE,
+            permissions: [
+                ORDERS.ONLY_USER
             ],
             verificateds: [
                 VERIFICATEDS.EMAIL,
@@ -63,7 +66,7 @@ const generals: RouteRecordRaw[] = [
             ]
         },
         beforeEnter: [
-            checkedRole,
+            checkedPermission,
             checkedVerificationsUser
         ]
     },
@@ -73,11 +76,12 @@ const generals: RouteRecordRaw[] = [
         component: () =>
             import("@/views/user/Compra/CompraView.vue"),
         meta: {
-            // roles: [
+            // permissions: [
             //     ROLES.USER
             // ],
+            reference: ORDERS.REFERENCE,
             permissions: [
-                ORDERS.REFERENCE
+                ORDERS.BUY
             ],
             verificateds: [
                 VERIFICATEDS.EMAIL,
@@ -85,7 +89,7 @@ const generals: RouteRecordRaw[] = [
             ]
         },
         beforeEnter: [
-            // checkedRole,
+            // checkedPermission,
             checkedPermission,
             checkedVerificationsUser
         ]
@@ -96,16 +100,17 @@ const generals: RouteRecordRaw[] = [
         component: () =>
             import("@/views/user/Venta/VentaView.vue"),
         meta: {
-            // roles: [
-            //     ROLES.USER
-            // ],
+            reference: ORDERS.REFERENCE,
+            permissions: [
+                ORDERS.SELL
+            ],
             verificateds: [
                 VERIFICATEDS.EMAIL,
                 VERIFICATEDS.PHONE
             ]
         },
         beforeEnter: [
-            // checkedRole,
+            // checkedPermission,
             checkedPermission,
             checkedVerificationsUser
         ]
@@ -116,11 +121,12 @@ const generals: RouteRecordRaw[] = [
         component: () =>
             import("@/views/user/transactions/TransactionsView.vue"),
         meta: {
-            roles: [
-                ROLES.USER
+            reference: ORDERS.REFERENCE,
+            permissions: [
+                ORDERS.ONLY_USER
             ]
         },
-        beforeEnter: checkedRole
+        beforeEnter: checkedPermission
     },
     {
         name: "user-referred",
@@ -128,11 +134,12 @@ const generals: RouteRecordRaw[] = [
         component: () =>
             import("@/views/user/Refer/UserReferredView.vue"),
         meta: {
-            roles: [
-                ROLES.USER
+            reference: USERS.REFERENCE,
+            permissions: [
+                USERS.REFERREDS
             ]
         },
-        beforeEnter: checkedRole
+        beforeEnter: checkedPermission
     },
     {
         name: "user-referred-list",
@@ -140,11 +147,12 @@ const generals: RouteRecordRaw[] = [
         component: () =>
             import("@/views/user/Refer/UsersReferredList.vue"),
         meta: {
-            roles: [
-                ROLES.USER
+            reference: USERS.REFERENCE,
+            permissions: [
+                USERS.REFERREDS
             ]
         },
-        beforeEnter: checkedRole
+        beforeEnter: checkedPermission
     },
     {
         name: "wallet-xcop",
@@ -152,8 +160,8 @@ const generals: RouteRecordRaw[] = [
         component: () =>
             import("@/views/user/walletXCOP/WalletXCOPView.vue"),
         meta: {
-            roles: [
-                ROLES.USER
+            permissions: [
+                WALLET_XCOP.REFERENCE
             ],
             verificateds: [
                 VERIFICATEDS.EMAIL,
@@ -161,7 +169,7 @@ const generals: RouteRecordRaw[] = [
             ]
         },
         beforeEnter: [
-            checkedRole,
+            checkedPermission,
             checkedVerificationsUser
         ]
     },
@@ -171,7 +179,7 @@ const configurations: RouteRecordRaw[] = [
     {
         name: "user-profile",
         path: "/user/profile",
-        redirect:{ name: 'user-personal-data'},
+        redirect: { name: 'user-personal-data' },
         component: () =>
             import("@/views/user/Profile.vue"),
         children: [
@@ -212,11 +220,11 @@ const configurations: RouteRecordRaw[] = [
             },
         ],
         meta: {
-            roles: [
-                ROLES.USER
+            permissions: [
+                CLIENT_ACCOUNTS.REFERENCE
             ]
         },
-        beforeEnter: checkedRole
+        beforeEnter: checkedPermission
     },
     {
         name: "bussiness",
@@ -224,8 +232,8 @@ const configurations: RouteRecordRaw[] = [
         component: () =>
             import("@/views/user/Bussiness/IndexComponent.vue"),
         meta: {
-            roles: [
-                ROLES.USER
+            permissions: [
+                BUSSINESS.REFERENCE
             ],
             verificateds: [
                 VERIFICATEDS.EMAIL,
@@ -233,7 +241,7 @@ const configurations: RouteRecordRaw[] = [
             ]
         },
         beforeEnter: [
-            checkedRole,
+            checkedPermission,
             checkedVerificationsUser
         ]
     },

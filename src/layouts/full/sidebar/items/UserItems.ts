@@ -11,56 +11,56 @@ const items: SidebarItem[] = [
     {
         title: "Comprar",
         icon: BuyIcon,
-        permiss: ORDERS.REFERENCE,
+        permiss: [ORDERS.REFERENCE],
         to: "user-buy",
-        roles: [
-            ROLES.USER,
-        ],
+        // roles: [
+        //     ROLES.USER,
+        // ],
     },
     {
         title: "Vender",
         icon: SellIcon,
         to: "user-sell",
-        permiss: ORDERS.REFERENCE,
-        roles: [
-            ROLES.USER,
-        ],
+        permiss: [ORDERS.REFERENCE],
+        // roles: [
+        //     ROLES.USER,
+        // ],
     },
     {
         title: "Wallet XCOP",
         icon: WalletIconVue,
-        permiss: ORDERS.REFERENCE,
+        permiss: [ORDERS.REFERENCE],
         to: "wallet-xcop",
-        roles: [
-            ROLES.USER,
-        ],
+        // roles: [
+        //     ROLES.USER,
+        // ],
     },
     {
         title: "Transacciones",
         icon: TransactionIcon,
-        permiss: ORDERS.REFERENCE,
+        permiss: [ORDERS.REFERENCE],
         to: "user-transactions",
-        roles: [
-            ROLES.USER,
-        ],
+        // roles: [
+        //     ROLES.USER,
+        // ],
     },
     {
         title: "Referidos",
         icon: ReferredIcon,
-        permiss: ORDERS.REFERENCE,
+        permiss: [ORDERS.REFERENCE],
         to: "user-referred-list",
-        roles: [
-            ROLES.USER,
-        ],
+        // roles: [
+        //     ROLES.USER,
+        // ],
     },
     {
         title: "Conf. Empresas",
         icon: 'mdi-account-tie',
-        permiss: ORDERS.REFERENCE,
+        permiss: [ORDERS.REFERENCE],
         to: "bussiness",
-        roles: [
-            ROLES.USER,
-        ],
+        // roles: [
+        //     ROLES.USER,
+        // ],
     },
     
 ]

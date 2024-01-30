@@ -198,12 +198,18 @@ const openModal = ref(false);
 const accountDelivery = order.value.relationships
     ?.account_delivery as BankAccount;
 const alerta = () => alert("se acbo");
-const comprobant = computed(():Blob | string=> (
-    order.value.relationships!.images.length > 0 &&
-        order.value.relationships?.images[0].attributes.aws_url
-        ? order.value.relationships?.images[0].attributes.aws_url
-        : ''
-));
+const comprobant = ref<string|Blob>('');
+
+if(order.value.relationships!.images.length > 0 &&
+        order.value.relationships?.images[0].attributes.aws_url){
+            comprobant.value = order.value.relationships?.images[0].attributes.aws_url
+        }
+// const comprobant = computed(():Blob | string=> (
+//     order.value.relationships!.images.length > 0 &&
+//         order.value.relationships?.images[0].attributes.aws_url
+//         ? order.value.relationships?.images[0].attributes.aws_url
+//         : ''
+// ));
 const timeSet = dayjs().add(30, "minute").format();
 
 const getImageBank = (): string | false => {

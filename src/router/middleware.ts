@@ -2,7 +2,7 @@ import { getUserAuth } from "@/helper";
 import type { RouteLocationNormalized, NavigationGuardNext, } from "vue-router";
 import type { UserAuth } from '@/interfaces/User/User.auth';
 import { UserStore } from "@/stores/UserStore";
-import type { PERMISSION_ENUM } from "@/enums/Permissions.enum";
+import { COMMONS_PERMISSIONS, type PERMISSION_ENUM } from "@/enums/Permissions.enum";
 
 
 export function checkedRole(
@@ -25,9 +25,18 @@ export function checkedPermission(
     next: NavigationGuardNext
 ) {
     const permissionsPermited: PERMISSION_ENUM[] = to.meta.permissions as PERMISSION_ENUM[];
+    if (permissionsPermited.length === 0) next()
+    const reference: PERMISSION_ENUM | undefined = to.meta.reference as PERMISSION_ENUM ?? undefined;
     // const permissionsUser = getUserAuth().roles[0].permissions.map(permissionUser => permissionUser.name)
     const userStore = UserStore()
-    const userCan:boolean = !!permissionsPermited.find(p => userStore.can('index', p))
+    const userCan: boolean = permissionsPermited.map(
+        p => {
+            if (reference) {
+                return userStore.can(p, reference)
+            }
+            return userStore.can(COMMONS_PERMISSIONS.GET, p)
+        }
+    ).every(p => p === true)
 
     if (
         // permissionsPermited.some(permissionPermited => permissionsUser.includes(permissionPermited))
@@ -50,7 +59,7 @@ export function checkedRoleOrPermission(
     const permissionsPermited: PERMISSION_ENUM[] = to.meta.permissions as PERMISSION_ENUM[];
     // const permissionsUser = getUserAuth().roles[0].permissions.map(permissionUser => permissionUser.name)
     const userStore = UserStore()
-    const userCan:boolean = !!permissionsPermited.find(p => userStore.can('index', p))
+    const userCan: boolean = !!permissionsPermited.find(p => userStore.can('index', p))
 
     // const permissionsPermited: string[] = to.meta.permissions as string[];
     // const permissionsUser = getUserAuth().roles[0].permissions.map(permissionUser => permissionUser.name)

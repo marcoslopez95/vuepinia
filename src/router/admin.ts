@@ -1,6 +1,7 @@
-import { ROLES } from "@/interfaces/Role/Role.enum"
+// import { ROLES } from "@/interfaces/Role/Role.enum"
 import type { RouteRecordRaw } from "vue-router"
-import { checkedRole } from "./middleware"
+import { checkedPermission } from "./middleware"
+import { ROLES, KYC, KYC_BUSSINESS, ORDERS, USERS, WALLET_XCOP, COUNTRIES, DEPARTAMENTS, MUNICIPALITIES, SETTINGS, TYPE_DOCUMENTS, BANKS, CURRENCIES, CURRENCY_TYPES, METHOD_PAYMENTS, PAYMENT_SUBTYPE, TYPE_BANK_ACCOUNTS, SHIPPING_TYPES, PENALTY_TYPES, PAYMENT_NETWORKS, ACCOUNTS, DEPOSIT_EXTERNAL, COMPANY_WALLETS } from "@/enums/Permissions.enum"
 
 
 const generals: RouteRecordRaw[] = [
@@ -10,47 +11,47 @@ const generals: RouteRecordRaw[] = [
     component: () =>
       import("@/views/admin/kyc/Kyc.vue"),
     meta: {
-      roles: [
-        ROLES.ADMIN
+      permissions: [
+        KYC.REFERENCE
       ]
     },
-    beforeEnter: checkedRole
+    beforeEnter: checkedPermission
   },
   {
     name: "admin-kyc-bussiness",
     path: "/kyc-bussiness",
     component: () =>
       import("@/views/admin/kycBussiness/Kyc.vue"),
-    meta: {
-      roles: [
-        ROLES.ADMIN
-      ]
-    },
-    beforeEnter: checkedRole
+      meta: {
+        permissions: [
+          KYC_BUSSINESS.REFERENCE
+        ]
+      },
+      beforeEnter: checkedPermission
   },
   {
     name: "admin-withdrawal-xcop",
     path: "/withdrawal-xcop",
     component: () =>
       import("@/views/admin/withdrawalXcop/WithdrawalXcopView.vue"),
-    meta: {
-      roles: [
-        ROLES.ADMIN
-      ]
-    },
-    beforeEnter: checkedRole
+      meta: {
+        permissions: [
+          WALLET_XCOP.REFERENCE
+        ]
+      },
+      beforeEnter: checkedPermission
   },
   {
     name: "admin-users",
     path: "/users",
     component: () =>
       import("@/views/admin/users/UsersView.vue"),
-    meta: {
-      roles: [
-        ROLES.ADMIN
-      ]
-    },
-    beforeEnter: checkedRole
+      meta: {
+        permissions: [
+          USERS.REFERENCE
+        ]
+      },
+      beforeEnter: checkedPermission
   },
   {
     name: "Dashboard",
@@ -65,12 +66,12 @@ const generals: RouteRecordRaw[] = [
     props: true,
     component: () =>
       import("@/views/admin/transactions/TransactionView.vue"),
-    meta: {
-      roles: [
-        ROLES.ADMIN
-      ]
-    },
-    beforeEnter: checkedRole
+      meta: {
+        permissions: [
+          ORDERS.REFERENCE
+        ]
+      },
+      beforeEnter: checkedPermission
   },
   {
     name: "admin-transaction-show",
@@ -78,12 +79,12 @@ const generals: RouteRecordRaw[] = [
     props: true,
     component: () =>
       import("@/views/admin/transactions/TransactionDetailView.vue"),
-    meta: {
-      roles: [
-        ROLES.ADMIN
-      ]
-    },
-    beforeEnter: checkedRole
+      meta: {
+        permissions: [
+          ORDERS.REFERENCE
+        ]
+      },
+      beforeEnter: checkedPermission
   },
 ]
 
@@ -93,12 +94,12 @@ const security: RouteRecordRaw[] = [
     path: "/configurations/security/roles",
     component: () =>
       import("@/views/admin/security/roles/RolesView.vue"),
-    meta: {
-      roles: [
-        ROLES.ADMIN
-      ]
-    },
-    beforeEnter: checkedRole,
+      meta: {
+        permissions: [
+          ROLES.REFERENCE
+        ]
+      },
+      beforeEnter: checkedPermission
   }
 ]
 
@@ -108,36 +109,36 @@ const ubications: RouteRecordRaw[] = [
     path: "/configurations/ubications/countries",
     component: () =>
       import("@/views/admin/configurations/countries/CountryView.vue"),
-    meta: {
-      roles: [
-        ROLES.ADMIN
-      ]
-    },
-    beforeEnter: checkedRole,
+      meta: {
+        permissions: [
+          COUNTRIES.REFERENCE
+        ]
+      },
+      beforeEnter: checkedPermission
   },
   {
     name: "admin-configurations-ubications-departaments",
     path: "/configurations/ubications/departaments",
     component: () =>
       import("@/views/admin/configurations/departaments/DepartamentsView.vue"),
-    meta: {
-      roles: [
-        ROLES.ADMIN
-      ]
-    },
-    beforeEnter: checkedRole,
+      meta: {
+        permissions: [
+          DEPARTAMENTS.REFERENCE
+        ]
+      },
+      beforeEnter: checkedPermission
   },
   {
     name: "admin-configurations-ubications-municipalities",
     path: "/configurations/ubications/municipalities",
     component: () =>
       import("@/views/admin/configurations/municipalities/MunicipalitiesView.vue"),
-    meta: {
-      roles: [
-        ROLES.ADMIN
-      ]
-    },
-    beforeEnter: checkedRole,
+      meta: {
+        permissions: [
+          MUNICIPALITIES.REFERENCE
+        ]
+      },
+      beforeEnter: checkedPermission
   }
 ]
 
@@ -147,132 +148,132 @@ const generals_configurations: RouteRecordRaw[] = [
     path: "/configurations/generals",
     component: () =>
       import("@/views/admin/configurations/Generals/ConfigurationGeneralView.vue"),
-    meta: {
-      roles: [
-        ROLES.ADMIN
-      ]
-    },
-    beforeEnter: checkedRole,
+      meta: {
+        permissions: [
+          SETTINGS.REFERENCE
+        ]
+      },
+      beforeEnter: checkedPermission
   },
   {
     name: "admin-configurations-type-documents",
     path: "/configurations/generals/type-documents",
     component: () =>
       import("@/views/admin/configurations/type-documents/TypeDocumentsView.vue"),
-    meta: {
-      roles: [
-        ROLES.ADMIN
-      ]
-    },
-    beforeEnter: checkedRole,
+      meta: {
+        permissions: [
+          TYPE_DOCUMENTS.REFERENCE
+        ]
+      },
+      beforeEnter: checkedPermission
   },
   {
     name: "admin-configurations-generals-banks",
     path: "/configurations/generals/banks",
     component: () =>
       import("@/views/admin/configurations/banks/BanksView.vue"),
-    meta: {
-      roles: [
-        ROLES.ADMIN
-      ]
-    },
-    beforeEnter: checkedRole,
+      meta: {
+        permissions: [
+          BANKS.REFERENCE
+        ]
+      },
+      beforeEnter: checkedPermission
   },
   {
     name: "admin-configurations-generals-currencies",
     path: "/configurations/generals/currencies",
     component: () =>
       import("@/views/admin/configurations/currencies/CurrencyView.vue"),
-    meta: {
-      roles: [
-        ROLES.ADMIN
-      ]
-    },
-    beforeEnter: checkedRole,
+      meta: {
+        permissions: [
+          CURRENCIES.REFERENCE
+        ]
+      },
+      beforeEnter: checkedPermission
   },
   {
     name: "admin-configurations-generals-type-currencies",
     path: "/configurations/generals/type-currencies",
     component: () =>
       import("@/views/admin/configurations/CurrencyType/CurrencyTypeView.vue"),
-    meta: {
-      roles: [
-        ROLES.ADMIN
-      ]
-    },
-    beforeEnter: checkedRole,
+      meta: {
+        permissions: [
+          CURRENCY_TYPES.REFERENCE
+        ]
+      },
+      beforeEnter: checkedPermission
   },
   {
     name: "admin-configurations-generals-payment-methods",
     path: "/configurations/generals/payment-methods",
     component: () =>
       import("@/views/admin/configurations/PaymentMethod/PaymentMethodView.vue"),
-    meta: {
-      roles: [
-        ROLES.ADMIN
-      ]
-    },
-    beforeEnter: checkedRole,
+      meta: {
+        permissions: [
+          METHOD_PAYMENTS.REFERENCE
+        ]
+      },
+      beforeEnter: checkedPermission
   },
   {
     name: "admin-configurations-generals-other-payments",
     path: "/configurations/generals/other-payments",
     component: () =>
       import("@/views/admin/configurations/OtherPayments/OtherPaymentsView.vue"),
-    meta: {
-      roles: [
-        ROLES.ADMIN
-      ]
-    },
-    beforeEnter: checkedRole,
+      meta: {
+        permissions: [
+          PAYMENT_SUBTYPE.REFERENCE
+        ]
+      },
+      beforeEnter: checkedPermission
   },
   {
     name: "admin-configurations-generals-type-accounts",
     path: "/configurations/generals/type-accounts",
     component: () =>
       import("@/views/admin/configurations/TypeBankAccount/TypeBankAccountView.vue"),
-    meta: {
-      roles: [
-        ROLES.ADMIN
-      ]
-    },
-    beforeEnter: checkedRole,
+      meta: {
+        permissions: [
+          TYPE_BANK_ACCOUNTS.REFERENCE
+        ]
+      },
+      beforeEnter: checkedPermission
   },
   {
     name: "admin-configurations-generals-shipping-types",
     path: "/configurations/generals/shipping-types",
     component: () =>
       import("@/views/admin/configurations/ShippingTypes/ShippingTypeView.vue"),
-    meta: {
-      roles: [
-        ROLES.ADMIN
-      ]
-    },
-    beforeEnter: checkedRole,
+      meta: {
+        permissions: [
+          SHIPPING_TYPES.REFERENCE
+        ]
+      },
+      beforeEnter: checkedPermission
   },
   {
     name: "admin-configurations-generals-penalty-type",
     path: "/configurations/generals/penalty-type",
     component: () =>
       import("@/views/admin/configurations/PenaltyTypes/PenaltyTypeView.vue"),
-    meta: {
-      roles: [
-        ROLES.ADMIN
-      ]
-    },
-    beforeEnter: checkedRole,
+      meta: {
+        permissions: [
+          PENALTY_TYPES.REFERENCE
+        ]
+      },
+      beforeEnter: checkedPermission
   },
   {
     name: "admin-configurations-generals-network-types",
     path: "/configurations/generals/network-types",
     component: () =>
       import("@/views/admin/configurations/NetworkType/NetworkTypeView.vue"),
-    meta: {
-      roles: [
-        ROLES.ADMIN
-      ]
-    },
-    beforeEnter: checkedRole,
+      meta: {
+        permissions: [
+          PAYMENT_NETWORKS.REFERENCE
+        ]
+      },
+      beforeEnter: checkedPermission
   },
 ]
 
@@ -282,48 +283,48 @@ const accounts: RouteRecordRaw[] = [
     path: "/configurations/banks-accounts",
     component: () =>
       import("@/views/admin/configurations/CompanyAccounts/Bank/BankAccountCompanyView.vue"),
-    meta: {
-      roles: [
-        ROLES.ADMIN
-      ]
-    },
-    beforeEnter: checkedRole,
+      meta: {
+        permissions: [
+          ACCOUNTS.REFERENCE
+        ]
+      },
+      beforeEnter: checkedPermission
   },
   {
     name: "admin-configurations-efecty-accounts",
     path: "/configurations/efecty-accounts",
     component: () =>
       import("@/views/admin/configurations/CompanyAccounts/Efecty/EfectyAccountCompanyView.vue"),
-    meta: {
-      roles: [
-        ROLES.ADMIN
-      ]
-    },
-    beforeEnter: checkedRole,
+      meta: {
+        permissions: [
+          ACCOUNTS.REFERENCE
+        ]
+      },
+      beforeEnter: checkedPermission
   },
   {
     name: "admin-configurations-other-accounts",
     path: "/configurations/other-accounts",
     component: () =>
       import("@/views/admin/configurations/CompanyAccounts/Other/OtherAccountCompanyView.vue"),
-    meta: {
-      roles: [
-        ROLES.ADMIN
-      ]
-    },
-    beforeEnter: checkedRole,
+      meta: {
+        permissions: [
+          ACCOUNTS.REFERENCE
+        ]
+      },
+      beforeEnter: checkedPermission
   },
   {
     name: "admin-configurations-external-deposits",
     path: "/configurations/external-deposits",
     component: () =>
       import("@/views/admin/configurations/CompanyAccounts/ExternalDeposit/ExternalDeposit.vue"),
-    meta: {
-      roles: [
-        ROLES.ADMIN
-      ]
-    },
-    beforeEnter: checkedRole,
+      meta: {
+        permissions: [
+          DEPOSIT_EXTERNAL.REFERENCE
+        ]
+      },
+      beforeEnter: checkedPermission
   },
 ]
 
@@ -333,12 +334,12 @@ const wallets: RouteRecordRaw[] = [
     path: "/configurations/wallets",
     component: () =>
       import("@/views/admin/configurations/wallet/WalletView.vue"),
-    meta: {
-      roles: [
-        ROLES.ADMIN
-      ]
-    },
-    beforeEnter: checkedRole,
+      meta: {
+        permissions: [
+          COMPANY_WALLETS.REFERENCE
+        ]
+      },
+      beforeEnter: checkedPermission
   }
 ]
 
@@ -353,11 +354,11 @@ const configurations: RouteRecordRaw[] = [
     component: () =>
       import("@/views/admin/configurations/ConfigurationView.vue"),
     meta: {
-      roles: [
-        ROLES.ADMIN
+      permissions: [
+        SETTINGS.REFERENCE
       ]
     },
-    beforeEnter: checkedRole,
+    beforeEnter: checkedPermission,
     children: [
       ...security,
       ...ubications,
@@ -371,25 +372,24 @@ const configurations: RouteRecordRaw[] = [
     path: "/admin/profile",
     component: () =>
       import("@/views/admin/profile/ProfileView.vue"),
-    meta: {
-      roles: [
-        ROLES.ADMIN
-      ]
-    },
-    beforeEnter: checkedRole
+      // meta: {
+      //   roles: [
+      //     SETTINGS.REFERENCE
+      //   ]
+      // },
+      // beforeEnter: checkedPermission,
   },
   {
     name: "activities",
     path: "/activities",
     component: () =>
       import("@/views/admin/activities/ActivitiesView.vue"),
-    meta: {
-      roles: [
-        ROLES.ADMIN,
-        ROLES.USER
-      ]
-    },
-    beforeEnter: checkedRole
+    // meta: {
+    //   roles: [
+    //     SETTINGS.REFERENCE
+    //   ]
+    // },
+    // beforeEnter: checkedPermission,
   },
 ]
 export default [

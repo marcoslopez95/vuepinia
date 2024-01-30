@@ -5,10 +5,11 @@ export declare interface SidebarItem {
     icon: any
     to: string
     children?: SidebarChildren[]
-    roles: ROLES[],
+    roles?: ROLES[],
     reference?: any
+    permiss_reference?: PERMISSION_ENUM,
     params?: any
-    permiss: PERMISSION_ENUM | ''
+    permiss: PERMISSION_ENUM[]
 }
 
 
