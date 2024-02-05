@@ -9,6 +9,7 @@ import type { Country } from "@/interfaces/Country/Country.model";
 import type { TypeDocument } from "@/interfaces/TypeDocument/TypeDocument.model";
 import type { Permission, PermissionAttributes } from "@/interfaces/Permission/Permission.model";
 import type { PERMISSION_ENUM } from "@/enums/Permissions.enum";
+import type { UserAuth } from "@/interfaces/User/User.auth";
 
 export const UserStore = defineStore('user', () => {
     const helper = helperStore()
@@ -92,11 +93,12 @@ export const UserStore = defineStore('user', () => {
         })
     }
 
-    const permiss = computed((): PermissionAttributes[] => {
-        if(!isAutenticated()) return []
-        const user = getUserAuth()
-        return (user.roles[0].permissions as unknown) as PermissionAttributes[]
-    })
+    // const permiss = computed((): PermissionAttributes[] => {
+    //     const user = JSON.parse(localStorage.getItem('user')!) as UserAuth
+    //     if(!isAutenticated()) return []
+    //     return (user.roles[0].permissions as unknown) as PermissionAttributes[]
+    // })
+    const permiss = ref<PermissionAttributes[]>([]);
 
     const can = ( permission: PERMISSION_ENUM | string, reference: PERMISSION_ENUM ):boolean => {
         return !!permiss.value.find(p => { 
@@ -106,8 +108,15 @@ export const UserStore = defineStore('user', () => {
             return p.name == reference + '.' + permission
         })
     }
+    const uploadPermiss = ():void => {
+        const user = getUserAuth()
+        if(permiss.value.length > 0 ) return
+        //@ts-ignore
+        permiss.value = user.roles[0].permissions as PermissionAttributes[]
+      }
     return {
         can,
+        uploadPermiss,
         permiss,
         userAuth,
         updateUserAuth,

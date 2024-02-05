@@ -7,11 +7,13 @@ import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
 import { ROLES } from "@/interfaces/Role/Role.enum";
 import { TwoFactorAuthStore } from "@/stores/TwoFactorAuthStore";
+import { UserStore } from "@/stores/UserStore";
 
 const helper = helperStore();
 const twoFactorAuthStore = TwoFactorAuthStore();
 twoFactorAuthStore.url = "login/f2a";
-
+const userStore = UserStore()
+const { permiss } = storeToRefs(userStore)
 const router = useRouter();
 const { formRef, errorsInput } = storeToRefs(helper);
 const form = ref({
@@ -44,7 +46,7 @@ const SigIn = async () => {
 };
 
 const setAllLogin = (data: { user: any; token: any }) => {
-    console.log("asd");
+    // console.log("asd");
 
     const { user, token } = data;
     setLocalStorage(token);
@@ -54,6 +56,8 @@ const setAllLogin = (data: { user: any; token: any }) => {
     if (getUserAuth().roles[0].name === ROLES.USER) {
         name = "user-buy";
     }
+    permiss.value = []
+    userStore.uploadPermiss()
     router.push({ name });
     
 };

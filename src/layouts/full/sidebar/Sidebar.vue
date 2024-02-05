@@ -5,23 +5,26 @@ import LogoDark from "../logo/LogoDark.vue";
 import { useRoute, useRouter } from "vue-router";
 import type { StyleValue } from "vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
-import type { SidebarChildren, SidebarItem } from "@/interfaces/SidebarItems.interface";
+import type {
+    SidebarChildren,
+    SidebarItem,
+} from "@/interfaces/SidebarItems.interface";
 import ConfigurationIcon from "@/assets/icons/sidebar/ConfigurationIcon.vue";
 import { computed } from "vue";
 import { getUserAuth, helperStore } from "@/helper";
 import type { ROLES } from "@/interfaces/Role/Role.enum";
 import type { CountOrders } from "@/interfaces/Order/Order.model";
 import { UserStore } from "@/stores/UserStore";
-import { ACCOUNTS, COMMONS_PERMISSIONS } from '@/enums/Permissions.enum'
-const userStore = UserStore()
-const helper = helperStore()
+import { ACCOUNTS, COMMONS_PERMISSIONS } from "@/enums/Permissions.enum";
+const userStore = UserStore();
+const { can } = userStore;
+const helper = helperStore();
 
 const sidebarMenu = computed(() => {
-    
     return sidebarItems
         .map((item) => {
             item.children = item.children?.filter((child) =>
-            child.roles && child.roles.length > 0
+                child.roles && child.roles.length > 0
                     ? child.roles.includes(getUserAuth().roles[0].name as ROLES)
                     : true
             );
@@ -32,25 +35,23 @@ const sidebarMenu = computed(() => {
                 ? item.roles.includes(getUserAuth().roles[0].name as ROLES)
                 : true
         )
-        .filter(
-            item => {
-                if(!item.permiss || item.permiss.length === 0) return true
-                return item.permiss.map( p => {
-                    if(item.permiss_reference){
-                        return userStore.can(p,item.permiss_reference)
+        .filter((item) => {
+            if (!item.permiss || item.permiss.length === 0) return true;
+            return item.permiss
+                .map((p) => {
+                    if (item.permiss_reference) {
+                        return can(p, item.permiss_reference);
                     }
-                    return userStore.can(COMMONS_PERMISSIONS.GET,p)
-                    
-                }).every(bool => bool === true)
-                // return userStore.can(ACCOUNTS.TITLE, item.permiss)
-            }
-        )
-        ;
+                    return can(COMMONS_PERMISSIONS.GET, p);
+                })
+                .every((bool) => bool === true);
+            // return userStore.can(ACCOUNTS.TITLE, item.permiss)
+        });
 });
 // const sidebarMenu = ref<SidebarItem[]>(sidebarItems);
 const verifyWidthWindow = ref(useDisplay().mdAndUp);
 const router = useRouter();
-const route = useRoute()
+const route = useRoute();
 const isActiveForBorder = (to: string): StyleValue => {
     return {
         // Add a CSS Custom Property
@@ -66,29 +67,26 @@ const isActiveForItem = (to: string): string => {
 type TypeActive = "border" | "item";
 
 const countOrders = ref<CountOrders>({
-  cancels: 0,
-  done: 0,
-  pendings: 0,
-  takes: 0,
-  total: 0,
-})
+    cancels: 0,
+    done: 0,
+    pendings: 0,
+    takes: 0,
+    total: 0,
+});
 const getCountOrders = async () => {
-  const url = 'order/list/contador'
-  const res = await helper.http(url)
-  countOrders.value = res.data.response as CountOrders
-}
+    const url = "order/list/contador";
+    const res = await helper.http(url);
+    countOrders.value = res.data.response as CountOrders;
+};
 
-getCountOrders()
+getCountOrders();
 
-const activeSubmenu = (children: SidebarChildren):boolean => 
-{
-    
-    if(route.query.type && route.query.type === children.params?.type)
-    {
-        return true
+const activeSubmenu = (children: SidebarChildren): boolean => {
+    if (route.query.type && route.query.type === children.params?.type) {
+        return true;
     }
-    return false
-}
+    return false;
+};
 </script>
 
 <template>
@@ -150,9 +148,16 @@ const activeSubmenu = (children: SidebarChildren):boolean =>
                         class="ml-7"
                     >
                         <v-list-item
-                            v-for="(children, i) in item.children"
-                            :key="i"
-                            :to="children.to ? { name: children.to, query: children.params } : '#'"
+                            v-for="(children, j) in item.children"
+                            :key="j"
+                            :to="
+                                children.to
+                                    ? {
+                                          name: children.to,
+                                          query: children.params,
+                                      }
+                                    : '#'
+                            "
                             :active="activeSubmenu(children)"
                         >
                             <v-list-item-title
@@ -162,10 +167,17 @@ const activeSubmenu = (children: SidebarChildren):boolean =>
                                 <span
                                     v-if="countOrders[children.reference as keyof CountOrders] > 0"
                                     class="rounded-circle bg-white text-active font-weight-bold d-flex align-center justify-center"
-                                    style="width: 30px!important; height: 30px!important;"
-                                    >
-                                    {{ countOrders[children.reference as keyof CountOrders] }}
-                                    </span>
+                                    style="
+                                        width: 30px !important;
+                                        height: 30px !important;
+                                    "
+                                >
+                                    {{
+                                        countOrders[
+                                            children.reference as keyof CountOrders
+                                        ]
+                                    }}
+                                </span>
                             </template>
                         </v-list-item>
                     </v-list>

@@ -126,7 +126,9 @@ const items: SidebarItem[] = [
     // },
     {
         title: "Configuración",
-        permiss: [SETTINGS.REFERENCE],
+        permiss: [
+            SETTINGS.REFERENCE
+        ],
         icon: ConfigurationIcon,
         to: "admin-configurations",
         // roles: [
