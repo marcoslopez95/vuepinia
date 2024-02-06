@@ -21,7 +21,7 @@ const CreateOrUpdate = async () => {
     
     const { valid } = await formRef.value.validate();
     if (!valid) return;
-    let data;
+    let data: FormData | any = {};
     if (verificateIfExistUpload()) {
         // emits('click:post', formCrud.value)
         data = new FormData();
@@ -36,7 +36,7 @@ const CreateOrUpdate = async () => {
                 value = formCrud.value[key];
             }
 
-            data.append(key, value);
+            (data as FormData).append(key, value);
         }
         const url =
             clickIn.value === "Create"
@@ -48,7 +48,25 @@ const CreateOrUpdate = async () => {
         });
         return;
     }
-    data = formCrud.value;
+    // data = formCrud.value;
+    for (let key in formCrud.value) {
+        let value;
+        let bool = false
+        props.rows.forEach(row => {
+            if(bool) return
+            
+            const field = row.fields.find(field => field.valueForm == key)
+            if(field?.decode) {
+                bool = true
+                value = field.decode(formCrud.value[key]);
+            }
+        })
+        if(!bool){
+            value = formCrud.value[key];
+        }
+        // console.log(key,value);
+        data[key] = value;
+    }
     let res =
         clickIn.value == "Edit"
             ? await helper.put(item.value.id, data)

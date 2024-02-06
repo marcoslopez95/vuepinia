@@ -20,6 +20,9 @@
         @update="openUpdate"
         :items="helper.items"
     >
+    <template #cel-limit="{data}">
+        {{ formatNumber((data as OtherAccount).attributes.limit) }}
+    </template>
     </TableComponentVue>
 </template>
 
@@ -27,7 +30,7 @@
 import { ref } from "vue";
 import CrudComponent from "@/components/global/CrudComponent.vue";
 import TableComponentVue from "@/components/global/TableComponent.vue";
-import { helperStore } from "@/helper";
+import { formatNumber, formatNumberStringToNumber, helperStore } from "@/helper";
 import type { Row } from "@/interfaces/FormComponent.helper";
 import type { Head } from "@/interfaces/TableComponent.helper";
 import { storeToRefs } from "pinia";
@@ -80,7 +83,7 @@ const openUpdate = (item: OtherAccount) => {
         recommendation: item.attributes.recommendation,
         payment_type_id: item.attributes.payment_type_id,
         code_phone: item.attributes.code_phone,
-        limit: item.attributes.limit,
+        limit: formatNumber(item.attributes.limit),
         phone: item.attributes.phone,
     };
     formCrud.value = itemUpdate;
@@ -177,7 +180,8 @@ const rows: Row[] = [
                 colClass: ["v-col-12 v-col-sm-6"],
                 rules: [validator.required],
                 type: "text",
-                events: eventsXcop
+                events: eventsXcop,
+                decode: formatNumberStringToNumber
             },
             {
                 label: t("views.company-accounts.bank.recommendation"),
@@ -215,7 +219,7 @@ const headers: Head[] = [
     },
     {
         name: t("views.company-accounts.bank.limit"),
-        value: "attributes.limit",
+        value: "limit",
     },
 ];
 </script>

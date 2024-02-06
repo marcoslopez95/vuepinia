@@ -1,7 +1,9 @@
 import type {BaseUpdate } from "@/interfaces/Base.model";
 import type { OtherAccountAttributes,OtherAccountClientAttributes } from "./OtherAccount.model";
 
-export declare interface OtherAccountCreate extends OtherAccountAttributes{}
+export declare interface OtherAccountCreate extends Omit<OtherAccountAttributes, 'limit'>{
+    limit: string
+}
 export declare interface OtherAccountUpdate extends OtherAccountAttributes,BaseUpdate{}
 
 
