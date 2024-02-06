@@ -214,7 +214,7 @@
             </div>
         </div>
         <div class="text-center mt-4">
-            <VBtnPrimary @click="externalGiveOrder" :disabled="!txid">
+            <VBtnPrimary type="button" @click="externalGiveOrder" :disabled="!txid">
                 Enviar
             </VBtnPrimary>
         </div>
@@ -428,7 +428,7 @@ const modalTxid = ref(false);
 const txid = ref("");
 const externalGiveOrder = async () => {
     try {
-        const url = "order/external/accept/deposit/";
+        const url = "order/external/accept/deposit";
         const data = {
             order_id: orderSelect.value?.id,
             txid: txid.value,
