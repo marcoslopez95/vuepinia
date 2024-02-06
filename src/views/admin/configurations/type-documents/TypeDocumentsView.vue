@@ -99,6 +99,11 @@ const headers: Head[] = [
         value: 'attributes.type_document',
     },
 
+    {
+        name: 'Status',
+        value: 'deleted_at',
+        status: 'deleted'
+    },
 ]
 
 

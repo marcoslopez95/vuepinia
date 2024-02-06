@@ -109,6 +109,11 @@ const headers: Head[] = [
         value: 'relationships.department.attributes.name',
     },
 
+    {
+        name: 'Status',
+        value: 'deleted_at',
+        status: 'deleted'
+    },
 ]
 
 

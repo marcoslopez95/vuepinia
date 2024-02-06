@@ -110,7 +110,7 @@ export const UserStore = defineStore('user', () => {
     }
     const uploadPermiss = ():void => {
         const user = getUserAuth()
-        if(permiss.value.length > 0 ) return
+        if(permiss.value.length > 0 || !user) return
         //@ts-ignore
         permiss.value = user.roles[0].permissions as PermissionAttributes[]
       }

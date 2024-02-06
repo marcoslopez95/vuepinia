@@ -316,7 +316,11 @@ const headers: Head[] = [
         name: t('views.currencies.symbol'),
         value: 'attributes.symbol',
     },
-
+    {
+        name: 'Status',
+        value: 'deleted_at',
+        status: 'deleted'
+    },
 ]
 
 const postCurrency = async (item: CurrencyCreate) => {

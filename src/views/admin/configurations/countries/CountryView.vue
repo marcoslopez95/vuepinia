@@ -88,6 +88,7 @@ const rows: Row[] = [
                     validator.required
                 ]
             }
+            
         ]
     }
 ]
@@ -100,6 +101,11 @@ const headers: Head[] = [
     {
         name: t('general-views.code'),
         value: 'attributes.code',
+    },
+    {
+        name: 'Status',
+        value: 'deleted_at',
+        status: 'deleted'
     },
 
 ]
