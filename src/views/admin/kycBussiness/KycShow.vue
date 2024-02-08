@@ -22,49 +22,41 @@
                     Nombre de Empresa:
                 </VCol>
                 <VCol cols="5" class="text-center">
-                    {{ kyc.attributes.name}}
+                    {{ kyc.relationships?.company.attributes.name}}
                 </VCol>
 
                 <VCol cols="7" class="pb-0 mb-0">
                     Dirección:
                 </VCol>
                 <VCol cols="5" class="text-center">
-                    {{ kyc.attributes.address }}
+                    {{ kyc.relationships?.company.attributes.address }}
                 </VCol>
 
                 <VCol cols="7" class="pb-0 mb-0">
                     NIC:
                 </VCol>
                 <VCol cols="5" class="text-center">
-                    {{ kyc.attributes.nic }}
+                    {{ kyc.relationships?.company.attributes.nic }}
                 </VCol>
 
                 <VCol cols="7" class="pb-0 mb-0">
                     Teléfono:
                 </VCol>
                 <VCol cols="5" class="text-center">
-                    {{ kyc.attributes.code_phone }} {{ kyc.attributes.phone }}
+                    {{ kyc.relationships?.company.attributes.code_phone }} {{ kyc.relationships?.company.attributes.phone }}
                 </VCol>
 
                 <VCol cols="7"> Departamento: </VCol>
                 <VCol cols="5" class="text-center">
-                    {{ kyc.relationships?.department?.attributes.name ?? '' }}
+                    {{ kyc.relationships?.company.relationships?.department?.attributes.name ?? '' }}
                 </VCol>
 
                 <VCol cols="7"> Municipio : </VCol>
                 <VCol cols="5" class="text-center">
-                    {{ kyc.relationships?.municipalitie?.attributes.name ?? '' }}
+                    {{ kyc.relationships?.company.relationships?.municipalitie?.attributes.name ?? '' }}
                 </VCol>
 
             </VRow>
-
-            <div class="mt-5">
-                <p class="text-center">
-                    {{ $t("views.admin.kyc.check-list") }}
-                </p>
-
-                <p>{{ $t("views.admin.kyc.last-check") }} :</p>
-            </div>
         </div>
 
         <!-- Imagenes del kyc -->
@@ -74,7 +66,7 @@
                 class="mx-auto"
                 style="min-width: 210px; max-width: 210px"
                 v-for="(image, i) in images"
-                :key="i"
+                :key="i + ' ' + image.status"
             >
                 <div class="text-center">
                     <span class="text-18 font-weight-light text-table">{{
@@ -189,24 +181,24 @@ import ZoomOut from "@/assets/icons/kyc/ZoomOutIcon.vue";
 import { useI18n } from "vue-i18n";
 import { KYC_STATUS } from "@/enums/Kyc.enum";
 import DialogGlobal from "@/components/global/DialogGlobal.vue";
-import type { Bussiness } from "@/interfaces/Bussiness/Bussiness.model";
+import type { BussinessKyc } from "@/interfaces/Bussiness/Bussiness.model";
 
 const emits = defineEmits<{
     (e: "back"): void;
 }>();
 const { t } = useI18n();
 const helper = helperStore();
-const kyc = ref<Bussiness>(helper.item);
+const kyc = ref<BussinessKyc>(helper.item);
 
 const back = () => {
     helper.clickIn = "";
     emits("back");
 };
 const fullname = computed((): string => {
-    const user = kyc.value.relationships!.user!;
+    const user = kyc.value.relationships!.company.relationships!.user!;
     return user.attributes.first_name + " " + user.attributes.last_name;
 });
-const user = kyc.value.relationships?.user;
+const user = kyc.value.relationships!.company.relationships!.user;
 
 const getDateLastConnection = (): string => {
     const last_connection =
@@ -223,78 +215,65 @@ const images = computed(
     }[] => {
         return [
             {
-                name: t("views.admin.kyc.selfie"),
+                name: 'Composición Accionaria',
                 image:
-                    kyc.value.relationships?.kyc?.attributes
-                        .url_aws_address_verification ?? "",
-                status: kyc.value.relationships?.kyc?.attributes
-                    .address_verification_status as KYC_STATUS,
-                value: "selfie",
+                    kyc.value.attributes.url_aws_shareholding_structure ?? "",
+                status: kyc.value.attributes.shareholding_structure_status as KYC_STATUS,
+                value: "shareholding_structure",
             },
             {
-                name: t("views.admin.kyc.front"),
+                name: 'Certificado camara de comercio',
                 image:
-                    kyc.value.relationships?.kyc?.attributes
-                        .url_aws_banking_certification ?? "",
-                status: kyc.value.relationships?.kyc?.attributes
-                    .banking_certification_status as KYC_STATUS,
-                value: "front",
+                    kyc.value.attributes.url_aws_chamber_commerce_certificate ?? "",
+                status: kyc.value.attributes.chamber_commerce_certificate_status as KYC_STATUS,
+                value: "chamber_commerce_certificate",
             },
             {
-                name: t("views.admin.kyc.back"),
+                name: 'Rut',
                 image:
-                    kyc.value.relationships?.kyc?.attributes
-                        .url_aws_chamber_commerce_certificate ?? "",
-                status: kyc.value.relationships?.kyc?.attributes
-                    .chamber_commerce_certificate_status as KYC_STATUS,
-                value: "back",
+                    kyc.value.attributes.url_aws_rut ?? "",
+                status: kyc.value.attributes.rut_status as KYC_STATUS,
+                value: "rut",
             },
             {
-                name: t("views.admin.kyc.back"),
+                name: 'Certificacion Bancaria',
                 image:
-                    kyc.value.relationships?.kyc?.attributes.url_aws_rut ?? "",
-                status: kyc.value.relationships?.kyc?.attributes
-                    .rut_status as KYC_STATUS,
-                value: "back",
+                    kyc.value.attributes.url_aws_banking_certification ?? "",
+                status: kyc.value.attributes.banking_certification_status as KYC_STATUS,
+                value: "banking_certification",
             },
             {
-                name: t("views.admin.kyc.back"),
+                name: 'Verificacion Domicion',
                 image:
-                    kyc.value.relationships?.kyc?.attributes
-                        .url_aws_shareholding_structure ?? "",
-                status: kyc.value.relationships?.kyc?.attributes
-                    .shareholding_structure_status as KYC_STATUS,
-                value: "back",
+                    kyc.value.attributes.url_aws_address_verification ?? "",
+                status: kyc.value.attributes.address_verification_status as KYC_STATUS,
+                value: "address_verification",
             },
         ];
     }
 );
 
 const rejectOrAccept = async (type: imageType, action: keyof Actions) => {
-    let data: putKyc = {};
-    const act = actions[action];
-    if (type == "back") {
-        data.reverse_identity_document_status = act;
-    } else if (type == "front") {
-        data.front_identity_document_status = act;
-    } else if (type == "selfie") {
-        data.selfie_identity_document_status = act;
-    }
-    if (action === "reject") {
-        data.status_all = act;
-    }
-    const url = `kyc/verificate/` + helper.item.id;
-    const res = (await helper.http(url, "put", { data })).data.response as Kyc;
+    const company_id = kyc.value.relationships?.company.id
+    const data = {
+        field: type,
+        status: action
+    };
+    
+    const url = `companys/kyc/${company_id}`;
+    const res = (await helper.http(url, "put", { data })).data.response as BussinessKyc;
 
-    // kyc.value = res;
+    kyc.value = res;
 };
 
 const openModal = ref(false);
 const imgModal = ref("");
 const rotateImg = ref({
-    selfie: 0,
-    back: 0,
-    front: 0,
+    chamber_commerce_certificate: 0,
+    rut: 0,
+    banking_certification: 0,
+    address_verification: 0,
+    shareholding_structure: 0,
 });
 const rotateImageModal = ref(0);
 const showImgZoom = (src: string, type: imageType) => {
@@ -303,7 +282,11 @@ const showImgZoom = (src: string, type: imageType) => {
     rotateImageModal.value = rotateImg.value[type];
 };
 // --------------------------------
-type imageType = "selfie" | "back" | "front";
+type imageType = "shareholding_structure" |
+"chamber_commerce_certificate" | 
+"rut" | 
+'banking_certification' | 
+'address_verification';
 
 const actions = {
     reject: KYC_STATUS.REJECT,

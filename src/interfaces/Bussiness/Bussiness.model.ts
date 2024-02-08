@@ -11,7 +11,7 @@ interface BussinessRelationships {
     user: User;
     municipalitie?: Municipality;
     department?: Departament;
-    kyc?: Kyc;
+    kyc?: BussinessKyc;
 }
 
 export declare interface BussinessAttributes {
@@ -27,12 +27,9 @@ export declare interface BussinessAttributes {
     verified: number;
 }
 
-interface Kyc {
-    id: number;
-    attributes: KycAttributes;
-}
+export interface BussinessKyc extends BaseModel<BussinessKycAttributes,BussinessKycRelationships> {}
 
-interface KycAttributes {
+interface BussinessKycAttributes {
     company_id: number;
     shareholding_structure_status: StatusKycBussiness;
     chamber_commerce_certificate_status: StatusKycBussiness;
@@ -49,6 +46,10 @@ interface KycAttributes {
     url_aws_rut: string;
     url_aws_banking_certification: string;
     url_aws_address_verification: string;
+}
+
+interface BussinessKycRelationships {
+    company: Bussiness
 }
 
 export declare type StatusKycBussiness = 'en verificacion'

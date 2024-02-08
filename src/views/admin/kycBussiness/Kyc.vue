@@ -14,7 +14,7 @@
             @show="showItem"
             :items="helper.items"
         >
-            <template #cel-relationships.kyc.attributes.status="{ data }">
+            <template #cel-attributes.status="{ data }">
                 <VChipSuccess
                     v-if="getStatusKyc(bussiness(data)) === KYC_STATUS.ACCEPT"
                 >
@@ -49,21 +49,21 @@ import type { Head } from "@/interfaces/TableComponent.helper";
 import KycShow from "./KycShow.vue";
 import type { Kyc } from "@/interfaces/User/Kyc/Kyc.model";
 import { KYC_STATUS } from "@/enums/Kyc.enum";
-import type { Bussiness } from "@/interfaces/Bussiness/Bussiness.model";
+import type { BussinessKyc } from "@/interfaces/Bussiness/Bussiness.model";
 
 const showKyc = ref(false);
 const { t } = useI18n();
 const helper = helperStore();
 const search = ref<string>("");
-helper.url = "companys";
+helper.url = "companys/kyc";
 helper.initView()
 
 helper.index();
 
-const bussiness = (item: unknown) => item as Bussiness;
+const bussiness = (item: unknown) => item as BussinessKyc;
 
-const getStatusKyc = (item: Bussiness): string =>
-    item.relationships!.kyc?.attributes.status ?? "";
+const getStatusKyc = (item: BussinessKyc): string =>
+    item.attributes.status ?? "";
 const getSearch = () => {
     helper.index({
         type_document: search.value,
@@ -76,20 +76,24 @@ const headers: Head[] = [
         value: "id",
     },
     {
+        name: 'Empresa',
+        value: "relationships.company.attributes.name",
+    },
+    {
         name: t("views.users.title"),
-        value: "relationships.user.attributes.username",
+        value: "relationships.company.relationships.user.attributes.username",
     },
     {
         name: t("views.users.email"),
-        value: "relationships.user.attributes.email",
+        value: "relationships.company.relationships.user.attributes.email",
     },
     {
         name: t("general-views.status"),
-        value: "relationships.kyc.attributes.status",
+        value: "attributes.status",
     },
 ];
 
-const showItem = (element: Bussiness) => {
+const showItem = (element: BussinessKyc) => {
     helper.item = element;
     helper.clickIn = "Show";
 };

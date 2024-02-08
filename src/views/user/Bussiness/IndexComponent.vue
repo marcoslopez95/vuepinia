@@ -22,15 +22,8 @@
     @update="openUpdate"
     :items="helper.items"
     >
-    <template #cel-attributes.name="{data}">
-        <div class="d-flex gap-2">
-            <div class="text-table text-left" style="width: 25px;">  
-                <VImg inline class="mx-auto my-auto" v-if="itemHaveImages(currency(data).relationships?.images)" :src="(itemHaveImages(currency(data).relationships?.images) as string)" width="25" />
-            </div>
-            <div>
-                {{ currency(data).attributes.name }}
-            </div>
-        </div>
+    <template #cel-relationships.user.attributes.fullname="{data}">
+        {{ getFullName(data.relationships.user as User) }}
     </template>
     </TableComponentVue>
 </template>
@@ -39,7 +32,7 @@
 import { ref } from 'vue';
 import CrudComponent from '@/components/global/CrudComponent.vue';
 import TableComponentVue from '@/components/global/TableComponent.vue';
-import { helperStore, itemHaveImages } from '@/helper';
+import { getFullName, helperStore, itemHaveImages } from '@/helper';
 import type { Row } from '@/interfaces/FormComponent.helper';
 import type { Head } from '@/interfaces/TableComponent.helper';
 import { storeToRefs} from 'pinia';
@@ -52,6 +45,7 @@ import { CurrencyStore } from '@/stores/CurrencyStore';
 import type { BussinessUpdate } from '@/interfaces/Bussiness/Bussiness.dto'
 import type { Bussiness } from '@/interfaces/Bussiness/Bussiness.model'
 import { UserStore } from '@/stores/UserStore';
+import type { User } from '@/interfaces/User/User.model';
 const helper = helperStore()
 helper.url = 'companys'
 
@@ -245,8 +239,12 @@ const headers: Head[] = [
         value: 'attributes.name',
     },
     {
-        name: t('views.currencies.symbol'),
-        value: 'attributes.symbol',
+        name: 'nic',
+        value: 'attributes.nic',
+    },
+    {
+        name: 'usuario',
+        value: 'relationships.user.attributes.fullname',
     },
 
 ]
