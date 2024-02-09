@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex justify-space-between mx-5 mb-2">
+    <div class="d-flex justify-space-between mx-5 mb-2 flex-column flex-sm-row">
         <h2
             class="text-table font-weight-bold"
             v-html="$t('views.admin.kyc.show.title', { fullname: fullname })"
@@ -18,41 +18,41 @@
         >
 
             <VRow class="justify-space-between" dense>
-                <VCol cols="7" class="pb-0 mb-0">
+                <VCol cols="12" sm="7"  class="pb-0 mb-0">
                     Nombre de Empresa:
                 </VCol>
-                <VCol cols="5" class="text-center">
+                <VCol cols="12" sm="5" class="text-center">
                     {{ kyc.relationships?.company.attributes.name}}
                 </VCol>
 
-                <VCol cols="7" class="pb-0 mb-0">
+                <VCol cols="12" sm="7" class="pb-0 mb-0">
                     Dirección:
                 </VCol>
-                <VCol cols="5" class="text-center">
+                <VCol cols="12" sm="5" class="text-center">
                     {{ kyc.relationships?.company.attributes.address }}
                 </VCol>
 
-                <VCol cols="7" class="pb-0 mb-0">
+                <VCol cols="12" sm="7" class="pb-0 mb-0">
                     NIC:
                 </VCol>
-                <VCol cols="5" class="text-center">
+                <VCol cols="12" sm="5" class="text-center">
                     {{ kyc.relationships?.company.attributes.nic }}
                 </VCol>
 
-                <VCol cols="7" class="pb-0 mb-0">
+                <VCol cols="12" sm="7" class="pb-0 mb-0">
                     Teléfono:
                 </VCol>
-                <VCol cols="5" class="text-center">
+                <VCol cols="12" sm="5" class="text-center">
                     {{ kyc.relationships?.company.attributes.code_phone }} {{ kyc.relationships?.company.attributes.phone }}
                 </VCol>
 
-                <VCol cols="7"> Departamento: </VCol>
-                <VCol cols="5" class="text-center">
+                <VCol cols="12" sm="7"> Departamento: </VCol>
+                <VCol cols="12" sm="5" class="text-center">
                     {{ kyc.relationships?.company.relationships?.department?.attributes.name ?? '' }}
                 </VCol>
 
-                <VCol cols="7"> Municipio : </VCol>
-                <VCol cols="5" class="text-center">
+                <VCol cols="12" sm="7"> Municipio : </VCol>
+                <VCol cols="12" sm="5" class="text-center">
                     {{ kyc.relationships?.company.relationships?.municipalitie?.attributes.name ?? '' }}
                 </VCol>
 
