@@ -44,7 +44,11 @@ const Lighttheme: ThemeDefinition = {
     'inactive': '#D9D9D9',
     'down': '#F00',
     'down-2': '#FF7070',
-    'up': '#2B5517'
+    'up': '#2B5517',
+    //---------------------
+    'auth-level-1': '#D9D9D9',
+    'auth-level-2': '#31D02E',
+    'auth-level-3': '#EFAF0C',
   },
 };
 

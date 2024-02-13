@@ -2,6 +2,12 @@ html {
   body{
     font-family: $font-family !important;
     background-color: #F8F9FA;
+    // @media (max-width: 960px) {
+    //   background-color: #F8F9FA;
+    // }
+    // @media (min-width: 961px) {
+    //   background-color: #000000;
+    // }
   }
   font-family: $font-family!important;
 

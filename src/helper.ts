@@ -66,6 +66,12 @@ export const helperStore = defineStore('helper', <T>() => {
         }
 
         if (typeof messages === 'string') {
+          // if(messages.includes('Access denied for user')){
+          //   http('clear/cache','get')
+          //   .then(()=>{
+          //     http(url,method,options,notification,disabledLoading)
+          //   })
+          // }
           showNotify(messages, { type: 'error' })
         } else {
           getErrors(error.response.data.data.errors)

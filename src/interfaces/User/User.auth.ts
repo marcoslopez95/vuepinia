@@ -1,3 +1,4 @@
+import type { LevelAuth } from "@/enums/LevelAuth.enum";
 import type { Permission } from "../Permission/Permission.model";
 
 export declare interface UserAuth {
@@ -21,6 +22,7 @@ export declare interface UserAuth {
   created_at: string;
   updated_at: string;
   roles: Role[];
+  level_user: LevelAuth
 }
 
 interface Role {

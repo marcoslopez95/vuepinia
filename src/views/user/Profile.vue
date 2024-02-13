@@ -1,10 +1,17 @@
 <template>
-    <h2 class="text-table font-weight-bold">{{ $t('views.profile.title') }}</h2>
+    <h2 class="text-table font-weight-bold">
+        {{ $t('views.profile.title') }}
+        <span v-if="$vuetify.display.mobile"
+            >
+            - {{ menuActive }}
+            {{ submenuActive ? `- ${submenuActive}`: '' }}
+        </span>
+    </h2>
     
 
     <!-- <v-card > -->
         <div class="border-b-md">
-            <v-tabs v-model="menuActive" bg-color="transparent" show-arrows>
+            <v-tabs v-if="!$vuetify.display.mobile" v-model="menuActive" bg-color="transparent" show-arrows>
                 <v-tab
                     v-for="(item, i) in tabs"
                     @click.prevent="clickInTab(i, item,item.nameRoute)"
@@ -77,74 +84,12 @@ import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import PersonalData from './Profile/PersonalData.vue';
 import { helperStore } from '@/helper';
-import { storeToRefs } from 'pinia';
-import { watch , shallowRef} from 'vue';
-import KycView from './Kyc/KycView.vue';
-import WalletView from './wallet/WalletView.vue';
-import BankAccountView from './Accounts/Bank/BankAccountView.vue';
-import OtherAccountView from './Accounts/Other/OtherAccountView.vue';
-import ReferredView from './Refer/ReferredView.vue'
-import PasswordTab from '../admin/profile/PasswordTab.vue';
 import { useRoute, useRouter } from 'vue-router';
+import { tabs } from './itemsMenuProfile'
 
 const { t } = useI18n()
 const helper = helperStore()
 const tabActive = ref(PersonalData)
-const tabs = shallowRef<ItemTab[]>([
-    {
-        name: t('views.profile.personal-data.title'),
-        value: PersonalData,
-        nameRoute: 'user-personal-data'
-    },
-    
-    {
-        name: t('views.wallets.title',2),
-        value: WalletView,
-        nameRoute: 'user-wallets'
-    },
-    {
-        name: t('views.accounts.title',2),
-        value: 'cuentas',
-        nameRoute: '#',
-        children:[
-            {
-                name: t("views.company-accounts.bank.title", 2),
-                value: BankAccountView,
-                nameRoute: 'user-bank-accounts'
-
-            },
-            // {
-            //     name: t("views.company-accounts.efecty.title", 2),
-            //     value: EfectyAccountCompanyView,
-            // },
-            {
-                name: t("views.company-accounts.other.title", 2),
-                value: OtherAccountView,
-                nameRoute: 'user-other-accounts'
-
-            },
-        ]
-    },
-    {
-        name: t('views.refer.title',2),
-        value: ReferredView,
-        nameRoute: 'user-referreds'
-    },
-    {
-        name: 'Contraseñas',
-        value: PasswordTab,
-        nameRoute: 'user-password'
-    },
-])
-
-if(!(!!localStorage.getItem('2fa'))){
-    tabs.value.push({
-        name: t('views.profile.kyc.title'),
-        value: KycView,
-        nameRoute: 'user-kyc'
-    },)
-}
-
 
 const submenuActive = ref("");
 const menuActive = ref(t('views.profile.personal-data.title'));

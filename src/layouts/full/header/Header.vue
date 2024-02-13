@@ -64,6 +64,10 @@ const clickInProfile =  (to: ToItems ) : undefined => {
   router.push({name: profileRoutes[userRole][to]})
 }
 
+const clickInProfileMobile = () => {
+  router.push({name: 'user-mobile-view'})
+}
+
 const profileRoutes = {
   Admin: {
     profile: 'admin-profile',
@@ -93,7 +97,7 @@ const profileRoutes = {
       <!-- <NotificationIcon :class="colorIcons" :active="existMessages" /> -->
       <NotificationComponent />
       <!-- ---------------------------------------------- -->
-      <v-menu anchor="bottom end" origin="auto" min-width="300">
+      <v-menu v-if="!$vuetify.display.mobile" anchor="bottom end" origin="auto" min-width="300">
         <template v-slot:activator="{ props }">
           <v-btn  v-bind="props" class="pa-0 pr-6" elevation="0" color="transparent">
             <!-- <v-avatar size="35"> -->
@@ -163,6 +167,16 @@ const profileRoutes = {
           </v-card-actions>
         </v-card>
       </v-menu>
+      <v-btn v-else 
+        class="pa-0 pr-6"
+        elevation="0"
+        color="transparent"
+        @click="clickInProfileMobile"
+        >
+        <!-- <v-avatar size="35"> -->
+        <ProfileIcon style="color:#5043E9" />
+        <!-- </v-avatar> -->
+      </v-btn>
     </div>
 
   </div>

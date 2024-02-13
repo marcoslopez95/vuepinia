@@ -10,6 +10,7 @@ import type { TypeDocument } from "@/interfaces/TypeDocument/TypeDocument.model"
 import type { Permission, PermissionAttributes } from "@/interfaces/Permission/Permission.model";
 import type { PERMISSION_ENUM } from "@/enums/Permissions.enum";
 import type { UserAuth } from "@/interfaces/User/User.auth";
+import { LevelAuth } from "@/enums/LevelAuth.enum";
 
 export const UserStore = defineStore('user', () => {
     const helper = helperStore()
@@ -20,25 +21,25 @@ export const UserStore = defineStore('user', () => {
 
     const municipalities = ref<Municipality[]>([])
     const getMunicipalities = (): Promise<Boolean> => {
-        return new Promise( async (resolve, reject) =>{
-            try{
-                const res = await helper.http('municipalitys','get')
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await helper.http('municipalitys', 'get')
                 municipalities.value = res.data.response
                 resolve(true)
-            }catch(err){
+            } catch (err) {
                 reject(false)
             }
         })
     }
 
     const users = ref<User[]>([])
-    const getUsers =  (): Promise<Boolean> => {
-        return new Promise( async (resolve, reject) =>{
-            try{
-                const res = await helper.http('users','get')
+    const getUsers = (): Promise<Boolean> => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await helper.http('users', 'get')
                 users.value = res.data.response
                 resolve(true)
-            }catch(err){
+            } catch (err) {
                 reject(false)
             }
         })
@@ -46,12 +47,12 @@ export const UserStore = defineStore('user', () => {
 
     const roles = ref<Role[]>([])
     const getRoles = (): Promise<Boolean> => {
-        return new Promise( async (resolve, reject) =>{
-            try{
-                const res = await helper.http('roles','get')
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await helper.http('roles', 'get')
                 roles.value = res.data.response
                 resolve(true)
-            }catch(err){
+            } catch (err) {
                 reject(false)
             }
         })
@@ -59,12 +60,12 @@ export const UserStore = defineStore('user', () => {
 
     const countries = ref<Country[]>([])
     const getCountries = (): Promise<Boolean> => {
-        return new Promise( async (resolve, reject) =>{
-            try{
-                const res = await helper.http('countrys','get')
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await helper.http('countrys', 'get')
                 countries.value = res.data.response
                 resolve(true)
-            }catch(err){
+            } catch (err) {
                 reject(false)
             }
         })
@@ -72,22 +73,22 @@ export const UserStore = defineStore('user', () => {
 
     const typeDocuments = ref<TypeDocument[]>([])
     const getTypeDocuments = (): Promise<Boolean> => {
-        return new Promise( async (resolve, reject) =>{
-            try{
-                const res = await helper.http('type/documents','get')
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await helper.http('type/documents', 'get')
                 typeDocuments.value = res.data.response
                 resolve(true)
-            }catch(err){
+            } catch (err) {
                 reject(false)
             }
         })
     }
 
     const userAuth = ref<User>()
-    const updateUserAuth = (): Promise<void> =>{
-        return new Promise<void>(async (resolve,reject) =>{
+    const updateUserAuth = (): Promise<void> => {
+        return new Promise<void>(async (resolve, reject) => {
             const url = 'users/activite/user'
-            let res = await helper.http(url,'get',{},'',true)
+            let res = await helper.http(url, 'get', {}, '', true)
             userAuth.value = res.data.response as User
             resolve()
         })
@@ -100,20 +101,21 @@ export const UserStore = defineStore('user', () => {
     // })
     const permiss = ref<PermissionAttributes[]>([]);
 
-    const can = ( permission: PERMISSION_ENUM | string, reference: PERMISSION_ENUM ):boolean => {
-        return !!permiss.value.find(p => { 
-            console.log('p.name',p.name)
-            console.log("reference + '.' + permission",reference + '.' + permission)
-            console.log("p.name == reference + '.' + permissionn",p.name == reference + '.' + permission)
+    const can = (permission: PERMISSION_ENUM | string, reference: PERMISSION_ENUM): boolean => {
+        return !!permiss.value.find(p => {
+            console.log('p.name', p.name)
+            console.log("reference + '.' + permission", reference + '.' + permission)
+            console.log("p.name == reference + '.' + permissionn", p.name == reference + '.' + permission)
             return p.name == reference + '.' + permission
         })
     }
-    const uploadPermiss = ():void => {
+    const uploadPermiss = (): void => {
         const user = getUserAuth()
-        if(permiss.value.length > 0 || !user) return
+        if (permiss.value.length > 0 || !user) return
         //@ts-ignore
         permiss.value = user.roles[0].permissions as PermissionAttributes[]
-      }
+    }
+
     return {
         can,
         uploadPermiss,

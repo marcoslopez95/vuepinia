@@ -177,6 +177,18 @@ const generals: RouteRecordRaw[] = [
 
 const configurations: RouteRecordRaw[] = [
     {
+        name:'user-mobile-view',
+        path: 'user/menu-mobile',
+        component: () => import('@/views/user/MenuMobileView.vue'),
+        meta: {
+            reference: USERS.REFERENCE,
+            permissions: [
+                USERS.PERSONAL_DATA
+            ]
+        },
+        beforeEnter: checkedPermission
+    },
+    {
         name: "user-profile",
         path: "/user/profile",
         redirect: { name: 'user-personal-data' },
@@ -220,8 +232,9 @@ const configurations: RouteRecordRaw[] = [
             },
         ],
         meta: {
+            reference: USERS.REFERENCE,
             permissions: [
-                CLIENT_ACCOUNTS.REFERENCE
+                USERS.PERSONAL_DATA
             ]
         },
         beforeEnter: checkedPermission
