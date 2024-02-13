@@ -130,7 +130,12 @@ const headers: Head[] = [
     {
         name: t('views.type-company-account.title'),
         value: 'relationships.payment.attributes.name',
-    }
+    },
+    {
+        name: 'Status',
+        value: 'deleted_at',
+        status: 'deleted'
+    },
 ]
 
 

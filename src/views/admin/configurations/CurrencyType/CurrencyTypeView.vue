@@ -102,6 +102,11 @@ const headers: Head[] = [
         name: t('general-views.description'),
         value: 'attributes.description',
     },
+    {
+        name: 'Status',
+        value: 'deleted_at',
+        status: 'deleted'
+    },
 ]
 
 
