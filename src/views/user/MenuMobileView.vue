@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-show="!showDetailLevel">
         <div
             class="bg-white border border-orange d-flex justify-center align-center flex-column ga-3 py-3 rounded-10 container"
         >
@@ -83,7 +83,12 @@
                 </VListItem>
             </VList>
         </div>
+
+        <!-- /////////////////////////////////////////// -->
     </div>
+    <LevelViewComponent
+        v-show="showDetailLevel"
+        />
 </template>
 
 <script setup lang="ts">
@@ -91,10 +96,12 @@ import { getUserAuth } from "@/helper";
 import { ref } from "vue";
 import { tabs } from "./itemsMenuProfile";
 import { useRouter } from "vue-router";
+import LevelViewComponent from "./LevelViewComponent.vue";
 
 const levelUser = ref(getUserAuth().level_user);
 const router = useRouter();
 
+const showDetailLevel = ref(true)
 const clickInMenu = (to: string) => {
     router.push({ name: to });
 };

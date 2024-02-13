@@ -14,7 +14,7 @@ const Lighttheme: ThemeDefinition = {
     // primary: "#ee8a6a",
     primary: "#5043E8",
     table: "#4F4F5B",
-    'table-2': '#4F4F5B',
+    'table-2': '#5C6776',
     'table-icon': '#4F4F5B',
     info: "#0cb9c5",
     success: "#1AD598",
