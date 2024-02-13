@@ -24,17 +24,17 @@
             </VBtnDangerT>
         </div> -->
     </div>
-    <!-- <div class="mt-3 text-center">
+    <div class="mt-3 text-center">
         <VBtn variant="outlined" @click="showCamera = !showCamera" rounded="xl"
             >Código QR</VBtn
         >
         <div v-if="showCamera" class="center stream">
-            <QrcodeStream @decode="qrDecode" class="mb">
-                <div style="color: red" class="frame"></div>
+            <QrcodeStream @detect="qrDecode" class="my-3">
+                <div style="color: #5043E8" class="frame"></div>
             </QrcodeStream>
         </div>
         <code>{{ qrCode }}</code>
-    </div> -->
+    </div>
     <div class="w-100 text-center mt-5">
         <VMenu v-model="openUsers">
             <template #activator="{ props }">
@@ -175,7 +175,19 @@ const emits = defineEmits<{
 }>();
 const qrCode = ref<any>();
 const qrDecode = (value: any) => {
-    qrCode.value = value;
+    if(!value) {
+        return
+    }
+    const format_code = value[0].format
+    if(format_code !== 'qr_code'){
+        return
+    }
+    const rawValue = JSON.parse(value[0].rawValue as string)
+    // qrCode.value = value;
+    searchUser.value = rawValue.username
+    form.user_receipt_id = rawValue.user_id
+    form.xcop_send = rawValue.amount as number
+    showCamera.value = false
 };
 const clickIn = ref<ClickIn>("");
 const form = reactive<TransactionXCOPCreate>({
@@ -311,7 +323,7 @@ interface Attributes3 {
 .frame {
     border-style: solid;
     border-width: 2px;
-    border-color: red;
+    border-color: #5043E8;
     height: 200px;
     width: 200px;
     position: absolute;

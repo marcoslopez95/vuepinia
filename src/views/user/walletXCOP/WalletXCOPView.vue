@@ -1,5 +1,5 @@
 <template>
-    <div style="max-width: 340px" class="mx-auto">
+    <div style="max-width: 340px" class="mx-auto ">
         <div
             class="d-flex justify-center align-center flex-column text-primary font-weight-light"
         >
@@ -10,16 +10,16 @@
             </div>
         </div>
         <div class="d-flex gap-2 justify-center">
-            <VBtnPrimary @click="clickInOption = IndexComponent" style="min-width: 90px">
+            <VBtnPrimary @click="clickInOption = IndexComponent" style="min-width: 80px">
                 <VIcon icon="mdi-clipboard-text" />Transac.
             </VBtnPrimary>
-            <VBtnPrimary @click="clickInOption = ReceivedComponent" style="min-width: 90px">
+            <VBtnPrimary @click="clickInOption = ReceivedComponent" style="min-width: 80px">
                 <VIcon icon="mdi-qrcode" />Recibir
             </VBtnPrimary>
-            <VBtnPrimary @click="clickInOption = SendComponent" style="min-width: 90px">
+            <VBtnPrimary @click="clickInOption = SendComponent" style="min-width: 80px">
                 <VIcon icon="mdi-play" />Enviar
             </VBtnPrimary>
-            <VBtnPrimary @click="clickInOption = SwapComponent" style="min-width: 90px">
+            <VBtnPrimary @click="clickInOption = SwapComponent" style="min-width: 80px">
                 <VIcon>
                     <svg
                         width="16"
