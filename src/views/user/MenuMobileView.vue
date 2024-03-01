@@ -46,7 +46,10 @@
                 <div>
                     Quieres subir al siguiente nivel?
                 </div>
-                <a class="font-weight-bold text-sky">Nivel {{ levelUser + 1 }}</a>
+                <a 
+                class="font-weight-bold text-sky"
+                @click="showDetailLevel = true"
+                >Nivel {{ levelUser + 1 }}</a>
             </div>
             <!-- <div class="font-weight-bold">
                 <VBtn height="30" rounded="lg"> Editar Perfil </VBtn>
@@ -81,12 +84,21 @@
                         {{ tab.name }}
                     </span>
                 </VListItem>
+                <VListItem
+                    density="compact"
+                    @click="logout"
+                >
+                    <span class="ml-6" >
+                        Cerrar Sesión
+                    </span>
+                </VListItem>
             </VList>
         </div>
 
         <!-- /////////////////////////////////////////// -->
     </div>
     <LevelViewComponent
+        @back="showDetailLevel = false"
         v-show="showDetailLevel"
         />
 </template>
@@ -101,10 +113,17 @@ import LevelViewComponent from "./LevelViewComponent.vue";
 const levelUser = ref(getUserAuth().level_user);
 const router = useRouter();
 
-const showDetailLevel = ref(true)
+const showDetailLevel = ref(false)
 const clickInMenu = (to: string) => {
     router.push({ name: to });
 };
+const logout = () => {
+  localStorage.clear()
+  // localStorage.removeItem('token')
+  // localStorage.removeItem('user')
+  // localStorage.removeItem('kyc')
+  router.push({name: 'Login'})
+}
 </script>
 
 <style scoped>

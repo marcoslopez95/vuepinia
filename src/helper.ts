@@ -279,6 +279,8 @@ export const helperStore = defineStore('helper', <T>() => {
 
   const initView = (defaultParamsView = {} , defaultParamsByCrudView = {}):void => {
     pagination.currentPage = 1
+    openModalCrud.value = false
+    clickIn.value = ''
     defaultParams.value = {}
     defaultParamsByCrud.value = {}
   }

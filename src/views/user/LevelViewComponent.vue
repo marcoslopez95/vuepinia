@@ -1,5 +1,10 @@
 <template>
     <div style="max-width: 300px;" class="mx-auto">
+        <div class="mb-2">
+            <VBtnPrimary @click="back">
+                Atrás
+            </VBtnPrimary>
+        </div>
         <div class="border rounded-20-t rounded-20-b " 
         style="height: 360px;"
             :class="[
@@ -158,6 +163,9 @@ import { getUserAuth } from "@/helper";
 import { ref,watch } from "vue";
 
 const user = ref(getUserAuth())
+const emits = defineEmits<{
+    (e:'back'):void
+}>()
 const levelUser = ref(0);
 const emailVerified   = ref(!!user.value.email_verified_at)
 const phoneVerified   = ref(!!user.value.phone_verified_at)
@@ -211,6 +219,11 @@ const changeValues = () => {
 watch(levelUser, () => changeValues())
 
 levelUser.value = user.value.level_user
+
+const back = ():void => {
+    emits('back')
+    levelUser.value = user.value.level_user
+}
 </script>
 
 <style scoped lang="scss">

@@ -30,6 +30,10 @@ const removeSpace = (event:any) => {
 }
 
 const route = useRoute()
+const { email } = route.query
+if(email){
+    form.value.email = email as string
+}
 const showPassword = ref(false)
 const showPasswordConfirmation = ref(false)
 

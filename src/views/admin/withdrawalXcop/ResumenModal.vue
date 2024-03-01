@@ -34,19 +34,19 @@
         <div class="px-2 d-flex justify-space-between">
             Titular:
             <div class="d-inline-block float-end">
-                {{ helper.item.account?.attributes.beneficiary }}
+                {{ helper.item.relationships.account?.attributes.beneficiary }}
             </div>
         </div>
         <div class="bg-light px-2 d-flex justify-space-between">
             Documento:
             <div class="d-inline-block float-end">
-                {{ helper.item.account?.attributes.identification_document }} <br />
+                {{ helper.item.relationships.account?.attributes.identification_document }} <br />
             </div>
         </div>
         <div class="px-2 d-flex justify-space-between">
             Número de Cuenta:
             <div class="d-inline-block float-end">
-                {{ helper.item.account?.attributes.account_number }}
+                {{ helper.item.relationships.account?.attributes.account_number }}
             </div>
         </div>
             <!-- <div>

@@ -20,7 +20,11 @@
                     <InputComponent placeholder="Email" name="" v-model="email"></InputComponent>
                 </VCol>
                 <VCol cols="4" class="my-auto pt-9 ">
-                    <VBtnPrimary style="min-height: 40px; min-width: 128px;" class="">
+                    <VBtnPrimary 
+                        style="min-height: 40px; min-width: 128px;" 
+                        class=""
+                        @click="goRegister"
+                        >
                         Registrate
                     </VBtnPrimary>
                 </VCol>
@@ -34,6 +38,7 @@ import FirstImage from '@/assets/images/home/FirstImage.png'
 import InputComponent from '@/components/InputComponent.vue';
 import { isAutenticated } from '@/helper';
 import { ref } from 'vue'
+import { useRouter } from 'vue-router';
 import { useDisplay } from 'vuetify/lib/framework.mjs'
 // import {VueTyper} from 'vue3-typer'
 // import "vue3-typer/dist/vue-typer.css"
@@ -53,6 +58,13 @@ const propVueType = {
     'erase-style':'select-all',
     'aret-animation':'blink',
     'erase-on-complete':false,
+}
+const router = useRouter()
+
+const goRegister = ():void => {
+    router.push({ name: 'Register', query: {
+        email: email.value
+    }})
 }
 </script>
 

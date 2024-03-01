@@ -47,9 +47,9 @@ import type { EventComponent } from "@/interfaces/Components.helper";
 
 const helper = helperStore();
 helper.url = "company/account";
+helper.initView()
 helper.defaultParams.payment_type_id = PAYMENT_METHODS_AVAILABLE.OTHER;
 helper.defaultParamsByCrud.payment_type_id = PAYMENT_METHODS_AVAILABLE.OTHER;
-helper.initView()
 helper.index();
 
 const search = ref<string>("");

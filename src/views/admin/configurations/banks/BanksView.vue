@@ -52,7 +52,9 @@ import * as validator from '@/validator'
 const helper = helperStore()
 helper.url = 'banks'
 helper.initView()
-
+helper.defaultParams = {
+    deletes:true
+}
 helper.index()
 
 const bankStore = BankStore()

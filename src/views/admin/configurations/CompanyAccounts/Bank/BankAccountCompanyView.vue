@@ -37,9 +37,9 @@ import { PAYMENT_METHODS_AVAILABLE } from '@/enums/PaymentMethod.enum';
 import { CompanyAccountStore } from '@/stores/CompanyAccountStore';
 const helper = helperStore()
 helper.url = 'company/account'
+helper.initView()
 helper.defaultParams.payment_type_id = PAYMENT_METHODS_AVAILABLE.BANK
 helper.defaultParamsByCrud.payment_type_id = PAYMENT_METHODS_AVAILABLE.BANK
-helper.initView()
 helper.index()
 
 const search = ref<string>('')

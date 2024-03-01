@@ -97,7 +97,7 @@ const profileRoutes = {
       <!-- <NotificationIcon :class="colorIcons" :active="existMessages" /> -->
       <NotificationComponent />
       <!-- ---------------------------------------------- -->
-      <v-menu v-if="!$vuetify.display.mobile" anchor="bottom end" origin="auto" min-width="300">
+      <v-menu v-if="!isMobile" anchor="bottom end" origin="auto" min-width="300">
         <template v-slot:activator="{ props }">
           <v-btn  v-bind="props" class="pa-0 pr-6" elevation="0" color="transparent">
             <!-- <v-avatar size="35"> -->

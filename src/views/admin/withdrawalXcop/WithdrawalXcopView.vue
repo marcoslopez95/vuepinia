@@ -28,22 +28,35 @@
                 </VChipWarning>
             </template>
             <template #newButtons="{ data }">
-                <v-list-item-title class="cursor-pointer"  v-if="data.attributes.status == 'En proceso'">
-                    <VBtn
-                        title="Aceptar"
-                        color="transparent"
-                        size="x-small"
-                        elevation="0"
-                        icon
-                        @click="accept(data)"
-                    >
-                        <VIcon color="primary" size="24" :icon="CheckIconVue" />
-                    </VBtn>
-                    Aceptar
+                <v-list-item-title
+                    class="cursor-pointer"
+                    v-if="data.attributes.status == 'En proceso'"
+                >
+                    <div @click="accept(data)">
+                        <VBtn
+                            title="Aceptar"
+                            color="transparent"
+                            size="x-small"
+                            elevation="0"
+                            icon
+                        >
+                            <VIcon
+                                color="primary"
+                                size="24"
+                                :icon="CheckIconVue"
+                            />
+                        </VBtn>
+                        Aceptar
+                    </div>
                 </v-list-item-title>
             </template>
         </TableComponentVue>
-        <ResumenModal v-if="helper.item" v-model="showKyc" @update:model-value="(v) => showKyc = v"> </ResumenModal>
+        <ResumenModal
+            v-if="helper.item"
+            v-model="showKyc"
+            @update:model-value="(v) => (showKyc = v)"
+        >
+        </ResumenModal>
     </div>
 </template>
 
@@ -65,7 +78,7 @@ const { t } = useI18n();
 const helper = helperStore();
 const search = ref<string>("");
 helper.url = "withdrawal/xcop";
-helper.initView()
+helper.initView();
 const account = ref({});
 helper.index();
 

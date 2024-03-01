@@ -8,7 +8,12 @@
         </div>
     </div>
 
-    <CrudComponent :singular="$t('views.wallets.title')" :rows="rows"></CrudComponent>
+    <CrudComponent 
+        :singular="$t('views.wallets.title')"
+        :rows="rows"
+        key="asd"
+        >
+    </CrudComponent>
     <TableComponentVue
     optionsHabilit
     icon-update
@@ -53,7 +58,14 @@ helper.initView()
 helper.index()
 const walletStore = WalletStore()
 walletStore.getCurrencies()
-
+const {
+    formCrud,
+    openModalCrud,
+    clickIn,
+    formRef,
+    defaultParamsByCrud,
+    item:itemH} = storeToRefs(helper)
+    defaultParamsByCrud.value = ''
 const { currencies } = storeToRefs(walletStore)
 const search = ref<string>('')
 const getSearch = () => {
@@ -80,12 +92,7 @@ const openModal = async () => {
 }
 
 const { t } = useI18n()
-const {
-    formCrud,
-    openModalCrud,
-    clickIn,
-    formRef,
-    item:itemH} = storeToRefs(helper)
+
 const rows: Row[] = [
     {
         fields: [

@@ -135,6 +135,7 @@ const getButton = computed((): string => {
 
 <template>
     <DialogBase
+        :key="singular"
         :dialog="openModalCrud"
         :widthDialog="widthDialog ?? '1000px'"
         @closeDialog="openModalCrud = false"

@@ -26,7 +26,7 @@
     </div>
     <div class="mt-3 text-center">
         <VBtn variant="outlined" @click="showCamera = !showCamera" rounded="xl"
-            >Código QR</VBtn
+            >Escanear QR</VBtn
         >
         <div v-if="showCamera" class="center stream">
             <QrcodeStream @detect="qrDecode" class="my-3">
