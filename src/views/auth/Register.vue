@@ -69,9 +69,6 @@ const SigUp = async () => {
 const eventOnlyLetter = {
     keypress: validator.keyPressOnlyLettersAndSpace,
 };
-function onClick(e) {
-    e.preventDefault();
-}
 </script>
 
 <template>
