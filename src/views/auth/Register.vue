@@ -50,7 +50,7 @@ const SigUp = async () => {
     grecaptcha.enterprise.ready(async () => {
         // @ts-ignore
         tokenGoogle = await grecaptcha.enterprise.execute(
-            "6Le8v6spAAAAAOKosidEjezeVNyvZuxR-mjypbSE",
+            "6LeEiawpAAAAAC1WSc2o4CxIseSr3BbOlJUrBFhq",
             { action: "LOGIN" }
         );
         // console.log("token,google", token);
