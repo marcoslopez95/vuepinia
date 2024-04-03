@@ -40,6 +40,17 @@ if (email) {
 const showPassword = ref(false);
 const showPasswordConfirmation = ref(false);
 
+const completeRegister = (tokenGoogle:string) => {
+    form.value.referred_by = route.query.ref as string;
+    const data = {
+        ...form.value,
+        tokenGoogle
+    }
+    helper.http("register", "post", { data }).then((res) => {
+        toast.success(t("views.register.success"));
+        router.push({ name: "Login" });
+    });
+}
 const SigUp = async () => {
     const { valid } = await formRef.value?.validate();
     if (!valid) {
@@ -53,17 +64,10 @@ const SigUp = async () => {
             "6LeEiawpAAAAAC1WSc2o4CxIseSr3BbOlJUrBFhq",
             { action: "LOGIN" }
         );
+        completeRegister(tokenGoogle)
         // console.log("token,google", token);
     });
-    form.value.referred_by = route.query.ref as string;
-    const data = {
-        ...form.value,
-        tokenGoogle
-    }
-    helper.http("register", "post", { data }).then((res) => {
-        toast.success(t("views.register.success"));
-        router.push({ name: "Login" });
-    });
+   
 };
 
 const eventOnlyLetter = {
